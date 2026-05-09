@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1228/detail?bbs_presentation_style=no_header",
+  "title": "金花奖章-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1228,
+  "main_content": "材料描述     名称 金花奖章 类别 基础材料 女武神们汗水的证明，可在「家园小队」中兑换稀有道具哟！  获取途径   家园小队 家园女武神成长试炼奖励家园打工 打工奖励获取家园升级 提升家园等级获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/77124895/cf4f1d2e842e0e446ddcb2faebb29b19_6043654363864416086.PNG",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 101,
+    "media_count": 1,
+    "extraction_time": 1773421313.1652913,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421313.1652913
+}

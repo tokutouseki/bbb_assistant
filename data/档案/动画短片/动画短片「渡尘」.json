@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1030/detail?bbs_presentation_style=no_header",
+  "title": "动画短片「渡尘」-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1030,
+  "main_content": "「渡尘」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "动画短片",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/02/6100274/ed01f2060c4f79960837cee646382b98_1521956949994427960.mp4",
+      "type": "video",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 4,
+    "media_count": 1,
+    "extraction_time": 1773417613.4946098,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773417613.4946098
+}

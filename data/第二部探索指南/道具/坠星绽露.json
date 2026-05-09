@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3181/detail?bbs_presentation_style=no_header",
+  "title": "坠星绽露-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3181,
+  "main_content": "坠星绽露    稀有度 ★★★★道具描述 用于强化「化物诸相」的通用材料；分解「化物诸相」获得的产物获取途径 荒梁一枕·裂兆深流数海乱流虚海蜃影世界探索材料市场      稀有度 ★★★★道具描述 用于强化「化物诸相」的通用材料；分解「化物诸相」获得的产物获取途径 荒梁一枕·裂兆深流数海乱流虚海蜃影世界探索材料市场",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "道具",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/02/20/50494840/1840d094b1cc2f276695ecc0e9e22f93_8727610349968517282.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 158,
+    "media_count": 1,
+    "extraction_time": 1773497962.586438,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773497962.586438
+}

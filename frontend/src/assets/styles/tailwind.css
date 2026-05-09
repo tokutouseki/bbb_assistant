@@ -1,0 +1,316 @@
+/* Tailwind CSS 导入 */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* 自定义基础样式 */
+@layer base {
+  :root {
+    --honkai-primary: #ec4899;
+    --honkai-secondary: #8b5cf6;
+    --honkai-accent: #f59e0b;
+    --game-dark: #1f2937;
+    --game-light: #f9fafb;
+  }
+
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply bg-gray-900 text-gray-100;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+
+  h6 {
+    @apply text-base md:text-lg;
+  }
+}
+
+/* 自定义组件样式 */
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 
+           focus:outline-none focus:ring-2 focus:ring-offset-2 
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-honkai-500 text-white hover:bg-honkai-600 
+           focus:ring-honkai-500 active:bg-honkai-700;
+  }
+
+  .btn-secondary {
+    @apply btn bg-game-primary text-white hover:bg-game-secondary 
+           focus:ring-game-primary active:bg-game-dark;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-honkai-500 text-honkai-500 
+           hover:bg-honkai-500 hover:text-white 
+           focus:ring-honkai-500;
+  }
+
+  .input {
+    @apply w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg 
+           text-gray-100 placeholder-gray-500 
+           focus:outline-none focus:ring-2 focus:ring-honkai-500 
+           focus:border-transparent transition-all duration-200;
+  }
+
+  .card {
+    @apply bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 
+           rounded-xl shadow-game p-6 transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply card hover:border-honkai-500/50 hover:shadow-glow 
+           hover:transform hover:-translate-y-1;
+  }
+
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-primary {
+    @apply badge bg-honkai-500/20 text-honkai-300;
+  }
+
+  .badge-success {
+    @apply badge bg-green-500/20 text-green-300;
+  }
+
+  .badge-warning {
+    @apply badge bg-yellow-500/20 text-yellow-300;
+  }
+
+  .badge-error {
+    @apply badge bg-red-500/20 text-red-300;
+  }
+
+  .modal-backdrop {
+    @apply fixed inset-0 bg-black/70 backdrop-blur-sm 
+           flex items-center justify-center z-50;
+  }
+
+  .modal-content {
+    @apply bg-gray-800/90 backdrop-blur-md border border-gray-700/50 
+           rounded-2xl shadow-2xl p-6 max-w-lg w-full mx-4 
+           animate-fade-in;
+  }
+
+  .tooltip {
+    @apply absolute z-10 px-3 py-2 bg-gray-900 text-gray-100 text-sm 
+           rounded-lg shadow-lg whitespace-nowrap opacity-0 
+           transition-opacity duration-200 pointer-events-none;
+  }
+
+  .tooltip-visible {
+    @apply opacity-100;
+  }
+
+  .avatar {
+    @apply inline-block rounded-full overflow-hidden 
+           border-2 border-honkai-500/50;
+  }
+
+  .avatar-sm {
+    @apply avatar w-8 h-8;
+  }
+
+  .avatar-md {
+    @apply avatar w-12 h-12;
+  }
+
+  .avatar-lg {
+    @apply avatar w-16 h-16;
+  }
+
+  .loading-spinner {
+    @apply animate-spin rounded-full border-2 border-gray-300 
+           border-t-honkai-500;
+  }
+
+  .loading-spinner-sm {
+    @apply loading-spinner w-4 h-4;
+  }
+
+  .loading-spinner-md {
+    @apply loading-spinner w-8 h-8;
+  }
+
+  .loading-spinner-lg {
+    @apply loading-spinner w-12 h-12;
+  }
+}
+
+/* 自定义工具类 */
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+  }
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+
+  .scrollbar-thin::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+
+  .scrollbar-thumb-honkai::-webkit-scrollbar-thumb {
+    @apply bg-gradient-to-b from-honkai-500 to-honkai-600 rounded-full;
+  }
+
+  .backdrop-blur-xs {
+    backdrop-filter: blur(2px);
+  }
+
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+
+  .backdrop-blur-md {
+    backdrop-filter: blur(8px);
+  }
+
+  .backdrop-blur-lg {
+    backdrop-filter: blur(16px);
+  }
+
+  .backdrop-blur-xl {
+    backdrop-filter: blur(24px);
+  }
+
+  .clip-path-hexagon {
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+
+  .clip-path-pentagon {
+    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+  }
+
+  .clip-path-diamond {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .animate-bounce-slow {
+    animation: bounce 2s infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-spin-slow {
+    animation: spin 3s linear infinite;
+  }
+
+  .animate-ping-slow {
+    animation: ping 3s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+}
+
+/* 自定义动画 */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(236, 72, 153, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.8);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 100%
+  );
+  background-size: 1000px 100%;
+}
+
+/* 打印优化 */
+@media print {
+  .no-print {
+    @apply hidden;
+  }
+  
+  body {
+    @apply bg-white text-black;
+  }
+  
+  .card {
+    @apply bg-white border border-gray-300 shadow-none;
+  }
+}
+
+/* 减少动画优化 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

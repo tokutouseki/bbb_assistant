@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1630/detail?bbs_presentation_style=no_header",
+  "title": "爱憎无束-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1630,
+  "main_content": "爱憎无束爱憎无束★★★★饰品效果：选择「戒律」的刻印时其初始等级增加1级。充能到达600时，可释放技能聚集敌人并落下多波的圣光雨杀伤敌人，每波圣光雨会对敌人造成生命流失伤害，持续时间为10秒。（该伤害将随深层序列难度和同难度下关卡层数的提高而增加）每次使用均可使圣光雨造成的全伤害提高30%，上限为120%，离开关卡后重置。充能方式：进入战斗状态后每秒获得30点充能爱憎无束以某种金属制成，刻有诸多精细纹饰的指环。指环，或者说，戒指，本就是用以约束之物。以此，约束那人的手指，告诫他何事应为，何事不应为。以此，约束那人的心灵，让他知晓何为善举，何为恶行。以此，约束那人的命运，令他不再与他人交错，也不必经受那些多余的爱憎与苦厄。而那些他所应受的罪罚，同样，也都将被约束在这指环之间。——「请」带走这枚指环吧。它······同样也是「戒律」的一部分。",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/11/50494840/907d82048bf0182d1922508635af2080_6239548950856940321.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 374,
+    "media_count": 1,
+    "extraction_time": 1773466386.1145163,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773466386.1145163
+}

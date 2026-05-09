@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2413/detail?bbs_presentation_style=no_header",
+  "title": "虚境锋刺-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2413,
+  "main_content": "武器数据     星级  攻击 264会心 26 天命作战部门在对虚无之种的残骸进行深入研究时意外得到的造物，虽然作为武器极为趁手，但却更像是从某处脱落的装饰。直至今日，对该造物为原型进行的仿制研究均没有取得任何进展。  武器技能   虚实奇正 [能量消耗:0][冷却:0秒]武器主动技能的冷却时间、充能次数、技能效果由装备角色的类型决定，角色于【六合执驭】状态下，武器获得额外强化效果异相威仪 全伤害提高8.0%，【六合执驭】状态下，上述全伤害提高变为15.0%  获取途径   装备锻造 逆熵 · 虚数核心×150  进化材料   突破等级 所需材料 35 三分结晶 *3流体合金块 *1相转移镜面 *340 三分结晶 *3流体合金块 *2相转移镜面 *845 三分结晶 *3流体合金块 *3相转移镜面 *12",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/04/10/50494840/93337f4608274b15df706fb322e0c61c_9064097589069559591.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\虚境锋刺.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 357,
+    "media_count": 1,
+    "extraction_time": 1773480750.2444537,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773480750.2444537
+}

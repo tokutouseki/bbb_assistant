@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1838/detail?bbs_presentation_style=no_header",
+  "title": "「乐土魔法打字机」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1838,
+  "main_content": "「乐土魔法打字机」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/09/22/75216984/8f883272a33e9bc19a368a34ce953341_8194260767457128907.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 9,
+    "media_count": 1,
+    "extraction_time": 1773469931.623387,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773469931.623387
+}

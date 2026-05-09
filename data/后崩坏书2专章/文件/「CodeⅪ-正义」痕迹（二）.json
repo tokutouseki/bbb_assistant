@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1415/detail?bbs_presentation_style=no_header",
+  "title": "「CodeⅪ-正义」痕迹（二）-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1415,
+  "main_content": "文件位置   文件详情 分析模组：分析结果，此痕迹来源于「CodeⅪ-正义」小心，「CodeⅪ-正义」已经悄悄躲到你身后了。骗你的，哈哈，是不是被吓一跳？",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "文件",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/27/73514954/f6b145b94ec8e61099472e93ccdea4b6_5081466782815834112.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 77,
+    "media_count": 1,
+    "extraction_time": 1773462340.5931282,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773462340.5931282
+}

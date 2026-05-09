@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1746/detail?bbs_presentation_style=no_header",
+  "title": "和格蕾修一起踏上旅程吧~-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1746,
+  "main_content": "「绘星的旅程」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "视频集锦",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/06/21/135052131/559d465d3147b9a5cec778c2066630e0_334921282611138105.mp4",
+      "type": "video",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 7,
+    "media_count": 1,
+    "extraction_time": 1773468397.556532,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773468397.556532
+}

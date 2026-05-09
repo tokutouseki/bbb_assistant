@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2532/detail?bbs_presentation_style=no_header",
+  "title": "「星辉熠夜」设计揭秘-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2532,
+  "main_content": "「星辉熠夜」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "美术档案",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/04/75216984/9789c85b22fa731ea861bef7ca240eaf_2343384294619170121.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/04/75216984/e62237c5ced010b2baac3012a3de19e8_6578966191757996631.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/04/75216984/91e8d163354f76ddada27742cbc0d638_5882108412094276280.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/04/75216984/22902029ef63ef868c6b629f8182e2fc_2383384079529665676.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 6,
+    "media_count": 4,
+    "extraction_time": 1773485762.3249514,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773485762.3249514
+}

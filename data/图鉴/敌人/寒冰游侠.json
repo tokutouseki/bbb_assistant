@@ -1,0 +1,116 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1487/detail?bbs_presentation_style=no_header",
+  "title": "寒冰游侠-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1487,
+  "main_content": "怪物信息     怪物名称 寒冰游侠 怪物属性 生物威胁等级 ★★ 伤害类型 冰怪物类型 普通 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界特殊机制 减速、冻结、高冰伤抗性、低火伤易伤           怪物名称 寒冰游侠 怪物属性 生物 威胁等级 ★★ 伤害类型 冰 怪物类型 普通 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界 特殊机制 减速、冻结、高冰伤抗性、低火伤易伤    天命档案 变异死士，射出的箭矢附带冰冻伤害，若被其多次攻击会进入冰冻状态，失去反抗能力，需要高度警惕。以小队为行动单位的女武神应优先帮队友脱离冰冻状态，不然很容易陷入全员无力还手的危险境地。——战术实验室  怪物技能 \n      飞身冻击\n    \n      冻云之矢\n       飞身冻击 跳起向前下方射出三支冰箭，击倒敌人并留下冰雾，进入冰雾的敌人移动速度降低  应对方式 看准时机闪避并注意远离冰雾   冻云之矢 射出冰箭攻击一条直线上的敌人，造成冰冻伤害，冻结敌人并降低敌人移动速度  应对方式 看准时机闪避或及时撤出攻击范围即可",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/05/23/73760043/e8ba151da99283b5e532d4e069c63a4e_2689850595408004350.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/24/91006211/571d72c6671af45198d43da2da98bac8_1973159134702883896.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/05/91006211/37c55f883156be618b30db7c05bb834f_8487086480371334342.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/05/91006211/37c55f883156be618b30db7c05bb834f_3529955389675962779.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/24/91006211/db60ca29fd59959ed618a5ebb8bc6284_6189833545204197380.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/05/91006211/f9b5ea9eea469c6328783720ee7d3843_5446523293362027987.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/05/91006211/f9b5ea9eea469c6328783720ee7d3843_8519889426393587003.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 481,
+    "media_count": 7,
+    "extraction_time": 1773463581.174253,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773463581.174253
+}

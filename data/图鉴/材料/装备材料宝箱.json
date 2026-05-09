@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1389/detail?bbs_presentation_style=no_header",
+  "title": "装备材料宝箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1389,
+  "main_content": "材料描述     名称 装备材料宝箱 类别 消耗品 开启后获得以下全部奖励：三分结晶×1、聚能 · 空间透镜×50、爱因斯坦环磁机×50  获取途径   自选箱 开启「后崩坏书Ⅱ」活动自选箱自选获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/23/50494840/1e60a4c04db4af27f7f75440259feb34_2206172949090893449.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 99,
+    "media_count": 1,
+    "extraction_time": 1773424143.2335515,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773424143.2335515
+}

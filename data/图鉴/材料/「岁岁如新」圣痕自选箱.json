@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4173/detail?bbs_presentation_style=no_header",
+  "title": "「岁岁如新」圣痕自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4173,
+  "main_content": "材料描述     名称 「岁岁如新」圣痕自选箱 类别 消耗品 使用后可从芽衣·璨光映愿(上)、芽衣·挚礼盈门(中)、芽衣·华彩佑夜(下)、根源棱镜x1中任选1件获得  获取途径   活动获取 参与「霜锋镇岁」登录活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/02/05/77124895/5ed82fb7d403e9b9f0ad9b9fe6960066_6870134190058765160.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 110,
+    "media_count": 1,
+    "extraction_time": 1773516572.8332107,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773516572.8332107
+}

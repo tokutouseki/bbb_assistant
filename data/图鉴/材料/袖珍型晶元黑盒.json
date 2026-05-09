@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1928/detail?bbs_presentation_style=no_header",
+  "title": "袖珍型晶元黑盒-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1928,
+  "main_content": "材料描述     名称 袖珍型晶元黑盒 类别 消耗品 环绕黑色光晕的袖珍型晶元黑盒，非常适合用于存放珍贵的晶体管元件相关器件  消耗途径   直接使用 打开后有可能获得少量普通晶体核心、晶体扩容器或晶元数据流  获取途径   基础货币商店 星石商店，消耗星石购买获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/15/50494840/95cf2e13b6c4e1751cb6ddc07d7ff789_6712143397437657709.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 133,
+    "media_count": 1,
+    "extraction_time": 1773471755.3505964,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773471755.3505964
+}

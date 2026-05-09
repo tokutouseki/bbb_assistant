@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2830/detail?bbs_presentation_style=no_header",
+  "title": "芽衣 · 备课(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2830,
+  "main_content": "圣痕资料   位置 中位单件tag 火伤-减伤圣痕技能 【随堂测验】角色入场后，火焰元素伤害提高30.0%，受到全伤害降低20.0%，角色离场时移除 相关圣痕  无      位置 中位 单件tag 火伤-减伤 圣痕技能 【随堂测验】角色入场后，火焰元素伤害提高30.0%，受到全伤害降低20.0%，角色离场时移除 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 458      攻击 0      防御 177      会心 2       玩家评价 提高火伤，可过渡使用。  获取途径   活动获取 参与主线41章「杂染相续」活动限时获得  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *240 流体合金块 *2相转移镜面 *445 流体合金块 *3相转移镜面 *7",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/10/19/50494840/0edbd66e13af2d1c8ea8d6ee919db2f4_5091247124514525221.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\芽衣 · 备课(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 370,
+    "media_count": 1,
+    "extraction_time": 1773491336.4576738,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773491336.4576738
+}

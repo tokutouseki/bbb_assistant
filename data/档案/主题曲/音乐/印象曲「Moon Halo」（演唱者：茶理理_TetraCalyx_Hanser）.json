@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1038/detail?bbs_presentation_style=no_header",
+  "title": "印象曲「Moon Halo」（演唱者：茶理理/TetraCalyx/Hanser）-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1038,
+  "main_content": "「Moon Halo」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "主题曲/音乐",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/03/6100274/89cd450c4c73de3196bd888c355e1bab_4321325138302767371.mp4",
+      "type": "video",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\档案\\主题曲\\音乐\\media\\印象曲「Moon Halo」（演唱者：茶理理_TetraCalyx_Hanser）.mp4",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 11,
+    "media_count": 1,
+    "extraction_time": 1773417771.9121115,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773417771.9121115
+}

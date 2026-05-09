@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/289/detail?bbs_presentation_style=no_header",
+  "title": "圣枪 · 卡莲-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 289,
+  "main_content": "武器数据     星级  攻击 182会心 10 在很久之前，天命组织的某个人为了纪念一位女武神而制作的手枪，现在正静静的沉睡在天命组织总部的深处...  武器技能   神圣守护 角色被攻击时吸收40%所受伤害同时发动圣光冲击,对周围敌人造成角色攻击力290%的物理伤害并降低其75%攻速，持续4.5秒。神圣守护每15秒可以触发一次  获取方式   悬赏锻造 崩坏碎片*90  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/08/73514954/f8b7da6339fc0b053b332a4c4e82e408_6453251107283972561.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\圣枪 · 卡莲.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 228,
+    "media_count": 1,
+    "extraction_time": 1773404189.294079,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404189.294079
+}

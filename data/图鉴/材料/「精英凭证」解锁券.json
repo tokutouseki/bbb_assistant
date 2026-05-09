@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3844/detail?bbs_presentation_style=no_header",
+  "title": "「精英凭证」解锁券-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3844,
+  "main_content": "材料描述     名称 「精英凭证」解锁券 类别 消耗品 稀有的奖励，可对任意一期作战凭证使用  消耗途径   直接使用 使用后，会将当期作战凭证升级为「精英凭证」  获取途径   活动获取 参与「岁末寻珍庆典」活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/01/02/77124895/cfd2c158c8c5dc142dcad925830f604f_2938429970629196432.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 110,
+    "media_count": 1,
+    "extraction_time": 1773511007.1516392,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773511007.1516392
+}

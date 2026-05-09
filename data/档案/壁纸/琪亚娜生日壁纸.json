@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1289/detail?bbs_presentation_style=no_header",
+  "title": "琪亚娜生日壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1289,
+  "main_content": "琪亚娜生日2020",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/50494840/3577191b126513b9c8be23524b412e24_6141931703716099237.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/50494840/952d38585dbb2059e456ff02b41a274a_4806824968219722056.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/50494840/1aabdd229e1a6b6860e723351e974d26_4961391483589431218.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/50494840/5c2edd3c932ee934560e19e611977173_6775969967106129106.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/50494840/731a3203a67e95375ba51c3fcc425592_3040426686874320482.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 9,
+    "media_count": 5,
+    "extraction_time": 1773422412.9728544,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773422412.9728544
+}

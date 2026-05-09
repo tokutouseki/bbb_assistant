@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/671/detail?bbs_presentation_style=no_header",
+  "title": "罗兰(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 671,
+  "main_content": "圣痕资料   位置 下位所属套装 神圣骑士套装套装tag 生命回复-防御-减伤-生命-物伤-暴击圣痕技能 【忠诚】当前生命大于80%时，防御提高31% 相关圣痕 罗兰(上) 罗兰(中)      位置 下位 所属套装 神圣骑士套装 套装tag 生命回复-防御-减伤-生命-物伤-暴击 圣痕技能 【忠诚】当前生命大于80%时，防御提高31% 相关圣痕 罗兰(上) 罗兰(中)   套装技能   帕拉丁 被异能敌人攻击时，受到的伤害减少20%。琪亚娜或卡莲装备时，战斗中生命提高20%杜兰德尔 对异能敌人攻击，物理伤害提高20%。琪亚娜或卡莲装备时，战斗中暴击率提高10%  基本属性         属性 数值 D C B A A+ S 生命 343      攻击 29      防御 61      会心 4       玩家评价 提供防御力加成，可提高辅助女武神生存能力  获取方式   装备锻造 崩坏碎片*60  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/30/50494840/ddfad40565558a4fc745273e90b7eef5_3062462856552067122.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\罗兰(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 450,
+    "media_count": 1,
+    "extraction_time": 1773411139.0856917,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773411139.0856917
+}

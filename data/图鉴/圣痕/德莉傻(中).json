@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/730/detail?bbs_presentation_style=no_header",
+  "title": "德莉傻(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 730,
+  "main_content": "圣痕资料   位置 中位单件tag 减伤\t\t\t圣痕技能 【愚人的专注】当前有攻击目标的情况下，目标之外的敌人对角色造成的物理伤害降低36% 相关圣痕  无      位置 中位 单件tag 减伤\t\t\t 圣痕技能 【愚人的专注】当前有攻击目标的情况下，目标之外的敌人对角色造成的物理伤害降低36% 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 346      攻击 0      防御 37      会心 6       玩家评价 只有限制很高的减伤效果。该圣痕是官方在愚人节时玩梗出的纪念性收藏圣痕。由来是以前某活动中NPC德莉莎特别“傻”，非常容易乱跑导致玩家关卡扣分，被玩家称为“德莉傻”。  获取方式   活动获取 通过2017愚人节活动获得商店复刻 时间胶囊  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/12/81417673/ccfa903f53f9c997ac8961c06cd6804b_809789293318473524.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\德莉傻(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 398,
+    "media_count": 1,
+    "extraction_time": 1773412241.3012183,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773412241.3012183
+}

@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3600/detail?bbs_presentation_style=no_header",
+  "title": "薇塔·写真(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3600,
+  "main_content": "圣痕资料   位置 下位单件tag 全元素伤害-生命回复 相关圣痕  无      位置 下位 单件tag 全元素伤害-生命回复 相关圣痕  无   圣痕技能   梦隙留影 角色造成的全元素伤害提高10.0%。离场时回复100点生命，触发间隔10秒  基本属性         属性 数值 D C B A A+ S 生命 261      攻击 26      防御 41      会心 6       玩家评价 常驻全元素伤害加成，可以过渡使用。  获取途径   活动获取 参加「渡星之邀」活动限时获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/10/4976467/6531667bb7d0414f901ccdb507bbc45b_357566467163289222.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\薇塔·写真(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 294,
+    "media_count": 1,
+    "extraction_time": 1773506536.0775812,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773506536.0775812
+}

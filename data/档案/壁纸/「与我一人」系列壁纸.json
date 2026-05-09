@@ -1,0 +1,102 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1063/detail?bbs_presentation_style=no_header",
+  "title": "「与我一人」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1063,
+  "main_content": "「与我一人」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/10/91006211/3218bfea71a0d2e843395ac75ce885f8_2608629400655568184.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/10/91006211/c333fcfe7e6bfed5b4cd633819de7613_8216728627660665106.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/10/91006211/26733354f99fceae2773aac156fa34b7_6307840386644833076.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/10/91006211/a7af6d3a9bfa27760e4e3777e66dd807_2377906399654004096.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/10/91006211/b13422c7881048a92bdbffaf2ce236dd_1216605155119195894.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/10/91006211/1222a02095fd95bd4b57e0babccbb63f_8493290529521309241.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 6,
+    "media_count": 6,
+    "extraction_time": 1773418219.3149586,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773418219.3149586
+}

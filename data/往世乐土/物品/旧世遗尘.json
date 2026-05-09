@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/886/detail?bbs_presentation_style=no_header",
+  "title": "旧世遗尘-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 886,
+  "main_content": "旧世遗尘旧世遗尘★  效果：初始能量提高30，战斗结束后，回复5%最大生命值        旧世遗尘被小心地封存在透明容器中的土壤样本，如月尘一般呈深灰色。即便前文明纪元在上面搭载的崩坏能抑制装置相当精密，仍能透过容器表面看到其中骇人的紫色纹路。显而易见，土壤中崩坏能的含量难以想象。但对于将它们采集回来的人而言，不甘，愤恨，无可回返的昨日······其中每一样东西都重逾千钧。相比起来，那些危险的崩坏能反而显得······不值一提。",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/13/75216984/fc015e68d835144bfde6e7c57a1b0c32_948706726853188349.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 217,
+    "media_count": 1,
+    "extraction_time": 1773415165.4757407,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773415165.4757407
+}

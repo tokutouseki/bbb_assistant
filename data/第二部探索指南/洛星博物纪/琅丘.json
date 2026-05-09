@@ -1,0 +1,60 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3696/detail?bbs_presentation_style=no_header",
+  "title": "琅丘-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3696,
+  "main_content": "首页 第二部探索指南洛星博物纪 669 词条贡献者：   词条贡献者：   词条贡献 更多贡献者 目录  669 琅丘     \n        词条内容由圣芙蕾雅档案馆编辑团队原创，禁止转载\n         0/1000 评论 \n      全部评论\n      最新 最早  加载中... 暂时还没有评论哦 点击加载更多 \n        Opps, something went wrong :(\n         Retry  目录  展开目录   建议与反馈 建议与反馈  反馈内容  \n      0/500\n     仅支持上传1张图片，图片支持PNG,JPG格式，最大10MB 图片说明 （仅支持上传1张图片，图片支持PNG,JPG格式，最大10MB）   不超过10MB  提交 确认提交",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "洛星博物纪",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/10/05/50494840/c0b4baa5a83751d5f30984f13776ad0c_6254427001169950841.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/10/05/50494840/8f5722978e40549c22754f018c5b6fc0_5619491816614923965.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/10/05/50494840/167f26236e37534d1a5f785fddf6b701_4412788438150271938.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 354,
+    "media_count": 3,
+    "extraction_time": 1773508373.6333895,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773508373.6333895
+}

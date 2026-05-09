@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1267/detail?bbs_presentation_style=no_header",
+  "title": "建造许可证-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1267,
+  "main_content": "材料描述     名称 建造许可证 类别 基础材料 这可是学园为了让女武神们每个人都能拥有一个温馨的宿舍，历经千险才向组织申请到的许可证一学园长在某次学生大会上这样说道。  消耗途径   新宿舍解锁使用 用于建造新宿舍的证明，可在宿舍百货购买。  获取途径   金币商店 通过消耗680水晶在金币商店购买获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/79526069/cbe97aa216ec6fe254b5ff51d0e56575_5401549576979566051.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 154,
+    "media_count": 1,
+    "extraction_time": 1773422024.8809104,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773422024.8809104
+}

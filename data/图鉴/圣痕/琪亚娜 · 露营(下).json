@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/734/detail?bbs_presentation_style=no_header",
+  "title": "琪亚娜 · 露营(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 734,
+  "main_content": "圣痕资料   位置 下位单件tag 移速圣痕技能 【萤火星光】移动速度提高10.0%。每次拾取能量包、血量包、金币时，移动速度提高10.0%，持续10秒（重复触发刷新） 相关圣痕  无      位置 下位 单件tag 移速 圣痕技能 【萤火星光】移动速度提高10.0%。每次拾取能量包、血量包、金币时，移动速度提高10.0%，持续10秒（重复触发刷新） 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 276      攻击 33      防御 27      会心 3       玩家评价 暂无  获取方式   2021.5「萤火之森」活动 完成任务解锁全部拼图  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/12/75940953/c94db52e39b6ddafcd37de589c463ed5_8243566406757560651.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\琪亚娜 · 露营(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 347,
+    "media_count": 1,
+    "extraction_time": 1773412300.7023194,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773412300.7023194
+}

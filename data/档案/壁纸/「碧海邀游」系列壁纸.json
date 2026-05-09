@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2542/detail?bbs_presentation_style=no_header",
+  "title": "「碧海邀游」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2542,
+  "main_content": "「碧海邀游」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/09/75216984/0c8b5ffd3cd0fa778b85ec3c31df4885_1017915956347214149.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/09/75216984/5a83ee6830445c658b0f747ada7f69ae_3123098105246936281.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/09/75216984/9337995a64df05c6bbbf7a3a1ee07d79_4986572962274209482.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/09/75216984/9964dbbbad6cc85415f12891de03c19d_3512245175250086815.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 6,
+    "media_count": 4,
+    "extraction_time": 1773485964.3223522,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773485964.3223522
+}

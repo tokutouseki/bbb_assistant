@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1385/detail?bbs_presentation_style=no_header",
+  "title": "CodeⅩ-命运 · 宝剑Ⅴ-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1385,
+  "main_content": "基础介绍       中文名 CodeⅩ-命运 · 宝剑Ⅴ 外文名 CodeⅩ-Destiny · Ace of SwordsⅤ 弱点 无出现地区 水没都市     中文名 CodeⅩ-命运 · 宝剑Ⅴ 外文名 CodeⅩ-Destiny · Ace of SwordsⅤ 弱点 无 出现地区 水没都市 CodeX-命运的亚种之一，自爆后会产生能让人在短时间内失去理智的未知烟雾——布洛妮娅 · 扎伊切克喂，挚友，上次你中了这家伙的烟雾后，打我打得可疼了！——莱尔 · 科洛迪有队长打我那么疼吗？——主角  怪物机制   威胁等级 ★☆特殊机制 护盾（次数），自爆，狂暴  怪物技能 \n      自爆\n       自爆 不稳定的结构极易产生爆炸，对周围的目标不分敌我地造成伤害，并附带狂暴效果。  应对方法 快速击破或离开爆炸范围即可规避伤害。",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "怪物",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/20/73760043/b952356127d1221641dd55c4a94aa37a_1610189780113877414.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/20/73760043/b20ea5dbc10cb31272c751e938f413cd_4365247172216362164.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/20/73760043/ccbdba41ccece25f48e6fe4f3b40db6d_1612560708940003353.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/20/73760043/ccbdba41ccece25f48e6fe4f3b40db6d_2077268817600075832.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 374,
+    "media_count": 4,
+    "extraction_time": 1773424077.4453301,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773424077.4453301
+}

@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1766/detail?bbs_presentation_style=no_header",
+  "title": "「预演」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1766,
+  "main_content": "「预演」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/13/75216984/d40f3f8b2f302fffe48b0363074fb78b_3593942760423516234.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/13/75216984/964eeabf28127a0ef8c5544452fa60ca_7547273877222300394.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/13/75216984/1ba68f1b02f0f12cb1e1d18b23f7ff7c_8842383798775129207.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/13/75216984/8bb605a510b0e41b9272aa47868265dc_340535342516137280.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 4,
+    "media_count": 4,
+    "extraction_time": 1773468725.4159663,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773468725.4159663
+}

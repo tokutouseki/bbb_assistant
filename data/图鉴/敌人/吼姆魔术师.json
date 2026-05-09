@@ -1,0 +1,424 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2128/detail?bbs_presentation_style=no_header",
+  "title": "吼姆魔术师-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2128,
+  "main_content": "怪物信息     怪物名称 吼姆魔术师 怪物属性 无威胁等级 ★★★★ 伤害类型 物理、火怪物类型 BOSS 出现场景 超弦空间、往世乐土特殊机制 召唤、眩晕、混乱[1]、无敌、中物理抗性、中火伤抗性、中雷伤抗性、中冰伤抗性           怪物名称 吼姆魔术师 怪物属性 无 威胁等级 ★★★★ 伤害类型 物理、火 怪物类型 BOSS 出现场景 超弦空间、往世乐土 特殊机制 召唤、眩晕、混乱[1]、无敌、中物理抗性、中火伤抗性、中雷伤抗性、中冰伤抗性    怪物技能 \n      吼姆飞弹\n    \n      高速星星\n    \n      噗\n    \n      混乱香蕉\n    \n      冲击波\n    \n      吼美魔术\n    \n      吼辣魔术\n    \n      终极魔术\n    \n      奇迹魔术\n       吼姆飞弹 丢出几枚可以跟踪的吼姆飞弹攻击敌人  应对方法 请注意闪避   高速星星 向周围释放星星攻击  应对方法 请注意闪避   噗 从后方释放有毒气体攻击敌人  应对方法 注意躲开毒气范围   混乱香蕉 控制假装不经意在地上丢香蕉皮，如果女武神不慎踩到会滑倒并且混乱（操作方向变反)  应对方法 注意不要接触场上的香蕉皮   冲击波 控制猛踩地面，释放出冲击波攻击周围敌人并且造成眩晕效果  应对方法 注意避开冲击波区域   吼美魔术 召唤出若干只吼美，持续25s，玩家若在此期间内击杀全部吼美，则吼姆魔术师会进入虚弱状态，持续8秒。虚弱期间受到的全伤害增加100%  应对方法 快速清理场上的吼美   吼辣魔术 源源不断地召唤吼辣，持续25s；玩家每击杀一个吼辣，会对自己造成最大生命值2.5%的固定伤害  应对方法 在此期间尽可能击杀更多的吼辣   终极魔术 血量濒危时进入终极魔术时间，自己遁形并召唤若干只吼美和吼辣；玩家击败所有敌人后，即可破解终极魔术  应对方法 击杀最后一波小怪即可通关   奇迹魔法 吼姆魔术师在场上聚集元气，聚集完成后吼姆魔术师进入一小段时间的无敌状态  应对方法 请利用高频攻击进行打断   攻略推荐 \n      敌人机制-超弦空间\n      深渊讲解：吼姆机制讲解和提分技巧 吼姆机制讲解  hathor 发表时间：2022-08-05 20:49",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/6ef5d92ae230a517f51193d4d1e1c719_9034985710708295133.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/b95dc61cd7d6901fc89f8530b63b4677_4044904538260549948.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/37c55f883156be618b30db7c05bb834f_3368422110659993574.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/37c55f883156be618b30db7c05bb834f_8087462686785230356.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/e72907faee9e61589f2379025d8c5489_7443829600319958212.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/37c55f883156be618b30db7c05bb834f_2217915852790578982.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/37c55f883156be618b30db7c05bb834f_711379735705663640.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/4ba47cd72b4653e5709d0ca2090636b0_6309203240318395072.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/1e7eb209c795277cfb6d37a9c195f91b_515937772435405866.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/1e7eb209c795277cfb6d37a9c195f91b_8243329022819501369.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/745a4bc0b6acf7ad17c47e3218f5a19c_1104204014681451343.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/07bfa0cdd5add8ea6caafe32905fed04_3491096177872570260.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/07bfa0cdd5add8ea6caafe32905fed04_1470888836123403459.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/ce352c74db96956fcfe71c6a265090be_5156244947572874734.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/07bfa0cdd5add8ea6caafe32905fed04_4253661307513071041.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/07bfa0cdd5add8ea6caafe32905fed04_7034229201800732040.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/09d66ead24558d9bb9bcd32b8ab74bcc_855222169539000589.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/341ba33c14defbe5f86b134583ecca55_718805882537741643.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/341ba33c14defbe5f86b134583ecca55_2842559285834468514.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/e6bd11875a0b827f77099b9ba269cdc5_1586446618510949350.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/341ba33c14defbe5f86b134583ecca55_8216746459286921539.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/341ba33c14defbe5f86b134583ecca55_3542870752388381306.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/523fa2d27abc79808f6433a3a771b3cd_2507757381375217002.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/7daf97ec719e2f98a087bec402e852c1_1660720293845105631.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/7daf97ec719e2f98a087bec402e852c1_8166905539115995574.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/208d5396862395b16e5f36b34ebdc958_7565774754123545768.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/06e12143fb7324181ae9877a527948a4_857289179952755736.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/30/73760043/06e12143fb7324181ae9877a527948a4_3040021138798301161.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/11/29/75216984/cb95ad48872743cda3e2835ec491aca8_6364113938466638779.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 977,
+    "media_count": 29,
+    "extraction_time": 1773475296.644958,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773475296.644958
+}

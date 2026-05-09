@@ -1,0 +1,116 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2480/detail?bbs_presentation_style=no_header",
+  "title": "「特丽丽的魔法奇旅」设计揭秘-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2480,
+  "main_content": "「特丽丽的魔法奇旅」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "美术档案",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/05/15/75216984/ef81ca4322ab45f0931ce5946401f375_5633017465218144693.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/05/15/75216984/58802ac2b2ec4902ddf648a6d643ad45_1070174990334939494.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/05/15/75216984/b014bf565f1b2499cea18ebb68a87047_3506112574494627104.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/05/15/75216984/495d4d42eb594b26a567d6ec8207cd77_5975604306412027841.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/05/15/75216984/07475aaeab8305c66193392e23fbd4b7_1268859797077441988.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/05/15/75216984/756d70294d4a9cedbf82cb4a0870cc55_2673252711150837110.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/05/15/75216984/f55f4f29be8588f526ab017104752a14_2730118509335770935.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 10,
+    "media_count": 7,
+    "extraction_time": 1773484710.7603862,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773484710.7603862
+}

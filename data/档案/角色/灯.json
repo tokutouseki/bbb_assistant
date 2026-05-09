@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3405/detail?bbs_presentation_style=no_header",
+  "title": "灯-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3405,
+  "main_content": "角色资料       中文名 「灯」 外文名 Lantern CV 潘丹妮 所属组织 琅丘（七术）      中文名 「灯」 外文名 Lantern CV 潘丹妮 所属组织 琅丘（七术）  女武神装甲  \n              破弃孤光·逐影\n              \n              破弃孤光·逐影",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/04/26/75216984/4f3c6574adff2a7283eaf9e74994e51e_8390198304246470704.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/04/26/75216984/c13299e515250e68b219c27f953fa6f8_3724708749763410057.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 161,
+    "media_count": 2,
+    "extraction_time": 1773502925.7916958,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773502925.7916958
+}

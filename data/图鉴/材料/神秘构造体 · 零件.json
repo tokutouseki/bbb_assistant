@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1208/detail?bbs_presentation_style=no_header",
+  "title": "神秘构造体 · 零件-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1208,
+  "main_content": "材料描述     名称 神秘构造体 · 零件 类别 消耗品 有人认为这是武装人偶诞生前形态，但有人说这只是零件箱而已。强行撬开这个蛋状物体，你会得到不属于现实世界的东西。  消耗途径   直接使用 使用后必定获得赤鸢之翼零件x1或仿犹大零件x1，概率额外获得赤鸢之翼零件、仿犹大零件、特级学习芯片、绯樱意志、高级技能材料。  获取途径   记忆战场 挑战奖励（随版本迭代已不能获取）冒险委托 80+限定，概率刷出（随版本迭代已不能获取）",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/50494840/e87d237c1e19dcac4e873663a861f3fd_6413436847959098654.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 218,
+    "media_count": 1,
+    "extraction_time": 1773420939.412837,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773420939.412837
+}

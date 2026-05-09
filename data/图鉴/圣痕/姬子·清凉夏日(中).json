@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3534/detail?bbs_presentation_style=no_header",
+  "title": "姬子·清凉夏日(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3534,
+  "main_content": "圣痕资料   位置 中位所属套装 清凉夏日套装套装tag 火伤-冰伤-雷伤-额外倍率-生命回复-冰冻积蓄 相关圣痕 德丽莎·清凉夏日(上) 符华·清凉夏日(下)      位置 中位 所属套装 清凉夏日套装 套装tag 火伤-冰伤-雷伤-额外倍率-生命回复-冰冻积蓄 相关圣痕 德丽莎·清凉夏日(上) 符华·清凉夏日(下)   圣痕技能   侵蚀 (需要上位圣痕)水球爆炸时，处在爆炸范围内的友方6.0秒内造成的火、冰、雷三种元素的伤害提高30%，该效果唯一生效  套装技能   极速冻结 爆炸水球的影响范围增加2米，处在爆炸范围内的敌人将受到3点冻结积蓄值浓缩水弹 爆炸水球造成的冰元素伤害额外提高200%，冷却时间减少2秒  适用角色    迷城骇兔 可通过后台QTE触发圣痕效果，契合度较高。 糖露星霜 可通过后台QTE触发圣痕效果，契合度较高。  配装推荐 \n      推荐1\n        圣痕 综合评价 推荐理由  德丽莎·清凉夏日(上) 姬子·清凉夏日(中) 伊萨克 · 牛顿(下)  75 提供全元素和全易伤加成，是较为通用的元素辅助搭配。    德丽莎·清凉夏日(上) 姬子·清凉夏日(中) 伊萨克 · 牛顿(下) 综合评价  75 推荐理由 提供全元素和全易伤加成，是较为通用的元素辅助搭配。  基本属性         属性 数值 D C B A A+ S 生命 483      攻击 0      防御 140      会心 6       玩家评价 搭配上位圣痕可以为队友提供雷伤、火伤、冰伤的加成效果，使用时需要注意将角色控制在水球的爆炸范围内。  获取途径   活动获取 通过时间胶囊兑换获得  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *240 流体合金块 *2相转移镜面 *445 流体合金块 *3相转移镜面 *7",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/07/11/4976467/8c0c6397ccdbad028c68ff7f0b82329c_7583012083880152111.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\姬子·清凉夏日(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 791,
+    "media_count": 1,
+    "extraction_time": 1773505321.401853,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773505321.401853
+}

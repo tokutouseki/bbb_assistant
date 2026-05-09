@@ -1,0 +1,102 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2344/detail?bbs_presentation_style=no_header",
+  "title": "「猫镇奇遇记」设计揭秘-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2344,
+  "main_content": "「猫镇奇遇记」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "美术档案",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/03/18/75216984/c86d2562e60632f1b1a4b4729cb1b4b4_5943074275144585001.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/03/18/75216984/dafae85f5698e580ac2b2e4920a0f39a_7354836527888884902.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/03/18/75216984/3247cdb9a6d3082974f4d8ccd42ee5b7_4600204273390889000.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/03/18/75216984/c83733501ee3af2f6678debe46779723_2311548743899561126.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/03/18/75216984/8ac37f178f54e75268990eb0d38865f5_325095211841578839.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/03/18/75216984/15eb7e1e812122d505c4b04fdd0b0a2e_4987260014766082637.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 7,
+    "media_count": 6,
+    "extraction_time": 1773479501.022914,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773479501.022914
+}

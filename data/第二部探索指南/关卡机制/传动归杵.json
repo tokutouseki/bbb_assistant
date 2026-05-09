@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3261/detail?bbs_presentation_style=no_header",
+  "title": "传动归杵-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3261,
+  "main_content": "传动归杵",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "关卡机制",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/14/77124895/efd54a3d77db1084c786248491118563_5556388255200159137.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 4,
+    "media_count": 1,
+    "extraction_time": 1773499386.695658,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773499386.695658
+}

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1260/detail?bbs_presentation_style=no_header",
+  "title": "普通晶体核心-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1260,
+  "main_content": "材料描述     名称 普通晶体核心 类别 基础材料 散落在各地、较为常见的晶体能源  消耗途径   圣痕词缀培养 圣痕词缀重构消耗星石商店 用于购买“重构模具·攻”  获取途径   记忆战场 高级区和终极区赛程累计次数达到12时的挑战奖励星石商店 300星石购买100个（版本限购300）500星石购买100个补给商店 75装甲残晶购买300个10星尘残晶购买300个督学表彰 360督学勋章购买100个魔女回廊 300魔女宝珠购买300个袖珍型精元黑盒 开启袖珍型精元黑盒获得开放世界 完成开放世界冒险委托获得分解圣痕 分解圣痕获得活动获取 通过参与各种活动获取吼姆秘宝 每周购买吼姆秘宝概率获取芯核空间 参与芯核空间活动获得作战凭证 精英凭证的历练等级奖励",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/75940953/8b8065c72b5263dcec78930a6b0fad64_6172972312124804924.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 331,
+    "media_count": 1,
+    "extraction_time": 1773421895.1301954,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421895.1301954
+}

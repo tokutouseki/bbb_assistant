@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1266/detail?bbs_presentation_style=no_header",
+  "title": "初级装备强化晶体-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1266,
+  "main_content": "材料描述     名称 初级装备强化晶体 类别 基础材料 晶莹剔透的矩形晶体，是流传最广的装备强化素材。  消耗途径   武器强化 提供200点装备经验值圣痕强化 提供200点装备经验值  获取途径   主线 部分关卡概率掉落强化返还 强化装备时根据过量的经验值返还",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/75940953/1dff6e36afd050dc38f662baa02278e8_3293425960574930049.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 133,
+    "media_count": 1,
+    "extraction_time": 1773422004.489622,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773422004.489622
+}

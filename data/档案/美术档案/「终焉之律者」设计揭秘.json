@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2144/detail?bbs_presentation_style=no_header",
+  "title": "「终焉之律者」设计揭秘-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2144,
+  "main_content": "「终焉之律者」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "美术档案",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/23/75216984/24b6fa834378cd876feec3f9d13f018b_3758823129509411022.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/23/75216984/0a6d19373ff16cdf0952e430d6888cfc_7716575134313492554.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/23/75216984/03c6bc18c2779b1015ed24552772126e_7373393145919483343.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/23/75216984/f9e5f9ddb61e5ba2f84007cbef572dfd_3961505782672486332.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/23/75216984/cce2840da50010aa27383267afe269c7_2044440170441517746.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 7,
+    "media_count": 5,
+    "extraction_time": 1773475574.688078,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773475574.688078
+}

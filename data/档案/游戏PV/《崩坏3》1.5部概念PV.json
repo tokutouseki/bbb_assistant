@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2303/detail?bbs_presentation_style=no_header",
+  "title": "《崩坏3》1.5部概念PV-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2303,
+  "main_content": "「启自长空，坠入渊海」【简介】长空之下的灰，搅动起泡影中的黑与白；无尽的海面上，生者和魂灵皆翩然起舞。——颂赞那幽光的初芽。",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "游戏PV",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/03/06/264755623/50b6bb82dbe107e2b72d8243a8db4d83_424714157257431526.mov",
+      "type": "video",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 62,
+    "media_count": 1,
+    "extraction_time": 1773478584.2876198,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773478584.2876198
+}

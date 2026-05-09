@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1258/detail?bbs_presentation_style=no_header",
+  "title": "灵魂结晶-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1258,
+  "main_content": "材料描述     名称 灵魂结晶 类别 基础材料 一块黄色结晶，上面刻着耀眼的橙色的纹路，可以显著提升武器或圣痕的力量。  消耗途径   装备强化 提供7500点装备经验值。舰团委托回收 提交材料获取奖励  获取途径   基础货币商店 金币商店，消耗金币购买获得舰团 委托回收，舰团奖池奖励保税仓库，发布需求，通过其他舰长赠送获得主线章节 部分关卡概率掉落材料远征 通关角色小队训练关卡（周一周三周五周六）获得福利 祈愿之地，祈愿概率获得（该玩法于6.1版本更新后关闭）迎新手册 成长指南，阶段任务奖励装备补给 作为补给副产物产出",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/75940953/56135dd91895304397b5e29eba726844_6777903206410536113.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 265,
+    "media_count": 1,
+    "extraction_time": 1773421860.9195318,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421860.9195318
+}

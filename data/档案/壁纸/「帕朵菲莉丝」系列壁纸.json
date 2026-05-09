@@ -1,0 +1,102 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1645/detail?bbs_presentation_style=no_header",
+  "title": "「帕朵菲莉丝」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1645,
+  "main_content": "「帕朵菲莉丝的课堂」   「HAPPY BIRTHDAY」   「盛夏收集者」   「空梦 · 掠集之兽」   「魅夜幽痕」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/23/73514954/86eee28bb3cbf409c9c049b26087966c_8468249647549872367.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/13/75216984/38d71f48f65e9c1c4e6f47b86c343616_4479183237540614827.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/20/75216984/2a5e3ba41a0240aaf4527bdcf52aafb1_6999502958116787390.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/23/73514954/76497f23a6f819ebddd2509ddae89fa9_613381026854972849.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/23/73514954/10600321ea0499f89855b80e38faf41a_724530368834017905.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/03/03/75216984/24f16e9eb9cd440c0d5517d604cb2cd8_8035612709429713501.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 62,
+    "media_count": 6,
+    "extraction_time": 1773466664.6214657,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773466664.6214657
+}

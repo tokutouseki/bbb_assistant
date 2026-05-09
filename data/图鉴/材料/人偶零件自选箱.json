@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2588/detail?bbs_presentation_style=no_header",
+  "title": "人偶零件自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2588,
+  "main_content": "材料描述     名称 人偶零件自选箱（其一） 类别 消耗品 从「衷心回馈」中兑换获得  消耗途径   直接使用 使用后可以从「妖精爱莉」、「圣剑幽兰黛尔」、「克莱茵」、「西琳」、「若水」、「特斯拉Zero 」、「贝拉」、「苍玄之书」、「晓月镇魂歌」中选择获得其人偶零件（×2）  获取途径   活动获取 通过V6.8兔兔商店兑换获得  材料描述     名称 人偶零件自选箱（其二） 类别 消耗品 从「喜从天降」中兑换获得  消耗途径   直接使用 使用后可以从「重装小兔」、「琪亚娜·卡斯兰娜」、「妖精爱莉」、「圣剑幽兰黛尔」、「克莱茵」、「西琳」、「若水」、「特斯拉Zero 」、「贝拉」、「苍玄之书」、「晓月镇魂歌」中选择获得其人偶零件（×2）  获取途径   活动获取 参与V7.6「逢吉小铺」活动，在「喜从天降」商店中兑换获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/07/03/77124895/441185df30148bc8129e09e75547b020_6391523683004965139.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/06/29/77124895/983e12f036cfe2db07012c4e3ac13065_7214200988635949220.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 369,
+    "media_count": 2,
+    "extraction_time": 1773486742.6837673,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773486742.6837673
+}

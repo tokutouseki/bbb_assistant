@@ -1,0 +1,60 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3093/detail?bbs_presentation_style=no_header",
+  "title": "深空定锚·曙光【宿舍】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3093,
+  "main_content": "背景资料     性别 女 身高 165cm所属组织 无 体重 53kg         性别 女 身高 165cm 所属组织 无 体重 53kg  女武神装甲故事1 获得该女武神后解锁//声明：//（1）以下代码为「寒武纪5350」自所谓「星尘魔方」的残余数据反编译而得，不具备原始资料价值；//（2）希娜狄雅同学非常好奇自己诞生的过程，她希望通过此类分析获得一些有用线索；//（3）个人认为，「寒武纪535」搭载的人工智能系统具有过强的「地球」拟合度，由它反编译「洛星文化」的机器代码，参考性极其有限。//——科拉莉GRESULT BuildIncarnation(){    GStatus returnStatus;    GStatus status;    last_pos =       g_IPS->LocateLastPos(g_DB::LastRecord);    GDataSet target = CreateDataSet(last_pos,       ＆res,       OPEN_NEW | GENERIC_WRITE,       TRUE,       WRITE_IF_NOT_EXISTING,       ATTRIBUTE_NORMAL,       NULL,       \"Senadina\");    g_DB->m_GUI->SetLocation(last_pos,0);    g_DB->m_GUI->CreateEquipment(＆target);    if (m_param)｛       GData time_data =           m_data.inputValule(g_sysTime,                         ＆returnStatus);       GcheckErr(returnStatus,           \"ERROR_GET_TIME_DATA\");       GTime time = time_data.AsTime();       GData output =            m_data.outputValue(outputMesh,                         ＆returnStatus);       GcheckErr(returnStatus,          \"ERROR_COMPUTE\");       GCreator dataCreator;       GObject output_data =            dataCreator.create(＆returnStatus);       GcheckErr(returnStatus,       \"ERROR_CREATE_OUTPUT_DATA\");       createIncarnation(time, output_data,          returnStatus);       GcheckErr(returnStatus,          \"ERROR_CREATE_INCARNATION\");       output.set(output_data);       data.setClean();  ｝else          return UNKNOWN_PARAMETER;   GDataSet incarnation(m_incarnation, 0, \"Any\");   status = incarnation.registerNode(\"Senadina\",                              target->id,                              target->creator);   if (!status)｛         return ERROR_REGISTER_NODE;  ｝   return SUCCESS;} \n      [折叠展开]\n     女武神装甲故事2 需要女武神好感度 「所以，科拉莉，这上面究竟说了些什么呀？」「——大概意思就是，你可能是某种由『神明』转录到现世的『世俗体』。地球上有很多此类『神仙思凡』的传说，我认为『寒武纪535』搭载的人工智能是受了它们影响。」「诶？人工智能还会受传说故事的影响吗？」「——因为通用人工智能的便捷性已经大大超过了定制化的人工智能。举个例子，如果我给『寒武纪535』装入画图软件，那么它也可以帮助我们绘制海报。」「那岂不是说，如果我们给它装上一个人类的身体，它就能像人类一样成为我们的伙伴了？」「——倒也没那么简单。『寒武纪535』搭载的通用人工智能，其心智仅相当于常见的家庭宠物。如果赋予它语言模块、乃至人类的身体，恐怕会产生很多意料之外的社会问题。」「唔······感觉好可惜呢······」 \n      [折叠展开]\n     女武神装甲故事3 需要女武神好感度 从石头里诞生是一种怎样的体验？恐怕与自胎盘诞生没有什么不同。她喜欢一切年轻人喜欢的事物，因为她就是这个世界的一名普通年轻人。神明也好，转录也罢——对于特定的生命来说，这些都不过是身外之物。仔细想来，寻梦者也好，晨雪姐也罢······诞生自数据之海的孩子，在这个世界上还有很多。那么，「希娜狄雅」，又有什么特别之处呢？······等等。好像还是有一点点特别的。比如说——即使身在数字时代，她还是会使用一部需要磁带的音乐播放器？ \n      [折叠展开]",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "宿舍名册",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/02/01/72793975/b5c76cfb9ad8165a6e3966dc36c5fc9e_114151369433160791.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/24/50494840/cdf8e9a9b597ce0ade77e16264a3195d_7866295292582508779.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/24/50494840/d5770954b1f143c03b13ba618421b309_1893877315165136959.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 2334,
+    "media_count": 3,
+    "extraction_time": 1773496194.1354628,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773496194.1354628
+}

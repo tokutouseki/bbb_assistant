@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2954/detail?bbs_presentation_style=no_header",
+  "title": "凭证服装自选箱-V7.2-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2954,
+  "main_content": "材料描述     名称 凭证服装自选箱-V7.2 类别 消耗品 超美哒！  消耗途径   直接使用 可在：服装-午夜马天尼、服装-等待下课、服装-绯夜颂歌、服装-橙意满满、8000星石中选择兑换1项。  获取途径   作战奖励 购买四十期进阶凭证或精英凭证且凭证等级达到1级时可领取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/12/10/77124895/d5899ba285c9dbe2d13ab519a2b5c714_5118303472183935386.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 141,
+    "media_count": 1,
+    "extraction_time": 1773493583.3811095,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773493583.3811095
+}

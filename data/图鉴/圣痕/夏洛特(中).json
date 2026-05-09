@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/473/detail?bbs_presentation_style=no_header",
+  "title": "夏洛特(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 473,
+  "main_content": "圣痕资料   位置 中位所属套装 射手套装套装tag 物伤-减伤 相关圣痕 夏洛特(上) 夏洛特(下)      位置 中位 所属套装 射手套装 套装tag 物伤-减伤 相关圣痕 夏洛特(上) 夏洛特(下)   套装技能   低级伤害强化\t\t 物理伤害提高8%防御强化\t\t 战斗中防御力提高20%  基本属性         属性 数值 D C B A A+ S 生命 149      攻击 0      防御 30      会心 3       玩家评价 开荒期通用物理圣痕，需套装使用，可作为圣痕填充物  获取方式   既往获取 主线1-13通关获得编年史 通关编年史-永世回忆篇-觉悟关卡获取  进化材料   突破等级 所需材料 5 流体合金 *110 流体合金 *1",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/15/77124895/94a7a2218ec242ac6cfb9427a83fcf9e_7365932356083667338.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\夏洛特(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 339,
+    "media_count": 1,
+    "extraction_time": 1773407076.6701393,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773407076.6701393
+}

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/85/detail?bbs_presentation_style=no_header",
+  "title": "合金 · 吞噬火炮-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 85,
+  "main_content": "武器数据     星级  攻击 166会心 13 米高扬中央设计制造局仿作的吞噬火炮流通版，用于抵抗非终极规模的崩坏事件，其崩坏能足以匹配吞噬火炮  武器技能   光束武器 速射武器，对直线目标造成持续伤害，持续攻击会过热。目标距离角色越近受到的伤害越高，小于10米时达到最大伤害合金 · 吞噬冲击 [能量消耗:20][冷却:15秒]使用机械臂砸地释放异能冲击，产生多段爆炸击退敌人，每次对敌人造成162点火焰元素伤害  获取方式   材料-消耗品 开启合金武器自选箱获得  进化材料   突破等级 所需材料 15 流体合金 *320 流体合金 *325 流体合金 *330 流体合金 *6",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/09/76361817/b533f67afac45a73048fb48c05bd8711_408373218438357339.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\合金 · 吞噬火炮.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 295,
+    "media_count": 1,
+    "extraction_time": 1773403127.4342806,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403127.4342806
+}

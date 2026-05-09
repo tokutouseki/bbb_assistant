@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/174/detail?bbs_presentation_style=no_header",
+  "title": "混种大剑16式-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 174,
+  "main_content": "武器数据     星级  攻击 126会心 4 混种大剑拥有骑士剑的“突刺”和斩剑的“砍劈”以及阔剑的“顺手”。在熟练的战士手中，可以发挥出巨大的威力。  武器技能   压制\t\t\t\t\t 对眩晕、麻痹、时空减速状态敌人造成的全伤害提高20%  获取方式   既往获取 通过主线关卡S4-16、S5-5获取  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/07/81417673/fb6d85c2d84a380131c45f1a2635e327_839459842971150054.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\混种大剑16式.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 190,
+    "media_count": 1,
+    "extraction_time": 1773403544.884625,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403544.884625
+}

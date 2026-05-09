@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1365/detail?bbs_presentation_style=no_header",
+  "title": "CodeX-命运-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1365,
+  "main_content": "基础介绍       中文名 CodeX-命运 外文名 CodeX-Destiny 弱点 无出现地区 水没都市     中文名 CodeX-命运 外文名 CodeX-Destiny 弱点 无 出现地区 水没都市 构造相对简单，唯一的攻击手段是靠近后引爆自身。成群出现时能造成不小的麻烦。——布洛妮娅 · 扎伊切克在构装怪物的生态圈里，应该是属于比Code0-愚者更为下级的存在。——丽瑟尔 · 阿尔伯特 · 爱因斯坦连苦力和士兵都算不上，简直是消耗品。——芙蕾德莉卡 · 尼古拉 · 特斯拉具有几种有威胁的亚种，需要注意。——主角  怪物机制   威胁等级 ★特殊机制 护盾（次数），自爆  怪物技能 \n      追踪自爆\n       追踪自爆 不稳定的机体极易产生爆炸，对周围的目标不分敌我地造成伤害。  应对方法 快速击破或离开爆炸范围即可规避伤害。",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "怪物",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/14/73760043/a7903abc7cbf76936dd0fcb50b7132dd_4547325240834207121.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/14/73760043/782bab3ffcc76f09282df91adb7d6ffb_5753262494913213908.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/14/73760043/c75951412fdabb0b11caf50ef8128903_5894202806323008634.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/14/73760043/c75951412fdabb0b11caf50ef8128903_8823808237123644971.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 379,
+    "media_count": 4,
+    "extraction_time": 1773423752.8121955,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773423752.8121955
+}

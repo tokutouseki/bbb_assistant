@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/285/detail?bbs_presentation_style=no_header",
+  "title": "冰吼-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 285,
+  "main_content": "武器数据     星级  攻击 165会心 34 天命组织利用仿造“蚩尤遗骨”的金属,制作的仿制火炮，可以冰冻敌人，其威力媲美蚩尤巨炮，所以也被授予了“诸神座”的称号  武器技能   重型火炮 重炮，蓄力时间更长，普攻物理伤害提高50%。一层：单发炮弹，二层：双发更强炮弹，三层：三发超强炮弹冰封\t\t\t\t\t 击中的敌人有40.0%概率受到5点冻结积蓄值，冷却时间9.00秒  获取方式   活动获取 外传蚩尤篇活动奖励时间胶囊 吼姆's Legend见证章*6  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/08/73514954/e738d0018249dccd513b79a5abc82aca_3795103437539967843.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\冰吼.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 271,
+    "media_count": 1,
+    "extraction_time": 1773404133.6699786,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404133.6699786
+}

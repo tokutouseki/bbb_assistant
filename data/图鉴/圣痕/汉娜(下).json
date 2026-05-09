@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/453/detail?bbs_presentation_style=no_header",
+  "title": "汉娜(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 453,
+  "main_content": "圣痕资料   位置 下位所属套装 条顿骑士套装套装tag 物伤-移速-生命上限圣痕技能 【出场技强化】出场技攻击物理伤害提高10%（含QTE) 相关圣痕 汉娜(上) 汉娜(中)      位置 下位 所属套装 条顿骑士套装 套装tag 物伤-移速-生命上限 圣痕技能 【出场技强化】出场技攻击物理伤害提高10%（含QTE) 相关圣痕 汉娜(上) 汉娜(中)   套装技能   双枪精通 近战物理伤害提高15%，琪亚娜或卡莲装备时，战斗中生命上限额外提高5%加速 移动速度提高15%  基本属性         属性 数值 D C B A A+ S 生命 248      攻击 20      防御 5      会心 1       玩家评价 适合新手时期推图使用  获取方式   关卡获取 主线1-15通关获得  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/15/77124895/dcca9d1edd1f9c4719c630edb564cc7c_8592629853971052924.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\汉娜(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 396,
+    "media_count": 1,
+    "extraction_time": 1773406692.1158116,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773406692.1158116
+}

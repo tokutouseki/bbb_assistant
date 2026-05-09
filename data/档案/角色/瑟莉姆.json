@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3353/detail?bbs_presentation_style=no_header",
+  "title": "瑟莉姆-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3353,
+  "main_content": "角色资料       中文名 瑟莉姆 外文名 Thelema CV 龟娘 所属组织 琅丘（七术）      中文名 瑟莉姆 外文名 Thelema CV 龟娘 所属组织 琅丘（七术）  女武神装甲  \n              享乐狂宴·邀影\n              \n              享乐狂宴·邀影",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/04/09/75216984/607b44bab7dccb41269496bbbf384485_7986302858459432090.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/04/09/75216984/654368b65f2dbd13735a1e791c6a91fe_8152069165673365956.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 159,
+    "media_count": 2,
+    "extraction_time": 1773501751.17781,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773501751.17781
+}

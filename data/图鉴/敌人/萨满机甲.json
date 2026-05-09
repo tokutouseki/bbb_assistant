@@ -1,0 +1,116 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1510/detail?bbs_presentation_style=no_header",
+  "title": "萨满机甲-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1510,
+  "main_content": "怪物名称 萨满机甲 怪物属性 机械威胁等级 ★ 伤害类型 无怪物类型 普通 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界特殊机制 时空减速、强化立场           怪物名称 萨满机甲 怪物属性 机械 威胁等级 ★ 伤害类型 无 怪物类型 普通 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界 特殊机制 时空减速、强化立场    逆熵档案 逆熵早期设计的辅助型机甲，能够使周围友军免疫控制状态。早期的试作型辅助机甲，虽然辅助效果优秀但自身结构异常脆弱，损耗和投入不成正比，现已停产。——机甲维修部  怪物技能 \n      时空减速\n    \n      强化立场\n       时空减速 击倒周围敌人，短时间将其时空减速并降低其攻击速度  应对方式 优先击杀   强化立场 持续引导，赋予周围友军霸体状态  应对方式 优先击杀",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/05/13/73760043/ccc7029e0d401983feb14aa8cdf74cc6_6305958498333179307.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/09/77124895/8bd21c1f0250e45762472e05ddf64302_8603278040013051675.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/04/77124895/b50488ea8988cb2c5b2417f6187b48ae_2320811014117414341.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/04/77124895/b50488ea8988cb2c5b2417f6187b48ae_3017006036807880935.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/09/77124895/d8ad1aaaa25128410d6ce7e8f96167ab_7546323306125107067.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/04/77124895/06e12143fb7324181ae9877a527948a4_6522669513441669204.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/04/77124895/06e12143fb7324181ae9877a527948a4_7903096854863649516.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 381,
+    "media_count": 7,
+    "extraction_time": 1773464019.8799982,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773464019.8799982
+}

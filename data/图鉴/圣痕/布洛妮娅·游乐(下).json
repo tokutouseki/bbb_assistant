@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3478/detail?bbs_presentation_style=no_header",
+  "title": "布洛妮娅·游乐(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3478,
+  "main_content": "圣痕资料   位置 下位单件tag 全伤-武器技减耗 相关圣痕  无      位置 下位 单件tag 全伤-武器技减耗 相关圣痕  无   圣痕技能   游戏派对 全伤害提高8.0%，布洛妮娅装备时，武器技能量消耗降低10.0%  基本属性         属性 数值 D C B A A+ S 生命 276      攻击 33      防御 27      会心 3       玩家评价 常驻全伤，提供布洛妮娅角色武器技减耗。  获取途径    暂无获取途径  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/12/16/50494840/8802abd717c374d49818be496baae42e_8835598143246183130.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\布洛妮娅·游乐(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 275,
+    "media_count": 1,
+    "extraction_time": 1773504356.812603,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773504356.812603
+}

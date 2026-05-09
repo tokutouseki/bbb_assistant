@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4116/detail?bbs_presentation_style=no_header",
+  "title": "「爱愿绮游」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4116,
+  "main_content": "「爱愿绮游」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/10/28/75216984/20f29cbf9702177fe6df48b1eaa004ec_5444066667394091278.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 6,
+    "media_count": 1,
+    "extraction_time": 1773515634.8047564,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773515634.8047564
+}

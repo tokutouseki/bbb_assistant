@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3734/detail?bbs_presentation_style=no_header",
+  "title": "聚厄伏光-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3734,
+  "main_content": "聚厄伏光",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "关卡机制",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/11/77124895/7102b22585f1af1c62c491f6bc134040_771858928438389321.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/11/77124895/d0f6f31da022d636eb4feb738741614a_2310886653557102259.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 4,
+    "media_count": 2,
+    "extraction_time": 1773509023.9842725,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773509023.9842725
+}

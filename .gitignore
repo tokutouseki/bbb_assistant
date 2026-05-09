@@ -1,0 +1,187 @@
+# 依赖目录
+node_modules/
+.frontend/node_modules/
+.shared/node_modules/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 构建输出
+dist/
+.build/
+.out/
+.release/
+.frontend/dist/
+.frontend/out/
+
+# 运行时数据
+data/logs/
+data/models/
+*.log
+logs/
+*.pid
+*.seed
+*.pid.lock
+
+# 缓存
+.cache/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# 操作系统文件
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# 测试覆盖率
+coverage/
+.nyc_output/
+
+# 环境变量
+.env*
+!.env.example
+
+# 编辑器配置
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# 临时文件
+tmp/
+temp/
+
+# 模型文件（大文件）
+data/models/yolo/*.pt
+data/models/ocr/
+data/models/asr/
+data/models/tts/
+backend/data/models/
+
+# 向量数据库
+data/knowledge_base/vectors/
+data/chroma_db/
+data/rag_index/
+
+# Embedding 模型
+backend/paraphrase-multilingual-MiniLM-L12-v2/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 虚拟环境
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# 数据库文件
+*.db
+*.sqlite
+*.sqlite3
+
+# 配置文件
+config/local.json
+config/development.json
+
+# Electron 打包输出
+release/
+release-builds/
+
+# 前端构建缓存
+.frontend/.vite
+.frontend/.vitest
+
+# Python 类型检查
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre 类型检查
+.pyre/
+
+# 文档生成
+docs/_build/
+docs/api/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# 压缩文件
+*.zip
+*.tar.gz
+*.tgz
+
+# 备份文件
+*.bak
+*.backup
+*.old
+
+# 系统文件
+desktop.ini
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# 包锁文件
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# 可执行文件
+*.exe
+*.msi
+*.dmg
+*.app
+
+# 媒体文件（大文件）
+*.mp3
+*.wav
+*.ogg
+*.mp4
+*.avi
+*.mov
+
+# 知识库图片文件（体积大，不入git）
+data/**/*.png
+data/**/*.jpg
+data/**/*.jpeg
+data/**/*.gif
+data/**/*.webp
+data/**/*.bmp
+
+# 训练数据
+data/training/
+data/datasets/

@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1043/detail?bbs_presentation_style=no_header",
+  "title": "米游姬 · 演出(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1043,
+  "main_content": "圣痕资料   位置 中位单件tag 移速-生命回复圣痕技能 【悠扬音律】移动速度提高10.0%，攻击命中敌人后增加50.0点生命并移除移速增加效果，冷却时间8.0秒 相关圣痕  无      位置 中位 单件tag 移速-生命回复 圣痕技能 【悠扬音律】移动速度提高10.0%，攻击命中敌人后增加50.0点生命并移除移速增加效果，冷却时间8.0秒 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 291      攻击 16      防御 82      会心 0       玩家评价 提高移动速度，可用于一些活动或特殊场合。  获取方式   签到获取 参与崩坏3 x 米游社联动活动七日登录领取  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/10/6100274/c0baa0787e8c473f26d83802ca27f550_2313331361882210819.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\米游姬 · 演出(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 362,
+    "media_count": 1,
+    "extraction_time": 1773417881.816144,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773417881.816144
+}

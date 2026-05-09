@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1279/detail?bbs_presentation_style=no_header",
+  "title": "随机水晶箱(300~500水晶)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1279,
+  "main_content": "材料描述     名称 随机水晶箱(300~500水晶) 类别 消耗品 通过天命Store活动获得  消耗途径   直接使用 打开后可随机获得以下道具中的一种：300水晶，350水晶，400水晶，450水晶，500水晶  获取途径   活动 通过天命Store活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/19/50494840/e552e4f205e87d26bf004f93de65c635_4453170603030450774.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\材料\\media\\随机水晶箱(300~500水晶).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 134,
+    "media_count": 1,
+    "extraction_time": 1773422223.2081923,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773422223.2081923
+}

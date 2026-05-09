@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1844/detail?bbs_presentation_style=no_header",
+  "title": "「李素裳」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1844,
+  "main_content": "「一客逍游」   「HAPPY BIRTHDAY」   「锦岁玉团」   「李素裳·练武（下）」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/03/30/75216984/cfbccf9ad6f7a20cec2ff15d63605630_9054507657732780434.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/03/30/75216984/9c2139c8a978e08a3a9b9d38d57f647f_7190247344984673511.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/04/03/75216984/be6c1ef347f574762089718d6cbb0331_1730896337375355011.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/24/75216984/c909e5da47612d522348efce6a527a6c_3421806348627370858.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/09/26/75216984/30826b35be1f58e58a5fcf69a36a96c9_8358132660648713856.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 48,
+    "media_count": 5,
+    "extraction_time": 1773470045.3444262,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773470045.3444262
+}

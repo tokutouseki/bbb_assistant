@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3702/detail?bbs_presentation_style=no_header",
+  "title": "「暮梦琦歌」服装自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3702,
+  "main_content": "材料描述     名称 「暮梦琦歌」服装自选箱 类别 消耗品   消耗途径   直接使用 使用后可以自选服装「灼夜盛歌」、「魔法少女特丽丽」、「女武神 · 晨曦」或星石*8000其中之一  获取途径   活动获取 参与「特丽丽的魔法奇旅」复刻活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/10/14/77124895/2a08628af81018f07ca56f3d14578430_858058663719166249.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 125,
+    "media_count": 1,
+    "extraction_time": 1773508481.6679034,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773508481.6679034
+}

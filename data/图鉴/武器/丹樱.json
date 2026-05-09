@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/297/detail?bbs_presentation_style=no_header",
+  "title": "丹樱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 297,
+  "main_content": "武器数据     星级  攻击 162会心 18 在樱树下埋藏的古老盒子里发现的神秘刀具，挖出来的时候还散发着樱色的光，包含若有若无的崩坏能反应，至今没人知道它的故事  武器技能   主动技能-七樱斩 [能量消耗:18][冷却:10秒]对目标周围敌人进行七段隔空斩击，每一击造成50%攻击力的物理伤害，敌人受击期间受到禁锢  获取方式   活动获取 预登录活动获取  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/09/76361817/81763e6a316a6d7dd943ec93023f3b81_5123633608727961288.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\丹樱.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 223,
+    "media_count": 1,
+    "extraction_time": 1773404301.9319518,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404301.9319518
+}

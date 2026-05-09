@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2554/detail?bbs_presentation_style=no_header",
+  "title": "时雨绮罗 · 排练(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2554,
+  "main_content": "圣痕资料   位置 下位单件tag 冰伤-冻结积蓄圣痕技能 【闪耀之前】全队冰冻元素伤害提高12.0%，释放武器技时对所有敌人造成2点冻结积蓄值，有16秒触发冷却时间 相关圣痕  无        位置 下位 单件tag 冰伤-冻结积蓄 圣痕技能 【闪耀之前】全队冰冻元素伤害提高12.0%，释放武器技时对所有敌人造成2点冻结积蓄值，有16秒触发冷却时间 相关圣痕  无     基本属性         属性 数值 D C B A A+ S 生命 434      攻击 52      防御 44      会心 5       玩家评价 全队冰伤有一定的辅助能力，可过渡使用；施加冻结积蓄有一定的开发能力。  获取途径   活动获取 参与主线三十八章「孤塔凋星」活动玩法限时获得  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *240 流体合金块 *2相转移镜面 *445 流体合金块 *3相转移镜面 *7",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/15/50494840/6f4d7b631351360b347d36c522679dbe_618757714258824109.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\时雨绮罗 · 排练(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 418,
+    "media_count": 1,
+    "extraction_time": 1773486189.4807453,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773486189.4807453
+}

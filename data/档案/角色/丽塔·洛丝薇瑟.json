@@ -1,0 +1,116 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/973/detail?bbs_presentation_style=no_header",
+  "title": "丽塔·洛丝薇瑟-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 973,
+  "main_content": "角色资料       中文名 丽塔·洛丝薇瑟 外文名 Rita Rossweisse CV 小N 生日 3月1日      中文名 丽塔·洛丝薇瑟 外文名 Rita Rossweisse CV 小N 生日 3月1日  女武神装甲  \n              黯蔷薇\n             \n              猎袭装 · 影铁\n             \n              苍骑士 · 月魂\n             \n              失落迷迭\n             \n              缭乱星棘\n             \n              窈窕谍影\n              \n              黯蔷薇\n             \n              猎袭装 · 影铁\n             \n              苍骑士 · 月魂\n             \n              失落迷迭\n             \n              缭乱星棘\n             \n              窈窕谍影",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/02/77124895/c1f8e50ca68ec205e9add879bc80c125_2527631367770135886.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/2fc6797b090f8aa5fa469765b016be82_7234810765694212152.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/3810e24cb1305ca17718513a41b3a600_676285328424320761.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/40e9b6bfc96781b3bff57c7a7f031727_8264033481777413884.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/bbebe97bfc6fbc5823bdc698d0f12f21_544160976089763843.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/02/24/75216984/3cd7c84798926ca5b7cf0359334ec82b_5398650762843725472.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/11/14/75216984/ec172683b2f527326ad396d59181bf90_5291675932833423503.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 513,
+    "media_count": 7,
+    "extraction_time": 1773416768.446645,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773416768.446645
+}

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/170/detail?bbs_presentation_style=no_header",
+  "title": "狂怒者重炮-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 170,
+  "main_content": "武器数据     星级  攻击 114会心 25 苏联制作的重型火炮，适合于打击隐蔽目标和地面目标的野战武器，可以配用燃烧弹、榴弹、宣传弹等多种弹药，炮口径105mm  武器技能   超重型火炮\t\t\t\t\t 超重炮，蓄力时间很长，普攻物理伤害提高100%。一层：单发炮弹，二层：双发更强炮弹，三层：三发超强炮弹  获取方式   既往获取 既往主线获取时间胶囊 使用吼姆's legend章换取  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/07/81417673/2c7fc389e6311c8f531ff2eb40e6b5e8_5709723174849284681.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\狂怒者重炮.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 234,
+    "media_count": 1,
+    "extraction_time": 1773403437.9388645,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403437.9388645
+}

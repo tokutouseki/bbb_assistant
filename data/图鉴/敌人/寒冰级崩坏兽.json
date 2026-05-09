@@ -1,0 +1,116 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1480/detail?bbs_presentation_style=no_header",
+  "title": "寒冰级崩坏兽-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1480,
+  "main_content": "怪物信息     怪物名称 寒冰级崩坏兽 怪物属性 异能威胁等级 ★★ 伤害类型 冰怪物类型 精英 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界、万象虚境特殊机制 高冰伤抗性、低火伤易伤           怪物名称 寒冰级崩坏兽 怪物属性 异能 威胁等级 ★★ 伤害类型 冰 怪物类型 精英 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界、万象虚境 特殊机制 高冰伤抗性、低火伤易伤    天命档案 变异的骑士级崩坏兽，攻击附带冰冻伤害，能够用手中的骑枪发射气刃冻结前方敌人。在珊瑚岛行动中，越是靠近冰之律者的所在地，这种高等级崩坏兽的目击数量就越多，其诞生同崩坏能的浓度和性质应该有直接关系。——亚尔薇特  怪物技能 \n      冰晶突进\n    \n      冻气\n       冰晶突进 快速冲锋击倒前方敌人，额外造成冰冻伤害  应对方式 向左右两侧闪避   冻气 发射气刃冻结前方敌人  应对方式 向后侧闪避",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/05/23/73760043/ef90718e4ff75724724f4ac7bd5dc110_8351223112960085176.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/24/79526069/2517f87eaaa153a836337d498f4e30e2_8450329806662019081.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/07/79526069/37c55f883156be618b30db7c05bb834f_2207023912436283669.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/07/79526069/d3b825a51e97ecf98630664fdb5f9780_4023785639646283764.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/24/79526069/5f2d6ca2ce25043eab7bf9762ebcff34_8180104748776574389.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/07/79526069/f9b5ea9eea469c6328783720ee7d3843_1614619442613167882.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/07/79526069/f9b5ea9eea469c6328783720ee7d3843_8788107201564521224.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 425,
+    "media_count": 7,
+    "extraction_time": 1773463468.521547,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773463468.521547
+}

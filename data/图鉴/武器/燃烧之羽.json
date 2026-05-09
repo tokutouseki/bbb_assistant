@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/105/detail?bbs_presentation_style=no_header",
+  "title": "燃烧之羽-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 105,
+  "main_content": "武器数据     星级  攻击 175会心 20 天命组织用仿造魂钢的金属制作的双枪,子弹上燃烧着强烈的火焰。作为试验品,其威力媲美“赤鸢之翼”，因此也被授予了“诸神座”的称号。  武器技能   爆裂之羽 击中目标时有6.0%概率造成爆炸，对目标周围的敌人产生480点火焰元素伤害  获取方式   装备锻造 崩坏碎片*60编年史获取 既往编年史商店白银刀币*50换取  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/08/73514954/656d4f01109cc37a858cc7b8b02dd581_4031157374569616027.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\燃烧之羽.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 224,
+    "media_count": 1,
+    "extraction_time": 1773403213.4307125,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403213.4307125
+}

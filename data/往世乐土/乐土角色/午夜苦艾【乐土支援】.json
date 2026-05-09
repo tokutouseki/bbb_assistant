@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2752/detail?bbs_presentation_style=no_header",
+  "title": "午夜苦艾【乐土支援】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2752,
+  "main_content": "支援角色     装甲名称 午夜苦艾 CV 谢莹装甲属性 虚数 伤害类型 火解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁。           装甲名称 午夜苦艾 CV 谢莹 装甲属性 虚数 伤害类型 火 解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁。    支援技能   技能名 暮夜鸦啼冷却时间 60秒技能效果 召唤午夜苦艾在场时会提高角色20%的火焰元素伤害，快速突进对敌人造成6*150%攻击力火焰元素伤害。随后对地面射出一发爆炸箭矢，对目标造成300%攻击力火焰元素伤害，爆炸对范围内的敌人造成700%攻击力火焰元素伤害，并使全队火焰元素伤害提高30%，持续18秒。同时生成群鸦烟雾覆盖场地，在烟雾范围内的敌人受到队友的攻击或自身武器技能伤害1秒后会引发爆炸，造成600%攻击力火焰元素伤害",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/16/72793975/da9b13f3c5b94b64dfe7f7d90491eb0b_7639086360474472832.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 358,
+    "media_count": 1,
+    "extraction_time": 1773489899.6010118,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773489899.6010118
+}

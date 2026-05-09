@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/538/detail?bbs_presentation_style=no_header",
+  "title": "薛定谔(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 538,
+  "main_content": "圣痕资料   位置 下位所属套装 虐猫狂魔套装套装tag 全伤-冷却缩减-能量回复-减伤圣痕技能 【不定性】每4.0秒进行一次充能，下一次及之后短时间的普通攻击（包括分支和蓄力）有50%概率额外获得308%的能量，否则获得的能量减少100% 相关圣痕 薛定谔(上) 薛定谔(中)      位置 下位 所属套装 虐猫狂魔套装 套装tag 全伤-冷却缩减-能量回复-减伤 圣痕技能 【不定性】每4.0秒进行一次充能，下一次及之后短时间的普通攻击（包括分支和蓄力）有50%概率额外获得308%的能量，否则获得的能量减少100% 相关圣痕 薛定谔(上) 薛定谔(中)   套装技能   薛定谔的猫 被敌人攻击后，有50%概率减少70%的全伤害，否则额外受到40%全伤害薛定谔方程 本圣痕套装所有圣痕技能的有益效果触发概率提高10%，姬子角色装备时有益效果触发概率再次提高10%  基本属性         属性 数值 D C B A A+ S 生命 552      攻击 46      防御 65      会心 3       玩家评价 同位额外获取SP圣痕有贝多芬（下），迪拉克（下），薛定谔 · 乐队（下）都是稳定获取SP，该圣痕非稳定SP获取故不推荐使用。  获取方式   补给获取 通过家园补给、精准补给获得置换空间 圣痕共鸣*6000大伟哥别墅 大伟哥黑金卡*1  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *340 流体合金块 *2相转移镜面 *845 流体合金块 *3相转移镜面 *12",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/14/73514954/1ebc0be4f6466b2ec43130862162e4db_1320123246066593507.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\薛定谔(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 663,
+    "media_count": 1,
+    "extraction_time": 1773408297.5808334,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773408297.5808334
+}

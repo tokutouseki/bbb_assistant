@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3176/detail?bbs_presentation_style=no_header",
+  "title": "法莫如显-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3176,
+  "main_content": "「罹厄遗影」：法莫如显    稀有度 ★★★★★获取途径 主线任务效果 器用召唤法阵，对场上所有敌人释放一次冲击，造成雷电元素伤害器用施放的冲击还会对星尘属性敌人造成一次基于最大生命值的伤害「10级解锁」器用施放的冲击将会为敌人附加印记，带有印记的敌人受到的伤害会互相传递「30级解锁」印记持续期间，攻击敌人会延长印记时间，最多延长至20秒「50级解锁」吸收星尘残核时，场上角色恢复能量与星之环能级，每10秒最多触发1次      稀有度 ★★★★★获取途径 主线任务效果 器用召唤法阵，对场上所有敌人释放一次冲击，造成雷电元素伤害器用施放的冲击还会对星尘属性敌人造成一次基于最大生命值的伤害「10级解锁」器用施放的冲击将会为敌人附加印记，带有印记的敌人受到的伤害会互相传递「30级解锁」印记持续期间，攻击敌人会延长印记时间，最多延长至20秒「50级解锁」吸收星尘残核时，场上角色恢复能量与星之环能级，每10秒最多触发1次",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "道具",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/02/20/50494840/5b8eae15f810758cae853c1b2b3ee842_1253755651348526784.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 411,
+    "media_count": 1,
+    "extraction_time": 1773497886.0010922,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773497886.0010922
+}

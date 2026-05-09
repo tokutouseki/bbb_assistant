@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2851/detail?bbs_presentation_style=no_header",
+  "title": "星尘攻击模具-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2851,
+  "main_content": "材料描述     名称 星尘攻击模具 类别 基础材料 蕴含强大晶元力量的装置，合理使用可以有效稳定晶元重构时的方向  消耗途径   圣痕词缀培养 有2个晶元槽位的四星圣痕可用，必定重构出2条“星尘角色装备时提升15-20点攻击”的词缀  获取途径   虚境商店 深邃的青晶（G3）*90",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/11/01/77124895/33346d3a8e901327a8e1904dcf6403c7_3191623634848732438.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 143,
+    "media_count": 1,
+    "extraction_time": 1773491670.2876394,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773491670.2876394
+}

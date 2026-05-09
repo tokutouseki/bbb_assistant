@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1163/detail?bbs_presentation_style=no_header",
+  "title": "红红火火跨年红包-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1163,
+  "main_content": "材料描述     名称 红红火火跨年红包 类别 消耗品 希望这份小小的红包能在新的一年给各位舰长带来好运，2020年祝各位舰长欧气满满！  消耗途径   直接使用 可以随机开出10-60水晶的红包，快来试试手气吧！  获取途径   活动获取 在商城免费领取红红火火小礼包获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/75216984/ee24cb5bb8b998264b8786930a31afac_5577160773297985437.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 137,
+    "media_count": 1,
+    "extraction_time": 1773420081.2551765,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773420081.2551765
+}

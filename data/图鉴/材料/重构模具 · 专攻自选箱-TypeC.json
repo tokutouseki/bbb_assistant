@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3048/detail?bbs_presentation_style=no_header",
+  "title": "重构模具 · 专攻自选箱-TypeC-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3048,
+  "main_content": "材料描述     名称 重构模具 · 专攻自选箱-TypeC 类别 消耗品   消耗途径   直接使用 打开后可以从重构模具 · 生物专攻、重构模具 · 异能专攻、重构模具 · 机械专攻、重构模具 · 量子专攻、重构模具 · 虚数专攻、重构模具 · 星尘专攻中自选其一  获取方式   补给商店 3000星尘残晶/个数海寻馔 参与7.3版本限时活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/01/19/77124895/68a5db6f32b54c9bf99ecf7d8c173cf1_4447636117665770536.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 176,
+    "media_count": 1,
+    "extraction_time": 1773495426.4323168,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773495426.4323168
+}

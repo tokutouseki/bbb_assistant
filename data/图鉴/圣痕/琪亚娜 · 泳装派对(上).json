@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/772/detail?bbs_presentation_style=no_header",
+  "title": "琪亚娜 · 泳装派对(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 772,
+  "main_content": "圣痕资料   位置 上位所属套装 泳装派对套装套装tag 全伤-全易伤-能量回复圣痕技能 【水弹】击杀敌人时回复全队角色24点能量，每次触发需要消耗1层清凉祝福。清凉祝福每7秒增加1层，上限为3层，战斗开始时拥有满层祝福。 \t\t\t \t\t\t \t\t\t \t\t\t \t\t\t 相关圣痕 芽衣 · 泳装派对(中) 布洛妮娅 · 泳装派对(下)      位置 上位 所属套装 泳装派对套装 套装tag 全伤-全易伤-能量回复 圣痕技能 【水弹】击杀敌人时回复全队角色24点能量，每次触发需要消耗1层清凉祝福。清凉祝福每7秒增加1层，上限为3层，战斗开始时拥有满层祝福。 \t\t\t \t\t\t \t\t\t \t\t\t \t\t\t 相关圣痕 芽衣 · 泳装派对(中) 布洛妮娅 · 泳装派对(下)   套装技能   混乱的派对 攻击时有12%概率出现吼姆王【召唤物】，击倒周围敌人并对其造成450%攻击力的物理伤害（伤害来源为装备者），冷却时间16秒热情 吼姆王出现时所有队友(包括分身)获得火焰光环，每0.5秒对周围敌人造成893点火焰伤害，火焰光环持续6秒  基本属性         属性 数值 D C B A A+ S 生命 517      攻击 98      防御 70      会心 0       玩家评价 功能性圣痕，可提供高额全队sp回复。但由于触发条件苛刻，且获取难度较大，使用率极低  获取方式   补给获取 精准补给置换空间 置换空间（概率刷出）大伟哥别墅 消耗大伟哥黑金卡兑换获得  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *340 流体合金块 *2相转移镜面 *845 流体合金块 *3相转移镜面 *12",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/26/6100274/a0a30562693535eeb0de2c2d0c2b8b2e_3519309283670286672.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\琪亚娜 · 泳装派对(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 715,
+    "media_count": 1,
+    "extraction_time": 1773412847.2417042,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773412847.2417042
+}

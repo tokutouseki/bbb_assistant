@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/456/detail?bbs_presentation_style=no_header",
+  "title": "露西亚(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 456,
+  "main_content": "圣痕资料   位置 下位所属套装 圣殿骑士套装套装tag 物伤-防御减伤圣痕技能 【蓄力强化】蓄力攻击物理伤害提高5% 相关圣痕 露西亚(上) 露西亚(中)      位置 下位 所属套装 圣殿骑士套装 套装tag 物伤-防御减伤 圣痕技能 【蓄力强化】蓄力攻击物理伤害提高5% 相关圣痕 露西亚(上) 露西亚(中)   套装技能   重炮精通\t\t 远程物理伤害提高15%，布洛妮娅装备时，战斗中生命上限额外提高5%防御强化\t\t 战斗中防御力提高15%  基本属性         属性 数值 D C B A A+ S 生命 238      攻击 20      防御 38      会心 0       玩家评价 蓄力物理伤害提高，新手玩家的过渡圣痕  获取方式   关卡获取 通关编年史关卡获得  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/15/77124895/8a1d5b13338fea35a88e418304a8abf2_8708103256834769598.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\露西亚(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 390,
+    "media_count": 1,
+    "extraction_time": 1773406748.2932944,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773406748.2932944
+}

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3871/detail?bbs_presentation_style=no_header",
+  "title": "锦冠烟花礼盒 · 2025-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3871,
+  "main_content": "材料描述     名称 锦冠烟花礼盒 · 2025 类别 消耗品 完成8.1版本相关任务可获取  消耗途径   直接使用 使用该物品可在远古传承*40或远古意志*80中任选其一  获取途径   活动获取 参与8.1版本相关活动限时获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/01/14/77124895/19ff0ce033d959d97ec4f287709a63a3_8438054489541870235.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 117,
+    "media_count": 1,
+    "extraction_time": 1773511399.1040468,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773511399.1040468
+}

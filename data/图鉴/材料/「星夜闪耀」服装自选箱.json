@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3497/detail?bbs_presentation_style=no_header",
+  "title": "「星夜闪耀」服装自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3497,
+  "main_content": "材料描述     名称 「星夜闪耀」服装自选箱 类别 消耗品   消耗途径   直接使用 使用后可以自选服装「炽热沙砾」、「夜明之前」、「星辉熠夜」或星石*8000其中之一。  获取途径   活动获取 参与7.5版本活动「畅游吼姆世界挑战赛」获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/06/11/77124895/cab663acdfc8aeb617de4e45fbe0e542_7960477739465079748.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 123,
+    "media_count": 1,
+    "extraction_time": 1773504702.5687814,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773504702.5687814
+}

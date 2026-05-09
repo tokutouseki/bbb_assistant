@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3977/detail?bbs_presentation_style=no_header",
+  "title": "天衍之杯-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3977,
+  "main_content": "天衍之杯    星之环效果 受天衍之杯庇护的星之环。星环爆发状态中，全队角色能量共享，消耗一定能量获得特殊增益 相关角色  镇×偃月叩晓  月下誓约·予爱以心  嗨♪爱愿妖精♥  位面武器·失序时空      星之环效果 受天衍之杯庇护的星之环。星环爆发状态中，全队角色能量共享，消耗一定能量获得特殊增益 相关角色  镇×偃月叩晓  月下誓约·予爱以心  嗨♪爱愿妖精♥  位面武器·失序时空",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "星之环",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/05/17/50494840/38d55a283dff58bcdbe06a28ec034cb3_5564221294836975729.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/01/21/9917988/e7103c47fb42ab29299ba055bb9f6190_3116419390279374292.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/01/18/9917988/f0241f22ecdc29e7c5927f9217dbeba7_1388954562060570014.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/09/07/9917988/0a93ed5af5cc9eac72ff61ee61106bd4_6495443452640683479.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/05/17/50494840/d732e3f64cec9d4f55ada3e793cd3a61_7692198194109553746.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 196,
+    "media_count": 5,
+    "extraction_time": 1773513274.530693,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773513274.530693
+}

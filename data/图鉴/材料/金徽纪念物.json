@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1322/detail?bbs_presentation_style=no_header",
+  "title": "金徽纪念物-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1322,
+  "main_content": "材料描述     名称 金徽纪念物 类别 基础材料 金制成的装饰物,是它的主人在某次高难度作战中因优异表现而收获的赠礼。黄金自古便是饰品的优选材料,而在货币不流通的偏远地区，它亦能充当价值不菲的支付手段（随版本迭代，现已无法获取）  消耗途径   商店使用 在挑战军备中使用兑换各类奖励  获取途径   材料活动获取 时空工厂关卡掉落漂流迷界关卡掉落深渊获取 高级区深渊结算获取终极区深渊任务获取记忆战场获取 记忆战场次数奖励获取修罗联机获取 完成修罗模式联机关卡获得封锁地带 活动的积分奖励、主题挑战奖励活动获取 通过活动获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/19/73008221/681dae7f004840b6804523db0034eff9_8031394359886253774.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 264,
+    "media_count": 1,
+    "extraction_time": 1773423014.6564007,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773423014.6564007
+}

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4189/detail?bbs_presentation_style=no_header",
+  "title": "昨日交予的心愿-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4189,
+  "main_content": "基础介绍       成就名称 昨日交予的心愿 达成奖励 400星石      成就名称 昨日交予的心愿 达成奖励 400星石  完成主线任务「长夜是梦的揭幕」",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/04/10/77124895/49fffcb3ec6356e3549dab9f0f381085_938199114955762808.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\第二部探索指南\\成就\\media\\昨日交予的心愿.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 80,
+    "media_count": 1,
+    "extraction_time": 1773516859.0416656,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773516859.0416656
+}

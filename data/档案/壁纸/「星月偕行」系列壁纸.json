@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2134/detail?bbs_presentation_style=no_header",
+  "title": "「星月偕行」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2134,
+  "main_content": "「星月偕行」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/10/75216984/333c2af63a9dc1a27c2fb8374119bca9_6192924473334880302.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/10/75216984/86abf65bbe7a887d6c76a2e401dc033c_4930178229425607951.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 6,
+    "media_count": 2,
+    "extraction_time": 1773475406.8493865,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773475406.8493865
+}

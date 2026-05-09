@@ -1,0 +1,60 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2020/detail?bbs_presentation_style=no_header",
+  "title": "夜隐重霞【宿舍】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2020,
+  "main_content": "背景资料     生日 7月22日 身高 194cm（含耳朵）性别 女 体重 56kg所属组织 —— 出生地 极东         生日 7月22日 身高 194cm（含耳朵） 性别 女 体重 56kg 所属组织 —— 出生地 极东  女武神装甲故事1 获得该女武神后解锁八重樱······这个名字究竟从何而来，如今的她已有些记忆模糊。她更习惯被称为「霞」，即使，这只是一个代号而已。 \n      [折叠展开]\n     女武神装甲故事2 需要女武神好感度 「霞」是一名称职的忍者，她冷酷、无情、不择手段，她为了完成任务不惜付出一切代价。即便没有过去的记忆，只要自己的使命仍记在心中，她就会继续前进。完成任务，即是「霞」唯一的目标。除此之外，她没有任何牵挂。 \n      [折叠展开]\n     女武神装甲故事3 需要女武神好感度 没有任何牵挂······本该如此。直到那个人的出现改变了「霞」。在她的身上，「霞」感受到了温暖是为何物，就连习惯黑夜的眼睛也开始寻找光明。······但······ \n      [折叠展开]",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "宿舍名册",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/12/06/72793975/eb673e89568f9e5191a70254efb99109_7177299787999109042.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/24/50494840/cdf8e9a9b597ce0ade77e16264a3195d_7866295292582508779.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/24/50494840/d5770954b1f143c03b13ba618421b309_1893877315165136959.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 464,
+    "media_count": 3,
+    "extraction_time": 1773473419.8003058,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773473419.8003058
+}

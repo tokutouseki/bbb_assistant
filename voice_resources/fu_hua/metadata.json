@@ -1,0 +1,24 @@
+{
+  "id": "fu_hua",
+  "name": "符华",
+  "description": "前文明纪元的融合战士，赤鸢仙人，性格沉稳冷静，经验丰富。",
+  "gender": "female",
+  "age_group": "young",
+  "source": "honkai_impact_3",
+  "available": false,
+  "voice_characteristics": {
+    "pitch": "medium-low",
+    "speed": "slow",
+    "emotion": "serious",
+    "clarity": "high"
+  },
+  "reference_files": {
+    "audio": null,
+    "text": null
+  },
+  "format_info": null,
+  "created_at": "2026-03-11",
+  "updated_at": "2026-03-11",
+  "notes": "需要收集游戏内符华语音片段作为参考音频",
+  "license": "For personal use only"
+}

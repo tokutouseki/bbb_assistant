@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/151/detail?bbs_presentation_style=no_header",
+  "title": "链齿大剑-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 151,
+  "main_content": "武器数据     星级  攻击 173会心 23 米高扬中央设计局参考锯齿大剑利用崩坏能粒子驱动剑身锯齿的特性制造的泛用性大剑武装，为可可利亚亲卫队近接作战部队的标配武器之一。  武器技能   连轴暴动 [能量消耗:14][冷却:18秒]锯齿加速运动，提升40.0%攻击速度与10%普通攻击(含蓄力)暴击率，持续6秒  获取方式   活动获取 1.6版本德丽莎外传活动机密商店换取时间胶囊限时返场 吼姆's Legend见证章*6换取  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/09/76361817/7d41c1464cf709d72fde26eab9c70bd2_5017378366340474775.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\链齿大剑.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 258,
+    "media_count": 1,
+    "extraction_time": 1773403322.1096466,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403322.1096466
+}

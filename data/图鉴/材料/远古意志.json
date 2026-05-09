@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1118/detail?bbs_presentation_style=no_header",
+  "title": "远古意志-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1118,
+  "main_content": "材料描述     名称 远古意志 类别 基础材料 记忆战场中残存的遥远意志的残骸，抚摸时能够感知到意志母体的丝丝回忆  消耗途径   战场宝库 进行【记忆战场】玩法后获得能够在【战场宝库】中兑换【白骑士 · 月光角色碎片】、【樱桃炸弹角色碎片】等  获取途径   玩法商店 战场宝库，消耗星石购买获得作战凭证 作战军备中使用当期荣誉勋章兑换凭证的历练等级奖励作战任务 每周考题，考题奖励每周考题，通关试炼关卡奖励记忆战场 排行奖励，战程结算发放奖励挑战奖励，赛程累计次数奖励SSS奖励，积分挑战奖励福利 等级礼包，86级等级奖励商城 购买礼包获得开放世界 后崩坏书，消耗遗迹钥匙参与补给获得后崩坏书第二章，消耗星之匙参与补给获得活动获取 参与活动玩法获得回归 福利商店，消耗爱酱硬币购买获得迎新手册 成长指南，阶段任务奖励主线关卡 通过主线获得的奖励",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/09/14/50494840/46fe24ed6d831a84045454c9295f4a58_5360487098362471902.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 375,
+    "media_count": 1,
+    "extraction_time": 1773419257.188451,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419257.188451
+}

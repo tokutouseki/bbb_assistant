@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1261/detail?bbs_presentation_style=no_header",
+  "title": "游骑兵声望-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1261,
+  "main_content": "材料描述     名称 游骑兵声望 类别 基础材料 受舰团派遣而前往对抗崩坏前线的菁英女武神，以“游骑兵”的名号被大众所熟知。  消耗途径   玩法商店 可以在舰团终端中购买物品保税仓库 可以在舰团的保税仓库中发布物品需求  获取途径   舰团委托 完成舰团委托获得舰团贡献 舰团贡献获得模拟作战室获得 通过舰团中的模拟作战室获得保税仓库 通过舰团中的保税仓库赠送他人物品时获得成就系统 完成成就获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/75940953/4c4b5442dd8066d23bc3e55267cf7368_1844083968807265109.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 200,
+    "media_count": 1,
+    "extraction_time": 1773421915.661033,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421915.661033
+}

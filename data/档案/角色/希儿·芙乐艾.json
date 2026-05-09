@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/968/detail?bbs_presentation_style=no_header",
+  "title": "希儿·芙乐艾-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 968,
+  "main_content": "角色资料       中文名 希儿·芙乐艾 外文名 Seele Vollerei CV 唐雅菁 生日 10月18日      中文名 希儿·芙乐艾 外文名 Seele Vollerei CV 唐雅菁 生日 10月18日  女武神装甲  \n              幻海梦蝶\n             \n              彼岸双生\n             \n              魇夜星渊\n             \n              死生之律者\n              \n              幻海梦蝶\n             \n              彼岸双生\n             \n              魇夜星渊\n             \n              死生之律者",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/02/77124895/bc74fe98b9855896fb5aa0bb0545a767_7601635650991669339.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/f53fd16cf28f507618c7444b55ca06fc_4216539440365268091.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/6c386ca80a2ee7825c96e1660fd6d5d0_6106554638962532313.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/c116572e35012bf139d27d89b80521ad_260858165789221404.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/19/75216984/22ea1201c7797502562cc499da56f64c_4329517939026142633.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 371,
+    "media_count": 5,
+    "extraction_time": 1773416658.6119242,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773416658.6119242
+}

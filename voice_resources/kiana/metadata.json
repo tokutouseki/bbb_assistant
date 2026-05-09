@@ -1,0 +1,24 @@
+{
+  "id": "kiana",
+  "name": "琪亚娜·卡斯兰娜",
+  "description": "天命女武神部队B级女武神，卡斯兰娜家族的后裔，活泼开朗，充满活力。",
+  "gender": "female",
+  "age_group": "young",
+  "source": "honkai_impact_3",
+  "available": false,
+  "voice_characteristics": {
+    "pitch": "high",
+    "speed": "fast",
+    "emotion": "energetic",
+    "clarity": "high"
+  },
+  "reference_files": {
+    "audio": null,
+    "text": null
+  },
+  "format_info": null,
+  "created_at": "2026-03-11",
+  "updated_at": "2026-03-11",
+  "notes": "需要收集游戏内琪亚娜语音片段作为参考音频",
+  "license": "For personal use only"
+}

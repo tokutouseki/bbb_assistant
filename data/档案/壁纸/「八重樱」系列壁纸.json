@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1781/detail?bbs_presentation_style=no_header",
+  "title": "「八重樱」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1781,
+  "main_content": "「樱流拂夏」   「HAPPY BIRTHDAY」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/22/75216984/88b0e4596572b7a25ce2d7409f7963d1_6620198962875090830.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/03/03/75216984/b50f0af2cc8ffa828606b69e30214c7c_276167668925906684.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 25,
+    "media_count": 2,
+    "extraction_time": 1773469006.0242383,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773469006.0242383
+}

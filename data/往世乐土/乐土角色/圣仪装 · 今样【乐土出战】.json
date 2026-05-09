@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2779/detail?bbs_presentation_style=no_header",
+  "title": "圣仪装 · 今样【乐土出战】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2779,
+  "main_content": "出战角色     装甲名称 圣仪装 · 今样 CV 陈奕雯装甲属性 机械 伤害类型 物理解锁条件 获取该女武神后在往世乐土装甲强化界面消耗无瑕之钥解锁           装甲名称 圣仪装 · 今样 CV 陈奕雯 装甲属性 机械 伤害类型 物理 解锁条件 获取该女武神后在往世乐土装甲强化界面消耗无瑕之钥解锁    特殊调整   角色调整 角色属性和技能等级已平衡至80级。场上敌人受到的伤害提高50%（该效果为独立加成）。必杀技调整 场上最多同时存在4个机枪炮台  角色特殊技能 1级 S0 圣仪装 · 今样的攻击力提高10%SS 圣仪装 · 今样的攻击力提高15%SSS 圣仪装 · 今样的攻击力提高15%3级 刻印【「火炬」的祝福】效果强化 【「火炬」的祝福】：消耗动能的分支攻击命中敌人时，场上所有炮台都会对其发动一次光束炮击，造成本次分支攻击层数*1600%攻击力物理伤害【「火炬」的祝福+】：消耗动能的分支攻击命中敌人时，场上所有炮台都会对其发动一次光束炮击，造成本次分支攻击层数*2200%攻击力物理伤害6级 刻印【「曙光」的祝福】效果强化 【「曙光」的祝福】：动能全满时，分支攻击将消耗全部动能打出更强的四层分支，额外发射4枚追踪导弹，共计造成3600%攻击力物理伤害【「曙光」的祝福+】：动能全满时，分支攻击将消耗全部动能打出更强的四层分支，额外发射4枚追踪导弹，共计造成3600%攻击力物理伤害，对护盾造成的伤害提高100%9级 刻印【「花海」的祝福】效果强化 【「花海」的祝福】：追踪导弹命中敌人时回复2点能量。普攻第六击额外发射4枚追踪导弹，每枚导弹造成200%攻击力物理伤害【「花海」的祝福+】：追踪导弹命中敌人时回复3点能量。普攻第六击额外发射4枚追踪导弹，每枚导弹造成200%攻击力物理伤害12级 刻印【「繁衍」的祝福】效果强化 【「繁衍」的祝福】：闪避后按攻击键可冲向敌人进行飞踢，之后可直接使用普攻第四击，且普攻第六击每击命中时额外回复150动能【「繁衍」的祝福+】：闪避后按攻击键可冲向敌人进行飞踢，之后可直接使用普攻第四击，且普攻第六击每击命中时额外回复200动能15级 刻印【「丰饶」的祝福】效果强化 【「丰饶」的祝福】：释放必杀技后，场上所有炮台补充40发光束子弹，科技等级上升1级，最大3级，每个炮台每秒回复自身级数*30点动能【「丰饶」的祝福+】：释放必杀技后，场上所有炮台补充40发光束子弹，科技等级上升1级，射击速度提升，最大3级，每个炮台每秒回复自身级数*50点动能",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/25/50494840/03eb8e253584529144e0463270579974_4701369436403819675.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/06/73760043/72ea394501dea00636f4a52c88c15b2b_8092231204696388728.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 1059,
+    "media_count": 2,
+    "extraction_time": 1773490396.5605197,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773490396.5605197
+}

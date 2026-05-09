@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1705/detail?bbs_presentation_style=no_header",
+  "title": "阿波尼亚-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1705,
+  "main_content": "角色资料       中文名 阿波尼亚 外文名 Aponia CV 杨梦露 生日 5月25日      中文名 阿波尼亚 外文名 Aponia CV 杨梦露 生日 5月25日  女武神装甲  \n              戒律 · 深罪之槛\n              \n              戒律 · 深罪之槛",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/04/27/75216984/b744240b2a94284185d1df2af4abce12_1026311662937735709.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/04/27/75216984/128ba09ce3268befc83c7408ffce2dbb_602256300964151343.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 159,
+    "media_count": 2,
+    "extraction_time": 1773467705.424111,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773467705.424111
+}

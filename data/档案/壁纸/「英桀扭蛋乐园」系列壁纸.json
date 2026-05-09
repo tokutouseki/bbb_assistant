@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1810/detail?bbs_presentation_style=no_header",
+  "title": "「英桀扭蛋乐园」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1810,
+  "main_content": "「英桀扭蛋乐园」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/08/22/75216984/2fa9fa3902644d8e4df547f83293759f_1392838471755269878.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 8,
+    "media_count": 1,
+    "extraction_time": 1773469497.986513,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773469497.986513
+}

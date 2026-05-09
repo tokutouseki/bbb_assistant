@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2782/detail?bbs_presentation_style=no_header",
+  "title": "云墨丹心【乐土支援】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2782,
+  "main_content": "支援角色     装甲名称 云墨丹心 CV Mace装甲属性 异能 伤害类型 火解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁。           装甲名称 云墨丹心 CV Mace 装甲属性 异能 伤害类型 火 解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁。    支援技能   技能名 仙法 · 人极冷却时间 50秒技能效果 召唤云墨丹心，造成1500%攻击力的火焰元素伤害，聚集敌人并将其禁锢11秒，若击中敌人则15秒内，在场的角色每1秒回复1点能量值，并使全队角色对被击中敌人造成的元素伤害提高30%，抗打断能力大幅提高，出战女武神进入元素贯穿状态，并获得16%全元素穿透",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/25/50494840/c739ee0ea1feca83272ead3e805f542f_6604706301599045089.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 298,
+    "media_count": 1,
+    "extraction_time": 1773490451.563716,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773490451.563716
+}

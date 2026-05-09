@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2430/detail?bbs_presentation_style=no_header",
+  "title": "米丝忒琳·沙尼亚特-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2430,
+  "main_content": "角色资料       中文名 米丝忒琳·沙尼亚特 外文名 Misteln Schariac CV 浮梦若薇 生日 ——      中文名 米丝忒琳·沙尼亚特 外文名 Misteln Schariac CV 浮梦若薇 生日 ——  女武神装甲  \n              织羽梦旌\n              \n              织羽梦旌",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/04/03/75216984/9c5eabe6744891188ed435b30fe25c71_1425680808111893832.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/04/01/75216984/f9e913a31359fc85afeefa0582fb4696_3504403823651623341.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 175,
+    "media_count": 2,
+    "extraction_time": 1773481090.5047464,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773481090.5047464
+}

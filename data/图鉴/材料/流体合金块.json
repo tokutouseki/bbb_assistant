@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1890/detail?bbs_presentation_style=no_header",
+  "title": "流体合金块-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1890,
+  "main_content": "材料描述     名称 流体合金块 类别 合成素材 最新型的液态金属合金，能够完美贴合仪器及装备的精密内部框架，被誉为“万能的材料”。  消耗途径   装备进化 帮助某些装备进化的特定进化材料，曜日活动关卡掉落。  获取途径   基础货币商店 星石商店，消耗星石购买获得舰团 保税仓库，发布需求，通过其他舰长赠送获得材料远征 通关曜日活动关卡2、3、4获得作战凭证 作战军备中使用当期荣誉勋章兑换",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/10/27/50494840/af93ace7e69b8a136acbc2b0089d870c_2041603663477681041.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 198,
+    "media_count": 1,
+    "extraction_time": 1773470883.30839,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773470883.30839
+}

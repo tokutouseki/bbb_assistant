@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/189/detail?bbs_presentation_style=no_header",
+  "title": "USP45-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 189,
+  "main_content": "武器数据     星级  攻击 76会心 8 H&K公司专门为美国军事和执法部门]设计的手枪，45ACP口径，精度可靠，性能稳定  获取方式   编年史 通关编年史永世回忆篇 诞生 关卡获取其它方式 双枪角色初始自带武器  进化材料   突破等级 所需材料 5 流体合金 *110 流体合金 *1",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/07/81417673/ba3aec7ab4b5659f68e5497dc5ae39cb_6884576135233684150.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\USP45.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 148,
+    "media_count": 1,
+    "extraction_time": 1773403721.441734,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403721.441734
+}

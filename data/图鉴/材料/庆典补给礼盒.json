@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1158/detail?bbs_presentation_style=no_header",
+  "title": "庆典补给礼盒-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1158,
+  "main_content": "材料描述     名称 庆典补给礼盒 类别 消耗品 打开后，可在精准补给卡*5，扩充补给卡*5，水晶*1200奖励中任选一种获得  获取途径   活动获取 通过周年蛋糕派对活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/13/50494840/b9659ba8d1fe5ee4eec52039689d50d6_4564566256681378537.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 90,
+    "media_count": 1,
+    "extraction_time": 1773419971.5350237,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419971.5350237
+}

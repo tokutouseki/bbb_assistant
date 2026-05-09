@@ -1,0 +1,80 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4198/detail?bbs_presentation_style=no_header",
+  "title": "克罗狄斯·托勒密(上)",
+  "content_id": 4198,
+  "main_content": "",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "status": "待完善",
+  "status_note": "该圣痕尚未在正式服上线，详细内容待正式服更新后完善",
+  "media_resources": [
+    {
+      "url": "https://baike.mihoyo.com/bh3/wiki/_nuxt/img/75577a9.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "pending",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://img-static.mihoyo.com/avatar/avatarDefaultPc.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "pending",
+      "error_message": null,
+      "alt_text": "avatar",
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/03/15/9917988/cf8a16ca3393df4aa28d50edb766dcd9_5695028803535043899.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "pending",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/03/15/9917988/2695368d5979dfb846bc98e4833776ca_8569010264004621470.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "pending",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/03/15/9917988/23a78c26289b62c106f1e18aa91f0862_7491067377571609497.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "pending",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/03/15/9917988/0ae84b79fede930b01df20736054f431_8858682682456249813.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "pending",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 0,
+    "media_count": 6,
+    "extraction_time": 1774931155.8416483,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1774931155.8416483
+}

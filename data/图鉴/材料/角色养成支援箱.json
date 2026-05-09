@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2802/detail?bbs_presentation_style=no_header",
+  "title": "角色养成支援箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2802,
+  "main_content": "材料描述     名称 角色养成支援箱 类别 消耗品 用于提升角色作战能力的支援物资。在应对挑战之前，先做好准备吧!  消耗途径   直接使用 打开后，可获取奖励高级技能材料×60、特级学习芯片×60、金币×3000000  获取途径   活动获取 回归玩家参与回归活动获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/10/07/77124895/3b2e3e0bf2e0baf6b1f6b5bb68a60ae6_779858486576592800.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 137,
+    "media_count": 1,
+    "extraction_time": 1773490830.1891894,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773490830.1891894
+}

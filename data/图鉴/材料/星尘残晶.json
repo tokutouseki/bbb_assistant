@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3006/detail?bbs_presentation_style=no_header",
+  "title": "星尘残晶-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3006,
+  "main_content": "材料描述     名称 星尘残晶 类别 基础材料 可在补给商店中兑换S级角色晋升印章、根源棱镜等稀有道具。  获取途径   补给获取 作为扩充补给、装备补给、协同补给、家园补给副产物产出",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/01/19/77124895/5cc027e6b5bf5016d713df22e67beee4_1438411264257075136.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 93,
+    "media_count": 1,
+    "extraction_time": 1773494536.468345,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773494536.468345
+}

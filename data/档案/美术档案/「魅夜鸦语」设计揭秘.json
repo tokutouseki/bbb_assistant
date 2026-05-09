@@ -1,0 +1,60 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1926/detail?bbs_presentation_style=no_header",
+  "title": "「魅夜鸦语」设计揭秘-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1926,
+  "main_content": "「魅夜鸦语」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "美术档案",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/13/75216984/48c93047dbc9a2109ad08af728e3dcdc_4871856350862485565.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/13/75216984/7966f7987370a548026c2a6379fab6cf_6258981128815507827.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/13/75216984/d7b8d1663ed891b7d2244444c710cf6b_5824776812581669628.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 6,
+    "media_count": 3,
+    "extraction_time": 1773471681.6438627,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773471681.6438627
+}

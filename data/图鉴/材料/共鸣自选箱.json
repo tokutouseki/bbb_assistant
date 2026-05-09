@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1085/detail?bbs_presentation_style=no_header",
+  "title": "共鸣自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1085,
+  "main_content": "材料描述     名称 共鸣自选箱 类别 消耗品 可以自选获得：圣痕共鸣*6000或者武装共鸣*4000  消耗途径   直接使用 直接使用自选圣痕共鸣或武装共鸣  获取途径   充值福利 领取充值福利NO.10获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/18/34600917/8c8f7ad9d031e71de75cfdb043d1306f_1077358960587303087.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 108,
+    "media_count": 1,
+    "extraction_time": 1773418652.6674473,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773418652.6674473
+}

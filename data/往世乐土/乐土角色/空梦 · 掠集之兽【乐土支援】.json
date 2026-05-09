@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2756/detail?bbs_presentation_style=no_header",
+  "title": "空梦 · 掠集之兽【乐土支援】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2756,
+  "main_content": "支援角色     装甲名称 空梦 · 掠集之兽 CV 金娜、花玲（饰罐头）角色属性 虚数 伤害类型 冰解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁           装甲名称 空梦 · 掠集之兽 CV 金娜、花玲（饰罐头） 角色属性 虚数 伤害类型 冰 解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁    支援技能   技能名 猫猫急袭！冷却时间 50秒技能效果 召唤空梦 · 掠集之兽，释放特殊攻击，造成800%攻击力的冰冻元素伤害，回复出战女武神3点能量，并使被击中敌人受到的全元素伤害提高30%，持续15秒",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/14/4976467/5f6b71225c8d06e16e638b0551f069e2_7610076609330770002.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 265,
+    "media_count": 1,
+    "extraction_time": 1773489967.777537,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773489967.777537
+}

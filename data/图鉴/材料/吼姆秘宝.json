@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1086/detail?bbs_presentation_style=no_header",
+  "title": "吼姆秘宝-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1086,
+  "main_content": "材料描述     名称 吼姆秘宝 类别 消耗品 开启秘宝有机会获得各类材料或家园补给卡——至多4次开启秘宝，必定获得家园补给卡  消耗途径   直接使用 直接使用获得材料或家园补给卡  获取途径   商城 每周在商城中免费获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/18/34600917/4fd0623e38ebcb3edf14c8c0138e2f37_7045507758980760285.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 113,
+    "media_count": 1,
+    "extraction_time": 1773418652.6689901,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773418652.6689901
+}

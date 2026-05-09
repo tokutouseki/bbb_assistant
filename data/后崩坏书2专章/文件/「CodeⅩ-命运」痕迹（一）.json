@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1418/detail?bbs_presentation_style=no_header",
+  "title": "「CodeⅩ-命运」痕迹（一）-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1418,
+  "main_content": "文件位置   文件详情 分析模组：分析结果，此痕迹来源于：「CodeⅩ-命运」我猜是一只「CodeⅩ-命运」撞上了围墙，然后就爆炸了，笑死。希望它的兄弟姐妹们能聪明点吧。",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "文件",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/27/73514954/de9155bc8c79c11a97da9f41e42d96a2_1199055781885285939.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 85,
+    "media_count": 1,
+    "extraction_time": 1773462395.768438,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773462395.768438
+}

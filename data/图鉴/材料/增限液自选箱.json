@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1576/detail?bbs_presentation_style=no_header",
+  "title": "增限液自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1576,
+  "main_content": "材料描述     名称 增限液自选箱 类别 消耗品 可在「后崩坏书第二章」限时活动中获得。  消耗途径   直接使用 开启后可在增限液（主角）×1、增限液（布洛妮娅）×1、增限液（缇米朵）×1中任选一项获得。  获取途径   活动获取 「后崩坏书第二章」限时活动中获得。",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/30/50494840/089b46c76753a8a44c18000296ed5050_5026910160938277443.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 135,
+    "media_count": 1,
+    "extraction_time": 1773465487.5956364,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773465487.5956364
+}

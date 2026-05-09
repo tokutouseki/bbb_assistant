@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1223/detail?bbs_presentation_style=no_header",
+  "title": "能源电池-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1223,
+  "main_content": "材料描述     名称 能源电池 类别 消耗品 标准加工的1号电池，可以让各类机械装置满状态运作  消耗途径   直接使用 使用后，可以恢复1250点能量  获取途径   商城购买 消耗60礼包币购买一个能源电池",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/79526069/df25f31875038d289846e771bff2ccc9_4558822717324615916.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 106,
+    "media_count": 1,
+    "extraction_time": 1773421223.222192,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421223.222192
+}

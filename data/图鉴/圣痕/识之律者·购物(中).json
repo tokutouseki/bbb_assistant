@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3620/detail?bbs_presentation_style=no_header",
+  "title": "识之律者·购物(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3620,
+  "main_content": "圣痕资料   位置 中位所属套装 律者购物套装套装tag 雷伤-物伤-冰伤-全伤-生命值-移速 相关圣痕 雷之律者·购物(上) 理之律者·购物(下)      位置 中位 所属套装 律者购物套装 套装tag 雷伤-物伤-冰伤-全伤-生命值-移速 相关圣痕 雷之律者·购物(上) 理之律者·购物(下)   圣痕技能   打折 物理伤害增加8.0%，符华角色装备时，武器技能量消耗降低10.0%  套装技能   特别的商品 全伤害提高10.0%，律者状态下全伤害额外提高15.0%律者的假期 生命值上限提高20.0%，角色移动速度提高10%  基本属性         属性 数值 D C B A A+ S 生命 291      攻击 16      防御 82      会心 0       玩家评价 提高物伤角色的输出能力。  获取途径   活动获取 2021年通过miHoYo旗舰店3.8节活动获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/08/9917988/0f23654c025ec1cce4ac58497a7a3204_2387667163030562712.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\识之律者·购物(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 443,
+    "media_count": 1,
+    "extraction_time": 1773506914.5904646,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773506914.5904646
+}

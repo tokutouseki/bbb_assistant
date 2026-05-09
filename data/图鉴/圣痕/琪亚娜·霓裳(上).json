@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1711/detail?bbs_presentation_style=no_header",
+  "title": "琪亚娜·霓裳(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1711,
+  "main_content": "圣痕资料   位置 上位所属套装 倾城古韵套装套装tag 雷伤-冰伤-火伤-减伤-暴伤-生命回复-额外倍率 相关圣痕 布洛妮娅·霓裳(中) 芽衣·霓裳(下)      位置 上位 所属套装 倾城古韵套装 套装tag 雷伤-冰伤-火伤-减伤-暴伤-生命回复-额外倍率 相关圣痕 布洛妮娅·霓裳(中) 芽衣·霓裳(下)   圣痕技能   墨染 雷电元素和火焰元素伤害提高20%，冰冻元素伤害提高30%  套装技能   缥缈 每次分支/蓄力攻击获得一次充能（有1秒冷却)，充能达到4时，进入缥缈状态，持续时间6秒（冷却时间20秒，缥缈结束时清空所有充能），每0.25秒对自身周围半径6米内的随机一名敌人造成600点物理伤害，同一个敌人在0.5秒内不会再次受到缥缈的伤害玲珑 缥缈效果结束时，所有队友获得治疗效果，每秒恢复30点生命，持续6秒  基本属性         属性 数值 D C B A A+ S 生命 386      攻击 83      防御 89       玩家评价 通用元素输出圣痕，可供元素输出角色过渡。  获取途径   时间胶囊 限时使用吼姆's Legend见证章或星石换取。  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *240 流体合金块 *2相转移镜面 *445 流体合金块 *3相转移镜面 *7",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/05/26/50494840/cd9d0e0b7117c7208852c93f1b3553e4_1339646643255484105.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\琪亚娜·霓裳(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 575,
+    "media_count": 1,
+    "extraction_time": 1773467818.7286043,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773467818.7286043
+}

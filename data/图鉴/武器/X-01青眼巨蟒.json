@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/284/detail?bbs_presentation_style=no_header",
+  "title": "X-01青眼巨蟒-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 284,
+  "main_content": "武器数据     星级  攻击 177会心 16 米高扬中央设计制造局设计的强力重炮，以传说中吞噬世界的巨蟒为名，代表着“世界蛇”征服一切的野心  武器技能   寒冰凝视\t [能量消耗:12][冷却:20秒]6.50秒内,自身攻击可降低受击者60%移动速度与攻击速度，效果持续3.5秒多重制导导弹 锁定多目标发射导弹,蓄力较长,多发打中同一目标会少量衰减。蓄力一层:3发,二层:7发,三层:15发  获取方式   装备锻造 崩坏碎片*80  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/08/73514954/48de6ac99438cddab729fd8515faf383_7457375238276486878.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\X-01青眼巨蟒.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 260,
+    "media_count": 1,
+    "extraction_time": 1773404132.2103853,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404132.2103853
+}

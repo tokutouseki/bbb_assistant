@@ -1,0 +1,60 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1051/detail?bbs_presentation_style=no_header",
+  "title": "「梅比乌斯实验室」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1051,
+  "main_content": "「梅比乌斯实验室」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/10/91006211/18557ab786908c11ff921df8be085871_303858548377348523.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/10/91006211/9f05bd23288c1c86d88aef40c8fb9acb_2007473900097866217.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/10/91006211/c3dc81d4104759a02eb7933d30dbaea1_9016360303065947719.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 9,
+    "media_count": 3,
+    "extraction_time": 1773417997.7645235,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773417997.7645235
+}

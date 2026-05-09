@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/727/detail?bbs_presentation_style=no_header",
+  "title": "德丽莎 · 梅雨(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 727,
+  "main_content": "圣痕资料   位置 上位单件tag 全元素-生命回复\t\t\t圣痕技能 【戏雨】全元素伤害提高10.0%，触发极限闪避技能后，每2秒恢复20.0点生命值，持续10秒。 相关圣痕  无      位置 上位 单件tag 全元素-生命回复\t\t\t 圣痕技能 【戏雨】全元素伤害提高10.0%，触发极限闪避技能后，每2秒恢复20.0点生命值，持续10秒。 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 245      攻击 59      防御 27      会心 0       玩家评价 泛用性较强且有一定的恢复能力，但加成效果较低  获取方式   活动获取 通过「梅雨初夏」活动获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/01/77124895/7268a5a1af15bc0e3ebab5a7fa6a9006_7599414614765865423.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\德丽莎 · 梅雨(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 353,
+    "media_count": 1,
+    "extraction_time": 1773412186.6206853,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773412186.6206853
+}

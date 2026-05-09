@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3005/detail?bbs_presentation_style=no_header",
+  "title": "《崩坏3》第二部预告-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3005,
+  "main_content": "《崩坏3》第二部预告【简介】在这片星空下，世界早已死亡，文明也只是泡影……可即便如此，你也要寻找属于自己的未来，对吧？配音演员：埃尔德什·赫丽娅——溯浔科拉莉·6626·普朗克——可可味",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "视频集锦",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/01/18/264755623/153e210f5134c4af2c3e4d8c91aa6f5a_4521638593765714345.mp4",
+      "type": "video",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 93,
+    "media_count": 1,
+    "extraction_time": 1773494506.3549511,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773494506.3549511
+}

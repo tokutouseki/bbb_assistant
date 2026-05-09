@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1384/detail?bbs_presentation_style=no_header",
+  "title": "CodeⅩ-命运 · 圣杯Ⅳ-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1384,
+  "main_content": "基础介绍       中文名 CodeⅩ-命运 · 圣杯Ⅳ 外文名 CodeⅩ-Destiny · Ace of CupsⅣ 弱点 无出现地区 水没都市     中文名 CodeⅩ-命运 · 圣杯Ⅳ 外文名 CodeⅩ-Destiny · Ace of CupsⅣ 弱点 无 出现地区 水没都市 CodeX-命运的亚种之一，自爆后会产生能让人在短时间内持续受创的未知烟雾。——布洛妮娅 · 扎伊切克究竟是谁打翻了CodeⅩ-命运 · 圣杯Ⅳ贮存烟雾的结构？现在实验室完全不能进了.....喂！鸡窝头，你骑个自行车准备去哪儿啊？——芙蕾德莉卡 · 尼古拉 · 特拉斯  怪物机制   威胁等级 ★☆特殊机制 护盾（次数），自爆，星核辐射  怪物技能 \n      自爆\n       自爆 不稳定的结构极易产生爆炸，对周围的目标不分敌我地造成伤害，并留下一片被星核辐射污染的区域。  应对方法 快速击破或离开爆炸范围即可规避伤害。",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "怪物",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/20/73760043/2e1094d310809dc8c3af4ab66e0af2d2_9113476857932720411.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/20/73760043/58bb31409b160d474c10c18b24a3a8c1_457895455349393491.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/20/73760043/509967898081d7ad907b1554d8d8530e_8397809622851981331.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/20/73760043/509967898081d7ad907b1554d8d8530e_8323749653713069394.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 414,
+    "media_count": 4,
+    "extraction_time": 1773424072.8058684,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773424072.8058684
+}

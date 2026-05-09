@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2635/detail?bbs_presentation_style=no_header",
+  "title": "希儿 · 吟唱(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2635,
+  "main_content": "圣痕资料   位置 上位单件tag 物伤圣痕技能 物理伤害提高15.0％，必杀技命中流血状态敌人时，造成的物理伤害额外提高10.0％ 相关圣痕  无      位置 上位 单件tag 物伤 圣痕技能 物理伤害提高15.0％，必杀技命中流血状态敌人时，造成的物理伤害额外提高10.0％ 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 230      攻击 59      防御 27      会心 0       玩家评价 常驻物伤，必杀技命中流血状态敌人时提高加成，可以一定程度上提高自身的输出能力。  获取途径   活动获取 参与「林海绮律」登录活动获得时间胶囊 时间胶囊商店，使用吼姆's Legend 见证章兑换  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/07/27/282941837/f68396afada3336c4d7dda6c651b292e_2572786542116548004.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\希儿 · 吟唱(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 373,
+    "media_count": 1,
+    "extraction_time": 1773487825.932877,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773487825.932877
+}

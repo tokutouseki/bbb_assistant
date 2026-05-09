@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1554/detail?bbs_presentation_style=no_header",
+  "title": "新春晋升印章自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1554,
+  "main_content": "材料描述     名称 新春晋升印章自选箱 类别 消耗品 从2022-新春累消「 宝珠商店」中兑换获得  消耗途径   直接使用 使用后可以从「缭乱星棘晋升印章×1」、「雷之律者晋升印章×2」、「辉骑士 · 月魄晋升印章×1」中选择一个获得  获取途径   活动 通过2022新春累消活动兑换获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/27/50494840/735dbbacd917ae70cbae89d04a622bb4_2907267660308612748.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 148,
+    "media_count": 1,
+    "extraction_time": 1773464801.0444863,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773464801.0444863
+}

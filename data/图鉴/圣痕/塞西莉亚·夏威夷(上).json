@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4125/detail?bbs_presentation_style=no_header",
+  "title": "塞西莉亚·夏威夷(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4125,
+  "main_content": "圣痕资料   位置 上位单件tag 物伤-生命恢复 相关圣痕  无      位置 上位 单件tag 物伤-生命恢复 相关圣痕  无   圣痕纹章   圣痕技能   和煦之风 普通攻击（包括蓄力和分支）造成的物理伤害提高10%，琪亚娜或卡莲角色装备时，周围4米范围的内的己方队员每3秒恢复20点生命  基本属性         属性 数值 D C B A A+ S 生命 222      攻击 57      防御 49      会心 0       玩家评价 普攻（含蓄力和分支）的物伤提高。  获取途径   暂无获取途径   进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/11/18/50494840/c9bdd4854c7373fe37a038332013dfe4_6728434432669592423.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\塞西莉亚·夏威夷(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 306,
+    "media_count": 1,
+    "extraction_time": 1773515761.4092453,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773515761.4092453
+}

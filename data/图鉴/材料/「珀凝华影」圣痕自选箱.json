@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3277/detail?bbs_presentation_style=no_header",
+  "title": "「珀凝华影」圣痕自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3277,
+  "main_content": "材料描述     名称 「珀凝华影」圣痕自选箱 类别 消耗品   消耗途径   直接使用 使用后可从松雀 · 品茗(上)、瑟莉姆 · 赴宴(中)、利托斯特 · 守夜(下)、根源棱镜*1中任选一件获得  获取方式   活动获取 参与「盛宴邀致」登录活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/28/77124895/7dacc802e0eafd1e11fc5a48e0d8060e_7229326396439111758.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 127,
+    "media_count": 1,
+    "extraction_time": 1773500139.796304,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773500139.796304
+}

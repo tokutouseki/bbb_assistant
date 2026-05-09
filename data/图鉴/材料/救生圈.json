@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1177/detail?bbs_presentation_style=no_header",
+  "title": "救生圈-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1177,
+  "main_content": "材料描述     名称 救生圈 类别 消耗品 款式可爱的儿童救生圈，在休伯利安号的仓库里能找到大量存款。是谁放在这里的呢？  消耗途径   直接使用 使用后获得30点体力  获取途径   活动获取 通过部分活动副产物获得兑换码 通过兑换码获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/75216984/0311327b665b003eea2b6aa5055a21e8_642050258155326183.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 121,
+    "media_count": 1,
+    "extraction_time": 1773420345.953104,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773420345.953104
+}

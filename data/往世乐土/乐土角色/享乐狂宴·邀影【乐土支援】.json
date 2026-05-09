@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3607/detail?bbs_presentation_style=no_header",
+  "title": "享乐狂宴·邀影【乐土支援】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3607,
+  "main_content": "支援角色     装甲名称 享乐狂宴·邀影 CV 龟娘装甲属性 机械 伤害类型 冰解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁。           装甲名称 享乐狂宴·邀影 CV 龟娘 装甲属性 机械 伤害类型 冰 解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁。    支援技能   技能名 殷红的请柬冷却时间 50秒技能效果 召唤享乐狂宴·邀影，造成1000%攻击力的冰冻元素伤害，出战女武神造成的全元素伤害提高20%，并进入元素贯穿状态，获得16%的全元素穿透，持续15秒。出战女武神激活星之环分野：命运之轮[详情]时，首次释放后该层战斗出战女武神全伤害提高12%，星环爆发[详情]状态下，任意影侍攻击均可使出战女武神获得11秒影中轮舞[详情]状态",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/07/77124895/8fa6a53197cec7379266f15be43b67f6_6471119587100076212.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 335,
+    "media_count": 1,
+    "extraction_time": 1773506669.1980846,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773506669.1980846
+}

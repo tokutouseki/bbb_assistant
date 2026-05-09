@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2662/detail?bbs_presentation_style=no_header",
+  "title": "西琳-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2662,
+  "main_content": "角色资料       中文名 西琳 外文名 Sirin CV 王晓彤 生日 不明      中文名 西琳 外文名 Sirin CV 王晓彤 生日 不明  女武神装甲  \n              奇迹☆魔法少女\n              \n              奇迹☆魔法少女",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/08/05/75216984/b632e4b9319f1c5711d75940084c8d1a_4660291593442961189.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/08/05/75216984/cd6aa621ae00a9495859561da8c4c528_1270017594186957602.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 143,
+    "media_count": 2,
+    "extraction_time": 1773488273.1125789,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773488273.1125789
+}

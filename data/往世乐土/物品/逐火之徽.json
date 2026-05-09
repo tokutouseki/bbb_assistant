@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/815/detail?bbs_presentation_style=no_header",
+  "title": "逐火之徽-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 815,
+  "main_content": "逐火之徽逐火之徽★  效果：受到的全伤害降低25%；战斗结束后，回复15%生命逐火之徽一枚由合金制成的胸章。中心的圆环似乎使用了特殊材料，即便只是一线微明映照其上，也会折射出烈焰燃烧般的流光。徽记的背面似乎刻有什么字样，但已难以辨认。细碎的划痕遍布周遭，有些不合常理。曾经，每一个加入逐火之蛾的人都会被配发这样一枚独一无二的徽章，并在急雨一般的灯光中立下誓言。但不知为何，在“某一时刻”这个制度突然遭到废止。因此，即使是融合战士，他们当中也有一些成员直到最后都未能拥有属于自己的徽记。",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/13/6100274/bef3aebf0c88c7a07f8b380cc135fdfe_8893587161493546259.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 242,
+    "media_count": 1,
+    "extraction_time": 1773413659.5951416,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773413659.5951416
+}

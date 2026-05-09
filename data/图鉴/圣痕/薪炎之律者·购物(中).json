@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3603/detail?bbs_presentation_style=no_header",
+  "title": "薪炎之律者·购物(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3603,
+  "main_content": "圣痕资料   位置 中位单件tag 全伤-火伤 相关圣痕  无      位置 中位 单件tag 全伤-火伤 相关圣痕  无   圣痕技能   春末新装 分支攻击造成的全伤害提升8.0%，火焰元素伤害提高10.0%  基本属性         属性 数值 D C B A A+ S 生命 291      攻击 16      防御 82      会心 0       玩家评价 提高分支攻击为主的火伤角色输出能力。  获取途径   活动获取 2022年通过miHoYo旗舰店618活动获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/09/9917988/59757472ac5356391c5a791be38b0a54_1405623986517555703.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\薪炎之律者·购物(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 287,
+    "media_count": 1,
+    "extraction_time": 1773506595.8090858,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773506595.8090858
+}

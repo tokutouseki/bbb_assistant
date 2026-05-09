@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1262/detail?bbs_presentation_style=no_header",
+  "title": "进阶学习芯片-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1262,
+  "main_content": "材料描述     名称 进阶学习芯片 类别 基础材料 能够将一些基本的格斗术和武器使用技巧直接置入使用者大脑的芯片，对实战格斗具有较好的指导作用。  消耗途径   角色/人偶升级 提供300点角色或武装人偶经验值。舰团委托回收 提交材料获取奖励  获取途径   金币商店 每12500金币购买20个主线 部分主线关卡概率掉落",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/75940953/91912fc6dddf9e1355e1607744b56764_6005824853920296363.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 162,
+    "media_count": 1,
+    "extraction_time": 1773421935.227606,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421935.227606
+}

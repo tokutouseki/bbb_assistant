@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/409/detail?bbs_presentation_style=no_header",
+  "title": "德丽莎 · 起源(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 409,
+  "main_content": "圣痕资料   位置 上位所属套装 迷途修女套装套装tag 全伤-武器冷却缩减-物理-减伤圣痕技能 【激活】使用武器主动技能后，全伤害提高30%，持续6.0秒 相关圣痕 德丽莎 · 起源(中) 德丽莎 · 起源(下)      位置 上位 所属套装 迷途修女套装 套装tag 全伤-武器冷却缩减-物理-减伤 圣痕技能 【激活】使用武器主动技能后，全伤害提高30%，持续6.0秒 相关圣痕 德丽莎 · 起源(中) 德丽莎 · 起源(下)   套装技能   空间结界 所有队友受到来自正面的伤害降低20%，德丽莎装备时能量上限提高20%信念之刃 所有队友普通攻击（包括蓄力和分支）造成的物理伤害提高15%，该技能唯一生效，德丽莎装备时自身普通攻击（包括蓄力和分支）造成的物理伤害再次提高15%  适用角色    十字架女武神 使用武器技能后提高输出，适合德丽莎角色过渡使用  配装推荐 \n      推荐1\n        圣痕 综合评价 推荐理由  德丽莎 · 起源(上) 巴托里 · 伊丽莎白(中) 阿提拉(下)  40 适合武器技能释放频繁的物理系角色过渡使用（例如月下初拥）    德丽莎 · 起源(上) 巴托里 · 伊丽莎白(中) 阿提拉(下) 综合评价  40 推荐理由 适合武器技能释放频繁的物理系角色过渡使用（例如月下初拥）  基本属性         属性 数值 D C B A A+ S 生命 329      攻击 62      防御 43       玩家评价 使用武器主动之后提供全伤加成，但覆盖率较低；同时亦可搭配三件套作为后台物理辅助圣痕使用  获取方式   装备锻造 崩坏碎片*80  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/16/50494840/32088c57c3ca6e71aa985bebb45ca87b_8241499278656190412.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\德丽莎 · 起源(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 746,
+    "media_count": 1,
+    "extraction_time": 1773405898.780118,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773405898.780118
+}

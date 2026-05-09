@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2760/detail?bbs_presentation_style=no_header",
+  "title": "断罪皇女！！【乐土出战】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2760,
+  "main_content": "出战角色     装甲名称 断罪皇女！！ CV Mace装甲属性 生物 伤害类型 雷解锁条件 获得该女武神后在往事乐土装甲强化界面消耗无暇之匙解锁           装甲名称 断罪皇女！！ CV Mace 装甲属性 生物 伤害类型 雷 解锁条件 获得该女武神后在往事乐土装甲强化界面消耗无暇之匙解锁    特殊调整   角色调整 角色属性和技能等级已平衡至80级。场上敌人受到的伤害提高50%（该效果为独立加成）。角色抗打断力提高。  角色特殊技能 1级 S 断罪皇女的攻击力提高10%SS 断罪皇女的攻击力提高15%SSS 断罪皇女的攻击力提高15%3级 刻印【「幽邃」的祝福】效果强化 【「幽邃」的祝福】：武器主动技能造成的全伤害提高200%。使用蓄力使奥兹出场或使用必杀技时，为角色额外补充2次武器主动技能【「幽邃」的祝福+】：武器主动技能造成的全伤害提高300%。使用蓄力使奥兹出场或使用必杀技时，为角色额外补充2次武器主动技能6级 刻印【「命运」的祝福】效果强化 【「命运」的祝福】：使用武器主动技能命中敌人时，奥兹释放一次幽夜苍雷，造成2000%攻击力雷电元素伤害【「命运」的祝福+】：使用武器主动技能命中敌人时，奥兹释放一次幽夜苍雷，造成2000%攻击力雷电元素伤害。释放武器主动技能后返还50%冷却时间9级 刻印【「圣裁」的祝福】效果强化 【「圣裁」的祝福】：每隔7秒获得一层「圣裁」的祝福，最多叠加2层，触发QTE技能后消耗一层，生成小范围雷电领域，持续2秒，每0.4秒对领域内的敌人造成3*225%攻击力雷电元素伤害。初始获得2层【「圣裁」的祝福+】：每隔7秒获得一层「圣裁」的祝福，最多叠加2层，触发QTE技能后消耗一层，生成小范围雷电领域，持续2秒，每0.4秒对领域内的敌人造成4*225%攻击力雷电元素伤害。初始获得2层12级 刻印【「幽夜」的祝福】效果强化 【「幽夜」的祝福】：触发极限闪避技能时，奥兹释放一次幽夜苍雷，造成4200%攻击力雷电元素伤害【「幽夜」的祝福+】：触发极限闪避技能时，奥兹释放一次幽夜苍雷，造成5600%攻击力雷电元素伤害15级 刻印【「至夜」的祝福】效果强化 【「至夜」的祝福】：必杀技期间，奥兹释放箭雨后继续滞空7秒，每7下攻击命中必杀技范围内的敌人时，释放一次幽夜苍雷，造成1500%攻击力雷电元素伤害【「至夜」的祝福+】：必杀技期间，奥兹释放箭雨后继续滞空7秒，每5下攻击命中必杀技范围内的敌人时，释放一次幽夜苍雷，造成1500%攻击力雷电元素伤害，必杀技每击提高125%攻击力雷电元素伤害",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/19/79683856/9daf05325605cef79f999d5f68f15b4f_2874823430172893061.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/06/73760043/72ea394501dea00636f4a52c88c15b2b_8092231204696388728.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 1077,
+    "media_count": 2,
+    "extraction_time": 1773490055.450582,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773490055.450582
+}

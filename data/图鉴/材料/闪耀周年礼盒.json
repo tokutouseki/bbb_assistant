@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1156/detail?bbs_presentation_style=no_header",
+  "title": "闪耀周年礼盒-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1156,
+  "main_content": "材料描述     名称 闪耀周年礼盒 类别 消耗品 打开后，可在三分结晶*3，爱因斯坦环磁机*70，相转移镜面*70，超导金属氢*200，心智魄石*20，以太燃素*400奖励中任选一种获得  获取途径   活动获取 通过五周年蛋糕派对活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/10/50494840/a90fbcae610552b2099fcdd39feb9aaf_4244127035646005156.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 121,
+    "media_count": 1,
+    "extraction_time": 1773419922.9285474,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419922.9285474
+}

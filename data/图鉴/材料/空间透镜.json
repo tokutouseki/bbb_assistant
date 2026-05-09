@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1123/detail?bbs_presentation_style=no_header",
+  "title": "空间透镜-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1123,
+  "main_content": "材料描述     名称 空间透镜 类别 合成素材 探索虚数世界所需的观测工具。  消耗途径   装备锻造 在装备锻造功能中使用，是锻造指定悬赏装备的高级材料之一  获取途径   玩法商店 督学表彰，消耗督学勋章购买获得基础货币 星石商店，消耗星石购买获得材料-消耗品 开启悬赏助力自选箱兑换获得开放世界 完成开放世界的冒险委托获得作战凭证 凭证的历练等级奖励",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/72350798/03cc082a039377cc9f64cdcff9578adc_8138771865924952232.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 179,
+    "media_count": 1,
+    "extraction_time": 1773419319.8895717,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419319.8895717
+}

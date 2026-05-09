@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1171/detail?bbs_presentation_style=no_header",
+  "title": "重构模具 · 专攻自选箱-TypeA-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1171,
+  "main_content": "材料描述     名称 重构模具 · 专攻自选箱-TypeA 类别 消耗品 打开后可以从重构模具 · 生物专攻，重构模具 · 异能专攻，重构模具 · 机械专攻，重构模具 · 量子专攻中自选其一  获取途径   活动获取 通过新春小铺活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/06/05/50494840/b0c1ba5cded0b912210e26f3a791650b_4202293920823595404.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 120,
+    "media_count": 1,
+    "extraction_time": 1773420197.1501932,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773420197.1501932
+}

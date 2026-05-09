@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1109/detail?bbs_presentation_style=no_header",
+  "title": "回收物资箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1109,
+  "main_content": "材料描述     名称 回收物资箱 类别 消耗品 放有女武神使用的补给品的箱子，可以在活动结束后使用特定物资交换。  消耗途径   直接使用 使用后可随机获得1个【角色特级芯片】、【以太结晶】或者【灵魂结晶】  获取途径   商店获取 通过1.6版本「盛夏重逢」夏日祭活动商店获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/18/73760043/318c82ad1dc7f9e81c9435bc07d6cc1a_3184886423988734859.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 140,
+    "media_count": 1,
+    "extraction_time": 1773419092.2875006,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419092.2875006
+}

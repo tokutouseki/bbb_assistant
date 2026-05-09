@@ -1,0 +1,24 @@
+{
+  "id": "mei",
+  "name": "雷电芽衣",
+  "description": "ME社前社长千金，圣芙蕾雅学园学生，性格温柔稳重，责任心强。",
+  "gender": "female",
+  "age_group": "young",
+  "source": "honkai_impact_3",
+  "available": false,
+  "voice_characteristics": {
+    "pitch": "medium",
+    "speed": "moderate",
+    "emotion": "calm",
+    "clarity": "high"
+  },
+  "reference_files": {
+    "audio": null,
+    "text": null
+  },
+  "format_info": null,
+  "created_at": "2026-03-11",
+  "updated_at": "2026-03-11",
+  "notes": "需要收集游戏内芽衣语音片段作为参考音频",
+  "license": "For personal use only"
+}

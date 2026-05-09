@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/891/detail?bbs_presentation_style=no_header",
+  "title": "水晶蔷薇-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 891,
+  "main_content": "水晶蔷薇水晶蔷薇★★  效果：出现「真我」的刻印对应的传送锚点的概率略微提高；「真我」的刻印能提供【特殊】增益                                                                                                                                                                                         水晶蔷薇如蔷薇般盛开的水晶之花，美丽而永恒。她深爱着人类。但她所深爱的，并非某个或某些特殊的个体，而是人类这一族群本身。是的，少女始终深爱着人类——无论美丑， 善恶，对错，这份爱都未曾改变，也不会改变。如蔷薇般美丽，如水晶般永恒。——这种利用崩坏能的方式······爱莉希雅， 你是怎么做到的？——嘿嘿，这是个秘密~不过要是博士你真的很想知道的话，那我也不是不能告诉你啦~",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/14/75216984/c9273cf0599fc9e5f7a52691ce9fb64d_8934854022411831540.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 426,
+    "media_count": 1,
+    "extraction_time": 1773415275.6099935,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773415275.6099935
+}

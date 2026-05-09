@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1606/detail?bbs_presentation_style=no_header",
+  "title": "是你把外星人引到这来的？-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1606,
+  "main_content": "基础介绍       名称 是你把外星人引到这来的？ 类型 隐藏成就      名称 是你把外星人引到这来的？ 类型 隐藏成就  获得方式：击败虚空万藏",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/08/50494840/a3b5d65cc1a2f6524d482aa5dcb32289_5913441449764517429.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 76,
+    "media_count": 1,
+    "extraction_time": 1773465942.9293015,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773465942.9293015
+}

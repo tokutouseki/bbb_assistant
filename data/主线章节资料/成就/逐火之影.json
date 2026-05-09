@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1875/detail?bbs_presentation_style=no_header",
+  "title": "逐火之影-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1875,
+  "main_content": "基础介绍       名称 逐火之影 类型 普通成就      名称 逐火之影 类型 普通成就  获得方式：解锁隐藏区域「拉蒙D-14」位置：",
+  "html_content": null,
+  "category_main": "主线章节资料",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/10/18/73514954/c84e50e2ee5be206a6b6a17e2644d91b_2293006654308907122.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/10/18/73514954/b3e65e0f20731a08c804015d5084611d_2135079714596315091.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 71,
+    "media_count": 2,
+    "extraction_time": 1773470637.984543,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773470637.984543
+}

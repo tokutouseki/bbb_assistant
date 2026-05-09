@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1148/detail?bbs_presentation_style=no_header",
+  "title": "未知构造体-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1148,
+  "main_content": "材料描述     名称 未知构造体 类别 消耗品 有人认为这是武装人偶诞生前形态，但有人说这只是零件箱而已。强行撬开这个蛋状物体，你会得到不属于现实世界的东西。  消耗途径   直接使用 使用后可概率获得特级学习芯片、绯樱意志。  获取途径   活动获取 通过部分活动副产物获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/75216984/245ed18d903cf2c14bed13c15e35ae3f_2918034102626353106.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 139,
+    "media_count": 1,
+    "extraction_time": 1773419806.9695191,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419806.9695191
+}

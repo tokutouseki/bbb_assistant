@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/533/detail?bbs_presentation_style=no_header",
+  "title": "冬之公主(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 533,
+  "main_content": "圣痕资料   位置 上位单件tag 物伤-施加异常状态圣痕技能 【公主结界】近战物理伤害提高20%，当琪亚娜装备时，攻击有20%的机会对敌人造成3点冻结积蓄值 相关圣痕  无      位置 上位 单件tag 物伤-施加异常状态 圣痕技能 【公主结界】近战物理伤害提高20%，当琪亚娜装备时，攻击有20%的机会对敌人造成3点冻结积蓄值 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 337      攻击 56      防御 37      会心 0       玩家评价 适用于近战物理输出角色，琪亚娜装备时攻击有概率冰冻敌人  获取方式   活动获取 通过16年琪亚娜生日活动获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/12/81417673/c82a829b402d4fc9f4d60dcd697767e6_5120914507929437391.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\冬之公主(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 356,
+    "media_count": 1,
+    "extraction_time": 1773408191.6318781,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773408191.6318781
+}

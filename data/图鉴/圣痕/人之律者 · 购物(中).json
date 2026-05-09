@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2525/detail?bbs_presentation_style=no_header",
+  "title": "人之律者 · 购物(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2525,
+  "main_content": "圣痕资料   位置 中位单件tag 物伤-生命圣痕技能 【美妙邂逅】使用必杀技时物理伤害提高20.0％，且每秒回复20.0点生命值，持续8秒，重复触发刷新持续时间，但被敌人攻击且受到伤害时，会提前结束该效果 相关圣痕  无      位置 中位 单件tag 物伤-生命 圣痕技能 【美妙邂逅】使用必杀技时物理伤害提高20.0％，且每秒回复20.0点生命值，持续8秒，重复触发刷新持续时间，但被敌人攻击且受到伤害时，会提前结束该效果 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 291      攻击 16      防御 82      会心 0       玩家评价 四星物理圣痕。使用必杀技后提高物伤，并给予自身生命回复效果。  获取途径   兑换码 miHoYo旗舰店618活动限定兑换获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/06/01/282941837/2b37b5c8ad7baafdb0bc0d2b50c16542_8859255541979024942.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\人之律者 · 购物(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 412,
+    "media_count": 1,
+    "extraction_time": 1773485628.096426,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773485628.096426
+}

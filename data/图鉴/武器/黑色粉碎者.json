@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/155/detail?bbs_presentation_style=no_header",
+  "title": "黑色粉碎者-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 155,
+  "main_content": "武器数据     星级  攻击 181会心 11 米高扬中央设计局制造的十字架形武器，在展开后，会对附近区域进行自动攻击，将区域内的一切都碾碎成粉末。  武器技能   主动技能-碾碎 [能量消耗:3][冷却:12秒]展开十字架【召唤物】：6秒内，每1.5秒对地面敌人进行一次向下的重击，每下造成2500点火焰元素伤害  获取方式   装备补给 通过家园补给、精准补给、活动补给作为副产物获取悬赏锻造 崩坏碎片*80  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/08/76361817/699e2afcc28dcaf58add45f88dca3ec9_7135609928359697898.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\黑色粉碎者.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 248,
+    "media_count": 1,
+    "extraction_time": 1773403377.9471843,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403377.9471843
+}

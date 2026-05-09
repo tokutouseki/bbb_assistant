@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2137/detail?bbs_presentation_style=no_header",
+  "title": "《崩坏3》过场动画——「跨越」-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2137,
+  "main_content": "《崩坏3》过场动画——「跨越」「准备好了吗？接下来，就的确是终点了。」配音演员：雷电芽衣——菊花花布洛妮娅·扎伊切克——hanser",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "视频集锦",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/16/264755623/10b27e341de7364fb0f6b20a102f458a_4391500405105682129.mov",
+      "type": "video",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 66,
+    "media_count": 1,
+    "extraction_time": 1773475462.0327582,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773475462.0327582
+}

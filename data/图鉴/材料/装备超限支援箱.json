@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2821/detail?bbs_presentation_style=no_header",
+  "title": "装备超限支援箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2821,
+  "main_content": "材料描述     名称 装备养成支援箱 类别 消耗品 用于提升角色装备性能的支援物资。在应对挑战之前，先做好准备吧!  消耗途径   直接使用 打开后，可获取奖励爱因斯坦环磁机×50、超导金属氢×100  获取途径   活动获取 回归玩家参与回归活动获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/10/11/77124895/30222699f0b721c312ec69d1420fb807_7509085224252820270.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 127,
+    "media_count": 1,
+    "extraction_time": 1773491170.2893267,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773491170.2893267
+}

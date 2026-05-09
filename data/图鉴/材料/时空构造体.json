@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1225/detail?bbs_presentation_style=no_header",
+  "title": "时空构造体-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1225,
+  "main_content": "材料描述     名称 时空构造体 类别 基础材料 天命组织最新研发用于时空重启的实验材料，构造非常危险不稳定，目前还只在极密任务中试验使用。（随版本迭代，现已无法获取）  消耗途径   小队联机 用来重启极秘任务RAID时空的神秘构造体，主要通过每日任务奖励、联机军备获得。虚境商店 用于兑换时序通行证  获取途径   作战任务 每日历练值奖励基础货币 星石商店，消耗星石购买获得舰团 保税仓库，发布需求，通过其他舰长赠送获得作战凭证 凭证的历练等级奖励材料-消耗品 开启时空封印箱概率获得祈愿之地 祈愿概率获得导师系统 导师声望奖励",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/77124895/f706989ff5c62ed90bafb7746aa6f250_91067560837968470.PNG",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 268,
+    "media_count": 1,
+    "extraction_time": 1773421258.3804288,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421258.3804288
+}

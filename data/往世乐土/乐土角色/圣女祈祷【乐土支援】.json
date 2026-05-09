@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2776/detail?bbs_presentation_style=no_header",
+  "title": "圣女祈祷【乐土支援】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2776,
+  "main_content": "支援角色     装甲名称 圣女祈祷 CV 陶典装甲属性 异能 伤害类型 雷解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁。           装甲名称 圣女祈祷 CV 陶典 装甲属性 异能 伤害类型 雷 解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁。    支援技能   技能名 圣光神罚冷却时间 40秒技能效果 触发12秒全局时空断裂，期间每隔2秒进行落雷，对所有敌人造成100%攻击力的雷电元素伤害，并附加脆弱状态，防御力降低80%，持续5秒",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/08/73760043/0dc272725518846b8087a758b391406a_1150845433407930244.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 232,
+    "media_count": 1,
+    "extraction_time": 1773490341.371492,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773490341.371492
+}

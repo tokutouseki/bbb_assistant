@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip --version)",
+      "Bash(findstr :8000)",
+      "Bash(python -c \"import socket; s = socket.socket\\(socket.AF_INET, socket.SOCK_STREAM\\); result = s.connect_ex\\(\\('localhost', 8000\\)\\); s.close\\(\\); print\\('Port 8000 is', 'open' if result == 0 else 'closed'\\)\")",
+      "Bash(python -c \"import sys; sys.path.insert\\(0, 'src'\\); from config.settings import get_settings; print\\('Settings loaded successfully'\\)\")",
+      "Bash(ls test_*.py)",
+      "Bash(python test_tool_selection.py)",
+      "Bash(python test_tool_simple.py)",
+      "Bash(python test_tool_english.py)",
+      "Bash(timeout 10 python src/main.py)",
+      "Bash(timeout 5 python -c \"import sys; sys.path.insert\\(0, 'src'\\); from main import create_application; print\\('Application created successfully'\\)\")",
+      "Bash(python -c \"import sys; sys.path.insert\\(0, 'src'\\); try: from modules.tool_integration import LLMToolIntegration; print\\('Import successful'\\) except Exception as e: print\\(f'Import error: {e}'\\)\")",
+      "Bash(python test_import.py)",
+      "Bash(python test_import_simple.py)",
+      "Bash(python test_enhance_debug.py)",
+      "Bash(python test_chinese_input.py)"
+    ]
+  }
+}

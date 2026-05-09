@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3068/detail?bbs_presentation_style=no_header",
+  "title": "处刑者-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3068,
+  "main_content": "武器数据     星级  攻击 119会心 9 朴素的外表下，蕴藏着「我要来锤你了」的决心和「一锤必杀」的威力。  武器展示 \n      初始外观\n    \n      满星外观\n       火箭锤    火箭锤    武器技能   猎杀时刻 [能量消耗:0][冷却:15秒]武器主动技能的冷却时间、充能次数、技能效果由装备角色的类型决定  获取途径   编年史 通关编年史 永世回忆篇 虚无 关卡获取其他方式 火箭锤角色初始自带武器  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/02/01/282941837/f99dd7bbb6b4433941cee15f95f65b39_911128237235117059.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\处刑者_1.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/21/77124895/49399dbc4605b7851fd00da54d138877_8607855024161383778.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\处刑者_2.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/21/77124895/2bf97e0a62722b1fa0c9893caa0d0fa9_4040082863109565651.gif",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\处刑者_3.gif",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/21/77124895/49399dbc4605b7851fd00da54d138877_2684905641954837703.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\处刑者_4.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/21/77124895/2080fb94e253d4a3a15a270d12b782d4_750222040279464489.gif",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\处刑者_5.gif",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 258,
+    "media_count": 5,
+    "extraction_time": 1773495783.4806612,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773495783.4806612
+}

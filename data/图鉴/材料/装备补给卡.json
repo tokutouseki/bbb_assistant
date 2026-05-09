@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1179/detail?bbs_presentation_style=no_header",
+  "title": "装备补给卡-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1179,
+  "main_content": "材料描述     名称 装备补给卡 类别 基础材料 印有吼美形象的补给卡  消耗途径   装备补给中使用 能够获得一次参与补给的机会  获取途径   作战凭证 作战军备中使用当期荣誉勋章兑换基础货币商店 补给卡，消耗水晶购买获得商城 消耗礼包币购买部分礼包获得开放世界 后崩坏书，消耗遗迹钥匙参与补给获得角色挑战 通关相应的关卡奖励完成所有关卡后的全通奖励活动获取 参与活动玩法获得迎新手册 七日计划，登陆领取获得回归 回归签到，累计签到奖励",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/06/05/50494840/238696b1180c77a2a25c70e5201c82a3_4811186760832897249.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 221,
+    "media_count": 1,
+    "extraction_time": 1773420361.642188,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773420361.642188
+}

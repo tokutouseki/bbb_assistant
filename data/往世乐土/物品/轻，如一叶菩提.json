@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/882/detail?bbs_presentation_style=no_header",
+  "title": "轻，如一叶菩提-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 882,
+  "main_content": "轻，如一叶菩提轻，如一叶菩提★★  效果：出现「天慧」的刻印对应的传送锚点的概率大幅提高；「天慧」的刻印能提供【连击】增益                                                                                                                     轻，如一叶菩提从「须弥芥子」中的树上飘落的，平平无奇的一片树叶。事实上是使用第二神之键「千界一乘」所观测到的凋零的世界之一。叶脉间记述着那个世界曾经的挣扎，以及最终徒劳无功的叹息。——就算放着不管，那些叶子也会自然枯萎消失的吧?干嘛还要费那么大劲把它们收集起来?真搞不懂你。     ——也许是吧。但对我来说，像这样守望并见证他们的结局，其本身就是意义所在。",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/13/75216984/73df0776b83e7299a58874af791e81df_2427872802958061282.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 357,
+    "media_count": 1,
+    "extraction_time": 1773415110.2270067,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773415110.2270067
+}

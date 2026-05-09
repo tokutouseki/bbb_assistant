@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/465/detail?bbs_presentation_style=no_header",
+  "title": "薇欧拉(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 465,
+  "main_content": "圣痕资料   位置 下位所属套装 医院骑士套装套装tag 物伤-移速-生命上限圣痕技能 【生命强化】战斗中生命上限提高9% 相关圣痕 薇欧拉(上) 薇欧拉(中)      位置 下位 所属套装 医院骑士套装 套装tag 物伤-移速-生命上限 圣痕技能 【生命强化】战斗中生命上限提高9% 相关圣痕 薇欧拉(上) 薇欧拉(中)   套装技能   祝福之剑\t\t 生命大于等于80%时，物理伤害提高15%加速\t\t 移动速度提高25%  基本属性         属性 数值 D C B A A+ S 生命 245      攻击 19      防御 16      会心 4       玩家评价 单件技能提高生命上限，两件套提供物伤加成，三件套可以提高移速方便跑图，适合新手期开荒使用  获取方式   关卡获取 主线2-3通关获得  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/15/77124895/9b47bf2ad35fdf91d1347b709457f620_5415234611913960580.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\薇欧拉(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 403,
+    "media_count": 1,
+    "extraction_time": 1773406916.3670428,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773406916.3670428
+}

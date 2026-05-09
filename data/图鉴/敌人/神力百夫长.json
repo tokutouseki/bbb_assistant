@@ -1,0 +1,116 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3771/detail?bbs_presentation_style=no_header",
+  "title": "神力百夫长-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3771,
+  "main_content": "怪物信息     怪物名称 神力百夫长 怪物属性 生物威胁等级 ★★ 伤害类型 物理怪物类型 普通 出现场景 主线，超弦空间，往世乐土，角色挑战特殊机制 无           怪物名称 神力百夫长 怪物属性 生物 威胁等级 ★★ 伤害类型 物理 怪物类型 普通 出现场景 主线，超弦空间，往世乐土，角色挑战 特殊机制 无    怪物技能 \n      镰刀劈砍\n    \n      连续劈砍\n       镰刀劈砍 使用镰刀攻击前方敌人  应对方式 请注意躲避   连续劈砍 能连续多次使用镰刀攻击  应对方法 请注意躲避",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/17/75216984/288e5964768d6e65b6dbf1dbe9eb852e_3232313365682750449.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/18/75216984/6a3cc0178a77bfbb8e515ee6440a7942_3935602953983429056.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/28/75216984/37c55f883156be618b30db7c05bb834f_2499031943214354136.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/28/75216984/37c55f883156be618b30db7c05bb834f_2737191746639579310.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/18/75216984/e8790c625412786edd654e0c80a5098b_5931762117127571156.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/17/75216984/37c55f883156be618b30db7c05bb834f_1396613325028492596.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/17/75216984/37c55f883156be618b30db7c05bb834f_4333358013359859859.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 263,
+    "media_count": 7,
+    "extraction_time": 1773509688.2319193,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773509688.2319193
+}

@@ -1,0 +1,445 @@
+{
+  "timestamp": "20260314_233755",
+  "audio_dir": "d:\\TokusCode\\bbb_assistant\\YueXiaShiYue",
+  "total_files": 48,
+  "total_audio_duration": 217.722,
+  "total_process_time": 6.721,
+  "model_load_time": 3.716,
+  "import_time": 10.547,
+  "avg_rtf": 0.0309,
+  "realtime_factor": 32.39,
+  "results": [
+    {
+      "file": "1 (100).wav",
+      "text": "我想学着做饭给你吃，可每次都失败，做饭好难啊。😔",
+      "emotion": "难过",
+      "language": "zh",
+      "duration": 7.554,
+      "process_time": 1.09,
+      "rtf": 0.1443
+    },
+    {
+      "file": "1 (101).wav",
+      "text": "我知道你的睡觉时间到了，可我还是想和你多说说话。😔",
+      "emotion": "难过",
+      "language": "zh",
+      "duration": 6.401,
+      "process_time": 0.159,
+      "rtf": 0.0248
+    },
+    {
+      "file": "1 (102).wav",
+      "text": "下雨的时候，游乐园是不是就不会开门了嗯？😔",
+      "emotion": "难过",
+      "language": "zh",
+      "duration": 6.787,
+      "process_time": 0.293,
+      "rtf": 0.0432
+    },
+    {
+      "file": "1 (103).wav",
+      "text": "像这样两个人一起闲逛，是不是就叫做约约会？",
+      "emotion": null,
+      "language": "zh",
+      "duration": 5.597,
+      "process_time": 0.151,
+      "rtf": 0.0269
+    },
+    {
+      "file": "1 (104).wav",
+      "text": "谢谢你，遵守了约定。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.614,
+      "process_time": 0.121,
+      "rtf": 0.0463
+    },
+    {
+      "file": "1 (105).wav",
+      "text": "谢谢你握住了我的手，我再也再也不会放开你了。😊",
+      "emotion": "开心",
+      "language": "zh",
+      "duration": 6.741,
+      "process_time": 0.219,
+      "rtf": 0.0325
+    },
+    {
+      "file": "1 (106).wav",
+      "text": "血的味道。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 1.189,
+      "process_time": 0.09,
+      "rtf": 0.0759
+    },
+    {
+      "file": "1 (107).wav",
+      "text": "阳光好强烈，嗯，我讨厌这样的天气。😔",
+      "emotion": "难过",
+      "language": "zh",
+      "duration": 6.758,
+      "process_time": 0.156,
+      "rtf": 0.0231
+    },
+    {
+      "file": "1 (108).wav",
+      "text": "要一起出门吗？我马上就来。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.709,
+      "process_time": 0.113,
+      "rtf": 0.0418
+    },
+    {
+      "file": "1 (109).wav",
+      "text": "一起走吧。😊",
+      "emotion": "开心",
+      "language": "zh",
+      "duration": 0.768,
+      "process_time": 0.086,
+      "rtf": 0.1118
+    },
+    {
+      "file": "1 (110).wav",
+      "text": "以红月为誓。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.608,
+      "process_time": 0.112,
+      "rtf": 0.0429
+    },
+    {
+      "file": "1 (111).wav",
+      "text": "以血还血。😡",
+      "emotion": "愤怒",
+      "language": "zh",
+      "duration": 1.035,
+      "process_time": 0.091,
+      "rtf": 0.0879
+    },
+    {
+      "file": "1 (112).wav",
+      "text": "与此约定。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.367,
+      "process_time": 0.135,
+      "rtf": 0.0569
+    },
+    {
+      "file": "1 (113).wav",
+      "text": "月亮变红了。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.492,
+      "process_time": 0.113,
+      "rtf": 0.0453
+    },
+    {
+      "file": "1 (114).wav",
+      "text": "月亮和星星，你更喜欢哪一个呢？好好看着我的眼睛回答哦。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 7.832,
+      "process_time": 0.179,
+      "rtf": 0.0228
+    },
+    {
+      "file": "1 (115).wav",
+      "text": "这就是外面的世界呀。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.561,
+      "process_time": 0.102,
+      "rtf": 0.0399
+    },
+    {
+      "file": "1 (116).wav",
+      "text": "这就是我的决意。😡",
+      "emotion": "愤怒",
+      "language": "zh",
+      "duration": 2.585,
+      "process_time": 0.105,
+      "rtf": 0.0405
+    },
+    {
+      "file": "1 (117).wav",
+      "text": "这里的景色好新奇，我可以多看一会儿吗？😊",
+      "emotion": "开心",
+      "language": "zh",
+      "duration": 4.013,
+      "process_time": 0.124,
+      "rtf": 0.0309
+    },
+    {
+      "file": "1 (118).wav",
+      "text": "这是雪吗？下雪了，我们一起去外面看看。😮",
+      "emotion": "惊讶",
+      "language": "zh",
+      "duration": 7.873,
+      "process_time": 0.168,
+      "rtf": 0.0213
+    },
+    {
+      "file": "1 (119).wav",
+      "text": "这是对我来说最重要的日子。我想独占你的今天可以吗？",
+      "emotion": null,
+      "language": "zh",
+      "duration": 7.084,
+      "process_time": 0.157,
+      "rtf": 0.0222
+    },
+    {
+      "file": "1 (120).wav",
+      "text": "这是你为我挑的新衣服吗？我很喜欢。😊",
+      "emotion": "开心",
+      "language": "zh",
+      "duration": 5.081,
+      "process_time": 0.14,
+      "rtf": 0.0276
+    },
+    {
+      "file": "1 (121).wav",
+      "text": "这周的工作已经完成了，太好了，接下来去哪里玩呢？😊",
+      "emotion": "开心",
+      "language": "zh",
+      "duration": 7.075,
+      "process_time": 0.16,
+      "rtf": 0.0226
+    },
+    {
+      "file": "1 (122).wav",
+      "text": "直到时间的尽头。😡",
+      "emotion": "愤怒",
+      "language": "zh",
+      "duration": 2.776,
+      "process_time": 0.107,
+      "rtf": 0.0384
+    },
+    {
+      "file": "1 (99).wav",
+      "text": "我听说这个日子有特殊含义，你愿意讲给我听吗？",
+      "emotion": null,
+      "language": "zh",
+      "duration": 6.361,
+      "process_time": 0.15,
+      "rtf": 0.0236
+    },
+    {
+      "file": "processed_0.wav",
+      "text": "我想学着做饭给你吃，可每次都失败，做饭好难啊。😔",
+      "emotion": "难过",
+      "language": "zh",
+      "duration": 7.554,
+      "process_time": 0.123,
+      "rtf": 0.0163
+    },
+    {
+      "file": "processed_1.wav",
+      "text": "我知道你的睡觉时间到了，可我还是想和你多说说话。😔",
+      "emotion": "难过",
+      "language": "zh",
+      "duration": 6.401,
+      "process_time": 0.114,
+      "rtf": 0.0179
+    },
+    {
+      "file": "processed_10.wav",
+      "text": "以红月为誓。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.608,
+      "process_time": 0.087,
+      "rtf": 0.0334
+    },
+    {
+      "file": "processed_11.wav",
+      "text": "以血还血。😡",
+      "emotion": "愤怒",
+      "language": "zh",
+      "duration": 1.035,
+      "process_time": 0.077,
+      "rtf": 0.0745
+    },
+    {
+      "file": "processed_12.wav",
+      "text": "与此约定。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.367,
+      "process_time": 0.087,
+      "rtf": 0.0368
+    },
+    {
+      "file": "processed_13.wav",
+      "text": "月亮变红了。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.492,
+      "process_time": 0.093,
+      "rtf": 0.0375
+    },
+    {
+      "file": "processed_14.wav",
+      "text": "月亮和星星，你更喜欢哪一个呢？好好看着我的眼睛回答哦。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 7.832,
+      "process_time": 0.122,
+      "rtf": 0.0155
+    },
+    {
+      "file": "processed_15.wav",
+      "text": "这就是外面的世界呀。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.561,
+      "process_time": 0.086,
+      "rtf": 0.0337
+    },
+    {
+      "file": "processed_16.wav",
+      "text": "这就是我的决意。😡",
+      "emotion": "愤怒",
+      "language": "zh",
+      "duration": 2.585,
+      "process_time": 0.088,
+      "rtf": 0.034
+    },
+    {
+      "file": "processed_17.wav",
+      "text": "这里的景色好新奇，我可以多看一会儿吗？😊",
+      "emotion": "开心",
+      "language": "zh",
+      "duration": 4.013,
+      "process_time": 0.098,
+      "rtf": 0.0245
+    },
+    {
+      "file": "processed_18.wav",
+      "text": "这是雪吗？下雪了，我们一起去外面看看。😮",
+      "emotion": "惊讶",
+      "language": "zh",
+      "duration": 7.873,
+      "process_time": 0.121,
+      "rtf": 0.0153
+    },
+    {
+      "file": "processed_19.wav",
+      "text": "这是对我来说最重要的日子。我想独占你的今天可以吗？",
+      "emotion": null,
+      "language": "zh",
+      "duration": 7.084,
+      "process_time": 0.116,
+      "rtf": 0.0164
+    },
+    {
+      "file": "processed_2.wav",
+      "text": "下雨的时候，游乐园是不是就不会开门了嗯？😔",
+      "emotion": "难过",
+      "language": "zh",
+      "duration": 6.787,
+      "process_time": 0.112,
+      "rtf": 0.0165
+    },
+    {
+      "file": "processed_20.wav",
+      "text": "这是你为我挑的新衣服吗？我很喜欢。😊",
+      "emotion": "开心",
+      "language": "zh",
+      "duration": 5.081,
+      "process_time": 0.1,
+      "rtf": 0.0197
+    },
+    {
+      "file": "processed_21.wav",
+      "text": "这周的工作已经完成了，太好了，接下来去哪里玩呢？😊",
+      "emotion": "开心",
+      "language": "zh",
+      "duration": 7.075,
+      "process_time": 0.115,
+      "rtf": 0.0162
+    },
+    {
+      "file": "processed_22.wav",
+      "text": "直到时间的尽头。😡",
+      "emotion": "愤怒",
+      "language": "zh",
+      "duration": 2.776,
+      "process_time": 0.089,
+      "rtf": 0.032
+    },
+    {
+      "file": "processed_23.wav",
+      "text": "我听说这个日子有特殊含义，你愿意讲给我听吗？",
+      "emotion": null,
+      "language": "zh",
+      "duration": 6.361,
+      "process_time": 0.113,
+      "rtf": 0.0178
+    },
+    {
+      "file": "processed_3.wav",
+      "text": "像这样两个人一起闲逛，是不是就叫做约约会？",
+      "emotion": null,
+      "language": "zh",
+      "duration": 5.597,
+      "process_time": 0.103,
+      "rtf": 0.0184
+    },
+    {
+      "file": "processed_4.wav",
+      "text": "谢谢你，遵守了约定。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.614,
+      "process_time": 0.089,
+      "rtf": 0.0339
+    },
+    {
+      "file": "processed_5.wav",
+      "text": "谢谢你握住了我的手，我再也再也不会放开你了。😊",
+      "emotion": "开心",
+      "language": "zh",
+      "duration": 6.741,
+      "process_time": 0.118,
+      "rtf": 0.0175
+    },
+    {
+      "file": "processed_6.wav",
+      "text": "血的味道。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 1.189,
+      "process_time": 0.078,
+      "rtf": 0.066
+    },
+    {
+      "file": "processed_7.wav",
+      "text": "阳光好强烈，嗯，我讨厌这样的天气。😔",
+      "emotion": "难过",
+      "language": "zh",
+      "duration": 6.758,
+      "process_time": 0.106,
+      "rtf": 0.0157
+    },
+    {
+      "file": "processed_8.wav",
+      "text": "要一起出门吗？我马上就来。",
+      "emotion": null,
+      "language": "zh",
+      "duration": 2.709,
+      "process_time": 0.088,
+      "rtf": 0.0326
+    },
+    {
+      "file": "processed_9.wav",
+      "text": "一起走吧。😊",
+      "emotion": "开心",
+      "language": "zh",
+      "duration": 0.768,
+      "process_time": 0.076,
+      "rtf": 0.0985
+    }
+  ]
+}

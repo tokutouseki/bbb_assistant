@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2865/detail?bbs_presentation_style=no_header",
+  "title": "7.1版本宣传PV「绝地绘星」-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2865,
+  "main_content": "「绝地绘星」简介：《崩坏3》7.1版本「绝地绘星」即将开启！全新SP角色「天行·绘星之卷」登场！还有主线42章、主题活动「繁星旅航：反击战」等全新活动来袭，敬请期待！配音演员：格蕾修——紫苏九月符华——Mace娑——闫夜桥和光的薇塔——闫夜桥义心的薇塔——闫夜桥蕴蓄的薇塔——闫夜桥",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "游戏PV",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/11/12/264755623/7ff2695c24038a61aea9b384beae2063_2065176113107020616.mp4",
+      "type": "video",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 141,
+    "media_count": 1,
+    "extraction_time": 1773491949.0251968,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773491949.0251968
+}

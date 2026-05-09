@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1401/detail?bbs_presentation_style=no_header",
+  "title": "打火机-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1401,
+  "main_content": "基础介绍       名称 打火机 类型 普通成就      名称 打火机 类型 普通成就  获得方式：累计对敌人造成100次点燃状态",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/27/73514954/a7f730cc7924d2497a6d7eb354c4e6f1_4823853252476930277.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 67,
+    "media_count": 1,
+    "extraction_time": 1773424405.6352487,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773424405.6352487
+}

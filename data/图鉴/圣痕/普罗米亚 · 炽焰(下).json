@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2690/detail?bbs_presentation_style=no_header",
+  "title": "普罗米亚 · 炽焰(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2690,
+  "main_content": "圣痕资料   位置 下位单件tag 火伤圣痕技能 【燃尽星球】火焰元素伤害提升12.0％，受到攻击时，火焰元素伤害额外提高10.0％，持续5秒，冷却时间10秒。 相关圣痕  无      位置 下位 单件tag 火伤 圣痕技能 【燃尽星球】火焰元素伤害提升12.0％，受到攻击时，火焰元素伤害额外提高10.0％，持续5秒，冷却时间10秒。 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 253      攻击 25      防御 48      会心 7       玩家评价 输出向的火伤特性圣痕。常驻火伤，并在受击后进一步提高火伤。  获取途径   活动获取 参与「烈火炽魂」Bingo活动获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/08/24/282941837/b76c826038aa0369557c145cf2b20e14_8595722539027612385.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\普罗米亚 · 炽焰(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 363,
+    "media_count": 1,
+    "extraction_time": 1773488793.2830195,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773488793.2830195
+}

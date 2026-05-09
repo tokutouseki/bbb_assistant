@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3868/detail?bbs_presentation_style=no_header",
+  "title": "「来日亦然」圣痕自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3868,
+  "main_content": "材料描述     名称 「来日亦然」圣痕自选箱 类别 消耗品 使用后可从琪亚娜·喜焰烁夜(上)、琪亚娜·佳礼满怀(中)、琪亚娜·乐运天降(下)、根源棱镜x1中任选1件获得  获取途径   活动获取 参与「咚锵新年行」登录活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/01/23/77124895/736ef7a9a2e38549302dd66892b7f0ab_3656095918781127594.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 114,
+    "media_count": 1,
+    "extraction_time": 1773511343.980706,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773511343.980706
+}

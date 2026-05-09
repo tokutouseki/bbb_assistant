@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3604/detail?bbs_presentation_style=no_header",
+  "title": "寻梦者-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3604,
+  "main_content": "角色资料       中文名 寻梦者 外文名 Dreamram CV 张若瑜 所属组织 洛星      中文名 寻梦者 外文名 Dreamram CV 张若瑜 所属组织 洛星  女武神装甲  \n              寻梦者·1P\n              \n              寻梦者·1P",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/15/75216984/5a3c3d441860af9aad81860ff5a53af0_7633443422993691778.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/15/75216984/5e25fb6e2a8a754c023e1d7c2ec7015c_2156203442756820831.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 153,
+    "media_count": 2,
+    "extraction_time": 1773506600.1414177,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773506600.1414177
+}

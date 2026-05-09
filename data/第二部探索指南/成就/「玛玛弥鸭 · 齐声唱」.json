@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4145/detail?bbs_presentation_style=no_header",
+  "title": "「玛玛弥鸭 · 齐声唱」-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4145,
+  "main_content": "基础介绍       成就名称 「玛玛弥鸭 · 齐声唱」 达成奖励 500星石      成就名称 「玛玛弥鸭 · 齐声唱」 达成奖励 500星石  在地丰·晴光区的特殊探索中帮助8只迷路小鸭",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/10/09/77124895/95a3ad772eacf39651ee8a381dc56e81_6386353920865603097.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 96,
+    "media_count": 1,
+    "extraction_time": 1773516118.3441908,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773516118.3441908
+}

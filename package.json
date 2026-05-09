@@ -1,0 +1,42 @@
+{
+  "name": "bbb-assistant",
+  "version": "0.1.0",
+  "private": true,
+  "description": "崩坏3专属AI陪伴助手（桌面端）",
+  "author": "崩坏3助手团队",
+  "license": "MIT",
+  "workspaces": [
+    "frontend",
+    "shared"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm:dev:frontend\" \"npm:dev:backend\"",
+    "dev:frontend": "cd frontend && pnpm dev",
+    "dev:backend": "cd backend && python src/main.py",
+    "build": "concurrently \"npm:build:frontend\" \"npm:build:backend\"",
+    "build:frontend": "cd frontend && pnpm build",
+    "build:backend": "cd backend && python -m py_compile src/main.py",
+    "package": "cd frontend && pnpm package",
+    "lint": "concurrently \"npm:lint:frontend\" \"npm:lint:backend\"",
+    "lint:frontend": "cd frontend && pnpm lint",
+    "lint:backend": "cd backend && pnpm lint",
+    "format": "concurrently \"npm:format:frontend\" \"npm:format:backend\"",
+    "format:frontend": "cd frontend && pnpm format",
+    "format:backend": "cd backend && black src/ tests/",
+    "test": "concurrently \"npm:test:frontend\" \"npm:test:backend\"",
+    "test:frontend": "cd frontend && pnpm test",
+    "test:backend": "cd backend && pytest",
+    "install:all": "pnpm install && cd backend && pip install -r requirements.txt",
+    "setup": "npm run install:all && npm run setup:models && npm run setup:knowledge",
+    "setup:models": "cd backend && python scripts/download_models.py",
+    "setup:knowledge": "cd backend && python scripts/setup_knowledge_base.py"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "archiver": "^6.0.1"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  }
+}

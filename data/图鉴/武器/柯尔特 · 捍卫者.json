@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/168/detail?bbs_presentation_style=no_header",
+  "title": "柯尔特 · 捍卫者-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 168,
+  "main_content": "武器数据     星级  攻击 114会心 25 由柯尔特公司设计并生产的双动式转轮手枪，可使用44 Special, 44Magnum以及45柯尔特子弹  武器技能   眩晕子弹\t\t [能量消耗:7][冷却:12秒]对目标小范围内敌人造成5点眩晕积蓄值  获取方式   悬赏锻造 崩坏碎片x80既往获取 通过主线关卡S3-1获取  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/07/81417673/3a5cb1dd67356cae1ee0b72f1e296f96_3968165738671077140.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\柯尔特 · 捍卫者.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 204,
+    "media_count": 1,
+    "extraction_time": 1773403433.5502775,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403433.5502775
+}

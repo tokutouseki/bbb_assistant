@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/193/detail?bbs_presentation_style=no_header",
+  "title": "十字架-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 193,
+  "main_content": "武器数据     星级  攻击 76会心 8 天命组织开发的十字架形自律机枪，可以发射对崩坏兽用的银弹，但是德丽莎似乎更愿意用来砸向敌人。  武器技能   银弹 [能量消耗:10][冷却:13秒]展开十字架【召唤物】 : 8秒内，每隔0.8秒对范围内随机敌人发射银弹，小范围爆炸造成400点物理伤害  获取方式   编年史 通关编年史 永世回忆篇 初战 关卡获取其它方式 十字架角色初始自带武器  进化材料   突破等级 所需材料 5 流体合金 *110 流体合金 *1",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/07/81417673/faedf219941566afdb9c0cc4254c887f_3909981677596248780.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\十字架.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 235,
+    "media_count": 1,
+    "extraction_time": 1773403778.6097436,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403778.6097436
+}

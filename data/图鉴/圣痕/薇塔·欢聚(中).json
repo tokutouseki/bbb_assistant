@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3683/detail?bbs_presentation_style=no_header",
+  "title": "薇塔·欢聚(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3683,
+  "main_content": "圣痕资料   位置 中位单件tag 生命回复 相关圣痕  无      位置 中位 单件tag 生命回复 相关圣痕  无   圣痕纹章   圣痕技能   畅怀一刻 每4次普通攻击命中敌人时，回复50点生命，触发间隔4秒  基本属性         属性 数值 D C B A A+ S 生命 276      攻击 0      防御 96      会心 5       玩家评价 生命回复可提高生存能力。  获取途径   活动获取 参与肯德基×崩坏3「美味上舰！乐享派对时刻」活动使用兑换码兑换获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/24/50494840/1d70c4b3965c0f47362bb7265c91b537_5655038794460492162.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\薇塔·欢聚(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 292,
+    "media_count": 1,
+    "extraction_time": 1773508144.0669272,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773508144.0669272
+}

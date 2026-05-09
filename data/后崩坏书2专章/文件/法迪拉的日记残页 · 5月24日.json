@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1393/detail?bbs_presentation_style=no_header",
+  "title": "法迪拉的日记残页 · 5月24日-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1393,
+  "main_content": "文件位置   文件详情 ”······天空似乎能隐隐看出有些泛红，没有解释，也无从解释。不知从什么时候起，已经看不到游客的存在了，有种奇怪的轶闻似乎正在四下传播着······听来有些滑稽。没想到，我还真成为了故事里的作曲家。明知城市被笼罩在瘟疫之下，所有人都争先恐后逃离，却为了挚爱不愿离开。只是······扪心自问，我留在这里，同样是为了挚爱吗？还是说······仅仅只是为了自己的小算盘。的确，我不应该这么自私······但既然一场顺理成章的「意外」摆在面前，我不可能拒绝。至少这样，我毫无价值的死亡，可以为你留下一些东西，诺娜。······有人来敲门了，今天就到此为止吧。“",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "文件",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/27/73514954/14cdf56f0a763d199bd27478a8490ef5_9166583153171088090.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 290,
+    "media_count": 1,
+    "extraction_time": 1773424241.5679219,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773424241.5679219
+}

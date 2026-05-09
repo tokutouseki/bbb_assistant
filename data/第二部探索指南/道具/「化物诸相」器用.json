@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3179/detail?bbs_presentation_style=no_header",
+  "title": "「化物诸相」器用-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3179,
+  "main_content": "「化物诸相」器用   稀有度 3星/4星/5星获取途径 数海乱流、荒梁一枕、虚海蜃影、世界探索、背包道具、材料商店套装效果 赝力·器用2件套：全队女武神攻击提高80。  徽记    名称 钤启九曜      名称 钤启九曜   花    名称 别愿尘芙      名称 别愿尘芙   纸    名称 琳琅邀致      名称 琳琅邀致   钉    名称 空谛三千      名称 空谛三千",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "道具",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/02/20/50494840/7e1e14c1c80f7d03530d0e53461b2745_7156907386252335558.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/02/20/50494840/563fd9668d647a2640c928a70460f03e_1445074698009130529.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/04/01/50494840/35c8d706e477be2ad0779c6bb759db8f_1721430593790460533.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/02/20/50494840/32dd9d3b13d4564d5801cf36ef8caed2_1782394526415801869.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 195,
+    "media_count": 4,
+    "extraction_time": 1773497942.3845599,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773497942.3845599
+}

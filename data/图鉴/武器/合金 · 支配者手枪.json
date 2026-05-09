@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/294/detail?bbs_presentation_style=no_header",
+  "title": "合金 · 支配者手枪-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 294,
+  "main_content": "武器数据     星级  攻击 168会心 10 天命组织用自研的冰属性合金仿照支配者手枪所批量生产的枪械，其所拥有的崩坏威力无限接近支配者手枪  武器技能   合金 · 灼热铁拳 [能量消耗:19][冷却:10秒]借用强大的机械力量打出上勾拳,对范围内敌人造成多段每次40%攻击力的物理伤害,并附加97点火焰元素伤害  获取方式   材料-消耗品 开启合金武器自选箱获得  进化材料   突破等级 所需材料 15 流体合金 *320 流体合金 *325 流体合金 *330 流体合金 *6",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/08/73514954/8293044374e429ed45315eff33db5e5e_6143387145361815348.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\合金 · 支配者手枪.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 245,
+    "media_count": 1,
+    "extraction_time": 1773404255.286001,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404255.286001
+}

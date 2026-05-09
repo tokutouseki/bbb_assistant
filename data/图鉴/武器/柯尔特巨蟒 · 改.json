@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/171/detail?bbs_presentation_style=no_header",
+  "title": "柯尔特巨蟒 · 改-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 171,
+  "main_content": "武器数据     星级  攻击 127会心 2 柯尔特公司设计并生产的一款大框架，双动转轮手枪，经过改换枪管之后，成为柯尔特公司.44口径转轮枪中最准确的型号  武器技能   霜降 [能量消耗:5][冷却:10秒]使目标小范围敌人移动与攻击速度降低60%，持续4.50秒  获取方式   既往获取 通过主线关卡2-6、S4-6获取编年史 通关编年史-永世回忆篇-挑战02关卡获取  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/07/81417673/cee3254d5b24023a3f2c75f07388dcff_2301541533371630702.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\柯尔特巨蟒 · 改.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 228,
+    "media_count": 1,
+    "extraction_time": 1773403489.200245,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403489.200245
+}

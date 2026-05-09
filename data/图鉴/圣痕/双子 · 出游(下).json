@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/751/detail?bbs_presentation_style=no_header",
+  "title": "双子 · 出游(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 751,
+  "main_content": "圣痕资料   位置 下位单件tag 物伤圣痕技能 【摩登女孩】莉莉娅或萝莎莉娅在队伍里时，角色物理伤害提高20.0% 相关圣痕  无      位置 下位 单件tag 物伤 圣痕技能 【摩登女孩】莉莉娅或萝莎莉娅在队伍里时，角色物理伤害提高20.0% 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 276      攻击 16      防御 55      会心 5       玩家评价 需萝莎莉娅或莉莉娅在队内触发圣痕效果，加成数值偏低  获取方式   2020.11「梦想扭蛋机」活动 完成任务转动梦想扭蛋机获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/12/75940953/9982ca3befbc16d20c77e0c65fa37135_3849376633214048677.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\双子 · 出游(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 323,
+    "media_count": 1,
+    "extraction_time": 1773412626.6048207,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773412626.6048207
+}

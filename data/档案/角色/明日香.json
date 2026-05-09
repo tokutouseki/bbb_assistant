@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1042/detail?bbs_presentation_style=no_header",
+  "title": "明日香-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1042,
+  "main_content": "角色资料       中文名 明日香 外文名 Asuka CV 宫村优子 生日       中文名 明日香 外文名 Asuka CV 宫村优子 生日   女武神装甲  \n              明日福音\n              \n              明日福音",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/03/6100274/c40ca118feae855b34c730a7585ff447_7182588967000661799.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/03/6100274/906b263d7717fe50e9980fa425cb452e_5248320645424031878.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 137,
+    "media_count": 2,
+    "extraction_time": 1773417832.7921953,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773417832.7921953
+}

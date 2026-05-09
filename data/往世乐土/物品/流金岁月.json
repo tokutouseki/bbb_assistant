@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/960/detail?bbs_presentation_style=no_header",
+  "title": "流金岁月-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 960,
+  "main_content": "流金岁月流金岁月★★★  效果：选择「黄金」的刻印时其初始等级增加1级。拥有刻印【黄金的咏叹】时，一次性消耗50以上能量时，掉落一个能量包，拾取该方式掉落的能量包只回复10点能量；拥有刻印【黄金的余音】时，消耗能量时会额外增加20点【终末余音】的充能，触发间隔10秒流金岁月非专业设备录制的一张唱片，记录了伊甸的一段清唱。那是一段来自家乡的传统民谣，歌词大意为「愿时光永驻此刻」。背景音里能听到远处的谢幕声和台下热烈的欢呼声。某次演出结束，帷幕落下后，观众依旧久久不愿散场，激动地呼唤着她的名字。帷幕后的伊甸倾听着外面的声音，用后台的简易设备录下了这首歌。——伊甸，演出已经结束了······那个时代，已经结束了。——不，我还在这里。那些记忆，那些光芒存在过的痕迹，都还在这里。",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/28/73514954/7e542b275b769c10fd10d6d3306c2283_4053138201674515266.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 339,
+    "media_count": 1,
+    "extraction_time": 1773416544.7357047,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773416544.7357047
+}

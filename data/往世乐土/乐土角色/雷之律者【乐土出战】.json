@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2764/detail?bbs_presentation_style=no_header",
+  "title": "雷之律者【乐土出战】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2764,
+  "main_content": "出战角色     装甲名称 雷之律者 CV 菊花花装甲属性 异能 伤害类型 雷、物理解锁条件 获取该女武神后在往世乐土装甲强化界面消耗无瑕之钥解锁           装甲名称 雷之律者 CV 菊花花 装甲属性 异能 伤害类型 雷、物理 解锁条件 获取该女武神后在往世乐土装甲强化界面消耗无瑕之钥解锁    特殊调整   角色调整 角色属性和技能等级已平衡至80级。场上敌人受到的伤害提高50%（该效果为独立加成）。必杀技调整 爆发状态下不再免疫死亡。非爆发状态下释放武器技能时，刷新必杀技冷却时间。爆发状态下释放武器技能时，全伤害提高35%，持续15秒，可刷新。  角色特殊技能 1级 S0 雷之律者的攻击力提高10%S2 雷之律者的攻击力提高10%SS 雷之律者的攻击力提高10%3级 刻印【「天罚」的祝福】效果强化 【「天罚」的祝福】：爆发状态下，空中轰击消耗的律者能量提高至200%，每击额外造成400%攻击力雷电元素伤害【「天罚」的祝福+】：爆发状态下，空中轰击消耗的律者能量提高至300%，每击额外造成800%攻击力雷电元素伤害6级 刻印【「绝影」的祝福】效果强化 【「绝影」的祝福】：闪避后按攻击键可直接使用普攻第四击，普攻第四击后全伤害提高40%，持续5秒【「绝影」的祝福+】：闪避后按攻击键可直接使用普攻第四击。普攻第四击后全伤害提高40%，持续5秒。普攻第五击额外回复10点能量9级 刻印【「胧月」的祝福】效果强化 【「胧月」的祝福】：普攻第五击后会在前方降下3道裁决之雷，每道命中敌人时造成900%攻击力雷电元素伤害【「胧月」的祝福+】：普攻第五击后会在前方降下3道裁决之雷，每道命中敌人时造成1200%攻击力雷电元素伤害12级 刻印【「御魂」的祝福】效果强化 【「御魂」的祝福】：律者能量最大值翻倍，进入爆发状态时回复全部律者能量。爆发状态下，律者能量每秒回复75点。普攻第五击额外回复100点律者能量【「御魂」的祝福+】：律者能量最大值翻倍，进入爆发状态时回复全部律者能量。爆发状态下，律者能量每秒回复75点。普攻第五击额外回复300点律者能量15级 刻印【「鸣神」的祝福】效果强化 【「鸣神」的祝福】：释放终结技后在周围降下8道裁决之雷，每道命中敌人时造成900%攻击力雷电元素伤害【「鸣神」的祝福+】：释放终结技后在周围降下8道裁决之雷，每道命中敌人时造成900%攻击力雷电元素伤害，每有20连击数可额外增加1道，最多增加至12道",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/25/50494840/de2da4f4f278d0dbcb9479cbcc0ca434_3693466994060613579.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/06/73760043/72ea394501dea00636f4a52c88c15b2b_8092231204696388728.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 1030,
+    "media_count": 2,
+    "extraction_time": 1773490120.0901194,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773490120.0901194
+}

@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3926/detail?bbs_presentation_style=no_header",
+  "title": "琪亚娜·打工少女(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3926,
+  "main_content": "圣痕资料   位置 中位单件tag 移速-生命回复 相关圣痕  无      位置 中位 单件tag 移速-生命回复 相关圣痕  无   圣痕纹章   圣痕技能   服务员 移动速度提高10%，琪亚娜或卡莲角色装备时，所有队友每3秒回复20点生命，生命回复提高效果唯一生效  基本属性         属性 数值 D C B A A+ S 生命 353      攻击 0      防御 120      会心 1       玩家评价 提高移速可用于特殊关卡或娱乐向使用。  获取途径   活动获取 2017年参与森罗联活动限时获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/03/22/50494840/6865be4fd674572a8d1d15b4e58e7ee4_6877763416866655310.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\琪亚娜·打工少女(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 309,
+    "media_count": 1,
+    "extraction_time": 1773512345.12421,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773512345.12421
+}

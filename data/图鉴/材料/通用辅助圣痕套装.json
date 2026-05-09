@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1093/detail?bbs_presentation_style=no_header",
+  "title": "通用辅助圣痕套装-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1093,
+  "main_content": "材料描述     名称 通用辅助圣痕套装 类别 消耗品 使用后可获得奥吉尔(上)x1、奥吉尔(中)x1、奥吉尔(下)x1",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/18/50494840/9833d4d75c384d10ae48ca08fd9b5a02_3962509339636891958.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 60,
+    "media_count": 1,
+    "extraction_time": 1773418771.5872316,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773418771.5872316
+}

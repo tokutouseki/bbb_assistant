@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1264/detail?bbs_presentation_style=no_header",
+  "title": "食材-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1264,
+  "main_content": "材料描述     名称 食材 类别 基础材料 常见的食材，可以在樱色轮回中采集获得  消耗途径   樱色轮回 樱色轮回中享用料理时消耗  获取途径   樱色轮回 常见的食材，可以在樱色轮回中采集获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/75940953/ac2ba1d8745e1883847e886de9778969_5592290345219776834.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 99,
+    "media_count": 1,
+    "extraction_time": 1773421970.2607281,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421970.2607281
+}

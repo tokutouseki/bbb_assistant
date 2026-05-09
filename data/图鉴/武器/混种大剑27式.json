@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/175/detail?bbs_presentation_style=no_header",
+  "title": "混种大剑27式-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 175,
+  "main_content": "武器数据     星级  攻击 116会心 23 混种大剑拥有骑士剑的“突刺”和斩剑的“砍劈”以及阔剑的“顺手”。只有强大的战士才能熟练的使用它。  武器技能   升龙斩\t\t\t\t\t [能量消耗:12][冷却:10秒]将身前敌人挑飞，造成350%攻击力的物理伤害  获取方式   既往获取 通过主线关卡3-3获取编年史 通关编年史-轩辕篇-指引关卡获取  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/07/81417673/3a71f3f41b97c82b64e7a40321ae6297_5392688752706897127.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\混种大剑27式.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 214,
+    "media_count": 1,
+    "extraction_time": 1773403545.89906,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403545.89906
+}

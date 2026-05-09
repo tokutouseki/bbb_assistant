@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2445/detail?bbs_presentation_style=no_header",
+  "title": "爱酱 · 酣畅甜梦(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2445,
+  "main_content": "圣痕资料   位置 下位单件tag 全伤-火伤圣痕技能 【睡梦中完成的工作】角色火焰元素伤害提高20.0%，武器技能造成的全伤害提高15.0% 相关圣痕  无      位置 下位 单件tag 全伤-火伤 圣痕技能 【睡梦中完成的工作】角色火焰元素伤害提高20.0%，武器技能造成的全伤害提高15.0% 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 276      攻击 33      防御 27      会心 9       玩家评价 提高输出能力，可用于前期过渡。  获取方式   活动获取 参与「商界双星：偶像百货」活动玩法获得时间胶囊 时间胶囊商店，使用吼姆's Legend 见证章兑换  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/05/23/50494840/651512f56a852bbdba4c688ad3ca99bf_1721528797410028852.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\爱酱 · 酣畅甜梦(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 364,
+    "media_count": 1,
+    "extraction_time": 1773481369.9896958,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773481369.9896958
+}

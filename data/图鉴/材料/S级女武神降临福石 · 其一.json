@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1220/detail?bbs_presentation_style=no_header",
+  "title": "S级女武神降临福石 · 其一-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1220,
+  "main_content": "材料描述     名称 S级女武神降临福石 · 其一 类别 消耗品 激活后可以自选一名女武神降临：白骑士 · 月光、雷电女王的鬼铠、次元边界突破，并额外获得其30个碎片。  获取途径   祈愿之地 通过第一期祈愿之地获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/10381695/4605ff60b784c71b8cea227efea5467e_5148787640510299226.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 110,
+    "media_count": 1,
+    "extraction_time": 1773421168.469953,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421168.469953
+}

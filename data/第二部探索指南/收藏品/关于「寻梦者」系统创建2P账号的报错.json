@@ -1,0 +1,17 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3580/detail?bbs_presentation_style=no_header",
+  "title": "关于「寻梦者」系统创建2P账号的报错-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3580,
+  "main_content": "书页位置 在完成第二部第4章剧情的过程中可以获得。  关于「寻梦者」系统创建2P账号的报错 关于「寻梦者」系统创建2P账号的报错——阿婕塔博士亲爱的朋友（不是朋友也无所谓），你好，如果你看到了这条报错信息，说明你正试图在系统中创建新的2P账号。本系统目前最新迭代至97230.2 版本，目前只能支持运行一个2P账号。事先声明，这不是我的代码有问题（我的代码从来不会有问题），而是量子计算神经网络的内存不够所致。如果开设多个2P账号，会导致内存溢出无法运行。这个系统立项时的企划案里本身只支持女性身份登录（即1P账号），因为该「寻梦者」系统的预定使用者■■■生理性别是女性（相信这一点无需特意指出）。但在上周的开发需求评审中，■■■■提出要增加一种性别，加快神经网络训练速率，所以才有了这个加入了2P功能的beta版本（呵呵，任何在开发早期不提出而是中途临时追加需求的人都应该被扔进太阳表面)。目前的临时版本中，如果试图创建新的2P账号，会导致不可逆的内存溢出，系统无法运行。关于正式版本的更新计划，需要等到下个月，我去第一行星采集更多硅元素制造内存芯片以后才能给出实装日期。总之，如果这个报错已经发生，就必须卸载所有的2P账号模块释放内存，才能继续接入系统。顺便，当你读到这一行的时候，我的自动修复系统应该已经帮你卸载完了，不用谢。 \n      [折叠展开]",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "收藏品",
+  "media_resources": [],
+  "metadata": {
+    "content_length": 580,
+    "media_count": 0,
+    "extraction_time": 1773506166.890297,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773506166.890297
+}

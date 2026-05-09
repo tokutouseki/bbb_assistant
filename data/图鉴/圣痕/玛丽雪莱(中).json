@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/700/detail?bbs_presentation_style=no_header",
+  "title": "玛丽雪莱(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 700,
+  "main_content": "圣痕资料   位置 中位所属套装 科学怪人套装套装tag 生命-减伤-全伤-生命回复圣痕技能 【心灵屏障】战斗中生命上限提高5%，战斗开始时获得心灵屏障，被敌人击中时，可吸收自身25%生命上限的全伤害，被击碎后30秒再次生成 相关圣痕 玛丽雪莱(上) 玛丽雪莱(下)      位置 中位 所属套装 科学怪人套装 套装tag 生命-减伤-全伤-生命回复 圣痕技能 【心灵屏障】战斗中生命上限提高5%，战斗开始时获得心灵屏障，被敌人击中时，可吸收自身25%生命上限的全伤害，被击碎后30秒再次生成 相关圣痕 玛丽雪莱(上) 玛丽雪莱(下)   套装技能   生物电流 附近有敌人时，每隔4秒以自身为中心进行范围放电，放电对敌人造成40%自身生命上限的雷电元素伤害（生命上限大于等于15000的，按照15000计算）并储存1个能量信标科学怪人 能量信标累计数达到7时，普通攻击（包括蓄力和分支）击中敌人后进入科学怪人形态，自身造成的全伤害提高40%，每秒回复全队2%的生命，持续10秒，科学怪人形态结束时清空所有能量信标  基本属性         属性 数值 D C B A A+ S 生命 507      攻击 0      防御 122      会心 6       玩家评价 提升角色的生命值上限，并根据生命上限为角色附加一个护盾，提升了角色的生存能力。  获取方式   活动获取 既往驱魔联机记忆限时兑换悬赏锻造 天命·虚数核心 x122  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *340 流体合金块 *2相转移镜面 *845 流体合金块 *3相转移镜面 *12",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/10/72350798/12a090213d9dfa36d21cae4e9c4e93c5_7052621115248147587.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\玛丽雪莱(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 701,
+    "media_count": 1,
+    "extraction_time": 1773411691.4786613,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773411691.4786613
+}

@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2310/detail?bbs_presentation_style=no_header",
+  "title": "苏莎娜-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2310,
+  "main_content": "角色资料       中文名 苏莎娜 外文名 Susannah CV 林簌 生日 11月29日      中文名 苏莎娜 外文名 Susannah CV 林簌 生日 11月29日  女武神装甲  \n              女武神 · 热砂\n              \n              女武神 · 热砂",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/18/75216984/e20a4305f255a97a6d24e313710e4c62_6533885024161823413.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/20/75216984/44a489ee45ed694a562e2c9399be5e8a_7974563066507338343.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 159,
+    "media_count": 2,
+    "extraction_time": 1773478745.7992628,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773478745.7992628
+}

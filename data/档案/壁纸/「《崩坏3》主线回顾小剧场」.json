@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2133/detail?bbs_presentation_style=no_header",
+  "title": "「《崩坏3》主线回顾小剧场」-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2133,
+  "main_content": "「《崩坏3》主线回顾小剧场」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/02/08/75216984/97ec2009b25378d34ebcf13c62fe089f_8096765097750935808.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 14,
+    "media_count": 1,
+    "extraction_time": 1773475396.4249203,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773475396.4249203
+}

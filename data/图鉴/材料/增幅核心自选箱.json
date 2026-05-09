@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1101/detail?bbs_presentation_style=no_header",
+  "title": "增幅核心自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1101,
+  "main_content": "材料描述     名称 增幅核心自选箱 类别 消耗品 可在2020新春礼包中获得  消耗途径   直接使用 使用后可以自选天穹核心*30、破晓核心*30、迷雾核心*30、彗星核心*30或暮光核心*23哦~  获取途径   商城 可在2020新春礼包中获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/18/50494840/a766220cfe1d004aa0274bdd9f2c9010_2402941140277150833.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 127,
+    "media_count": 1,
+    "extraction_time": 1773418927.5665233,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773418927.5665233
+}

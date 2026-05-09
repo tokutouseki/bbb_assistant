@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1629/detail?bbs_presentation_style=no_header",
+  "title": "沉金如梦-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1629,
+  "main_content": "沉金如梦沉金如梦★★★★饰品效果：选择「黄金」的刻印时其初始等级增加1级。充能到达600时，可释放技能展开伊甸的舞台，对范围内的敌人每秒造成生命流失伤害（该伤害将随深层序列难度和同难度下关卡层数的提高而增加），并使得出战女武神获得50%的全伤害提高，持续时间为10秒。充能方式：进入战斗状态后每恢复20点能量获得50点充能，具有2秒的触发间隔沉金如梦时至今日，仍未能完成的一篇乐章。这是在遥远的过去，伊甸为了送别某位友人而作的乐曲。可是，直到那位友人离去，这首曲子，都还迟迟未能完成。正所谓是，时光易逝，旧友难寻。回首往昔，月色与酒仍在，百花与歌···却早已零落成尘。而如今，时代落幕，空余鸟鸣。——······再会了，我的朋友。",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/11/50494840/693962c525fb2bddd610a254c47501ab_8918724184925056116.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 315,
+    "media_count": 1,
+    "extraction_time": 1773466382.660855,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773466382.660855
+}

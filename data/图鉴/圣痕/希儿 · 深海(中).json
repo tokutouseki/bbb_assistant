@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/748/detail?bbs_presentation_style=no_header",
+  "title": "希儿 · 深海(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 748,
+  "main_content": "圣痕资料   位置 中位单件tag 施加异常状态圣痕技能 【深海幻影】被切换入场后会降低周围敌人20%的移动速度，持续5.0秒，冷却时间20.0秒 相关圣痕  无      位置 中位 单件tag 施加异常状态 圣痕技能 【深海幻影】被切换入场后会降低周围敌人20%的移动速度，持续5.0秒，冷却时间20.0秒 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 276      攻击 0      防御 103      会心 4       玩家评价 适合对减速敌人有增伤的角色使用，且间接提高了角色生存能力  获取方式   2019.3「海渊之眼」团队挑战活动 完成任务获得2019.4「海渊之眼」团队挑战活动任务异常刷新 完成任务获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/12/75940953/401e7fa1061ee88a864858adb53bd357_1111733058169408323.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\希儿 · 深海(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 382,
+    "media_count": 1,
+    "extraction_time": 1773412571.6060987,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773412571.6060987
+}

@@ -1,0 +1,144 @@
+{
+  "version": "1.0.0",
+  "last_updated": "2026-03-11",
+  "description": "崩坏3角色语音配置文件，用于VoxCPM语音克隆和TTS生成",
+  "voices": [
+    {
+      "id": "elysia",
+      "name": "爱莉希雅",
+      "description": "爱莉希雅，逐火十三英桀第二位，代号「真我」。性格活泼开朗，喜欢与人交流。",
+      "gender": "female",
+      "age_group": "young",
+      "reference_audio": "../../voice_resources/elysia/reference.wav",
+      "reference_text": "有沉默寡言，却又敏锐细腻的绘画少女。除此之外，还有一位在我们那个时代举世瞩目的大明星呢",
+      "voice_characteristics": {
+        "pitch": "medium-high",
+        "speed": "moderate",
+        "emotion": "cheerful",
+        "clarity": "high"
+      },
+      "available": true,
+      "priority": 1
+    },
+    {
+      "id": "kiana",
+      "name": "琪亚娜·卡斯兰娜",
+      "description": "天命女武神部队B级女武神，卡斯兰娜家族的后裔，活泼开朗，充满活力。",
+      "gender": "female",
+      "age_group": "young",
+      "reference_audio": null,
+      "reference_text": null,
+      "voice_characteristics": {
+        "pitch": "high",
+        "speed": "fast",
+        "emotion": "energetic",
+        "clarity": "high"
+      },
+      "available": false,
+      "priority": 2,
+      "notes": "需要收集游戏内琪亚娜语音片段作为参考音频"
+    },
+    {
+      "id": "mei",
+      "name": "雷电芽衣",
+      "description": "ME社前社长千金，圣芙蕾雅学园学生，性格温柔稳重，责任心强。",
+      "gender": "female",
+      "age_group": "young",
+      "reference_audio": null,
+      "reference_text": null,
+      "voice_characteristics": {
+        "pitch": "medium",
+        "speed": "moderate",
+        "emotion": "calm",
+        "clarity": "high"
+      },
+      "available": false,
+      "priority": 3,
+      "notes": "需要收集游戏内芽衣语音片段作为参考音频"
+    },
+    {
+      "id": "bronya",
+      "name": "布洛妮娅·扎伊切克",
+      "description": "前逆熵杀手，理之律者，性格冷静理性，说话简洁直接。",
+      "gender": "female",
+      "age_group": "young",
+      "reference_audio": null,
+      "reference_text": null,
+      "voice_characteristics": {
+        "pitch": "low",
+        "speed": "slow",
+        "emotion": "neutral",
+        "clarity": "high"
+      },
+      "available": false,
+      "priority": 4,
+      "notes": "需要收集游戏内布洛妮娅语音片段作为参考音频"
+    },
+    {
+      "id": "seele",
+      "name": "希儿·芙乐艾",
+      "description": "圣芙蕾雅学园学生，性格温柔内向，拥有表里人格。",
+      "gender": "female",
+      "age_group": "young",
+      "reference_audio": null,
+      "reference_text": null,
+      "voice_characteristics": {
+        "pitch": "medium",
+        "speed": "moderate",
+        "emotion": "gentle",
+        "clarity": "medium"
+      },
+      "available": false,
+      "priority": 5,
+      "notes": "需要收集游戏内希儿语音片段作为参考音频"
+    },
+    {
+      "id": "theresa",
+      "name": "德丽莎·阿波卡利斯",
+      "description": "天命极东支部部长，圣芙蕾雅学园长，外表年幼但实际年龄较大，性格活泼。",
+      "gender": "female",
+      "age_group": "young",
+      "reference_audio": null,
+      "reference_text": null,
+      "voice_characteristics": {
+        "pitch": "high",
+        "speed": "fast",
+        "emotion": "cheerful",
+        "clarity": "high"
+      },
+      "available": false,
+      "priority": 6,
+      "notes": "需要收集游戏内德丽莎语音片段作为参考音频"
+    },
+    {
+      "id": "fu_hua",
+      "name": "符华",
+      "description": "前文明纪元的融合战士，赤鸢仙人，性格沉稳冷静，经验丰富。",
+      "gender": "female",
+      "age_group": "young",
+      "reference_audio": null,
+      "reference_text": null,
+      "voice_characteristics": {
+        "pitch": "medium-low",
+        "speed": "slow",
+        "emotion": "serious",
+        "clarity": "high"
+      },
+      "available": false,
+      "priority": 7,
+      "notes": "需要收集游戏内符华语音片段作为参考音频"
+    }
+  ],
+  "default_voice": "elysia",
+  "voice_collection_guide": {
+    "recommended_format": "WAV, 16000Hz采样率, 单声道",
+    "minimum_duration": "3秒",
+    "recommended_duration": "10-30秒",
+    "text_requirements": "参考音频对应的文本应清晰准确，最好包含完整的句子",
+    "collection_methods": [
+      "游戏内录音（需注意版权）",
+      "官方配音素材",
+      "社区共享资源（需确认授权）"
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2822/detail?bbs_presentation_style=no_header",
+  "title": "SP级女武神-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2822,
+  "main_content": "材料描述     名称 SP级女武神 类别 消耗品 珍贵的作战物资支援。舰长，请选择一起冒险的伙伴吧!  消耗途径   直接使用 打开后，可在「糖露星霜角色卡」、「终末协理0017角色卡」、「女武神 · 热砂角色卡」、「时帆旅人角色卡」、「繁星 · 绘世之卷角色卡」中任选一种获得  获取途径   活动获取 回归玩家参与回归活动获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/10/12/77124895/6c200d6c577ea826b918981c5ae7fac1_683298541581082906.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 166,
+    "media_count": 1,
+    "extraction_time": 1773491181.7987156,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773491181.7987156
+}

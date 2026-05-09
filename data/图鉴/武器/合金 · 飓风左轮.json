@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/291/detail?bbs_presentation_style=no_header",
+  "title": "合金 · 飓风左轮-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 291,
+  "main_content": "武器数据     星级  攻击 158会心 24 天命组织用自研的冰属性合金仿照飓风左轮所批量生产的枪械,其所拥有的崩坏威力无限接近飓风左轮  武器技能   合金 · 旋转风刃 [能量消耗:15][冷却:20秒]以自身为中心旋转多次切割敌人,每次切割造成182点冰冻元素伤害,最终爆发造成240%攻击力物理伤害  获取方式   材料-消耗品 开启合金武器自选箱获得  进化材料   突破等级 所需材料 15 流体合金 *320 流体合金 *325 流体合金 *330 流体合金 *6",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/08/73514954/2db04f53c98b311468e0dd935a625556_9075889626355109140.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\合金 · 飓风左轮.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 241,
+    "media_count": 1,
+    "extraction_time": 1773404243.4551919,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404243.4551919
+}

@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2059/detail?bbs_presentation_style=no_header",
+  "title": "6.3版本宣传PV「真理交响」-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2059,
+  "main_content": "「真理交响」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "游戏PV",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/12/13/264755623/7fd6c71da5b4b1c94216ae7a72d5b6fc_5147469863811237227.mp4",
+      "type": "video",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 6,
+    "media_count": 1,
+    "extraction_time": 1773474093.4134047,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773474093.4134047
+}

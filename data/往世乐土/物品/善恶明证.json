@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1619/detail?bbs_presentation_style=no_header",
+  "title": "善恶明证-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1619,
+  "main_content": "善恶明证善恶明证★★★效果：选择「戒律」的刻印时其初始等级增加1级。拥有刻印【汝，当受万般戒律】时，「规诫」计数达到100时，便能触发核心刻印的增幅效果；拥有刻印【汝，当为戒律所佑】时，其全伤害提高上限由70%提高至100%善恶明证一本颇为厚实的手记，似乎是某人的心爱之物。那行善的，应被铭记于此。若有一日，那人陷于困厄，你便应因他往日的善行，予他一捧水喝。而那行恶的，也应被铭记于此。但，你不应予他水喝。你当这样说与他听——你此刻所受的灾厄，正是你曾施予他人的那些。而后，你才应予他那些，他所应得的惩戒······与救赎。——哎呀，阿波尼亚，原来······你还有写日记的习惯呀？——嗯···也算不上是日记吧。只是······一些我不想忘记的小事罢了。",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/11/50494840/9d052d59ec33f4c1a4a0bf973a47156a_1952152158339215575.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 327,
+    "media_count": 1,
+    "extraction_time": 1773466206.424292,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773466206.424292
+}

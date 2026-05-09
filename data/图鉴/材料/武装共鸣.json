@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1327/detail?bbs_presentation_style=no_header",
+  "title": "武装共鸣-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1327,
+  "main_content": "材料描述     名称 武装共鸣 类别 基础材料 与圣痕共鸣结构类似的物质,性质不稳定，需要特殊的装置才能转化形成。  消耗途径   商店使用 置换空间兑换武器使用星石商店兑换爱因斯坦环磁机使用  获取途径   转化武器获取 通过部分稀有武器转化获得（需消耗共鸣转化器）开启自选箱获得 通过开启共鸣自选箱获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/19/73008221/5d02707ff2d0f7e8975564bdec56f1ab_4246262535448906068.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 154,
+    "media_count": 1,
+    "extraction_time": 1773423098.9578679,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773423098.9578679
+}

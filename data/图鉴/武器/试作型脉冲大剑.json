@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/265/detail?bbs_presentation_style=no_header",
+  "title": "试作型脉冲大剑-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 265,
+  "main_content": "武器数据     星级  攻击 152会心 18 以女武神大剑为蓝本制作，鲜为人知的崩坏武器原型之一，可以陪伴主人共同成长，已知的最高记录是进化到稀有度4星  武器技能   短暂超频\t\t\t\t\t [能量消耗:8][冷却:15秒]强化武器，提高32%普通攻击(包括分支和蓄力)物理伤害，持续5秒  获取方式   装备补给 通过标配补给作为副产物获取（现已移除）活动获取 通过既往编年史玩法获取时间胶囊 通过时间胶囊获取  进化材料   突破等级 所需材料 5 流体合金 *110 流体合金 *115 流体合金 *220 流体合金 *525 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/08/73514954/bea7a0fa615974e4b1d9d804b367deff_2366358875233947259.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\试作型脉冲大剑.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 287,
+    "media_count": 1,
+    "extraction_time": 1773403996.3555198,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403996.3555198
+}

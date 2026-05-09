@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/433/detail?bbs_presentation_style=no_header",
+  "title": "柴可夫斯基(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 433,
+  "main_content": "圣痕资料   位置 上位所属套装 冬日旋律套装套装tag 全伤-减伤-生命-施加异常状态圣痕技能 【睡美人的荆棘】受到近战攻击时，降低受到的500点物理伤害，并对该敌人造成3点麻痹积蓄值，该效果每10.0秒可触发一次 相关圣痕 柴可夫斯基(中) 柴可夫斯基(下)      位置 上位 所属套装 冬日旋律套装 套装tag 全伤-减伤-生命-施加异常状态 圣痕技能 【睡美人的荆棘】受到近战攻击时，降低受到的500点物理伤害，并对该敌人造成3点麻痹积蓄值，该效果每10.0秒可触发一次 相关圣痕 柴可夫斯基(中) 柴可夫斯基(下)   套装技能   悲怆交响曲 释放必杀技后，下一次切换的队友提高10%造成的全伤害（唯一生效），持续10秒，该效果每30秒可触发一次冬之梦 释放必杀技后，下一次切换的队友受到的间接伤害降低30%（唯一生效），持续10秒，同时为这个队友回复圣痕装备者10%的最大生命值，该效果每30秒可触发一次  基本属性         属性 数值 D C B A A+ S 生命 222      攻击 55      防御 62      会心 0       玩家评价 受到伤害时提供减伤，同时会麻痹敌人，实际作用不大，适合辅助角色成套携带  获取方式   装备锻造 崩坏碎片x80补给获取 通过家园补给、精准补给、活动补给作为副产物获取编年史 逐梦双星剧情通关获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/15/77124895/57718de461848f5d68aa3d6dcbe4938e_5475689167538778807.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\柴可夫斯基(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 634,
+    "media_count": 1,
+    "extraction_time": 1773406348.3728452,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773406348.3728452
+}

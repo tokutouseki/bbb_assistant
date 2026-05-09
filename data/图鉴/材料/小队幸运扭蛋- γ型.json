@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1239/detail?bbs_presentation_style=no_header",
+  "title": "小队幸运扭蛋- γ型-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1239,
+  "main_content": "材料描述     名称 小队幸运扭蛋- γ型 类别 消耗品 打开后可获得以下女武神角色卡或灵魂碎片之一：圣仪装 · 今样、逆神巫女、真炎幸魂、银狼的黎明  获取途径   家园商店 金花印章购买获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/91006211/f4ba71b228e980e4f2073f823c7d5d54_2783371734114660554.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 98,
+    "media_count": 1,
+    "extraction_time": 1773421512.0909274,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421512.0909274
+}

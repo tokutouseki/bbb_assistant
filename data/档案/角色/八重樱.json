@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/972/detail?bbs_presentation_style=no_header",
+  "title": "八重樱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 972,
+  "main_content": "角色资料       中文名 八重樱 外文名 Yae Sakura CV 杜冥鸦 生日 7月22日      中文名 八重樱 外文名 Yae Sakura CV 杜冥鸦 生日 7月22日  女武神装甲  \n              逆神巫女\n             \n              御神装 · 勿忘\n             \n              真炎幸魂\n             \n              夜隐重霞\n              \n              逆神巫女\n             \n              御神装 · 勿忘\n             \n              真炎幸魂\n             \n              夜隐重霞",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/02/77124895/c34f6626828298749e504c8c1d6639d6_5851910423297599660.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/79874c29609af15ece87398c4888d9da_639342818154079795.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/e2f4ddb34a13881992ac06e38e1c7d19_1198783619573389191.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/936d23dc9920761e059c2a979062ce76_8155564648395146148.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/b3b6914ed79e8e896c8e3899f60e8f06_4259408999799868121.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 361,
+    "media_count": 5,
+    "extraction_time": 1773416764.7929964,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773416764.7929964
+}

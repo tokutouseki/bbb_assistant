@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3467/detail?bbs_presentation_style=no_header",
+  "title": "生命的律动-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3467,
+  "main_content": "基础介绍       成就名称 生命的律动 达成奖励 300星石      成就名称 生命的律动 达成奖励 300星石  达成条件：利用极限跳跃躲避一次「引力红移-唤灾硝火」的横扫攻击，触发「引力红移」的爆炸效果。",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/05/24/75216984/59647d91c4342d00a7408c7258ea65dc_4752682323687066595.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 107,
+    "media_count": 1,
+    "extraction_time": 1773504142.053293,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773504142.053293
+}

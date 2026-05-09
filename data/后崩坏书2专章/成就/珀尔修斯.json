@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1404/detail?bbs_presentation_style=no_header",
+  "title": "珀尔修斯-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1404,
+  "main_content": "基础介绍       名称 珀尔修斯 类型 隐藏成就      名称 珀尔修斯 类型 隐藏成就  获得方式：击败CodeⅢ-女皇",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/27/73514954/b0f54fd166b1155c4597f96c6b2c67f4_2195113508266355741.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 64,
+    "media_count": 1,
+    "extraction_time": 1773424460.3305888,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773424460.3305888
+}

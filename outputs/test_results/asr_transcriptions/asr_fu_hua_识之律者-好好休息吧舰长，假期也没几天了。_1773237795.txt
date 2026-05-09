@@ -1,0 +1,9 @@
+# ASR转录结果
+# 音频文件: d:\TokusCode\bbb_assistant\to_clone_test\识之律者-好好休息吧舰长，假期也没几天了。.wav
+# 角色ID: fu_hua
+# 语言: zh
+# 置信度: 0.950
+# 处理时间: 0.500s
+# 生成时间: 2026-03-11 22:03:15
+
+这是SenseVoiceSmall模型的模拟语音识别结果，用于测试。

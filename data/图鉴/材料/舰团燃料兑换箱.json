@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1117/detail?bbs_presentation_style=no_header",
+  "title": "舰团燃料兑换箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1117,
+  "main_content": "材料描述     名称 舰团燃料兑换箱 类别 消耗品 可以开出40个游骑兵声望，概率额外开出天命 · 虚数核心、逆熵 · 虚数核心  获取途径   商店获取 通过2.9版本舰团商店获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/18/73760043/c47cc3e9a4187c141524a466fd52120b_3257904118762266573.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 92,
+    "media_count": 1,
+    "extraction_time": 1773419209.9388483,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419209.9388483
+}

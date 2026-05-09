@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1603/detail?bbs_presentation_style=no_header",
+  "title": "苍骑士 · 月魂碎片随机礼盒-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1603,
+  "main_content": "材料描述     名称 苍骑士 · 月魂碎片随机礼盒 类别 消耗品 丽塔小姐，生日快乐~  消耗途径   直接使用 打开礼盒可随机获得4~12个苍骑士 · 月魂碎片  获取途径   商城 通过购买礼包获得（丽塔生日期间，限时售卖）",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/02/11528057/02824390bc9db2b26c6cf4f288581018_1945645420384424693.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 115,
+    "media_count": 1,
+    "extraction_time": 1773465888.1107593,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773465888.1107593
+}

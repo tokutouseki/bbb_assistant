@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1161/detail?bbs_presentation_style=no_header",
+  "title": "特供随机水晶箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1161,
+  "main_content": "材料描述     名称 特供随机水晶箱 类别 消耗品 可以随机开出70水晶、100水晶、120水晶、150水晶和200水晶其中一种的神秘水晶箱，快来试试手气吧！  获取途径   购买礼包 通过商城购买礼包获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/75216984/92db194a5b0ef7642ea16aea361fc101_2069851513864895809.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 104,
+    "media_count": 1,
+    "extraction_time": 1773420026.5483704,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773420026.5483704
+}

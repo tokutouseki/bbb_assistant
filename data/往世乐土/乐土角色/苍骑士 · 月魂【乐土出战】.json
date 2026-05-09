@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2757/detail?bbs_presentation_style=no_header",
+  "title": "苍骑士 · 月魂【乐土出战】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2757,
+  "main_content": "出战角色     装甲名称 苍骑士 · 月魂 CV 小N装甲属性 生物 伤害类型 冰、物理伤害类型 获取女武神后在往世乐土装甲强化界面消耗无暇之钥解锁           装甲名称 苍骑士 · 月魂 CV 小N 装甲属性 生物 伤害类型 冰、物理 伤害类型 获取女武神后在往世乐土装甲强化界面消耗无暇之钥解锁    特殊调整   角色调整 角色属性和技能等级已平衡至80级。场上敌人受到的伤害提高50%（该效果为独立加成）。  角色特殊技能 1级 S0 苍骑士 · 月魂的攻击力提高10%S2 苍骑士 · 月魂的攻击力提高10%SS 苍骑士 · 月魂的攻击力提高10%3级 刻印【「霜魄」的祝福】效果强化 【「霜魄」的祝福】：敌人的冰牢状态结束时，回到一层冰蚀状态【「霜魄」的祝福+】：敌人的冰牢状态结束时，回到一层冰蚀状态，处于冰蚀或冰牢效果的敌人受到的全伤害提高20%6级 刻印【「冰月」的祝福】效果强化 【「冰月」的祝福】：施加冰牢状态时，以自身为中心生成持续6秒的苍月霜环，苍月霜环每0.3秒对周围敌人造成250%攻击力冰冻元素伤害【「冰月」的祝福+】：施加冰牢状态时，以自身为中心生成持续6秒的苍月霜环，苍月霜环每0.3秒对周围敌人造成360%攻击力冰冻元素伤害9级 刻印【「星轨」的祝福】效果强化 【「星轨」的祝福】：爆发状态下施加冰牢状态时，以敌人为中心生成持续2秒的苍月霜环，苍月霜环每0.3秒对周围敌人造成520%攻击力冰冻元素伤害，苍月霜环最多同时存在2个【「星轨」的祝福+】：爆发状态下施加冰牢状态时，以敌人为中心生成持续2秒的苍月霜环，苍月霜环每0.3秒对周围敌人造成600%攻击力冰冻元素伤害，苍月霜环最多同时存在2个12级 刻印【「冷冽」的祝福】效果强化 【「冷冽」的祝福】：闪避后按攻击键可抛出寒冰之镰，持续旋转5秒，期间吸引周围敌人并造成共计5400%攻击力冰冻元素伤害，有10秒冷却【「冷冽」的祝福+】：闪避后按攻击键可抛出寒冰之镰，持续旋转5秒，期间吸引周围敌人并造成共计5400%攻击力冰冻元素伤害，有8秒冷却。自身生命值高于最大值的70%时攻击造成冰冻元素伤害提高50%15级 刻印【「天镜」的祝福】效果强化 【「天镜」的祝福】：爆发状态下，维持爆发状态所消耗的能量提高50%，全伤害提高90%【「天镜」的祝福+】：爆发状态下，维持爆发状态所消耗的能量提高50%，全伤害提高90%。爆发状态期间，每秒额外提高4.5%全伤害，持续至爆发状态结束",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/18/4976467/d1ca258d0830eb052b6c880ae4ed5100_3980072159954556715.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/06/73760043/72ea394501dea00636f4a52c88c15b2b_8092231204696388728.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 1041,
+    "media_count": 2,
+    "extraction_time": 1773490000.2226355,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773490000.2226355
+}

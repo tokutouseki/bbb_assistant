@@ -1,0 +1,125 @@
+{
+  "name": "bbb-assistant-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "崩坏3专属AI陪伴助手 - 桌面端前端应用",
+  "author": "崩坏3助手团队",
+  "license": "MIT",
+  "type": "module",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "electron:dev": "electron .",
+    "electron:build": "vue-tsc && vite build",
+    "electron:package": "npm run electron:build && electron-builder",
+    "package": "npm run electron:package",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "lint:check": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts",
+    "format": "prettier --write src/",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run"
+  },
+  "dependencies": {
+    "@iconify/vue": "^4.1.2",
+    "@vueuse/core": "^10.7.2",
+    "axios": "^1.6.8",
+    "dayjs": "^1.11.10",
+    "electron-updater": "^6.1.7",
+    "pinia": "^2.1.7",
+    "vue": "^3.4.21",
+    "vue-router": "^4.2.5",
+    "wavesurfer.js": "^7.7.10",
+    "websocket": "^1.0.34"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^7.2.0",
+    "@electron-forge/maker-deb": "^7.2.0",
+    "@electron-forge/maker-rpm": "^7.2.0",
+    "@electron-forge/maker-squirrel": "^7.2.0",
+    "@electron-forge/maker-zip": "^7.2.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.2.0",
+    "@electron-forge/plugin-fuses": "^7.2.0",
+    "@faker-js/faker": "^8.4.1",
+    "@iconify/json": "^2.2.213",
+    "@types/node": "^20.11.5",
+    "@types/websocket": "^1.0.12",
+    "@vitejs/plugin-vue": "^5.0.4",
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/eslint-config-typescript": "^12.0.0",
+    "@vue/test-utils": "^2.4.5",
+    "@vue/tsconfig": "^0.5.1",
+    "autoprefixer": "^10.4.17",
+    "electron": "^28.2.0",
+    "electron-builder": "^24.9.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-vue": "^9.20.1",
+    "jsdom": "^24.0.0",
+    "postcss": "^8.4.33",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.1",
+    "typescript": "~5.3.3",
+    "vite": "^5.1.0",
+    "vitest": "^1.2.2",
+    "vue-tsc": "^1.8.27"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "build": {
+    "appId": "com.bbb.assistant",
+    "productName": "崩坏3专属AI陪伴助手",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "dist-electron",
+      "dist",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/{.git,.github,workspace,.vscode,docs,examples,test,tests,__tests__}",
+      "!*.{map,md}",
+      "!{scripts,release,.env.*}"
+    ],
+    "asar": true,
+    "asarUnpack": "node_modules/websocket/**",
+    "win": {
+      "target": [
+        "nsis",
+        "zip"
+      ],
+      "icon": "assets/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "崩坏3专属AI陪伴助手"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm"
+      ],
+      "icon": "assets/icon.png",
+      "category": "Utility"
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "https://your-update-server.com/"
+      }
+    ]
+  }
+}

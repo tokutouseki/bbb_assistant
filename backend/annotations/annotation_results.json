@@ -1,0 +1,562 @@
+{
+  "000199.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.077270984649658
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.1995954513549805
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.0674357414245605
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.4097371101379395
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.492710590362549
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.06995081901550293
+  },
+  "000202.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.041872978210449
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.1560211181640625
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.003098011016846
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.326046943664551
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.409188270568848
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.05573391914367676
+  },
+  "000205.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.022107124328613
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.109528064727783
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.920799732208252
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.233476638793945
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.313451290130615
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.0589749813079834
+  },
+  "000208.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.025937557220459
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.129426956176758
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.9196319580078125
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.233481407165527
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.312882423400879
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.06314706802368164
+  },
+  "000211.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        3.9810309410095215
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.116182804107666
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.882840633392334
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.222967624664307
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.312054634094238
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.058594465255737305
+  },
+  "000214.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.038659572601318
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.179228782653809
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.919254302978516
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.2678937911987305
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.342445373535156
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.05809497833251953
+  },
+  "000217.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.088370323181152
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.230683326721191
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.960037708282471
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.289953708648682
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.367523670196533
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.057547569274902344
+  },
+  "000220.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.188442707061768
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.347787380218506
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.043388843536377
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.400694847106934
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.462100505828857
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.0580744743347168
+  },
+  "000223.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.132510662078857
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.270660400390625
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.966195583343506
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.298696517944336
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.3630828857421875
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.0604403018951416
+  },
+  "000226.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.172928333282471
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.318807125091553
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.0697126388549805
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.398095607757568
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.4647297859191895
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.05731320381164551
+  },
+  "000229.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.174650192260742
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.325516700744629
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.067203521728516
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.393754959106445
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.464152812957764
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.06316328048706055
+  },
+  "000232.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.164523124694824
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.330501556396484
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.031894207000732
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.373353481292725
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.44249963760376
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.056722402572631836
+  },
+  "000235.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.140215873718262
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.303878307342529
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.042137145996094
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.388932228088379
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.457319736480713
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.05717778205871582
+  },
+  "000238.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.060567855834961
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.216516971588135
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.039806365966797
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.372437953948975
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.454387664794922
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.05705666542053223
+  },
+  "000241.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.088260650634766
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.257707118988037
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.09234619140625
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.4132561683654785
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.500983238220215
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.05742907524108887
+  },
+  "000244.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.085501194000244
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.251901626586914
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.074032783508301
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.450473785400391
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.530438423156738
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.060357093811035156
+  },
+  "000247.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.056727409362793
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.235533237457275
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.042981147766113
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.437350749969482
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.513681411743164
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.06184864044189453
+  },
+  "000250.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.050319671630859
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.2016072273254395
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.034928798675537
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.400045871734619
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.481343746185303
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.05856180191040039
+  },
+  "000253.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.059924602508545
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.188546180725098
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.080738067626953
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.410696506500244
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.4851508140563965
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.05560302734375
+  },
+  "000256.jpg": {
+    "label": "MeiRiQianDao_Main",
+    "confidence": 1.0,
+    "nearest_neighbors": [
+      [
+        "MeiRiQianDao_Main",
+        4.012386798858643
+      ],
+      [
+        "MeiRiQianDao_Main",
+        4.151375770568848
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.026276588439941
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.378617763519287
+      ],
+      [
+        "MeiRiQianDao_Main",
+        5.450981616973877
+      ]
+    ],
+    "prototype_match": "True",
+    "processing_time": 0.05924654006958008
+  }
+}

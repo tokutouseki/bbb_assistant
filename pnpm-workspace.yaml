@@ -1,0 +1,12 @@
+packages:
+  - 'frontend'
+  - 'shared'
+
+# 忽略的目录
+ignoredBuiltDependencies:
+  - 'electron'
+  - 'electron-builder'
+
+# 共享依赖配置
+shared-workspace-lockfile: true
+save-workspace-protocol: true

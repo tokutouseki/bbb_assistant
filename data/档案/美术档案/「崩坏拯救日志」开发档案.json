@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1933/detail?bbs_presentation_style=no_header",
+  "title": "「崩坏拯救日志」开发档案-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1933,
+  "main_content": "「崩坏拯救日志」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "美术档案",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/22/264755623/9c553ae13a88768705fc457f84880774_3922144327208069967.mp4",
+      "type": "video",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 8,
+    "media_count": 1,
+    "extraction_time": 1773471847.5741572,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773471847.5741572
+}

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1572/detail?bbs_presentation_style=no_header",
+  "title": "一件美事-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1572,
+  "main_content": "基础介绍       名称 一件美事 类型 隐藏成就      名称 一件美事 类型 隐藏成就  获得方式：含泪喝完卡萝尔酒吧的全部奇怪饮料",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/27/73514954/a024fff1074394f6ce811f3214496653_3697571366891330998.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 70,
+    "media_count": 1,
+    "extraction_time": 1773465377.1089764,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773465377.1089764
+}

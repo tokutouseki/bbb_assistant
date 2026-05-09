@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3918/detail?bbs_presentation_style=no_header",
+  "title": "跃升补给卡-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3918,
+  "main_content": "材料描述     名称 跃升补给卡 类别 基础材料   消耗途径   角色补给 能够获得一次参与「跃升补给」的机会  获取途径   基础货币商店 补给卡，消耗水晶购买获得商城 购买礼包获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/03/16/77124895/40389975419fc78874659790c710685a_7440046687601765900.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 94,
+    "media_count": 1,
+    "extraction_time": 1773512180.5590186,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773512180.5590186
+}

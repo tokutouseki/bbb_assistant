@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2427/detail?bbs_presentation_style=no_header",
+  "title": "6.6版本宣传PV「末雪织羽」-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2427,
+  "main_content": "「末雪织羽」简介：《崩坏3》6.6版本「末雪织羽」即将开启！全新S级角色米丝忒琳·沙尼亚特「织羽梦旌」、SP角色普罗米修斯「终末协理0017」登场！还有主线37章、主题活动「特丽丽的魔法奇旅」等全新活动来袭，敬请期待！配音演员：米丝忒琳·沙尼亚特——浮梦若薇普罗米修斯——hanser薇塔——闫夜桥「高塔贤者」——唐雅菁",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "游戏PV",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/04/17/264755623/4ac7a9298f2fec9bb900546922db01fb_7442503474643766311.mp4",
+      "type": "video",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 160,
+    "media_count": 1,
+    "extraction_time": 1773481033.5569856,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773481033.5569856
+}

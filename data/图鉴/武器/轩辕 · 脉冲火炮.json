@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/308/detail?bbs_presentation_style=no_header",
+  "title": "轩辕 · 脉冲火炮-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 308,
+  "main_content": "武器数据     星级  攻击 165会心 15 为了帮助被蚩尤吞入肚中的布洛妮娅，姬麟的英灵通过轩辕剑的碎片，将力量附在了脉冲火炮上，使之获得了烈焰的力量  武器技能   火炮 蓄力炮，一层：单发炮弹，二层：双发更强炮弹，三层：三发超强炮弹浮游火球 [能量消耗:18][冷却:10秒]释放缓慢漂浮的大火球，爆炸造成420%攻击力的火焰元素伤害并造成5点点燃积蓄值  获取方式   吼姆旅行商店返场 吼姆's Legend见证章*3换取时间胶囊限时返场 吼姆's Legend见证章*6换取  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/09/76361817/e97755b35f5bb0a12729a6f9a1df2af9_5457673224946296370.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\轩辕 · 脉冲火炮.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 286,
+    "media_count": 1,
+    "extraction_time": 1773404427.1944094,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404427.1954212
+}

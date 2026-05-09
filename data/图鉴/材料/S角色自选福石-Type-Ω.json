@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1084/detail?bbs_presentation_style=no_header",
+  "title": "S角色自选福石-Type-Ω-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1084,
+  "main_content": "材料描述     名称 S角色自选福石-Type-Ω 类别 消耗品 可以自选一名女武神降临：空之律者、理之律者、真红骑士 · 月蚀、苍骑士 · 月魂或者获得远古传承*400  消耗渠道   直接使用 直接使用选择一张角色卡  获取渠道   充值福利 领取充值福利NO.11获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/06/05/50494840/63a5e636f870d243aabd309e28d63827_8385200286938544025.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 138,
+    "media_count": 1,
+    "extraction_time": 1773418605.8119767,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773418605.8119767
+}

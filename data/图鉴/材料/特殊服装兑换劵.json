@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1331/detail?bbs_presentation_style=no_header",
+  "title": "特殊服装兑换劵-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1331,
+  "main_content": "材料描述     名称 特殊服装兑换劵 类别 基础材料 圣芙蕾雅学园内流通的特殊货币,看起来能换到一些平时换不到的好东西。  消耗途径   购买女武神服装 可在【服装商店】中兑换服装的兑换券~  获取方式   商城购买  在【礼包】界面购买获得。活动获取 通过活动获得。服装补给 通过服装补给概率获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/73008221/ef0465de7d7eb3301fde9470cb12526e_8479101612779707180.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 150,
+    "media_count": 1,
+    "extraction_time": 1773423178.6209288,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773423178.6209288
+}

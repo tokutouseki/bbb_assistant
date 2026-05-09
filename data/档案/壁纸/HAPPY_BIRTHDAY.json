@@ -1,0 +1,116 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1655/detail?bbs_presentation_style=no_header",
+  "title": "「芽衣」系列壁纸-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1655,
+  "main_content": "「HAPPY BIRTHDAY」   「始源之律者」   「芽衣 · 演出(上)」   「夜雨春澜」     「断罪影舞」   「雷之律者」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "壁纸",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/04/13/75216984/7498ef8b7aab9841f0f846e5e47ebe1c_7616722975980091841.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\档案\\壁纸\\media\\HAPPY_BIRTHDAY_1.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/21/75216984/60602bbe4f312fbbe8f839c4ef88c93d_1515283882454097216.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\档案\\壁纸\\media\\HAPPY_BIRTHDAY_2.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/21/75216984/bbac5c62c9ebc0654bb73e914023d9d5_8009028458601743578.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\档案\\壁纸\\media\\HAPPY_BIRTHDAY_3.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/04/75216984/d5f3e082795449c201238e165cdeb257_2894966442776245013.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\档案\\壁纸\\media\\HAPPY_BIRTHDAY_4.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/04/13/75216984/cd468f66bb8b0d559428d42334b0d361_1638234829845120376.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\档案\\壁纸\\media\\HAPPY_BIRTHDAY_5.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/24/50494840/1b0ad59dcd49facf036976f14a53acee_6713645471289787166.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\档案\\壁纸\\media\\HAPPY_BIRTHDAY_6.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/24/50494840/e4dda524911fbd287e1bde29d4dd41c6_5877860003814096448.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\档案\\壁纸\\media\\HAPPY_BIRTHDAY_7.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 70,
+    "media_count": 7,
+    "extraction_time": 1773466873.4794707,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773466873.4794707
+}

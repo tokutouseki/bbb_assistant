@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4106/detail?bbs_presentation_style=no_header",
+  "title": "第二部第10~11章CG合集-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4106,
+  "main_content": "CG1   CG2   CG3   CG4   CG5   CG6   CG7",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "相册和CG",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/10/09/77124895/d3cbb82f6f503a2d94a075128ae078cf_699291393237310098.mp4",
+      "type": "video",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\第二部探索指南\\相册和CG\\media\\第二部第10~11章CG合集_1.mp4",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/02/26/77124895/9c7d189f4fe2e9a001dfb55fbf91e707_3771610898424642718.mp4",
+      "type": "video",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\第二部探索指南\\相册和CG\\media\\第二部第10~11章CG合集_2.mp4",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/02/26/77124895/b4effeb73ec7d9294d15f6d75856e05b_6376726085740677504.mp4",
+      "type": "video",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\第二部探索指南\\相册和CG\\media\\第二部第10~11章CG合集_3.mp4",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/02/26/77124895/c4d0dc163c419f1bc7953d6ab6aa4448_4539677702181488390.mp4",
+      "type": "video",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\第二部探索指南\\相册和CG\\media\\第二部第10~11章CG合集_4.mp4",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/02/26/77124895/85498cc60c4f0e9176a838e4f717387a_7257513824928603836.mp4",
+      "type": "video",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\第二部探索指南\\相册和CG\\media\\第二部第10~11章CG合集_5.mp4",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/02/26/77124895/ddb33308176f509d18efb903d7392caf_842623765249664520.mp4",
+      "type": "video",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\第二部探索指南\\相册和CG\\media\\第二部第10~11章CG合集_6.mp4",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2026/02/26/77124895/2770e14370e7b0b3f366e814f83e534e_3956093658103258516.mp4",
+      "type": "video",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\第二部探索指南\\相册和CG\\media\\第二部第10~11章CG合集_7.mp4",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 39,
+    "media_count": 7,
+    "extraction_time": 1773515459.8462763,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773515459.8462763
+}

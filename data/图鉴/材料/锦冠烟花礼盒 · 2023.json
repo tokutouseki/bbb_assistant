@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2124/detail?bbs_presentation_style=no_header",
+  "title": "锦冠烟花礼盒 · 2023-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2124,
+  "main_content": "材料描述     名称 锦冠烟花礼盒 · 2023 类别 消耗品 完成月之版本相关任务可获取  消耗途径   直接使用 使用该物品可在远古传承*40或远古意志*80中任选其一  获取途径   活动获取 参与月之版本（V6.4）相关活动限时获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2023/01/29/50494840/0fff1d29712eb50a0f0abc2c3ee0e661_6156286058664321519.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 121,
+    "media_count": 1,
+    "extraction_time": 1773475230.8852806,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773475230.8852806
+}

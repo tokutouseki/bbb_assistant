@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1832/detail?bbs_presentation_style=no_header",
+  "title": "稀有处刑装 · 紫苑试用卡（7天）-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1832,
+  "main_content": "材料描述     名称 稀有处刑装 · 紫苑试用卡（7天） 类别 消耗品 紫苑-仿犹大：德古拉、德古拉、德古拉  消耗途径   直接使用 解锁试用角色：处刑装 · 紫苑，效果持续7天使用范围：主线剧情、独立作战（时空工厂、小队训练、漂流迷界）  获取途径   导师系统 协同任务，第一阶段试炼任务完成奖励",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/09/14/50494840/7a051a883c93ac1b8d98d00b5459eae7_2900616851164366804.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 152,
+    "media_count": 1,
+    "extraction_time": 1773469821.4077017,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773469821.4077017
+}

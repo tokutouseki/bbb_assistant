@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3879/detail?bbs_presentation_style=no_header",
+  "title": "「度法衡诗」圣痕自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3879,
+  "main_content": "材料描述     名称 「度法衡诗」圣痕自选箱 类别 消耗品 使用后可从梭伦(上)、梭伦(中)、梭伦(下)、根源棱镜x1中任选1件获得  获取途径   活动获取 参与「咚锵新年行」登录活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/01/24/77124895/2f43de6ab0e53d8c69e298f1451cdf0c_4379176601117739127.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 96,
+    "media_count": 1,
+    "extraction_time": 1773511558.840821,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773511558.840821
+}

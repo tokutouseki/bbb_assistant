@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1498/detail?bbs_presentation_style=no_header",
+  "title": "巫士机甲-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1498,
+  "main_content": "怪物信息     怪物名称 巫士机甲 怪物属性 机械威胁等级 ★☆ 伤害类型 无怪物类型 普通 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界特殊机制 时空禁锢、强化           怪物名称 巫士机甲 怪物属性 机械 威胁等级 ★☆ 伤害类型 无 怪物类型 普通 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界 特殊机制 时空禁锢、强化    天命档案 逆熵的辅助型机甲，能够提高友军的攻击速度，建议配合近战类机甲一起使用。这应该是逆熵为突击作战设计的机甲，能够让具有破坏性的近战机甲快速深入敌方腹地，一旦发现，优先击破。——战术实验室  怪物技能 \n      时空禁锢\n       时空禁锢 长时间引导后，将周围敌人时空减速较长时间  应对方式 使用控制技能打断",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/05/17/73760043/3b81c7ab5bf3f3798a287215d71f16d9_3332084590839548267.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/22/77124895/ba537a7efcfa9b408a5c0ba46df1cd49_3576362654884340.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/04/77124895/b50488ea8988cb2c5b2417f6187b48ae_5514128491011815523.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/04/77124895/b50488ea8988cb2c5b2417f6187b48ae_763413495800139067.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 351,
+    "media_count": 4,
+    "extraction_time": 1773463800.3945987,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773463800.3945987
+}

@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/718/detail?bbs_presentation_style=no_header",
+  "title": "德丽莎 · 降生(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 718,
+  "main_content": "圣痕资料   位置 上位单件tag 额外倍率圣痕技能 【圣女降临】入场时，对周围敌人造成300%攻击力的物理伤害，冷却时间为1.0秒 相关圣痕  无      位置 上位 单件tag 额外倍率 圣痕技能 【圣女降临】入场时，对周围敌人造成300%攻击力的物理伤害，冷却时间为1.0秒 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 291      攻击 50      防御 27      会心 0       玩家评价 暂无  获取方式   活动获取 通过2019年德丽莎生日活动获得商店复刻 时间胶囊  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/12/81417673/feac9cf2339850b43d6ad1acbbdfd587_2390208443621368716.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\德丽莎 · 降生(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 316,
+    "media_count": 1,
+    "extraction_time": 1773412022.080394,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773412022.080394
+}

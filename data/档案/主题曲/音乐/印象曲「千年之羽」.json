@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1037/detail?bbs_presentation_style=no_header",
+  "title": "印象曲「千年之羽」-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1037,
+  "main_content": "「千年之羽」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "主题曲/音乐",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/03/6100274/5c5be8a378b9974a998e9f26d8cbde01_7126310487406791442.mp4",
+      "type": "video",
+      "local_path": "d:\\\\TokusCode\\\\bbb_assistant\\\\data\\\\档案\\\\主题曲\\\\音乐\\\\media\\\\印象曲「千年之羽」.mp4",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 6,
+    "media_count": 1,
+    "extraction_time": 1773417772.061217,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773417772.061217
+}

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4016/detail?bbs_presentation_style=no_header",
+  "title": "「星际巡航」圣痕自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4016,
+  "main_content": "材料描述     名称 「星际巡航」圣痕自选箱 类别 消耗品 使用后可以自选获得苏莎娜 · 加班(上)、米丝忒琳 · 试衣(中)、时雨绮罗 · 排练(下)、琪亚娜 · 备考(上)、芽衣 · 备课(中)、布洛妮娅 · 备份(下)、松雀 · 嵬集(中)、希儿·闲趣(中)，10000星石之一  获取途径   活动获取 参与8.3版本「星际巡航：葬星之地」活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/06/16/77124895/e758753b9e411e1d39d05637296b21ff_5794482088346194376.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 179,
+    "media_count": 1,
+    "extraction_time": 1773513960.501974,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773513960.501974
+}

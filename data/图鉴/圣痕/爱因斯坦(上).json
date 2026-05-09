@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/518/detail?bbs_presentation_style=no_header",
+  "title": "爱因斯坦(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 518,
+  "main_content": "圣痕资料   位置 上位所属套装 相对天然卷套装套装tag 生命回复-能量回复-全伤-攻速-减伤圣痕技能 【质能守恒】蓄力攻击对护盾伤害提升30%。生命低于33%时，全伤害提高41% 相关圣痕 爱因斯坦(中) 爱因斯坦(下)      位置 上位 所属套装 相对天然卷套装 套装tag 生命回复-能量回复-全伤-攻速-减伤 圣痕技能 【质能守恒】蓄力攻击对护盾伤害提升30%。生命低于33%时，全伤害提高41% 相关圣痕 爱因斯坦(中) 爱因斯坦(下)   套装技能   狭义相对论 与敌人距离每增加1米，造成的全伤害提高5%，最高可叠加5次广义相对论 与敌人距离越近，受到的全伤害越低，最高减伤40%  适用角色    血色玫瑰 血色玫瑰开启大招后能够轻易将血量压至圣痕触发线 薪炎之律者 可以主动压低血量触发圣痕效果  配装推荐 \n      推荐1\n        圣痕 综合评价 推荐理由  爱因斯坦(上) 列文虎克(中) 列文虎克(下)  75 提供高额的火伤及全伤加成    爱因斯坦(上) 列文虎克(中) 列文虎克(下) 综合评价  75 推荐理由 提供高额的火伤及全伤加成  基本属性         属性 数值 D C B A A+ S 生命 496      攻击 85      防御 110      会心 0       玩家评价 适合能够主动控血的角色，当角色血量在触发线以下时能够为其带来高额的全伤害加成  获取方式   装备锻造 天命 · 虚数核心*120  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *340 流体合金块 *2相转移镜面 *845 流体合金块 *3相转移镜面 *12",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/16/73514954/99baa77b980d86d0f564b8e0381f4dc7_4008289011848652277.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\爱因斯坦(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 721,
+    "media_count": 1,
+    "extraction_time": 1773407911.3067982,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773407911.3067982
+}

@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/724/detail?bbs_presentation_style=no_header",
+  "title": "丽塔 · 失落迷迭(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 724,
+  "main_content": "圣痕资料   位置 上位单件tag 雷伤圣痕技能 【引路魂灯】雷电元素伤害提高10.0%，对麻痹状态敌人的近战雷电元素伤害提高10.0% 相关圣痕  无      位置 上位 单件tag 雷伤 圣痕技能 【引路魂灯】雷电元素伤害提高10.0%，对麻痹状态敌人的近战雷电元素伤害提高10.0% 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 245      攻击 59      防御 41      会心 1       玩家评价 雷伤输出圣痕，适合具有麻痹特性的近战雷伤输出角色使用  获取方式   活动获取 通过7日登录·迷迭私语活动获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/12/81417673/a5e83e07540bb10c99d65d0340c89659_4718256724886194049.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\丽塔 · 失落迷迭(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 334,
+    "media_count": 1,
+    "extraction_time": 1773412131.8665748,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773412131.8665748
+}

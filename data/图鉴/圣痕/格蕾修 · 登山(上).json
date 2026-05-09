@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2839/detail?bbs_presentation_style=no_header",
+  "title": "格蕾修 · 登山(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2839,
+  "main_content": "圣痕资料   位置 格蕾修 · 登山(上)单件tag 暴击圣痕技能 【绿野风采】角色暴击率提高15%，受到攻击后失效，5秒钟后再次生效 相关圣痕  无      位置 格蕾修 · 登山(上) 单件tag 暴击 圣痕技能 【绿野风采】角色暴击率提高15%，受到攻击后失效，5秒钟后再次生效 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 236      攻击 54      防御 55      会心 0       玩家评价 暴击率提高输出的稳定性，但受限于未受到攻击。  获取途径   活动获取 参与活动【仙山如绘】限时活动获得时间胶囊 时间胶囊商店，使用吼姆's Legend 见证章兑换  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/11/03/50494840/b7b0da3a930480a5e036e5e86cb093b9_161792228736790106.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\格蕾修 · 登山(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 360,
+    "media_count": 1,
+    "extraction_time": 1773491502.7265263,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773491502.7265263
+}

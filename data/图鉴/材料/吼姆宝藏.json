@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1077/detail?bbs_presentation_style=no_header",
+  "title": "吼姆宝藏-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1077,
+  "main_content": "材料描述     名称 吼姆宝藏 类别 消耗品 吼姆珍藏的宝藏  消耗途径   出售 点击仓库左下角出售即可获得5000金币直接使用 点击材料直接使用即可获得5000金币  获取渠道   主线章节 完成部分主线章节的战斗获得舰团委托回收 舰团奖池奖励",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/18/34600917/f7ec6d78d1835bfb387226851d6436c8_3065519104624756311.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 125,
+    "media_count": 1,
+    "extraction_time": 1773418487.9813106,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773418487.9813106
+}

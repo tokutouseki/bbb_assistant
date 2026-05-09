@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3361/detail?bbs_presentation_style=no_header",
+  "title": "无存之仪-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3361,
+  "main_content": "无存之仪    星之环效果 受无存之仪庇护的星之环。星环爆发[详情]状态中，能够为队伍中受星之环庇护的角色提供通用强化 相关角色  逆命魔龙·降临！  孑遗千星  终焉之律者  女武神·重机      星之环效果 受无存之仪庇护的星之环。星环爆发[详情]状态中，能够为队伍中受星之环庇护的角色提供通用强化 相关角色  逆命魔龙·降临！  孑遗千星  终焉之律者  女武神·重机",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "星之环",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/04/09/50494840/0825166e018bba030e2c6c1deeebfc38_7608617440343826794.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/07/07/9917988/452c0be776eddb02e9f64938afe647a5_489169394752568284.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/19/50494840/49c73bffb8729dbd42054e029eda29f1_1630254722550892763.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/19/50494840/c0965742114f66fc3232d1026747cd1f_8076396758218075255.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/04/09/50494840/5a44212d06a430390f3f3d17b3027c11_40506420454584343.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 188,
+    "media_count": 5,
+    "extraction_time": 1773501906.7900388,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773501906.7900388
+}

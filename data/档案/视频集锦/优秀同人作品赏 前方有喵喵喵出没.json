@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1743/detail?bbs_presentation_style=no_header",
+  "title": "优秀同人作品赏 前方有喵喵喵出没-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1743,
+  "main_content": "前方有喵喵喵出没",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "视频集锦",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/06/21/135052131/5885130570095dab9c1a62e6501f8a4c_3839551599369712131.mp4",
+      "type": "video",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 8,
+    "media_count": 1,
+    "extraction_time": 1773468342.6074576,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773468342.6074576
+}

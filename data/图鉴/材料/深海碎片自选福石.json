@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1252/detail?bbs_presentation_style=no_header",
+  "title": "深海碎片自选福石-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1252,
+  "main_content": "材料描述     名称 深海碎片自选福石 类别 消耗品 使用后可自选暮光核心x1、幻海梦蝶碎片x2蓝莓特攻碎片x2其中之一  获取途径   限时活动 3.4版本内参与主线活动获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/50494840/efeb6e658e1fe39eb464b6936a3d28da_4510919235829142111.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 89,
+    "media_count": 1,
+    "extraction_time": 1773421751.250874,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421751.250874
+}

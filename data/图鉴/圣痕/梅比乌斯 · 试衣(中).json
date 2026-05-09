@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1777/detail?bbs_presentation_style=no_header",
+  "title": "梅比乌斯 · 试衣(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1777,
+  "main_content": "圣痕资料   位置 中位单件tag 物伤-生命回复圣痕技能 【妖精之选】物理伤害提高10.0%，角色离场时获得100.0点生命值，冷却时间10秒 相关圣痕  无      位置 中位 单件tag 物伤-生命回复 圣痕技能 【妖精之选】物理伤害提高10.0%，角色离场时获得100.0点生命值，冷却时间10秒 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 291      攻击 16      防御 82      会心 0       玩家评价 提高物伤，并附带一定的生命回复能力。  获取方式   活动获取 参与「童话故事书」活动获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/14/50494840/994af6adf0e6df8e1e5efb77e87fbffa_2834815953052659291.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\梅比乌斯 · 试衣(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 332,
+    "media_count": 1,
+    "extraction_time": 1773468939.7095163,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773468939.7095163
+}

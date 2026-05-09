@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1423/detail?bbs_presentation_style=no_header",
+  "title": "手札 · 沉没乐园-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1423,
+  "main_content": "文件位置 支线：沉没乐园获取  文件详情 手札上大部分的笔迹难以辨认，与其说是字符，更像是胡乱画出的线条，如同不具逻辑的梦呓。——如果那是一种语言，也绝非人类此刻所能理解的。但在手札的最下方，却有一段属于人类的文字——字迹显现出书写者良好的涵养。“无论如何，卢凯尼，你带来的一切令我大开眼界。有一天，如果你会来到这里，请记住——这是我赠与你的一份厚礼。整整五百年的时间啊，我试着改变一个人，却未能有所寸进。我都要失去自信了。感谢你和你的部下让我明白······那只是一场意外。我没有体验过死亡，但我的一位老朋友曾经告诉过我······那个瞬间前所未有的漫长，足够你回首来时踏出的每一个脚步······希望你对语言的学习顺利，这样······你才能体会人类的感情，人类的绝望。”",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "文件",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/27/73514954/683ab39225ec38df718499f644ebed24_3858883596867689585.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 338,
+    "media_count": 1,
+    "extraction_time": 1773462451.4668057,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773462451.4668057
+}

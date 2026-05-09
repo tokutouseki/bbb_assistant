@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4040/detail?bbs_presentation_style=no_header",
+  "title": "「赤星霹雳」改装箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4040,
+  "main_content": "材料描述     名称 「赤星霹雳」改装箱 类别 合成素材 一切工具和机器，不过是人类肢体和感官的延伸而已。  获取途径   活动获取 帮助特定武器进行同调的材料，可以通过「同调商店」兑换获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/07/24/77124895/00da5c4097ced58f2e19be871d210e16_4210141209169097880.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 96,
+    "media_count": 1,
+    "extraction_time": 1773514335.3722732,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773514335.3722732
+}

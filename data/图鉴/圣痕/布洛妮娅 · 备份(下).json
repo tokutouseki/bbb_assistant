@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2691/detail?bbs_presentation_style=no_header",
+  "title": "布洛妮娅 · 备份(下)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2691,
+  "main_content": "圣痕资料   位置 下位单件tag 全伤-减伤圣痕技能 【延期发售】远程攻击的全伤害提高16.0%，离场后全队受到伤害降低10.0%，持续10秒，持续期间不可重复触发 相关圣痕  无      位置 下位 单件tag 全伤-减伤 圣痕技能 【延期发售】远程攻击的全伤害提高16.0%，离场后全队受到伤害降低10.0%，持续10秒，持续期间不可重复触发 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 417      攻击 43      防御 64      会心 11       玩家评价 远程全伤提高，可用于过渡散搭。  获取途径   活动获取 参与主线40章「七常住果」（主线1.5部下半开篇）活动限时获得  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *240 流体合金块 *2相转移镜面 *445 流体合金块 *3相转移镜面 *7",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/08/25/50494840/528811114ca83de6b29923e4951cb758_8224638541901477940.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\布洛妮娅 · 备份(下).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 405,
+    "media_count": 1,
+    "extraction_time": 1773488814.8107035,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773488814.8107035
+}

@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3259/detail?bbs_presentation_style=no_header",
+  "title": "影雾-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3259,
+  "main_content": "影雾",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "关卡机制",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/14/77124895/0b037a3b6add1edf34e361f1650e6560_2065822557031344347.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/14/77124895/a23166d914b1e7e7869645fde0eebe27_5023389363574586488.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 2,
+    "media_count": 2,
+    "extraction_time": 1773499346.9630184,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773499346.9630184
+}

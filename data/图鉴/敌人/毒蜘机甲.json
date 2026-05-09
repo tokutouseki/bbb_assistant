@@ -1,0 +1,116 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1518/detail?bbs_presentation_style=no_header",
+  "title": "毒蜘机甲-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1518,
+  "main_content": "怪物信息     怪物名称 毒蜘机甲 怪物属性 机械威胁等级 ★☆ 伤害类型 物理怪物类型 普通 出现场景 主线、深渊、封锁地带、联机关卡特殊机制 自爆           怪物名称 毒蜘机甲 怪物属性 机械 威胁等级 ★☆ 伤害类型 物理 怪物类型 普通 出现场景 主线、深渊、封锁地带、联机关卡 特殊机制 自爆    天命档案 逆熵的自爆型攻击机甲，造价低廉，但实战效果显著。其实，这种机甲无法识别敌我，可以引诱它去撞其他敌人。只要你最后躲得开。——武器实验室  怪物技能 \n      自爆雷\n    \n      突袭式自爆雷\n       自爆雷 对周围发动自爆攻击  应对方式 注意闪避   突袭式自爆雷 冲向敌人发动自爆攻击  应对方式 注意闪避",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/05/13/73760043/a4a88c808007f372478e66f811d6585c_4027275084302673914.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/24/50494840/33f3d31637284c49133792aca7f1c05d_1234854712610529460.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/06/50494840/37c55f883156be618b30db7c05bb834f_2620568683615426294.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/06/50494840/37c55f883156be618b30db7c05bb834f_2667145820866029318.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/24/50494840/3b1eb37dd31f4d86f50a06c4216e3283_8476472646729757813.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/06/50494840/d3b825a51e97ecf98630664fdb5f9780_4358581955418391702.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/06/50494840/d3b825a51e97ecf98630664fdb5f9780_9119574776276864559.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 330,
+    "media_count": 7,
+    "extraction_time": 1773464165.0207667,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773464165.0207667
+}

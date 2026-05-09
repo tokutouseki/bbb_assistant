@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/953/detail?bbs_presentation_style=no_header",
+  "title": "将逝的火种-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 953,
+  "main_content": "将逝的火种  其他物品战斗中获取的神秘材料，可以前往「追忆之皿」提升追忆之皿的等级。保存在形似追忆之皿的容器中，即将熄灭的火种。其本质乃是英桀们记忆的碎片。将其注入追忆之皿的话，英桀们或许会愿意和来访者讲述更多关于旧世代的记忆。那个世代虽已逝去，但它所留下的火种却并未消亡。逐火者们仍将追逐着这流火前行，并最终，抵达前人所未能至的未来。",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/28/73514954/2282a51b90f23f148766f5b5aa1c4411_6223218586180350429.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 168,
+    "media_count": 1,
+    "extraction_time": 1773416432.3506734,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773416432.3506734
+}

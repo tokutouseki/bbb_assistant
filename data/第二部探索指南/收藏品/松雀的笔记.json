@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3207/detail?bbs_presentation_style=no_header",
+  "title": "松雀的笔记-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3207,
+  "main_content": "书页位置 *感谢乌鸦Rabble大佬（ID:73779489）的攻略*原贴链接如下：【书页收集】7.3版本瓯夏、琅丘总计26张书页全收集在完成第二部第1章第一阶段剧情的过程中可以获得。  松雀的笔记",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "收藏品",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/02/21/75216984/ab3fc6a9763e7d929010b3ffe6d846f4_2691745748878830082.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 99,
+    "media_count": 1,
+    "extraction_time": 1773498456.4590003,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773498456.4590003
+}

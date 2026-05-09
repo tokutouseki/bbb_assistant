@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1141/detail?bbs_presentation_style=no_header",
+  "title": "聚能 · 空间透镜-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1141,
+  "main_content": "材料描述     名称 聚能 · 空间透镜 类别 合成素材 探索虚数世界所需的观测工具，利用效率优于普通的空间透镜。其制作工艺使用了前文明遗留下来的技术。  消耗途径   装备锻造 在装备锻造功能中使用，是锻造指定悬赏装备的高级材料之一  获取途径   玩法商店 乐土商店，消耗锈蚀之徽购买获得虚境商城，消耗圣痕共鸣购买获得往世乐土 往世乐土的周期任务获得作战凭证 凭证的历练等级奖励材料-消耗品 开启装备材料宝箱兑换获得开启璀璨周年礼盒兑换获得等级礼包 达到65级、75级通过等级奖励获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/72350798/277fb79ed429f3b4bd67f6e9ba0c97cf_7027102557494196858.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 245,
+    "media_count": 1,
+    "extraction_time": 1773419648.8887079,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419648.8887079
+}

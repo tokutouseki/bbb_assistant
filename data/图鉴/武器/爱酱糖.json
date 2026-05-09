@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/270/detail?bbs_presentation_style=no_header",
+  "title": "爱酱糖-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 270,
+  "main_content": "武器数据     星级  攻击 177会心 16 德丽莎学园长~今年的儿童节礼物，是想要巧克力？苹果糖？还是爱酱呢(害羞)？  武器技能   糖果雨 [能量消耗:15][冷却:15秒]展开爱酱糖[召唤物] : 8秒内，每隔0.8秒掉落糖果，落地爆炸，对小范围内敌人造成666点物理伤害  获取方式   活动获取 2017年儿童节活动获取时间胶囊限时返场 吼姆's Legend见证章*6  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/08/73514954/c750bb483f1f548dc920a8219a5ee02b_5710588132153341945.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\爱酱糖.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 234,
+    "media_count": 1,
+    "extraction_time": 1773404009.1457684,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404009.1457684
+}

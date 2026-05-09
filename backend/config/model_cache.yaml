@@ -1,0 +1,24 @@
+# 模型缓存配置
+# 预下载模型路径配置，避免运行时下载
+
+model_cache:
+  # VoxCPM主模型路径
+  voxcpm_path: "D:/TokusCode/models/VoxCPM-0.5B"
+  
+  # SenseVoice ASR模型路径  
+  sensevoice_path: "D:/TokusCode/models/SenseVoiceSmall"
+  
+  # ZipEnhancer音频增强模型路径
+  zipenhancer_path: "D:/TokusCode/models/zipenhancer/models/iic/speech_zipenhancer_ans_multiloss_16k_base"
+  
+  # 是否跳过运行时下载
+  skip_download: true
+  
+  # 缓存策略
+  cache_policy:
+    max_size_gb: 10
+    cleanup_interval_hours: 24
+    
+# 环境变量覆盖（优先级更高）
+# 可以通过设置环境变量覆盖上述路径
+# 例如: export MODELSCOPE_CACHE="/path/to/cache"

@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2765/detail?bbs_presentation_style=no_header",
+  "title": "理之律者 【乐土出战】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2765,
+  "main_content": "出战角色     装甲名称 理之律者 CV hanser装甲属性 机械 伤害类型 冰、物理解锁条件 获取该女武神后在往世乐土装甲强化界面消耗无瑕之钥解锁           装甲名称 理之律者 CV hanser 装甲属性 机械 伤害类型 冰、物理 解锁条件 获取该女武神后在往世乐土装甲强化界面消耗无瑕之钥解锁    特殊调整   角色调整 角色属性和技能等级已平衡至80级。场上敌人受到的伤害提高50%（该效果为独立加成）。必杀技调整 爆发状态下不再免疫死亡。  角色特殊技能 1级 S0 理之律者的攻击力提高10%S2 理之律者的攻击力提高10%SS 理之律者的攻击力提高10%3级 刻印【「创造」的祝福】效果强化 【「创造」的祝福】：非骑乘模式下，蓄力攻击会构造4个浮游炮攻击敌人，每个浮游炮命中敌人时造成160%攻击力冰冻元素伤害【「创造」的祝福+】：非骑乘模式下，蓄力攻击会构造6个浮游炮攻击敌人，每个浮游炮命中敌人时造成160%攻击力冰冻元素伤害6级 刻印【「真理」的祝福】效果强化 【「真理」的祝福】：触发极限闪避技能后，回复全部构造能量。构造能量小于120时，非极限闪避也可触发极限闪避技能【「真理」的祝福+】：触发极限闪避技能后，回复全部构造能量。构造能量小于120时，非极限闪避也可触发极限闪避技能并额外回复10点能量9级 刻印【「解析」的祝福】效果强化 【「解析」的祝福】：每个浮游炮命中敌人时，武器主动技能的冷却时间降低0.7秒【「解析」的祝福+】：每个浮游炮命中敌人时，武器主动技能的冷却时间降低0.7秒，同时武器主动技能造成的全伤害提高3%，持续5秒，最多可叠24层12级 刻印【「智识」的祝福】效果强化 【「智识」的祝福】：骑乘模式下，蓄力攻击每消耗120构造能量，会对命中的所有敌人释放一次构造冲击，造成2250%攻击力冰冻元素伤害【「智识」的祝福+】：骑乘模式下，蓄力攻击每消耗120构造能量，会对命中的所有敌人释放一次构造冲击，造成3000%攻击力冰冻元素伤害15级 刻印【「灵感」的祝福】效果强化 【「灵感」的祝福】：极限闪避敌人的攻击或触发极限闪避技能后会对所有敌人释放一次构造冲击，造成3750%攻击力冰冻元素伤害【「灵感」的祝福+】：极限闪避敌人的攻击或触发极限闪避技能后会对所有敌人释放一次构造冲击，造成5000%攻击力冰冻元素伤害",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/25/50494840/b0c1d5153ecd6a13288ea5f24437ffb2_9019056623412880537.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/06/73760043/72ea394501dea00636f4a52c88c15b2b_8092231204696388728.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 990,
+    "media_count": 2,
+    "extraction_time": 1773490133.064269,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773490133.064269
+}

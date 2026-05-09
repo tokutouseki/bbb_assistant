@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2952/detail?bbs_presentation_style=no_header",
+  "title": "盛夏狂想服装自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2952,
+  "main_content": "材料描述     名称 盛夏狂想服装自选箱 类别 消耗品   消耗途径   直接使用 使用后可以自选服装「风语鸥鸣」、「8-比特狂热」、「樱流拂夏」或星石*8000其中之一。  获取途径   活动获取 参与7.2版本复刻活动「夏日生存狂想曲 · 13面」获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/12/12/77124895/71d88e88bf514e095040e6166de4ecca_239617924877863738.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 129,
+    "media_count": 1,
+    "extraction_time": 1773493548.041578,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773493548.041578
+}

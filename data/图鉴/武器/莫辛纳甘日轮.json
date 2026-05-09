@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/287/detail?bbs_presentation_style=no_header",
+  "title": "莫辛纳甘日轮-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 287,
+  "main_content": "武器数据     星级  攻击 180会心 13 米高扬中央设计制造局制造的手枪，在标准的苏制手枪的基础上,加入了崩坏能结晶碎片,大幅强化了子弹的威力  武器技能   火焰光环 [能量消耗:12][冷却:18秒]周身范围燃起火焰，每隔0.25秒对范围内敌人造成320点火焰元素伤害,持续6秒  获取方式   活动获取 通过既往外传轩辕篇活动获得（通关困难第二关）时间胶囊 吼姆's Legend见证章*6  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/14/6100274/58d0d5195736dcb1f5e4e6091a99c696_7720921648350859941.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\莫辛纳甘日轮.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 243,
+    "media_count": 1,
+    "extraction_time": 1773404185.792542,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404185.792542
+}

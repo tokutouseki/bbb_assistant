@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1098/detail?bbs_presentation_style=no_header",
+  "title": "芽衣碎片自选福石-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1098,
+  "main_content": "材料描述     名称 芽衣碎片自选福石 类别 消耗品 可在芽衣生日特供礼包中获得  消耗途径   直接使用 使用后可以自选女武神 · 强袭碎片*50或影舞冲击碎片*50哦~  获取途径   商城 2019年购买芽衣生日特供礼包获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/18/50494840/ce91783d8a4da62674c7ad0c113ac605_7113503634818936918.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 116,
+    "media_count": 1,
+    "extraction_time": 1773418872.6138315,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773418872.6138315
+}

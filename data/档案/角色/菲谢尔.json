@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/966/detail?bbs_presentation_style=no_header",
+  "title": "菲谢尔-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 966,
+  "main_content": "角色资料       中文名 菲谢尔 外文名 Fischl CV Mace 生日 5月27日      中文名 菲谢尔 外文名 Fischl CV Mace 生日 5月27日  女武神装甲  \n              断罪皇女！！\n              \n              断罪皇女！！",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/02/77124895/b270b70d4ef4459df0c10e949526c297_1717480269538121936.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/0ccf6980c5fc6abcbd194cdcd3a63a1b_4275054024843217265.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 153,
+    "media_count": 2,
+    "extraction_time": 1773416654.4905574,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773416654.4905574
+}

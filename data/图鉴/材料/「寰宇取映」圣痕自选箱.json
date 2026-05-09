@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3792/detail?bbs_presentation_style=no_header",
+  "title": "「寰宇取映」圣痕自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3792,
+  "main_content": "材料描述     名称 「寰宇取映」圣痕自选箱 类别 消耗品 使用后可从幽兰黛尔·绿茵传奇(上)、幽兰黛尔·嘹亮新星(中)、幽兰黛尔·热心双雄(下)中任选一件获得  获取途径   活动获取 参与「日星明赫」登录活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/12/12/50494840/d4c2447c2401a57b4c60e57a4f03b19b_7094337597946704769.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 109,
+    "media_count": 1,
+    "extraction_time": 1773510057.5438156,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773510057.5438156
+}

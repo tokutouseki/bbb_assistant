@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/541/detail?bbs_presentation_style=no_header",
+  "title": "芽衣 · 暴怒(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 541,
+  "main_content": "圣痕资料   位置 中位单件tag 物理\t\t\t圣痕技能 【逆鳞】所受伤害的408%转化为愤怒之力对周围敌人造成伤害 相关圣痕 符华 · 傲慢(下) 布洛妮娅 · 懒惰(下) 德丽莎 · 暴食(上)      位置 中位 单件tag 物理\t\t\t 圣痕技能 【逆鳞】所受伤害的408%转化为愤怒之力对周围敌人造成伤害 相关圣痕 符华 · 傲慢(下) 布洛妮娅 · 懒惰(下) 德丽莎 · 暴食(上)   基本属性         属性 数值 D C B A A+ S 生命 528      攻击 0      防御 36      会心 1       玩家评价 受到伤害可以反弹给敌人更高的伤害  获取方式   悬赏锻造 天命·虚数核心*25  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *240 流体合金块 *2相转移镜面 *445 流体合金块 *3相转移镜面 *7",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/21/6100274/e9ac19ab8ea833764fd9ef46fe9e91cf_8399232513322369416.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\芽衣 · 暴怒(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 397,
+    "media_count": 1,
+    "extraction_time": 1773408353.3315077,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773408353.3315077
+}

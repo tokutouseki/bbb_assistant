@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4091/detail?bbs_presentation_style=no_header",
+  "title": "「谐谑奇锋」圣痕自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4091,
+  "main_content": "材料描述     名称 「谐谑奇锋」圣痕自选箱 类别 消耗品 使用后可从阿里斯托芬(上)、阿里斯托芬(中)、阿里斯托芬(下)、根源棱镜x1中任选1件获得  获取途径   活动获取 参与「爱叙佳景」登录活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/09/26/77124895/3840fb01372de609c1b06ff9da539ac3_6275490570684764421.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 104,
+    "media_count": 1,
+    "extraction_time": 1773515182.2019544,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773515182.2019544
+}

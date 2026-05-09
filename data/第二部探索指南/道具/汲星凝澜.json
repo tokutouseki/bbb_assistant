@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3334/detail?bbs_presentation_style=no_header",
+  "title": "汲星凝澜-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3334,
+  "main_content": "汲星凝澜    稀有度 ★★★★道具描述 「化物诸相」的强化材料，可提供240点经验值获取途径 荒梁一枕·碎隙深流数海乱流·殉死之兽虚海蜃影      稀有度 ★★★★道具描述 「化物诸相」的强化材料，可提供240点经验值获取途径 荒梁一枕·碎隙深流数海乱流·殉死之兽虚海蜃影",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "道具",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/04/01/50494840/b9e0177ab41b836ba73763f6cbb2d0d2_5987864392225216294.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 138,
+    "media_count": 1,
+    "extraction_time": 1773501376.365304,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773501376.365304
+}

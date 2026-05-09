@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1315/detail?bbs_presentation_style=no_header",
+  "title": "50%指挥官芯片S-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1315,
+  "main_content": "材料描述     名称 50%指挥官经验芯片S 类别 消耗品 强化舰长学习能力模块的芯片，性能相当有限  消耗途径   直接使用 50级以下舰长可使用，使用后通关获得额外50%指挥官经验的效果，持续1小时材料出售 每个1000金币  获取途径   每日领取 每日登录可领取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/19/73514954/9255161d66053ec4cac047f292d22e40_7672818715242368297.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 136,
+    "media_count": 1,
+    "extraction_time": 1773422880.1220243,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773422880.1220243
+}

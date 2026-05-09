@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3624/detail?bbs_presentation_style=no_header",
+  "title": "噩梦模块-机械-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3624,
+  "main_content": "怪物信息     怪物名称 噩梦模块-机械 怪物属性 机械威胁等级 ★ 伤害类型 物理怪物类型 普通 出现场景 主线，超弦空间特殊机制 无特殊机制           怪物名称 噩梦模块-机械 怪物属性 机械 威胁等级 ★ 伤害类型 物理 怪物类型 普通 出现场景 主线，超弦空间 特殊机制 无特殊机制    怪物技能 \n      噩梦刺击\n       噩梦刺击 攻击前方的敌人  应对方法 请注意闪避",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/19/50494840/0a8dd83ce3a56a1b9be8d9f7c5436a20_4089576219865200527.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/19/50494840/5676ad9f23b7ac5a13d75eb815e06a36_5538909633547380501.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/12/02/73760043/37c55f883156be618b30db7c05bb834f_8950929803262754289.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/12/02/73760043/37c55f883156be618b30db7c05bb834f_5060700969549767138.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 203,
+    "media_count": 4,
+    "extraction_time": 1773506978.1810305,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773506978.1810305
+}

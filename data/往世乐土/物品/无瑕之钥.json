@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/956/detail?bbs_presentation_style=no_header",
+  "title": "无瑕之钥-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 956,
+  "main_content": "无瑕之钥无瑕之钥其他物品每周进入装甲强化室可领取1枚的神秘钥匙，该钥匙可用于解锁出战角色。一柄仿若艺术品般的水晶钥匙。美丽，纯净，永恒。但钥匙并不会只作为艺术品而存在，它注定要去打开某处的一道枷锁。而这把无瑕的水晶之钥，它所存在的意义，也同样如此。",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/28/73514954/700dd123ef9f9007650838c9caf3019e_1328597687740644123.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 124,
+    "media_count": 1,
+    "extraction_time": 1773416487.4945822,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773416487.4945822
+}

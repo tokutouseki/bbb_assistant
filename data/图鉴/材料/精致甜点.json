@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1233/detail?bbs_presentation_style=no_header",
+  "title": "精致甜点-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1233,
+  "main_content": "材料描述     名称 精致甜点 类别 基础材料 一般人很难抵抗装饰得如此精美的甜品的诱惑即使它对身材非常不友好。啊~幸福的味道也不过如此了吧。  消耗途径   宿舍入住手续 可以在宿舍名册中提交所有女武神的礼物任务  获取途径   星石商店 星石购买获得成就 通过完成部分成就获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/91006211/b2195d7a1db0d2dfe30b2b9e40675c39_4053026439565446586.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 141,
+    "media_count": 1,
+    "extraction_time": 1773421402.4089582,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421402.4089582
+}

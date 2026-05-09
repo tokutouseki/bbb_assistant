@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3500/detail?bbs_presentation_style=no_header",
+  "title": "极际两分-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3500,
+  "main_content": "武器数据     星级  攻击 121会心 12 「这是由深海之异宝、火山之秘材锻造而成的武器，可以在不同的作战环境下，呈现出不同的姿态。」「师父，可它明明只能随气温变换杖身颜色啊。」「小子，此乃包装的艺术，懂么？」  武器展示 \n      初始外观\n    \n      满星外观\n       机关杖    机关杖    武器技能   应时制变 [能量消耗:0][冷却:0秒]武器主动技能的冷却时间、充能次数、技能效果由装备角色的类型决定  获取途径   编年史 通关编年史 轩辕篇 缘由 关卡获取其他方式 机关杖角色初始自带武器  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/06/14/50494840/0c9cdf189adbed1c8bb043e400977124_6830448439162052324.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\极际两分_1.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/06/14/50494840/eb502b17dd8434e8eccc0e74177b474a_2693584036712625238.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\极际两分_2.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/06/27/50494840/1b8017e59ddbc54421368a5ae3944503_9135650332789768869.gif",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\极际两分_3.gif",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/06/14/50494840/eb502b17dd8434e8eccc0e74177b474a_2954563154309097952.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\极际两分_4.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/06/27/50494840/45b4e0bc0d42809b728f3fc64acce7ff_4112908253659886704.gif",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\极际两分_5.gif",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 307,
+    "media_count": 5,
+    "extraction_time": 1773504758.190538,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773504758.1915488
+}

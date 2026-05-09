@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1929/detail?bbs_presentation_style=no_header",
+  "title": "姬麟 · 戏水(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1929,
+  "main_content": "圣痕资料   位置 上位所属套装 始祖萝莉套装套装tag 物伤-全伤-移速圣痕技能 【分支强化】分支攻击物理伤害提高15% 相关圣痕 姬麟 · 戏水(中) 姬麟 · 戏水(下)      位置 上位 所属套装 始祖萝莉套装 套装tag 物伤-全伤-移速 圣痕技能 【分支强化】分支攻击物理伤害提高15% 相关圣痕 姬麟 · 戏水(中) 姬麟 · 戏水(下)   套装技能   肉身锁定 对精英护盾被击破的敌人全伤害提高10%高级加速 移动速度提高10%  基本属性         属性 数值 D C B A A+ S 生命 325      攻击 54      防御 37      会心 0       玩家评价 暂无  获取途径   活动获取 预登录活动获取  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/11/15/50494840/cd5ee9c963a2e98e574650ff31836483_4174704883608568694.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\姬麟 · 戏水(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 374,
+    "media_count": 1,
+    "extraction_time": 1773471773.8177965,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773471773.8177965
+}

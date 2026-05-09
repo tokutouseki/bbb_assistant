@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/274/detail?bbs_presentation_style=no_header",
+  "title": "黑曜切割-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 274,
+  "main_content": "武器数据     星级  攻击 163会心 26 ME社开发的巨镰武器试验样品，采用了ME社拥有专利的粒子振动技术。看似圆钝的镰刀头在启动后能一击割开钢板，其破坏力令人畏惧。  武器技能   热熔 [能量消耗:3][冷却:12秒]击倒面前敌人，造成350%攻击力的物理伤害，并使角色普通攻击时每击附带70.0点火焰元素伤害，持续10.0秒  获取方式   装备补给 作为补给的副产物获取装备锻造 崩坏碎片*80  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/08/73514954/a701226fe15bfa3c356269e8ca6dd8a7_1099126579344091114.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\黑曜切割.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 246,
+    "media_count": 1,
+    "extraction_time": 1773404070.0328884,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404070.0328884
+}

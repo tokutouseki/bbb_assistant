@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4060/detail?bbs_presentation_style=no_header",
+  "title": "爱酱·店长(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4060,
+  "main_content": "圣痕资料   位置 中位单件tag 物伤 相关圣痕  无      位置 中位 单件tag 物伤 相关圣痕  无   圣痕纹章   圣痕技能   钞能力 普攻攻击物理伤害提高20%，拾取范围扩大2米  基本属性         属性 数值 D C B A A+ S 生命 291      攻击 0      防御 110      会心 1       玩家评价 提高普通攻击的物理伤害，并拥有扩大拾取范围的特殊效果。  获取途径   活动获取 2019年通过miHoYo旗舰店庆典活动获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/07/25/9917988/764f6b5b8eb9f0e9b4052df867c234dd_8992576364263419690.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\爱酱·店长(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 287,
+    "media_count": 1,
+    "extraction_time": 1773514686.8762293,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773514686.8762293
+}

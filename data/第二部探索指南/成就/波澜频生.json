@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3150/detail?bbs_presentation_style=no_header",
+  "title": "波澜频生-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3150,
+  "main_content": "基础介绍       成就名称 波澜频生 达成奖励 300星石      成就名称 波澜频生 达成奖励 300星石  达成条件：完成主线任务「破阵狩厄」",
+  "html_content": null,
+  "category_main": "第二部探索指南",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/02/20/77124895/59647d91c4342d00a7408c7258ea65dc_3049327656398563071.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 76,
+    "media_count": 1,
+    "extraction_time": 1773497343.3853154,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773497343.3853154
+}

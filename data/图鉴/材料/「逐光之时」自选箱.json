@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1346/detail?bbs_presentation_style=no_header",
+  "title": "「逐光之时」自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1346,
+  "main_content": "材料描述     名称 「逐光之时」自选箱 类别 消耗品 已拥有角色的舰长，请选择【晋升印章】哦~  消耗途径   直接使用 使用后可自选苍骑士 · 月魂、空之律者、真红骑士 · 月蚀的【角色卡】或【晋升印章】其中之一。  获取途径   补给活动概率获得 参与「逐光之时」服装补给有概率获得  材料描述     名称 「逐光之时」自选箱（复刻） 类别 消耗品 已拥有角色的舰长，请选择【晋升印章】哦~  消耗途径   直接使用 使用后可自选彼岸双生、真红骑士 · 月蚀、神恩颂歌的【角色卡】或【晋升印章】其中之一。  获取途径   补给活动概率获得 参与「逐光之时」服装补给（复刻）有概率获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/06/05/50494840/0669695f27bdb2d93835118322f4e3fa_1475197076254066154.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/12/29/77124895/e93679ec3de7ed4c1d9c25dc5b23b8a2_9146190650642006881.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 296,
+    "media_count": 2,
+    "extraction_time": 1773423413.2139084,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773423413.2139084
+}

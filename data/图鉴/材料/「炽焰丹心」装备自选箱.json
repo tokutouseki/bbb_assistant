@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2963/detail?bbs_presentation_style=no_header",
+  "title": "「炽焰丹心」装备自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2963,
+  "main_content": "材料描述     名称 「炽焰丹心」装备自选箱 类别 消耗品 可通过「鸢火重燃」扩充补给限时奖励获得  消耗途径   直接使用 可从万古一炬、符华 · 凡常时岁(上)、符华 · 凡常时岁(中)、符华 · 凡常时岁(下)中任选一件获得  获取途径   补给获取 扩充补给限时奖励",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/12/21/77124895/b4bacbb63e0d76ad95094d215c4a2810_2425233224707979906.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 138,
+    "media_count": 1,
+    "extraction_time": 1773493677.195329,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773493677.195329
+}

@@ -1,0 +1,179 @@
+崩坏3陪伴Agent专属计算机视觉系统 完整落地方案
+ 
+本方案100%适配你的「舰桥助理AI Agent」项目，基于Windows+RTX 3060 Laptop硬件、Qwen3.5 4B多模态大脑设计，彻底解决界面识别不稳定、YOLO类别膨胀、无字icon识别、Agent技能闭环四大核心痛点，可直接分步落地。
+ 
+ 
+ 
+一、方案核心设计铁则（全程不越界，从根源避坑）
+ 
+1. 职责严格解耦：CV系统只做「定位+分类」的确定性输出，语义理解、功能判断、决策全交给Agent大脑Qwen，绝不越界
+2. 零类别膨胀：检测YOLO仅按「视觉形态+交互属性」分类，绝不按功能细分标签，从根源杜绝类别爆炸
+3. 稳定优先：界面场景分类用YOLO输出固定枚举值，绝不交给大模型自由输出，保证Agent可遍历、可做分支逻辑
+4. 硬件适配：全流程基于3060 Laptop优化，极致轻量化，实时运行不爆显存、不卡顿
+ 
+ 
+ 
+二、系统整体架构（与Agent完美闭环）
+ 
+层级 模块 核心模型 核心职责 对应Agent技能 
+输入层 屏幕采集 mss/pyautogui 毫秒级截取崩坏3游戏画面 screenshot 
+基础感知层 界面场景分类模块 YOLO11n-cls 稳定输出当前界面的固定枚举类型（舰桥/战斗/签到等） get_current_scene 
+基础感知层 UI元素检测模块 YOLO11n-det 定位所有可交互元素的坐标（按钮/icon/血条等） get_ui_elements 
+语义补全层 文字识别模块 PaddleOCR轻量版 读取检测框内的文字内容，匹配按钮/道具名称 ocr_element_text 
+语义补全层 图标识别模块 Qwen多模态/模板匹配 识别无字icon的名称与功能，不改动YOLO体系 recognize_icon 
+决策层 Agent大脑 Qwen3.5 4B多模态 基于CV输出结果，决策操作、对话交互、技能调用 核心大脑 
+ 
+ 
+ 
+三、核心模块详细落地规范
+ 
+模块1：界面场景分类模块（解决界面乱认、不可遍历问题）
+ 
+核心职责
+ 
+给Agent输出固定、可枚举、100%确定的界面类型，彻底避免Qwen自由输出导致的逻辑混乱。
+ 
+类别体系（固定10类，覆盖99%游戏场景，永不新增）
+ 
+类别ID 英文枚举 中文界面 
+0 bridge 舰桥主界面 
+1 combat 战斗界面 
+2 prepare 出战/角色准备界面 
+3 home 家园界面 
+4 club 舰团界面 
+5 sign 签到/活动日历界面 
+6 bag 背包/仓库界面 
+7 story 剧情/对话界面 
+8 gacha 补给/抽卡界面 
+9 setting 设置界面 
+ 
+数据集与训练规范
+ 
+1. 数据集结构（零标注成本，不用画框）
+plaintext
+  
+honkai3_scene_cls/
+├── train/  # 80%截图，每个类别30-50张
+│   ├── bridge/、combat/、home/...（对应10个类别的文件夹）
+└── val/    # 20%截图，每个类别5-10张，结构同上
+ 
+2. 训练命令（3060 Laptop完美适配）
+bash
+  
+yolo classify train model=yolo11n-cls.pt data=./honkai3_scene_cls epochs=40 imgsz=640 batch=16 device=0
+ 
+3. 合格标准：mAP50>0.98，置信度>0.9，几乎不会出现误判。
+ 
+ 
+ 
+模块2：UI元素检测模块（解决类别膨胀、元素定位问题）
+ 
+核心职责
+ 
+给Agent输出可交互元素的精准坐标，只做「定位器」，不做「识别器」，彻底杜绝类别膨胀。
+ 
+标签体系（固定6类，极简通用，永不新增）
+ 
+标签ID 标签名 标注范围（严格执行） 标注红线 
+0 button 所有可点击、带文字的矩形按钮（确认/返回/领取/出战等） 绝不按功能细分（如sign_button），所有按钮全归此类 
+1 icon 所有可点击的无字/少字图标（技能/头像/道具/功能入口） 绝不按内容细分（如ultimate_icon），所有图标全归此类 
+2 progress_bar 所有长条进度类元素（血条/SP条/护盾条/加载条） 仅标视觉特征一致的长条进度元素 
+3 dialog 剧情对话气泡、系统弹窗、奖励面板 仅标可交互的弹窗/文本框 
+4 input 可输入文字的输入框（搜索/兑换码） 仅标可输入的区域 
+5 map 战斗内小地图 仅标小地图区域 
+ 
+数据集与训练规范
+ 
+1. 数据集结构
+plaintext
+  
+honkai3_ui_det/
+├── images/
+│   ├── train/  # 所有界面截图，不用按场景分类，共300-500张
+│   └── val/    # 验证集截图，50-100张
+└── labels/
+    ├── train/  # 对应截图的txt标注文件，和图片文件名一一对应
+    └── val/    # 验证集对应的txt标注文件
+ 
+2. 配套yaml配置文件
+yaml
+  
+path: ./honkai3_ui_det
+train: images/train
+val: images/val
+nc: 6
+names: ['button', 'icon', 'progress_bar', 'dialog', 'input', 'map']
+ 
+3. 训练命令（3060 Laptop完美适配）
+bash
+  
+yolo train model=yolo11n.pt data=honkai3_ui_det.yaml epochs=80 imgsz=640 batch=8 device=0
+ 
+4. 合格标准：mAP50>0.95，可交互元素召回率>0.9，不漏检按钮/icon。
+ 
+ 
+ 
+模块3：语义补全层（解决文字/无字icon识别问题）
+ 
+完全复用现有模型，不新增训练任务，和YOLO体系完全解耦，不触发类别膨胀。
+ 
+1. 文字识别：PaddleOCR轻量版
+ 
+- 核心作用：读取YOLO框出的 button / dialog 内的文字，给Qwen提供精准的按钮名称匹配
+- 适用场景：带文字的按钮、剧情文本、道具描述
+- 调用规范：YOLO输出元素坐标→裁剪对应区域→OCR读取文字→返回给Qwen
+- 显存占用：<300MB，3060 Laptop无压力
+ 
+2. 无字icon识别：三梯度方案按需选用
+ 
+方案 适用场景 实现方式 优势 
+首选方案 活动新图标、非固定icon、剧情道具 YOLO框出icon→给每个icon编序号→打包截图+序号+坐标喂给Qwen→Qwen输出每个icon的名称/功能 零成本、零训练、适配所有新内容，完全复用现有Qwen 
+进阶方案 战斗技能、常驻功能入口、固定道具 提前建立固定icon模板库→YOLO框出icon→OpenCV模板匹配→输出icon名称 100%准确率、1ms识别、不占用大模型资源、零训练 
+极致方案 全道具/全角色头像批量识别 单独训一个超轻量MobileNetV2分类模型→YOLO框出icon→分类模型输出名称 批量识别速度快、稳定、维护成本低，不改动YOLO体系 
+ 
+ 
+ 
+四、Agent完整闭环执行流程（以舰长需求为例）
+ 
+示例：舰长说「帮我完成今日签到」
+ 
+1. Agent决策：Qwen输出 {"skill": "get_current_scene", "params": {}} ，调用CV技能
+2. CV执行：场景分类模型返回 {"scene": "bridge", "scene_cn": "舰桥界面", "confidence": 0.99} 
+3. Agent决策：Qwen输出 {"skill": "get_ui_elements", "params": {}} ，获取界面元素
+4. CV执行：UI检测模型返回3个 button 、2个 icon 的坐标列表
+5. Agent决策：Qwen输出 {"skill": "ocr_element_text", "params": {"bbox_list": 按钮坐标列表}} ，读取按钮文字
+6. CV执行：OCR返回按钮文字：A=「返回」、B=「签到」、C=「活动」
+7. Agent决策：Qwen输出 {"skill": "click_element", "params": {"bbox": B按钮坐标}} ，点击签到按钮
+8. CV二次确认：场景分类模型返回 {"scene": "sign", "scene_cn": "签到界面"} ，确认跳转成功
+9. Agent决策：重复上述流程，找到「领取全部」按钮并点击，完成签到
+10. Agent反馈：Qwen给舰长输出自然语言回复「已经帮舰长完成今日签到，所有奖励都已领取完毕啦~」
+ 
+ 
+ 
+五、3060 Laptop专属性能优化方案
+ 
+1. 模型轻量化：全程使用YOLO11n系列模型，单模型显存占用<500MB，两个YOLO加起来<1GB
+2. 推理加速：YOLO推理开启 half=True 半精度，imgsz固定640，关闭冗余日志，单帧推理耗时<10ms
+3. 显存控制：Qwen3.5 4B使用Int4量化，显存占用<5GB，全程总显存占用<7GB，不会爆显存
+4. 截图优化：仅截取游戏窗口，而非全屏，降低分辨率压力，截图耗时<1ms
+5. 按需调用：固定icon优先用模板匹配，仅新icon调用Qwen，减少大模型调用频率，提升响应速度
+ 
+ 
+ 
+六、完整可直接运行的CV+Agent整合代码
+ 
+python
+  
+import cv2
+import mss
+import json
+import torch
+import pyautogui
+from ultralytics import YOLO
+from paddleocr import PaddleOCR
+from transformers import AutoModelForCausalLM, AutoTokenizer, GenerationConfig
+
+# ====================== 配置项（替换为你的本地路径）======================
+CLS_MODEL_PATH = "runs/classify/train/weights/best.pt"  # 场景分类模型
+DET_MODEL_PATH = "runs/detect/train/weights/best.pt"     # UI检测模型
+QWEN_MO

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3414/detail?bbs_presentation_style=no_header",
+  "title": "「夜漫未央」与「夜为霓裳」-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3414,
+  "main_content": "材料描述     名称 「夜漫未央」与「夜为霓裳」 类别 消耗品   消耗途径   直接使用 使用后可以获得服装「夜漫未央」与「夜为霓裳」。  获取途径   活动获取 开启「岁华如绮」服装自选箱获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/05/04/77124895/e58262d4baa78dd27def1a7f825aedee_7016471076200443505.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 99,
+    "media_count": 1,
+    "extraction_time": 1773503085.2029066,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773503085.2029066
+}

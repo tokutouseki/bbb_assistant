@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/302/detail?bbs_presentation_style=no_header",
+  "title": "凰剑-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 302,
+  "main_content": "武器数据     星级  攻击 158会心 25 2017年限定武器。”凤凰”双子武器中的一把。能和芽衣的“凰剑”搭档的，只有琪亚娜的“凤枪”  武器技能   凰 击中时附带36点火焰元素伤害；队伍中有琪亚娜时，自身火焰元素伤害提高18.0%  获取方式   活动获取 2017情人节活动获取吼姆旅行商店 吼姆's Legend见证章*3换取  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/09/76361817/e58d4a0d73e2fe1253d8e8e60b88190c_5546070255413033429.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\凰剑.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 212,
+    "media_count": 1,
+    "extraction_time": 1773404371.7659903,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773404371.7659903
+}

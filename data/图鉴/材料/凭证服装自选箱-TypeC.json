@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1308/detail?bbs_presentation_style=no_header",
+  "title": "凭证服装自选箱-TypeC-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1308,
+  "main_content": "材料描述     名称 凭证服装自选箱-TypeC 类别 消耗品 超美哒！  消耗途径   直接使用 可在：服装-黯噬、服装-赫莲娜的闪翼、服装-绀碧、服装-绀紫梦境、8000星石中选择兑换一项  获取途径   凭证奖励 购买精英凭证或购买进阶凭证且凭证等级达到20级可领取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/22/73514954/db7e4ec3f5d942dc931a32f8726f1a7c_2538817086270115858.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 137,
+    "media_count": 1,
+    "extraction_time": 1773422756.0110607,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773422756.0110607
+}

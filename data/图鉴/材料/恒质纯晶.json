@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3919/detail?bbs_presentation_style=no_header",
+  "title": "恒质纯晶-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3919,
+  "main_content": "材料描述     名称 恒质纯晶 类别 基础材料 经过特殊工艺处理过的宝石，其存在仿佛就是“贵重”一词的具象化，有着自然造物无法比拟的超高价值。  消耗途径   作战凭证 可以在作战凭证内的【作战工坊】及【储备工坊】中兑换特定S级女武神及女武神晋升印章、推荐武器等多种极其稀有的道具  获取途径   作战奖励 作战凭证达到一定等级后获取家园商店 1600金花奖章购买1个，版本限购2个",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/03/16/77124895/bd68758290889a80b931a7b801384f68_6245074064626907384.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 192,
+    "media_count": 1,
+    "extraction_time": 1773512193.4833577,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773512193.4833577
+}

@@ -1,0 +1,60 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/969/detail?bbs_presentation_style=no_header",
+  "title": "萝莎莉娅·阿琳-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 969,
+  "main_content": "角色资料       中文名 萝莎莉娅·阿琳 外文名 Rozaliya Olenyeva CV 多多 生日 不明      中文名 萝莎莉娅·阿琳 外文名 Rozaliya Olenyeva CV 多多 生日 不明  女武神装甲  \n              樱桃炸弹\n             \n              狂热蓝调Δ\n              \n              樱桃炸弹\n             \n              狂热蓝调Δ",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "角色",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/02/77124895/1f415eb0f58b9e8c2f221f77c5badf01_5278457895333608008.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/64b246e98b2938720f6aed8f5a2b43da_8993947880434648011.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/27/6100274/3fdb870b949f1002b28278bb39c320ac_7084136879394339845.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 237,
+    "media_count": 3,
+    "extraction_time": 1773416709.6668787,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773416709.6668787
+}

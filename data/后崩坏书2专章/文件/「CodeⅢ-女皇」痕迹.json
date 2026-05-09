@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1421/detail?bbs_presentation_style=no_header",
+  "title": "「CodeⅢ-女皇」痕迹-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1421,
+  "main_content": "文件位置   文件详情 分析模组：分析结果，此痕迹来源于：「CodeⅢ-女皇」故事是这样的：一只怪物被「CodeⅢ-女皇」石化了，然后被砸得粉碎，最后这堆残骸就诞生了。明白了吗？",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "文件",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/12/27/73514954/b194fb8dafe2b73b0b4fdfa7f0ab5e04_5451351389614225731.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 89,
+    "media_count": 1,
+    "extraction_time": 1773462450.7040384,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773462450.7040384
+}

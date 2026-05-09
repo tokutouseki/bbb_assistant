@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3768/detail?bbs_presentation_style=no_header",
+  "title": "寒冰骑士长-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3768,
+  "main_content": "怪物信息     怪物名称 寒冰骑士长 怪物属性 异能威胁等级 ★★ 伤害类型 冰伤怪物类型 普通 出现场景 角色挑战特殊机制 控制           怪物名称 寒冰骑士长 怪物属性 异能 威胁等级 ★★ 伤害类型 冰伤 怪物类型 普通 出现场景 角色挑战 特殊机制 控制    怪物技能 \n      冰棺\n       冰棺 将随机一名女武神冻在冰棺中，冰棺在受到一定次数的攻击后会碎裂  应对方式 使用高频攻击破坏冰棺将队友救出",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/16/75216984/df5e58f1d04701ee7aa908f71243bc08_2370199191329433837.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/16/75216984/70b3cba747c143371427fefa43369c8a_5116672497358068708.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/16/75216984/07bfa0cdd5add8ea6caafe32905fed04_5564099509377216313.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/16/75216984/07bfa0cdd5add8ea6caafe32905fed04_1700542382539119801.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 218,
+    "media_count": 4,
+    "extraction_time": 1773509633.1366537,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773509633.1366537
+}

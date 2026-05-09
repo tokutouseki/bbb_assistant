@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1110/detail?bbs_presentation_style=no_header",
+  "title": "吼美材料箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1110,
+  "main_content": "材料描述     名称 吼美材料箱 类别 消耗品 吼美珍藏的宝物，粉粉的箱子里散发出了少女的气息。  消耗途径   直接使用 使用后可随机获得1个4星曜日材料（可能暴击哦？！）  获取途径   商店获取 通过1.7版本「银狼觉醒」机密商店获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/18/73760043/1a7fbd2046875dba56152e23467828e9_6686378445282147243.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 121,
+    "media_count": 1,
+    "extraction_time": 1773419092.127525,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419092.127525
+}

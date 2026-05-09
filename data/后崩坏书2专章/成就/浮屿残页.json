@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1562/detail?bbs_presentation_style=no_header",
+  "title": "浮屿残页-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1562,
+  "main_content": "基础介绍       名称 浮屿残页 类型 普通成就      名称 浮屿残页 类型 普通成就  获得方式：于训诫之间【轮转浮屿】找到【无名手记的残页 其四】",
+  "html_content": null,
+  "category_main": "后崩坏书2专章",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/06/04/9917988/def6efd0a4e5725b285a1d85af339a8b_8550469103084123897.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 79,
+    "media_count": 1,
+    "extraction_time": 1773464940.8279104,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773464940.8279104
+}

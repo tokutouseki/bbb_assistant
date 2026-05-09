@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1616/detail?bbs_presentation_style=no_header",
+  "title": "十色浸染的灰-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1616,
+  "main_content": "十色浸染的灰十色浸染的灰★★★效果：选择「繁星」的刻印时其初始等级增加1级。拥有刻印【像是繁星，闪耀着的】时，当场上有敌人同时染上红黄蓝三色时，期间触发的染色持续时间额外延长2.5秒；拥有刻印【像是繁星，黯淡了的】时，被染色的敌人死亡时，延迟1秒后使周围的敌人染上与其相同颜色的油墨十色浸染的灰两枚灰色的鸟羽，似是发饰，却又有些曾被颜料沾染过的痕迹。那是少女用以「抹除」的工具，也是她最喜爱的饰物。画画，总是会有画错的时候的。或是这里多画了一笔，或是那里用错了颜色，或是到了最后，才发现这张画根本不是自己想要的样子······总之，像这样「画错了」的时候，还是有很多的。每到这时，少女都会用这两片灰羽，将画布上的那些「错误」统统擦去。当然，用羽毛擦过的地方，肯定都还是会留下些「痕迹」的。但对少女来说，那些痕迹······它们其实并不重要。它们早晚都会褪去，或者······成为她下一幅画中的一部分，这也是有可能的。——不喜欢的东西······只要擦掉就好了呀。——······——嗯？怎么了，科斯魔？是······我说错什么了吗？",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "物品",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/03/11/50494840/d8fce331f68042997b4e51c35dc4a0fa_1458041940277193143.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 466,
+    "media_count": 1,
+    "extraction_time": 1773466151.239591,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773466151.239591
+}

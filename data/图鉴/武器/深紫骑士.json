@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/86/detail?bbs_presentation_style=no_header",
+  "title": "深紫骑士-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 86,
+  "main_content": "武器数据     星级  攻击 177会心 16 米高扬中央设计制造的崩坏能动力剑，可以一口气释放出剑身内的崩坏能形成强大的冲击波，击飞前方的敌人  武器技能   主动技能-深紫冲击 [能量消耗:15][冷却:7秒]冲向目标直戳出一道剑风，对前方范围敌人造成3*145%攻击力的物理伤害  获取方式   编年史获取 既往编年史蚩尤巨兽-困难难度通关成就获取时间胶囊限时返场 吼姆's Legend见证章*6换取  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/09/76361817/f8972392112f1a2eda733ecae0cc10b6_1751206020298365864.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\深紫骑士.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 246,
+    "media_count": 1,
+    "extraction_time": 1773403130.8008964,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403130.8008964
+}

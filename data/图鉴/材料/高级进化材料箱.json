@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1317/detail?bbs_presentation_style=no_header",
+  "title": "高级进化材料箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1317,
+  "main_content": "材料描述     名称 高级进化材料箱 类别 消耗品 总部给予舰长每周优良表现的材料补给奖励  消耗途径   直接使用 使用后获得3个流体合金或1个相转移镜面  获取途径   福利礼包兑换码 爱酱不定时放出的福利礼包兑换码兑换",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/19/73514954/858f8473ec7db99906807fcc78f0814a_50578691494409114.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 113,
+    "media_count": 1,
+    "extraction_time": 1773422920.1919959,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773422920.1919959
+}

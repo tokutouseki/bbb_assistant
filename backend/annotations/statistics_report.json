@@ -1,0 +1,12 @@
+{
+  "total_images": 20,
+  "average_confidence": 1.0,
+  "label_distribution": {
+    "MeiRiQianDao_Main": 20
+  },
+  "confidence_stats": {
+    "min": 1.0,
+    "max": 1.0,
+    "avg": 1.0
+  }
+}

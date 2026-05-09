@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/177/detail?bbs_presentation_style=no_header",
+  "title": "火焰弹发射台-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 177,
+  "main_content": "武器数据     星级  攻击 102会心 55 苏联制的小型燃烧弹发射台，轻量化处理之后仍旧有250公斤的重量，也只有某个怪力修女会背着它乱跑了...  武器技能   火焰弹\t\t\t\t\t [能量消耗:15][冷却:13秒]展开十字架【召唤物】：8秒内，每隔0.6秒对范围内随机敌人发射火焰导弹，小范围爆炸造成482点火焰伤害  获取方式   既往获取 通过主线关卡5-6、S4-3获取  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/09/07/81417673/d02ea0b1affc7cb65c8b1d8119fbfec9_7895906698689060584.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\火焰弹发射台.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 231,
+    "media_count": 1,
+    "extraction_time": 1773403600.4780295,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773403600.4780295
+}

@@ -1,0 +1,88 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3055/detail?bbs_presentation_style=no_header",
+  "title": "标准驱动核心-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3055,
+  "main_content": "武器数据     星级  攻击 118会心 9 理论上来说，它既可以组装成溜溜球，也可以变成滑板的零配件······甚至还可以在荒野求生的时候充当滑轮或者打火石？  武器展示 \n      初始外观\n    \n      满星外观\n       驱动核心    驱动核心    武器技能   即插即用 [能量消耗:0][冷却:0秒]武器主动技能的冷却时间、充能次数、技能效果由装备角色的类型决定  获取途径   编年史 通关编年史 永世回忆篇 档案 关卡获取其他方式 驱动核心角色初始自带武器  进化材料   突破等级 所需材料 15 流体合金 *220 流体合金 *5",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "武器",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/01/15/73749426/f3d678ddf8a5d7ab51763c52541a1761_5285331540234933862.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\标准驱动核心_1.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/21/50494840/cc96e1a87fed9d8a030c57148dd21210_874111840529258162.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\标准驱动核心_2.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/21/50494840/74d917bda0630739ef458ec2c621a268_2069269522334020949.gif",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\标准驱动核心_3.gif",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/21/50494840/cc96e1a87fed9d8a030c57148dd21210_6085367544793946285.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\标准驱动核心_4.png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/03/21/50494840/ce239a7cbefb7d051d6f0c150af1f1c6_5924505665155792781.gif",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\武器\\media\\标准驱动核心_5.gif",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 285,
+    "media_count": 5,
+    "extraction_time": 1773495556.7452755,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773495556.7452755
+}

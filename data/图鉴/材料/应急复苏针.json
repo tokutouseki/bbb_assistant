@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1320/detail?bbs_presentation_style=no_header",
+  "title": "应急复苏针-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1320,
+  "main_content": "材料描述     名称 应急复苏针 类别 基础材料 天命的科研小组分析死士化原理时研制出的药剂,它可以向人体注入微量受控的崩坏能，即时复苏机能停止的肢体。  消耗途径   关卡内使用 可在部分关卡内使用复活角色  获取方式   活动获取 主线章节活动不定期获取",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/19/73008221/ea5259849125d3be2ca52733523329b4_9012180469369361516.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 130,
+    "media_count": 1,
+    "extraction_time": 1773422974.9098656,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773422974.9098656
+}

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1230/detail?bbs_presentation_style=no_header",
+  "title": "特级学习芯片-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1230,
+  "main_content": "材料描述     名称 特级学习芯片 类别 基础材料 全方位记录了真实崩坏战场的稀有芯片，对使用者的成长将有质的突破。但若是没有足够强大的内心，则可能被战场上残酷的血雨腥风所侵蚀。  消耗途径   女武神/人偶养成 提供7500点角色或者武装人偶经验值。舰团委托回收 提交材料获取奖励  获取途径   金币商店 金币兑换获取远征探索 远征探索奖励保税仓库 舰团保税仓库发布需求后，他人赠送获取主线关卡 部分关卡概率掉落小队训练基地 完成关卡结算奖励活动 参与各类活动获取充值福利 累计充值达一定数目后获取家园打工 概率刷出，完成家园打工获取材料-消耗品 开启爱酱小礼盒概率获得主线关卡 通过主线获得的奖励",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/77124895/0f07288cddc7d68dfd23fa4bedd14403_6118422600771967628.PNG",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 302,
+    "media_count": 1,
+    "extraction_time": 1773421347.6682372,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421347.6682372
+}

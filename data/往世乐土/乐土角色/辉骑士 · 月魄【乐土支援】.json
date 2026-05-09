@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2783/detail?bbs_presentation_style=no_header",
+  "title": "辉骑士 · 月魄【乐土支援】-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2783,
+  "main_content": "支援角色     装甲名称 辉骑士 · 月魄 CV 喵☆酱装甲属性 机械 伤害类型 物理解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁。           装甲名称 辉骑士 · 月魄 CV 喵☆酱 装甲属性 机械 伤害类型 物理 解锁条件 完成「英桀试炼」关卡「逐火之徽」后即可解锁。    支援技能   技能名 骑士的战枪冷却时间 30秒技能效果 召唤辉骑士 · 月魄，使用骑枪猛击敌人，造成共计930%攻击力的物理伤害，附加6点重击积蓄值，并为出战女武神格挡所有伤害，持续1秒",
+  "html_content": null,
+  "category_main": "往世乐土",
+  "category_sub": "乐土角色",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/09/25/50494840/5d1d1326213ab3130285b5ba3f711cc7_8179257154670097070.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 244,
+    "media_count": 1,
+    "extraction_time": 1773490464.148667,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773490464.148667
+}

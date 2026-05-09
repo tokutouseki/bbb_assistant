@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/989/detail?bbs_presentation_style=no_header",
+  "title": "渡鸦 · 偶像(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 989,
+  "main_content": "圣痕资料   位置 上位所属套装 偶像演出套装套装tag 全元素-减伤-移速-控制-全伤-生命上限-能量上限圣痕技能 【盛装演出】全元素伤害提高12.0%，芽衣或渡鸦角色装备时，角色受到的元素伤害降低15.0% 相关圣痕 渡鸦 · 偶像(中) 渡鸦 · 偶像(下)      位置 上位 所属套装 偶像演出套装 套装tag 全元素-减伤-移速-控制-全伤-生命上限-能量上限 圣痕技能 【盛装演出】全元素伤害提高12.0%，芽衣或渡鸦角色装备时，角色受到的元素伤害降低15.0% 相关圣痕 渡鸦 · 偶像(中) 渡鸦 · 偶像(下)   套装技能   舞台焦点 全伤害提高15.0%，生命上限提高15.0%万众瞩目 攻击速度提高10.0%，能量上限提高10.0%  基本属性         属性 数值 D C B A A+ S 生命 386      攻击 94      防御 44      会心 0       玩家评价 提供全元素加伤和减伤，数值较低，实战价值不大  获取方式   活动 参与活动「狂燃音符」八日登录领取  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *240 流体合金块 *2相转移镜面 *445 流体合金块 *3相转移镜面 *7",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/18/50494840/42703c7672c4df9289266ad8563d7c5a_7479984814459063473.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\渡鸦 · 偶像(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 541,
+    "media_count": 1,
+    "extraction_time": 1773416943.0075276,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773416943.0075276
+}

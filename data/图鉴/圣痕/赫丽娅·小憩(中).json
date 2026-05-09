@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3967/detail?bbs_presentation_style=no_header",
+  "title": "赫丽娅·小憩(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3967,
+  "main_content": "圣痕资料   位置 中位单件tag 全元素 相关圣痕  无      位置 中位 单件tag 全元素 相关圣痕  无   圣痕纹章   圣痕技能   心逸日休 使用武器技能后，角色造成的全元素伤害提高8.0%，持续10秒，重复触发刷新持续时间  基本属性         属性 数值 D C B A A+ S 生命 276      攻击 0      防御 124      会心 1       玩家评价 释放武器技能后提高全元素伤害，可用于频繁触发武器技能的角色过渡。  获取途径   活动获取 参与「商界双侠：云津市集」活动限时获得  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/04/21/50494840/28be2047299df589409912760c7c66e8_3014948033374108642.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\赫丽娅·小憩(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 311,
+    "media_count": 1,
+    "extraction_time": 1773513072.8716626,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773513072.8716626
+}

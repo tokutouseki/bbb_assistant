@@ -1,0 +1,74 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1483/detail?bbs_presentation_style=no_header",
+  "title": "禁卫军死士-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1483,
+  "main_content": "怪物信息     怪物名称 禁卫军死士 怪物属性 生物威胁等级 ★ 伤害类型 物理怪物类型 普通 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界、万象虚境特殊机制 流血状态           怪物名称 禁卫军死士 怪物属性 生物 威胁等级 ★ 伤害类型 物理 怪物类型 普通 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界、万象虚境 特殊机制 流血状态    天命档案 较为稀少的死士单位。攻击欲望较强，攻击动作略为复杂，建议A级以下女武神进行模拟训练之后再予以应对。希望丽塔大人能帮我们分析一下她镰刀的攻击模式！！@副队长 丽塔·洛丝薇瑟 ——苏莎娜自己多来模拟室练练嘛，这种事就别麻烦丽塔大人了。@磷砂小队全员 ——马蒂拉它的攻击模式不难说明，但你们队长说得对，比起文字，还是实战练习效果更好些哟。——丽塔·洛丝薇瑟  怪物技能 \n      撕裂之触\n       撕裂之触 使用镰刀连续攻击前方敌人，附带流血状态  应对方式 看准时机闪避或及时撤出攻击范围即可",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/05/23/73760043/43e4ccd02d682da1c7a017422f655b33_985706449788917693.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/24/91006211/689f7e28d8e2165a203e2d9de8da940b_105284223516153954.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/05/91006211/1e7eb209c795277cfb6d37a9c195f91b_4090448839397382753.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/05/91006211/1e7eb209c795277cfb6d37a9c195f91b_7552320960199218321.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 449,
+    "media_count": 4,
+    "extraction_time": 1773463523.9015834,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773463523.9015834
+}

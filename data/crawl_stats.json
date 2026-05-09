@@ -1,0 +1,124 @@
+﻿{
+  "total_files": 6706,
+  "total_json_files": 3353,
+  "total_txt_files": 3353,
+  "folders": {
+    "图鉴": {
+      "total": 4058,
+      "json_count": 2029,
+      "txt_count": 2029,
+      "subfolders": {
+        "圣痕": { "total": 1368, "json_count": 684, "txt_count": 684 },
+        "材料": { "total": 1008, "json_count": 504, "txt_count": 504 },
+        "武器": { "total": 760, "json_count": 380, "txt_count": 380 },
+        "敌人": { "total": 394, "json_count": 197, "txt_count": 197 },
+        "宿舍名册": { "total": 272, "json_count": 136, "txt_count": 136 },
+        "女武神": { "total": 218, "json_count": 109, "txt_count": 109 },
+        "人偶": { "total": 26, "json_count": 13, "txt_count": 13 },
+        "协同者": { "total": 12, "json_count": 6, "txt_count": 6 }
+      }
+    },
+    "档案": {
+      "total": 1288,
+      "json_count": 644,
+      "txt_count": 644,
+      "subfolders": {
+        "壁纸": { "total": 372, "json_count": 186, "txt_count": 186 },
+        "美术档案": { "total": 218, "json_count": 109, "txt_count": 109 },
+        "游戏PV": { "total": 184, "json_count": 92, "txt_count": 92 },
+        "故事": { "total": 178, "json_count": 89, "txt_count": 89 },
+        "内容合集": { "total": 78, "json_count": 39, "txt_count": 39 },
+        "角色": { "total": 76, "json_count": 38, "txt_count": 38 },
+        "动画短片": { "total": 52, "json_count": 26, "txt_count": 26 },
+        "官方漫画": { "total": 38, "json_count": 19, "txt_count": 19 },
+        "视频集锦": { "total": 32, "json_count": 16, "txt_count": 16 },
+        "主题曲-音乐": { "total": 28, "json_count": 14, "txt_count": 14 },
+        "服装视频": { "total": 26, "json_count": 13, "txt_count": 13 },
+        "角色PV": { "total": 6, "json_count": 3, "txt_count": 3 }
+      }
+    },
+    "第二部探索指南": {
+      "total": 840,
+      "json_count": 420,
+      "txt_count": 420,
+      "subfolders": {
+        "成就": { "total": 434, "json_count": 217, "txt_count": 217 },
+        "收藏品": { "total": 140, "json_count": 70, "txt_count": 70 },
+        "关卡机制": { "total": 136, "json_count": 68, "txt_count": 68 },
+        "洛星博物纪": { "total": 34, "json_count": 17, "txt_count": 17 },
+        "地图点位": { "total": 32, "json_count": 16, "txt_count": 16 },
+        "星之环": { "total": 24, "json_count": 12, "txt_count": 12 },
+        "道具": { "total": 22, "json_count": 11, "txt_count": 11 },
+        "相册和CG": { "total": 16, "json_count": 8, "txt_count": 8 },
+        "系统玩法": { "total": 2, "json_count": 1, "txt_count": 1 }
+      }
+    },
+    "往世乐土": {
+      "total": 316,
+      "json_count": 158,
+      "txt_count": 158,
+      "subfolders": {
+        "乐土角色": { "total": 166, "json_count": 83, "txt_count": 83 },
+        "物品": { "total": 68, "json_count": 34, "txt_count": 34 },
+        "事件": { "total": 32, "json_count": 16, "txt_count": 16 },
+        "追忆": { "total": 26, "json_count": 13, "txt_count": 13 },
+        "通用刻印": { "total": 24, "json_count": 12, "txt_count": 12 }
+      }
+    },
+    "后崩坏书2专章": {
+      "total": 182,
+      "json_count": 91,
+      "txt_count": 91,
+      "subfolders": {
+        "文件": { "total": 68, "json_count": 34, "txt_count": 34 },
+        "怪物": { "total": 60, "json_count": 30, "txt_count": 30 },
+        "成就": { "total": 24, "json_count": 12, "txt_count": 12 },
+        "大地图点位": { "total": 16, "json_count": 8, "txt_count": 8 },
+        "角色": { "total": 8, "json_count": 4, "txt_count": 4 },
+        "月之环系统": { "total": 6, "json_count": 3, "txt_count": 3 }
+      }
+    },
+    "主线故事": {
+      "total": 2,
+      "json_count": 1,
+      "txt_count": 1,
+      "subfolders": {}
+    },
+    "世界观": {
+      "total": 4,
+      "json_count": 2,
+      "txt_count": 2,
+      "subfolders": {}
+    },
+    "主线章节资料": {
+      "total": 14,
+      "json_count": 7,
+      "txt_count": 7,
+      "subfolders": {
+        "地图点位": { "total": 10, "json_count": 5, "txt_count": 5 },
+        "成就": { "total": 2, "json_count": 1, "txt_count": 1 },
+        "道具": { "total": 2, "json_count": 1, "txt_count": 1 }
+      }
+    },
+    "新手入门": {
+      "total": 2,
+      "json_count": 1,
+      "txt_count": 1,
+      "subfolders": {
+        "术语一览": { "total": 2, "json_count": 1, "txt_count": 1 }
+      }
+    },
+    "攻略推荐": {
+      "total": 0,
+      "json_count": 0,
+      "txt_count": 0,
+      "subfolders": {}
+    },
+    "未知分类": {
+      "total": 0,
+      "json_count": 0,
+      "txt_count": 0,
+      "subfolders": {}
+    }
+  }
+}

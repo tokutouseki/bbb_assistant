@@ -1,0 +1,261 @@
+/* 
+ * 崩坏3专属AI陪伴助手 - 主样式文件
+ * 包含全局样式和自定义样式
+ */
+
+/* CSS重置和基础样式 */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Inter', 'Microsoft YaHei', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #0f172a;
+  color: #f8fafc;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.8);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  border-radius: 5px;
+  border: 2px solid rgba(15, 23, 42, 0.8);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #db2777, #7c3aed);
+}
+
+/* 选择文本样式 */
+::selection {
+  background-color: rgba(236, 72, 153, 0.3);
+  color: #ffffff;
+}
+
+/* 链接样式 */
+a {
+  color: #60a5fa;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+/* 图片样式 */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* 按钮重置 */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+/* 输入框重置 */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+/* 列表重置 */
+ul,
+ol {
+  list-style: none;
+}
+
+/* 表格重置 */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 实用类 */
+.text-gradient {
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+}
+
+.glass-effect {
+  background: rgba(30, 41, 59, 0.7);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.shadow-game {
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3),
+              0 8px 10px -6px rgba(0, 0, 0, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* 动画类 */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* 崩坏3主题类 */
+.honkai-border {
+  position: relative;
+}
+
+.honkai-border::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.5;
+}
+
+/* 游戏UI元素 */
+.game-card {
+  background: rgba(30, 41, 59, 0.8);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(236, 72, 153, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* 角色主题 */
+.character-kiana {
+  --character-color: #f472b6;
+}
+
+.character-mei {
+  --character-color: #8b5cf6;
+}
+
+.character-bronya {
+  --character-color: #06b6d4;
+}
+
+.character-seele {
+  --character-color: #10b981;
+}
+
+.character-rita {
+  --character-color: #ec4899;
+}
+
+.character-durandal {
+  --character-color: #f59e0b;
+}
+
+/* 响应式工具类 */
+@media (max-width: 640px) {
+  .mobile-hidden {
+    display: none !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .tablet-hidden {
+    display: none !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .desktop-hidden {
+    display: none !important;
+  }
+}
+
+/* 打印样式 */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  a {
+    color: black !important;
+    text-decoration: underline !important;
+  }
+}
+
+/* 高对比度模式 */
+@media (prefers-contrast: high) {
+  :root {
+    --honkai-primary: #d1006a;
+    --honkai-secondary: #5a00cc;
+  }
+}
+
+/* 减少动画模式 */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

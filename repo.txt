@@ -1,0 +1,236 @@
+2026-05-06 15:59:18,105 - datasets - INFO - PyTorch version 2.7.1+cu118 available.
+2026-05-06 15:59:18,108 - datasets - INFO - Polars version 1.39.3 available.
+2026-05-06 15:59:21,075 - src.api.audio - INFO - 音频功能已禁用，跳过 ASR/TTS 初始化
+2026-05-06 15:59:21,144 - __main__ - INFO - 音频功能已禁用，跳过 audio API 路由注册
+============================================================
+崩坏3专属AI陪伴助手 - 后端服务
+版本: 0.1.0
+============================================================
+✅ 已以管理员身份运行
+INFO:     Started server process [99572]
+INFO:     Waiting for application startup.
+2026-05-06 15:59:21,382 - __main__ - INFO - 崩坏3专属AI陪伴助手后端服务启动中...
+2026-05-06 15:59:21,382 - __main__ - INFO - 日志配置完成: INFO
+2026-05-06 15:59:21,382 - __main__ - INFO - 应用配置加载完成: 崩坏3专属AI陪伴助手 v0.1.0
+2026-05-06 15:59:21,382 - __main__ - INFO - 运行环境: development
+2026-05-06 15:59:21,382 - __main__ - INFO - 数据库: sqlite:///./data/bbb_assistant.db
+2026-05-06 15:59:21,382 - __main__ - INFO - API地址: http://0.0.0.0:8000
+2026-05-06 15:59:21,382 - __main__ - INFO - 启动游戏监控服务...
+2026-05-06 15:59:21,382 - src.services.game_monitor - INFO - 游戏监控服务初始化，检查间隔: 2.0s
+2026-05-06 15:59:21,384 - src.services.game_monitor - INFO - 游戏监控已启动
+2026-05-06 15:59:21,384 - __main__ - INFO - 初始化聊天服务...
+2026-05-06 15:59:21,384 - src.modules.llm.llm_router - INFO - 注册模型: DeepSeek API (deepseek-v4-pro) (deepseek-api-default)
+2026-05-06 15:59:21,384 - src.modules.llm.llm_router - INFO - 注册模型: Qwen (LM Studio) (lm-studio-default)
+2026-05-06 15:59:21,384 - src.modules.llm.llm_router - INFO - 注册模型: Ollama (qwen2.5:7b) (ollama-default)
+2026-05-06 15:59:21,384 - src.modules.llm.llm_router - INFO - 注册模型: Local GGUF (Qwen3.5-4B-Q4_K_S.gguf) (local-gguf-default)
+2026-05-06 15:59:21,386 - src.modules.llm.llm_router - INFO - 已注册本地GGUF模型: D:/LLM/unsloth/Qwen3.5-4B-GGUF/Qwen3.5-4B-Q4_K_S.gguf
+2026-05-06 15:59:21,386 - src.modules.llm.llm_router - INFO - LLM路由器初始化完成
+2026-05-06 15:59:21,386 - src.services.chat_service - INFO - LLM路由器初始化完成
+2026-05-06 15:59:21,386 - src.modules.web_search.web_searcher - INFO - 联网搜索器初始化完成，引擎: google
+2026-05-06 15:59:21,386 - src.modules.tool_integration - INFO - 联网搜索工具初始化完成
+2026-05-06 15:59:21,386 - src.modules.tool_integration - INFO - 爬虫功能暂时禁用
+2026-05-06 15:59:21,386 - src.modules.tool_integration - INFO - YOLO工具初始化完成
+2026-05-06 15:59:21,386 - src.modules.tool_integration - INFO - LLM工具集成初始化完成，可用工具: ['web_search', 'query_knowledge', 'list_yolo_models', 'load_yolo_model', 'unload_yolo_model', 'cv_analyze_image', 'run_powershell', 'press_key', 'type_text', 'press_hotkey', 'list_keys']
+2026-05-06 15:59:21,386 - src.services.chat_service - INFO - 工具集成初始化完成
+2026-05-06 15:59:21,386 - src.services.chat_service - INFO - RAG引擎配置完成（将在首次使用时初始化）
+2026-05-06 15:59:21,386 - src.services.chat_service - INFO - 聊天组件初始化完成
+2026-05-06 15:59:21,386 - src.services.chat_service - INFO - 聊天服务初始化完成
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:54887 - "GET /api/health HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:54887 - "GET /api/health/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50533 - "GET / HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50533 - "GET /frontend HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50533 - "GET /api/health HTTP/1.1" 307 Temporary Redirect
+INFO:     127.0.0.1:50533 - "GET /api/health/ HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63099 - "POST /api/chat HTTP/1.1" 307 Temporary Redirect
+2026-05-06 15:59:48,380 - src.modules.rag.rag_engine - INFO - 正在初始化RAG引擎...
+2026-05-06 15:59:48,380 - src.modules.rag.rag_engine - INFO - 使用本地模型路径: ./paraphrase-multilingual-MiniLM-L12-v2
+2026-05-06 15:59:48,380 - src.modules.rag.embedding - INFO - 正在加载嵌入模型: ./paraphrase-multilingual-MiniLM-L12-v2
+2026-05-06 15:59:48,387 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: ./paraphrase-multilingual-MiniLM-L12-v2
+2026-05-06 15:59:49,687 - src.modules.rag.embedding - INFO - 嵌入模型加载完成，维度: 384
+2026-05-06 15:59:49,687 - src.modules.rag.rag_engine - INFO - 嵌入服务初始化完成
+2026-05-06 15:59:50,465 - src.modules.rag.vector_store - INFO - 正在初始化ChromaDB: ../data/chroma_db
+2026-05-06 15:59:50,726 - src.modules.rag.vector_store - INFO - 集合 bbb_knowledge 已存在，向量数: 2152
+2026-05-06 15:59:50,726 - src.modules.rag.vector_store - INFO - ChromaDB向量存储初始化完成
+2026-05-06 15:59:50,727 - src.modules.rag.rag_engine - INFO - 向量存储初始化完成
+2026-05-06 15:59:50,727 - src.modules.rag.index_manager - INFO - 正在初始化索引管理器...
+2026-05-06 15:59:50,849 - src.modules.rag.index_manager - INFO - 从 ..\data\rag_index\precise_index.json 加载了 3334 条 索引
+2026-05-06 15:59:50,849 - src.modules.rag.index_manager - INFO - 索引管理器初始化完成，共 3334 条索引
+2026-05-06 15:59:50,850 - src.modules.rag.rag_engine - INFO - 索引管理器初始化完成
+2026-05-06 15:59:50,850 - src.modules.rag.rag_engine - INFO - RAG引擎初始化完成
+d:\TokusCode\bbb_assistant\backend\src\modules\agent\react_agent.py:83: LangChainDeprecationWarning: Please see the migration guide at: https://python.langchain.com/docs/versions/migrating_memory/
+  return ConversationBufferMemory(
+2026-05-06 15:59:50,882 - src.modules.skill.skill_manager - INFO - 已加载技能: club_consignment_recovery
+2026-05-06 15:59:50,883 - src.modules.skill.skill_manager - INFO - 已加载技能: find_direction
+2026-05-06 15:59:50,883 - src.modules.skill.skill_manager - INFO - 已加载技能: game_navigation
+2026-05-06 15:59:50,884 - src.modules.skill.skill_manager - INFO - 已加载技能: material_expedition_one_click
+
+
+> Entering new AgentExecutor chain...
+2026-05-06 15:59:50,906 - src.modules.llm.llm_router - INFO - 选择模型: DeepSeek API (deepseek-v4-pro) (deepseek-api-default) 用于任务类型: TaskType.GAME_GUIDE
+2026-05-06 15:59:50,907 - src.modules.llm.deepseek_client - INFO - DeepSeek客户端初始化完成，模型: deepseek-v4-pro
+2026-05-06 15:59:50,907 - src.modules.llm.llm_router - INFO - 注册模型客户端: deepseek-api-default
+Thought: 用户要求先聚焦游戏窗口，然后使用bridge识别模型进行检测。先执行聚焦操作。
+Action: focus_bh3_window
+Action Input:2026-05-06 15:59:57,762 - src.modules.llm.llm_router - INFO - 选择模型: DeepSeek API (deepseek-v4-pro) (deepseek-api-default) 用于任务类型: TaskType.GAME_GUIDE
+✅ 成功聚焦'崩坏3'窗口 - 窗口操作已执行（Windows安全限制可能阻止SetForegroundWindow返回True）Thought: 窗口已聚焦。现在需要加载 bridge 识别模型，然后对当前屏幕进行检测。首先列出可用的 YOLO 模型，确认 bridge 模型的具体名称。
+Action: yolo_list_models
+Action Input:=== 已加载模型 ===
+无
+
+=== 可用分类模型 ===
+• yolo11n_scene_cls
+
+=== 可用检测模型 ===
+• yolo11n_attack_ui_det
+• yolo11n_bridge_ui_det
+• yolo11n_club_ui_det
+• yolo11n_home_ui_det
+• yolo11n_mission_ui_det2026-05-06 16:00:01,961 - src.modules.llm.llm_router - INFO - 选择模型: DeepSeek API (deepseek-v4-pro) (deepseek-api-default) 用于任务类型: TaskType.GAME_GUIDE
+Action: yolo_load_model
+Action Input: yolo11n_bridge_ui_det2026-05-06 16:00:05,567 - src.modules.agent.react_agent - INFO - 使用设备: cpu
+2026-05-06 16:00:05,827 - src.modules.vision.yolo_model_manager - INFO - ONNX 模型已加载，设备将在推理时指定: cpu
+2026-05-06 16:00:05,827 - src.modules.vision.yolo_model_manager - INFO - YOLO模型加载成功: D:\TokusCode\bbb_assistant\backend\data\models\detect\yolo11n_bridge_ui_det.onnx (cpu)
+✅ 模型加载成功
+
+模型信息:
+• 名称: yolo11n_bridge_ui_det
+• 设备: cpu2026-05-06 16:00:05,834 - src.modules.llm.llm_router - INFO - 选择模型: DeepSeek API (deepseek-v4-pro) (deepseek-api-default) 用于任务类型: TaskType.GAME_GUIDE
+Thought: 模型已成功加载，现在对当前屏幕截图进行 bridge UI 元素检测
+Action: yolo_detect_image
+Action Input: yolo11n_bridge_ui_det2026-05-06 16:00:09,441 - src.modules.vision.screen_capture - INFO - 使用屏幕捕获方法: pil
+2026-05-06 16:00:09,826 - src.modules.vision.yolo_model_manager - INFO - 原始图片已保存: d:\TokusCode\bbb_assistant\backend\src\yolo_output\original\yolo11n_bridge_ui_det_1778054409486.png
+Loading D:\TokusCode\bbb_assistant\backend\data\models\detect\yolo11n_bridge_ui_det.onnx for ONNX Runtime inference...
+Using ONNX Runtime 1.16.3 with CPUExecutionProvider
+2026-05-06 16:00:10,506 - src.modules.vision.yolo_model_manager - INFO - 识别后图片已保存: d:\TokusCode\bbb_assistant\backend\src\yolo_output\process\yolo11n_bridge_ui_det_1778054409486_detected.png
+检测到 23 个目标，共 19 种类别:
+
+1. button_bag--背包按钮
+   ├─ 置信度: 0.9902
+   └─ 位置: (1650, 230) - (1842, 404)
+2. button_shop_A--游戏商店按钮
+   ├─ 置信度: 0.9898
+   └─ 位置: (1610, 667) - (1873, 887)
+3. button_nav--导航按钮（泛用，不知去向）
+   ├─ 置信度: 0.9829
+   └─ 位置: (906, 156) - (1501, 322)
+4. button_attack--出击按钮
+   ├─ 置信度: 0.9828
+   └─ 位置: (1649, 426) - (1885, 637)
+5. button_resource_interaction--资源互动按钮
+   ├─ 置信度: 0.9799
+   └─ 位置: (1240, 24) - (1538, 79)
+6. button_nav--导航按钮（泛用，不知去向）
+   ├─ 置信度: 0.9791
+   └─ 位置: (1513, 170) - (1647, 325)
+7. button_mission_B--任务按钮
+   ├─ 置信度: 0.9786
+   └─ 位置: (541, 10) - (618, 87)
+8. button_mission_A--任务按钮
+   ├─ 置信度: 0.9739
+   └─ 位置: (36, 132) - (129, 233)
+9. button_develop_B--协同者人偶按钮
+   ├─ 置信度: 0.9653
+   └─ 位置: (1486, 339) - (1676, 511)
+10. button_resource_interaction--资源互动按钮
+   ├─ 置信度: 0.9619
+   └─ 位置: (873, 21) - (1206, 82)
+11. button_interaction--看板角色互动按钮
+   ├─ 置信度: 0.9613
+   └─ 位置: (715, 169) - (831, 257)
+12. button_shop_B--充值商店按钮
+   ├─ 置信度: 0.9541
+   └─ 位置: (1570, 24) - (1892, 79)
+13. button_setting_B--设置按钮
+   ├─ 置信度: 0.9540
+   └─ 位置: (112, 17) - (540, 90)
+14. button_develop_A--女武神按钮
+   ├─ 置信度: 0.9513
+   └─ 位置: (1422, 527) - (1664, 744)
+15. button_nav--导航按钮（泛用，不知去向）
+   ├─ 置信度: 0.9283
+   └─ 位置: (28, 11) - (113, 105)
+16. button_mail--邮件按钮
+   ├─ 置信度: 0.9019
+   └─ 位置: (103, 430) - (191, 533)
+17. button_welfare--福利按钮
+   ├─ 置信度: 0.8689
+   └─ 位置: (42, 328) - (131, 435)
+18. button_chat--聊天按钮
+   ├─ 置信度: 0.8586
+   └─ 位置: (19, 963) - (730, 1034)
+19. button_setting_A--设置按钮
+   ├─ 置信度: 0.8446
+   └─ 位置: (1799, 908) - (1891, 1056)
+20. button_event--活动按钮
+   ├─ 置信度: 0.8405
+   └─ 位置: (103, 227) - (190, 329)
+21. button_announcement--公告按钮
+   ├─ 置信度: 0.8111
+   └─ 位置: (38, 533) - (131, 631)
+22. button_friend--好友按钮
+   ├─ 置信度: 0.5605
+   └─ 位置: (26, 908) - (287, 954)
+23. button_shop_B--充值商店按钮
+   ├─ 置信度: 0.5422
+   └─ 位置: (100, 630) - (195, 743)
+
+标签统计:
+  • button_nav: 3 个
+  • button_resource_interaction: 2 个
+  • button_shop_B: 2 个
+  • button_bag: 1 个
+  • button_shop_A: 1 个
+  • button_attack: 1 个
+  • button_mission_B: 1 个
+  • button_mission_A: 1 个
+  • button_develop_B: 1 个
+  • button_interaction: 1 个
+  • button_setting_B: 1 个
+  • button_develop_A: 1 个
+  • button_mail: 1 个
+  • button_welfare: 1 个
+  • button_chat: 1 个
+  • button_setting_A: 1 个
+  • button_event: 1 个
+  • button_announcement: 1 个
+  • button_friend: 1 个2026-05-06 16:00:10,513 - src.modules.llm.llm_router - INFO - 选择模型: DeepSeek API (deepseek-v4-pro) (deepseek-api-default) 用于任务类型: TaskType.GAME_GUIDE
+Thought: 我已经得到了聚焦窗口后使用 bridge 识别模型的完整检测结果，可以直接总结回答用户。
+Final Answer: 已成功聚焦游戏窗口，并使用 `yolo11n_bridge_ui_det` 模型对当前舰桥界面进行了识别。共检测到 23 个 UI 元素， 主要结果如下：
+
+**左侧功能栏：**
+- 任务按钮（右上小图标）
+- 任务按钮（左侧竖排）
+- 福利按钮
+- 活动按钮
+- 邮件按钮
+- 公告按钮
+- 好友按钮
+- 聊天按钮
+- 设置按钮（顶部通栏）
+
+**右侧主要功能区：**
+- 出击按钮（置信度 0.98）
+- 女武神按钮
+- 协同者人偶按钮
+- 背包按钮
+- 游戏商店按钮
+- 充值商店按钮（2个）
+- 设置按钮（右下角小图标）
+
+**顶部区域：**
+- 资源互动按钮（2个）
+- 充值商店小图标
+
+**其他：**
+- 看板角色互动按钮（中间偏左）
+- 导航按钮（3个，泛用指向）
+
+当前界面确认为舰桥主界面，各功能按钮均已成功识别。
+C:\Users\33985\AppData\Roaming\Python\Python311\site-packages\langchain_classic\chains\base.py:491: UserWarning: 'ConversationBufferMemory' got multiple output keys: dict_keys(['output', 'intermediate_steps']). The default 'output' key is being used. If this is not desired, please manually set 'output_key'.
+  self.memory.save_context(inputs, outputs)
+
+> Finished chain.
+2026-05-06 16:00:33,382 - src.modules.audio.audio_player - INFO - 音频播放成功: d:\TokusCode\bbb_assistant\outputs\qwen3_tts\舰长任务完成.wav
+INFO:     127.0.0.1:63099 - "POST /api/chat/ HTTP/1.1" 200 OK

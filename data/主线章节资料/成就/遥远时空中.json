@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1880/detail?bbs_presentation_style=no_header",
+  "title": "遥远时空中-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1880,
+  "main_content": "基础介绍       名称 遥远时空中 类型 隐藏成就      名称 遥远时空中 类型 隐藏成就  获得方式：完成主线32章第二阶段",
+  "html_content": null,
+  "category_main": "主线章节资料",
+  "category_sub": "成就",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/10/21/73514954/2d7f08aa5f76fb3f4f01f4805ee0e82e_3020646558527522368.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 67,
+    "media_count": 1,
+    "extraction_time": 1773470717.5946827,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773470717.5946827
+}

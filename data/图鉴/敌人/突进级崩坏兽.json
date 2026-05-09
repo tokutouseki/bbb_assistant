@@ -1,0 +1,116 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1528/detail?bbs_presentation_style=no_header",
+  "title": "突进级崩坏兽-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1528,
+  "main_content": "怪物信息     怪物名称 突进级崩坏兽 怪物属性 异能威胁等级 ☆ 伤害类型 物理怪物类型 普通 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界、万象虚境特殊机制 无特殊抗性           怪物名称 突进级崩坏兽 怪物属性 异能 威胁等级 ☆ 伤害类型 物理 怪物类型 普通 出现场景 主线、深渊、往世乐土、封锁地带、联机关卡、开放世界、万象虚境 特殊机制 无特殊抗性    逆熵档案 极为常见的崩坏兽单位，体型较小,浮于空中。但翅膀能够发动尖锐的切割攻击,需多加留意。虽说是低级崩坏兽，但常呈集群式出没，有条件的话建议先让远程机甲进行战术清扫。——战略指挥部  怪物技能 \n      突进\n    \n      盘旋\n       突进 冲锋撞击前方敌人  应对方式 请注意躲避   盘旋 飞旋切击周围敌人  应对方式 请注意躲避",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/05/12/73760043/527e8e32d276fa06d3dfead33df30043_1382058512409675585.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/26/73008221/5d5f2d07c88dd3115c8a381cccef46a1_4523490498551095224.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/08/73008221/d3b825a51e97ecf98630664fdb5f9780_4224919710833487090.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/26/73008221/d3b825a51e97ecf98630664fdb5f9780_2964431343675250078.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/26/73008221/48b2b2f5c9938f2cbe3e9a9a1d83e412_8199610325340880009.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/26/73008221/37c55f883156be618b30db7c05bb834f_6157601348583293115.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/01/26/73008221/37c55f883156be618b30db7c05bb834f_7317649624227252275.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 378,
+    "media_count": 7,
+    "extraction_time": 1773464349.7123146,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773464349.7123146
+}

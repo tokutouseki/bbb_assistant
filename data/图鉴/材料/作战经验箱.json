@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2816/detail?bbs_presentation_style=no_header",
+  "title": "作战经验箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2816,
+  "main_content": "材料描述     名称 作战经验箱 类别 消耗品   消耗途径   直接使用 使用后可获得1000点经验值  获取途径   邮件获取 「超弦空间」任务奖励补发",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/10/10/77124895/a17a76dbc179337044d5f1d2de7fb74e_41601003180861362.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 79,
+    "media_count": 1,
+    "extraction_time": 1773491071.785063,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773491071.785063
+}

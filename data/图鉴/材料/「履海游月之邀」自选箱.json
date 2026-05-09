@@ -1,0 +1,46 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/2516/detail?bbs_presentation_style=no_header",
+  "title": "「履海游月之邀」自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 2516,
+  "main_content": "材料描述     名称 「履海游月之邀」自选箱 类别 消耗品 已拥有角色的舰长，请选择【晋升印章】哦~  消耗途径   直接使用 使用后可自选云墨丹心、彼岸双生、第六夜想曲的【角色卡】或【晋升印章】其中之一。  获取途径   补给获取 参与「履海游月之邀」服装补给概率获得  材料描述     名称 「履海游月之邀」自选箱（复刻） 类别 消耗品 已拥有角色的舰长，请选择【晋升印章】哦~  消耗途径   直接使用 使用后可自选云墨丹心、彼岸双生、不灭星锚的【角色卡】或【晋升印章】其中之一。  获取途径   补给获取 参与「履海游月之邀」服装补给概率获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2023/05/28/77124895/846650080a08fa0fad3d10e925f4c94c_4480720609371722022.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/06/21/77124895/2e7829f7489d00670a63a81d34a02564_5404764012221621730.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 277,
+    "media_count": 2,
+    "extraction_time": 1773485461.821951,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773485461.821951
+}

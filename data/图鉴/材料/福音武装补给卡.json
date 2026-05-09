@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1147/detail?bbs_presentation_style=no_header",
+  "title": "福音武装补给卡-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1147,
+  "main_content": "材料描述     名称 福音武装补给卡 类别 基础材料 凭此补给卡可以获得来自异世界的武装物资。具体的技术手段是最高机密，似乎和逆熵的秘密研究有关。  消耗途径   「福音武装」补给中使用 联动补给卡，能够获得一次「福音武装」补给的机会，活动结束后不会回收。  获取途径   4.5版本活动 版本签到活动获得4.5版本商城 4.5联动版本时间内商城-基础货币-补给卡中水晶购买获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/06/05/50494840/c40eddc9c8a37dc5f6c050b7ba18eb1b_529944843627478918.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 190,
+    "media_count": 1,
+    "extraction_time": 1773419758.5811653,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419758.5811653
+}

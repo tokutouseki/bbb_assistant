@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1186/detail?bbs_presentation_style=no_header",
+  "title": "A级女武神碎片自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1186,
+  "main_content": "材料描述     名称 A级女武神碎片自选箱 类别 消耗品 使用后可自选女武神 · 荣光碎片x2，圣仪装 · 今样灵魂x3其中之一  获取途径   商店获取 5.3版本前通过乐土商店周期性获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/73760043/4ccefb019fd3b322b071e08c341b1e48_6695937398825523270.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 96,
+    "media_count": 1,
+    "extraction_time": 1773420510.5534651,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773420510.5534651
+}

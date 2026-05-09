@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1855/detail?bbs_presentation_style=no_header",
+  "title": "1200水晶宝箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1855,
+  "main_content": "材料描述     名称 1200水晶宝箱 类别 消耗品 使用后可以获得水晶*1200  获取途径   活动获取 参与周年庆典活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2022/07/07/50494840/f59ba11898b909df25aeca88dfc0e041_2760385298090461954.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 66,
+    "media_count": 1,
+    "extraction_time": 1773470262.185377,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773470262.185377
+}

@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1240/detail?bbs_presentation_style=no_header",
+  "title": "双子灵魂结晶-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1240,
+  "main_content": "材料描述     名称 双子灵魂结晶 类别 基础材料 两块黄色结晶，上面刻着耀眼的橙色的纹路，可以大幅提升武器或圣痕的力量。   消耗途径   装备强化 提供15000点装备经验值舰团委托回收 提交材料获取奖励  获取途径   金币商店 金币购买获得战场宝库 远古意志购买获得小队联机 小队联机（联机关卡）玩法战区完成奖励装备小队训练 材料活动-装备小队训练玩法获取记忆战场 记忆战场排行奖励与挑战奖励主线获取 主线关卡掉落作战奖励 完成任务提升历练值领取每日签到 签到奖励回收委托 舰团回收委托玩法奖励充值福利 累计充值达一定数目后获取后崩坏书 消耗遗迹钥匙参与后崩坏书补给获得；消耗星之钥参与后崩坏书第二章补给获得舰团委托回收 舰团奖池奖励开放世界-冒险委托 完成开放世界的冒险委托获取材料-消耗品 开启爱酱小礼盒概率获得封锁地带 封锁地带奖励获得装备补给 作为补给副产物产出",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/16/91006211/94db2aa570fa3ebdd9ae4cfd829743b3_1403584580758069798.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 390,
+    "media_count": 1,
+    "extraction_time": 1773421532.5857244,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773421532.5857244
+}

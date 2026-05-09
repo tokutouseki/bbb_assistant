@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1036/detail?bbs_presentation_style=no_header",
+  "title": "印象曲「Nightglow」（演唱者：蔡健雅）-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1036,
+  "main_content": "「Nightglow」",
+  "html_content": null,
+  "category_main": "档案",
+  "category_sub": "主题曲/音乐",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/03/6100274/e159979caf0c06a71a8262718dfe034f_7251554843208739314.mp4",
+      "type": "video",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\档案\\主题曲\\音乐\\media\\印象曲「Nightglow」（演唱者：蔡健雅）.mp4",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": null,
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 11,
+    "media_count": 1,
+    "extraction_time": 1773417722.9160147,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773417722.9160147
+}

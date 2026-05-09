@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/544/detail?bbs_presentation_style=no_header",
+  "title": "德丽莎 · 庆典(中)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 544,
+  "main_content": "圣痕资料   位置 中位套装tag 物伤\t\t\t圣痕技能 【蛋糕的心意】连击数大于10/20/30时，物理伤害分别提高8.0%/12.0%/16.0%。 相关圣痕  无      位置 中位 套装tag 物伤\t\t\t 圣痕技能 【蛋糕的心意】连击数大于10/20/30时，物理伤害分别提高8.0%/12.0%/16.0%。 相关圣痕  无   基本属性         属性 数值 D C B A A+ S 生命 458      攻击 26      防御 132      会心 0       玩家评价 提供连击加伤，加成较少的活动圣痕  获取方式   活动获取 通过既往5.0版本7日登陆活动获得  进化材料   突破等级 所需材料 35 流体合金块 *1相转移镜面 *240 流体合金块 *2相转移镜面 *445 流体合金块 *3相转移镜面 *7",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/10/21/6100274/9aa32c7c5263e7e96716d0621c268451_563645041060805377.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\德丽莎 · 庆典(中).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 376,
+    "media_count": 1,
+    "extraction_time": 1773408409.119333,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773408409.119333
+}

@@ -1,0 +1,28 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4055/detail?bbs_presentation_style=no_header",
+  "title": "八重·绯樱(上)-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4055,
+  "main_content": "圣痕资料   位置 上位单件tag 点燃 相关圣痕  无      位置 上位 单件tag 点燃 相关圣痕  无   圣痕纹章   圣痕技能   绯樱之火 普通攻击（包括分支和蓄力）有20%的几率点燃目标及其周围3.6米范围内的敌人，每0.5秒造成41%攻击力的火焰元素伤害，持续3秒  基本属性         属性 数值 D C B A A+ S 生命 329      攻击 0      防御 35      会心 7       玩家评价 使角色获得点燃的能力。  获取途径   活动获取 八重樱粘土人旗舰店特典  进化材料   突破等级 所需材料 25 流体合金 *1330 流体合金 *29",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "圣痕",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/07/24/9917988/037f8fd11cb180a50340c05905ef50a3_8279912229177505159.png",
+      "type": "image",
+      "local_path": "d:\\TokusCode\\bbb_assistant\\data\\图鉴\\圣痕\\media\\八重·绯樱(上).png",
+      "download_status": "downloaded",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {}
+    }
+  ],
+  "metadata": {
+    "content_length": 302,
+    "media_count": 1,
+    "extraction_time": 1773514610.9258735,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773514610.9258735
+}

@@ -1,0 +1,116 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/3770/detail?bbs_presentation_style=no_header",
+  "title": "连弩射手-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 3770,
+  "main_content": "怪物信息     怪物名称 连弩射手 怪物属性 生物威胁等级 ★★ 伤害类型 物理、火伤怪物类型 普通 出现场景 主线，超弦空间，往世乐土，角色挑战特殊机制 无           怪物名称 连弩射手 怪物属性 生物 威胁等级 ★★ 伤害类型 物理、火伤 怪物类型 普通 出现场景 主线，超弦空间，往世乐土，角色挑战 特殊机制 无    怪物技能 \n      红莲散矢\n    \n      飞火流星\n       红莲散矢 散射多支火箭攻击敌人  应对方式 注意闪避   飞火流星 向天空射出多支火箭，生成大范围的火焰地带持续造成伤害  应对方法 及时闪避出范围",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "敌人",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/17/75216984/cfc91eb0351631ab26a730d5c51f64d2_8571176244265520795.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/18/75216984/e600a603beac7fa915a60284edc1dd55_6082310784726443490.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/28/75216984/37c55f883156be618b30db7c05bb834f_2499031943214354136.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/09/28/75216984/37c55f883156be618b30db7c05bb834f_2737191746639579310.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/18/75216984/a4528c94125c42491176d1f3295d1d6f_1601718666694730121.gif",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/17/75216984/1e7eb209c795277cfb6d37a9c195f91b_6878867382865388036.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    },
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2024/11/17/75216984/1e7eb209c795277cfb6d37a9c195f91b_3843656529854420495.jpg",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 283,
+    "media_count": 7,
+    "extraction_time": 1773509666.3369598,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773509666.3369598
+}

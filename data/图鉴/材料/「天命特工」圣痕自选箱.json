@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/4131/detail?bbs_presentation_style=no_header",
+  "title": "「天命特工」圣痕自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 4131,
+  "main_content": "材料描述     名称 「天命特工」圣痕自选箱 类别 消耗品 使用后可从丽塔·窈窕谍影(上)、丽塔·窈窕谍影(中)、丽塔·窈窕谍影(下)、根源棱镜x1中任选1件获得  获取途径   活动获取 参与「特别作战」登录活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://act-upload.mihoyo.com/bh3-wiki/2025/12/04/77124895/2a0be6decf22036f8abc5437ce17be41_4301249964710121315.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 110,
+    "media_count": 1,
+    "extraction_time": 1773515862.4542682,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773515862.4542682
+}

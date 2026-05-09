@@ -1,0 +1,32 @@
+{
+  "url": "https://baike.mihoyo.com/bh3/wiki/content/1154/detail?bbs_presentation_style=no_header",
+  "title": "迷藏宝库自选箱-圣芙蕾雅档案馆-崩坏3WIKI",
+  "content_id": 1154,
+  "main_content": "材料描述     名称 迷藏宝库自选箱 类别 消耗品 使用后可以自选获得远古传承x100、粉色妖精小姐♪晋升印章x1之一  获取途径   活动获取 通过迷藏宝库活动获得",
+  "html_content": null,
+  "category_main": "图鉴",
+  "category_sub": "材料",
+  "media_resources": [
+    {
+      "url": "https://uploadstatic.mihoyo.com/bh3-wiki/2021/11/17/75216984/95c0e56eca299713ec2dab2d54103e99_1062551963900734403.png",
+      "type": "image",
+      "local_path": null,
+      "download_status": "skipped",
+      "error_message": null,
+      "alt_text": "",
+      "size_bytes": null,
+      "metadata": {
+        "score": 2,
+        "is_content": false,
+        "has_content_path": true
+      }
+    }
+  ],
+  "metadata": {
+    "content_length": 84,
+    "media_count": 1,
+    "extraction_time": 1773419916.8295243,
+    "selector_used": "#__layout > div > div.root__content > div.root__scroll-body > div > div.detail.detail--outside-app.fix-comment--out-app-all > div.detail__body.detail__body-contrib-bottom-pc"
+  },
+  "extracted_at": 1773419916.8295243
+}
