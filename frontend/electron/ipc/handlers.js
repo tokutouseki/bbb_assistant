@@ -7,11 +7,9 @@ import { ipcMain, dialog, shell, clipboard, nativeImage } from 'electron'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
-import log from 'electron-log'
 
 const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const __dirname = path.dirname(__filename)
 
 // 配置存储
 const configStore = new Map()
@@ -20,7 +18,7 @@ const configStore = new Map()
  * 注册所有IPC处理器
  */
 export function registerIpcHandlers() {
-  log.info('注册IPC处理器...')
+  console.log('注册IPC处理器...')
   
   // 窗口控制处理器
   registerWindowHandlers()
@@ -43,7 +41,7 @@ export function registerIpcHandlers() {
   // 工具处理器
   registerUtilityHandlers()
   
-  log.info('IPC处理器注册完成')
+  console.log('IPC处理器注册完成')
 }
 
 /**
@@ -206,7 +204,7 @@ function registerFileSystemHandlers() {
       const content = await fs.promises.readFile(filePath, 'utf-8')
       return content
     } catch (error) {
-      log.error('读取文件失败:', error)
+      console.error('读取文件失败:', error)
       throw new Error(`读取文件失败: ${error.message}`)
     }
   })
@@ -217,7 +215,7 @@ function registerFileSystemHandlers() {
       await fs.promises.writeFile(filePath, content, 'utf-8')
       return true
     } catch (error) {
-      log.error('写入文件失败:', error)
+      console.error('写入文件失败:', error)
       throw new Error(`写入文件失败: ${error.message}`)
     }
   })
@@ -244,7 +242,7 @@ function registerFileSystemHandlers() {
         isSymbolicLink: item.isSymbolicLink(),
       }))
     } catch (error) {
-      log.error('列出目录失败:', error)
+      console.error('列出目录失败:', error)
       throw new Error(`列出目录失败: ${error.message}`)
     }
   })
@@ -255,7 +253,7 @@ function registerFileSystemHandlers() {
       await fs.promises.mkdir(dirPath, { recursive: true })
       return true
     } catch (error) {
-      log.error('创建目录失败:', error)
+      console.error('创建目录失败:', error)
       throw new Error(`创建目录失败: ${error.message}`)
     }
   })
@@ -292,7 +290,7 @@ function registerSystemHandlers() {
       shell.openExternal(url)
       return true
     } catch (error) {
-      log.error('打开外部链接失败:', error)
+      console.error('打开外部链接失败:', error)
       return false
     }
   })
@@ -303,7 +301,7 @@ function registerSystemHandlers() {
       shell.showItemInFolder(filePath)
       return true
     } catch (error) {
-      log.error('打开文件位置失败:', error)
+      console.error('打开文件位置失败:', error)
       return false
     }
   })
@@ -314,7 +312,7 @@ function registerSystemHandlers() {
       clipboard.writeText(text)
       return true
     } catch (error) {
-      log.error('复制到剪贴板失败:', error)
+      console.error('复制到剪贴板失败:', error)
       return false
     }
   })
@@ -324,7 +322,7 @@ function registerSystemHandlers() {
     try {
       return clipboard.readText()
     } catch (error) {
-      log.error('从剪贴板读取失败:', error)
+      console.error('从剪贴板读取失败:', error)
       return ''
     }
   })
@@ -336,7 +334,7 @@ function registerSystemHandlers() {
       clipboard.writeImage(image)
       return true
     } catch (error) {
-      log.error('复制图片到剪贴板失败:', error)
+      console.error('复制图片到剪贴板失败:', error)
       return false
     }
   })
@@ -358,7 +356,7 @@ function registerGameHandlers() {
           // Windows系统使用tasklist命令
           exec('tasklist', (error, stdout) => {
             if (error) {
-              log.error('检查游戏进程失败:', error)
+              console.error('检查游戏进程失败:', error)
               resolve(false)
               return
             }
@@ -375,7 +373,7 @@ function registerGameHandlers() {
         }
       })
     } catch (error) {
-      log.error('游戏检测错误:', error)
+      console.error('游戏检测错误:', error)
       return false
     }
   })
@@ -415,7 +413,7 @@ function registerGameHandlers() {
         displayCount: displays.length,
       }
     } catch (error) {
-      log.error('屏幕截取失败:', error)
+      console.error('屏幕截取失败:', error)
       return {
         success: false,
         error: error.message,
@@ -427,7 +425,7 @@ function registerGameHandlers() {
   ipcMain.handle('game:send-key', async (event, key) => {
     // 这里需要实现发送按键的逻辑
     // 可以使用外部库如robotjs
-    log.info(`发送游戏按键: ${key}`)
+    console.log(`发送游戏按键: ${key}`)
     return true
   })
 }
@@ -441,10 +439,10 @@ function registerAudioHandlers() {
     try {
       // 这里需要实现音频播放逻辑
       // 可以使用外部库如play-sound或howler
-      log.info(`播放音频: ${filePath}`)
+      console.log(`播放音频: ${filePath}`)
       return { success: true }
     } catch (error) {
-      log.error('播放音频失败:', error)
+      console.error('播放音频失败:', error)
       return { success: false, error: error.message }
     }
   })
@@ -452,10 +450,10 @@ function registerAudioHandlers() {
   // 停止音频
   ipcMain.handle('audio:stop', async () => {
     try {
-      log.info('停止音频播放')
+      console.log('停止音频播放')
       return { success: true }
     } catch (error) {
-      log.error('停止音频失败:', error)
+      console.error('停止音频失败:', error)
       return { success: false, error: error.message }
     }
   })
@@ -465,10 +463,10 @@ function registerAudioHandlers() {
     try {
       // 这里需要实现录音逻辑
       // 可以使用外部库如node-record-lpcm16
-      log.info('开始录音', options)
+      console.log('开始录音', options)
       return { success: true, recordingId: Date.now().toString() }
     } catch (error) {
-      log.error('录音失败:', error)
+      console.error('录音失败:', error)
       return { success: false, error: error.message }
     }
   })
@@ -476,10 +474,10 @@ function registerAudioHandlers() {
   // 停止录音
   ipcMain.handle('audio:stop-record', async (event, recordingId) => {
     try {
-      log.info(`停止录音: ${recordingId}`)
+      console.log(`停止录音: ${recordingId}`)
       return { success: true, filePath: '' }
     } catch (error) {
-      log.error('停止录音失败:', error)
+      console.error('停止录音失败:', error)
       return { success: false, error: error.message }
     }
   })
@@ -507,7 +505,7 @@ function registerNetworkHandlers() {
         }
       })
     } catch (error) {
-      log.error('检查网络连接失败:', error)
+      console.error('检查网络连接失败:', error)
       return false
     }
   })
@@ -527,7 +525,7 @@ function registerNetworkHandlers() {
       
       return { success: true, size: buffer.length }
     } catch (error) {
-      log.error('下载文件失败:', error)
+      console.error('下载文件失败:', error)
       return { success: false, error: error.message }
     }
   })
@@ -552,7 +550,7 @@ function registerUtilityHandlers() {
       const config = Object.fromEntries(configStore)
       fs.writeFileSync(configPath, JSON.stringify(config, null, 2))
     } catch (error) {
-      log.error('保存配置失败:', error)
+      console.error('保存配置失败:', error)
     }
     
     return true

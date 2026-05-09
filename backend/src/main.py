@@ -28,6 +28,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from src.config.settings import Settings, get_settings
 from src.api import chat, vision, audio, memory, health, rag
+from src.api.settings import router as settings_router
 from src.services.game_monitor import GameMonitor
 from src.services.chat_service import ChatService
 
@@ -142,6 +143,7 @@ def create_application() -> FastAPI:
     app.include_router(memory.router, prefix="/api/memory", tags=["记忆"])
     app.include_router(health.router, prefix="/api/health", tags=["健康检查"])
     app.include_router(rag.router, prefix="/api", tags=["RAG检索"])
+    app.include_router(settings_router, prefix="/api/settings", tags=["设置"])
     
     # 前端页面静态文件服务（挂载到 /frontend 路径，避免覆盖 API 路由）
     frontend_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "frontend")

@@ -19,6 +19,7 @@ dist/
 # 运行时数据
 data/logs/
 data/models/
+data/user_settings.json
 *.log
 logs/
 *.pid

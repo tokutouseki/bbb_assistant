@@ -40,6 +40,6 @@
     "noUncheckedSideEffectImports": true,
 
     /* Electron specific */
-    "types": ["node", "vite/client", "electron", "electron-updater"]
+    "types": ["node", "vite/client", "electron"]
   }
 }

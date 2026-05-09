@@ -7,6 +7,7 @@ import importlib.util
 import requests
 
 from ..config.settings import get_settings
+from ..config.runtime_settings import update_runtime_settings
 from ..modules.agent.react_agent import get_react_agent
 
 router = APIRouter()
@@ -22,6 +23,12 @@ class ChatRequest(BaseModel):
     use_rag: bool = Field(default=True, description="是否使用RAG知识库")
     stream: bool = Field(default=False, description="是否流式输出")
     show_thinking: bool = Field(default=True, description="是否显示思考过程")
+    llm_provider: Optional[str] = Field(None, description="LLM提供商覆盖: deepseek / lmstudio / ollama")
+    llm_model: Optional[str] = Field(None, description="模型名称覆盖")
+    llm_api_key: Optional[str] = Field(None, description="API密钥覆盖")
+    llm_api_base_url: Optional[str] = Field(None, description="API地址覆盖")
+    llm_temperature: Optional[float] = Field(None, description="Temperature覆盖")
+    llm_max_tokens: Optional[int] = Field(None, description="Max Token覆盖")
 
 class ChatResponse(BaseModel):
     message: ChatMessage = Field(..., description="助手回复")
@@ -74,6 +81,17 @@ async def chat_completion(request: ChatRequest):
             thinking_steps=[]
         )
     
+    # 应用LLM运行时覆盖
+    llm_overrides = {
+        "llm_provider": request.llm_provider,
+        "llm_model": request.llm_model,
+        "llm_api_key": request.llm_api_key,
+        "llm_api_base_url": request.llm_api_base_url,
+        "llm_temperature": request.llm_temperature,
+        "llm_max_tokens": request.llm_max_tokens,
+    }
+    update_runtime_settings(llm_overrides)
+
     # 使用ReAct Agent处理
     try:
         agent = get_react_agent()

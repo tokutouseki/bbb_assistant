@@ -10,6 +10,7 @@ from langchain_core.prompts import PromptTemplate
 from langchain_core.tools import tool
 
 from src.config.settings import get_settings
+from src.config.runtime_settings import get_runtime_settings
 from src.modules.llm.llm_router import TaskType, get_llm_router
 from src.modules.rag import RAGConfig, RAGEngine, SearchMode
 from src.modules.vision.yolo_model_manager import YOLOModelManager
@@ -28,6 +29,28 @@ class RouterLLM(LLM):
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None, run_manager=None, **kwargs: Any) -> str:
         router = get_llm_router()
+        runtime = get_runtime_settings()
+
+        PROVIDER_MAP = {
+            "deepseek": "deepseek-api-default",
+            "lmstudio": "lm-studio-default",
+            "ollama": "ollama-default",
+        }
+        RUNTIME_MAP = {"deepseek": "api", "lmstudio": "lmstudio", "ollama": "ollama"}
+
+        router_kwargs = {}
+        if runtime.get("llm_provider"):
+            router_kwargs["preferred_runtime"] = RUNTIME_MAP.get(runtime["llm_provider"], "auto")
+            router_kwargs["user_preference"] = PROVIDER_MAP.get(runtime["llm_provider"], runtime["llm_provider"])
+        if runtime.get("llm_model"):
+            router_kwargs["model_override"] = runtime["llm_model"]
+        if runtime.get("llm_temperature") is not None:
+            router_kwargs["temperature"] = runtime["llm_temperature"]
+        if runtime.get("llm_max_tokens") is not None:
+            router_kwargs["max_tokens"] = runtime["llm_max_tokens"]
+        if runtime.get("llm_api_key"):
+            router_kwargs["api_key"] = runtime["llm_api_key"]
+
         result = router.route_request(
             messages=[
                 {
@@ -38,6 +61,7 @@ class RouterLLM(LLM):
             ],
             task_type=TaskType.GAME_GUIDE.value,
             stream=False,
+            **router_kwargs,
         )
         if isinstance(result, dict):
             if "content" in result:

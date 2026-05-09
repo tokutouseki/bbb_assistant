@@ -77,7 +77,7 @@ class LLMRouter:
         self.model_clients: Dict[str, Any] = {}
         self.task_history: List[Dict[str, Any]] = []
         self.settings = get_settings()
-        self.preferred_runtime = (self.settings.llm_runtime or "auto").lower()
+        self.preferred_runtime = "auto"
         self._initialize_default_models()
         logger.info("LLM路由器初始化完成")
     
@@ -93,28 +93,27 @@ class LLMRouter:
             TaskType.EMOTIONAL_SUPPORT,
         ]
 
-        # 1) API模型（最高优先级）
-        if self.settings.deepseek_api_key:
-            self.register_model(
-                model_info=ModelInfo(
-                    model_type=ModelType.DEEPSEEK_V3_API,
-                    model_id="deepseek-api-default",
-                    display_name=f"DeepSeek API ({self.settings.llm_model})",
-                    priority=ModelPriority.HIGH,
-                    capabilities=all_capabilities,
-                    cost_per_token=0.000002,
-                    max_tokens=max(self.settings.llm_max_tokens, 4096),
-                    supports_streaming=True,
-                    requires_api_key=True,
-                    requires_internet=True,
-                    config={
-                        "api_key": self.settings.deepseek_api_key,
-                        "base_url": self.settings.deepseek_base_url,
-                        "model": self.settings.llm_model,
-                        "timeout": 60,
-                    },
-                )
+        # 1) API模型
+        self.register_model(
+            model_info=ModelInfo(
+                model_type=ModelType.DEEPSEEK_V3_API,
+                model_id="deepseek-api-default",
+                display_name=f"DeepSeek API",
+                priority=ModelPriority.HIGH,
+                capabilities=all_capabilities,
+                cost_per_token=0.000002,
+                max_tokens=4096,
+                supports_streaming=True,
+                requires_api_key=True,
+                requires_internet=True,
+                config={
+                    "api_key": self.settings.deepseek_api_key or "",
+                    "base_url": self.settings.deepseek_base_url,
+                    "model": self.settings.llm_model,
+                    "timeout": 60,
+                },
             )
+        )
 
         # 2) LM Studio / Ollama
         self.register_model(
@@ -279,8 +278,7 @@ class LLMRouter:
         """
         if available_models is None:
             available_models = list(self.models.keys())
-        
-        # 过滤可用的模型
+
         candidate_models = []
         for model_id in available_models:
             if model_id in self.models:
@@ -480,6 +478,8 @@ class LLMRouter:
         )
         
         # 选择模型
+        if kwargs.get("preferred_runtime"):
+            self.preferred_runtime = kwargs["preferred_runtime"]
         selected_model = self.select_model(task_context)
         
         if not selected_model:
@@ -681,12 +681,13 @@ class LLMRouter:
         """
         # 根据模型类型调用不同的方法
         if model_info.model_type == ModelType.DEEPSEEK_V3_API:
+            if kwargs.get("api_key") and hasattr(client, 'set_api_key'):
+                client.set_api_key(kwargs["api_key"])
             return client.chat_completion(
                 messages=messages,
                 temperature=kwargs.get("temperature", 0.7),
                 max_tokens=kwargs.get("max_tokens"),
                 stream=stream,
-                **{k: v for k, v in kwargs.items() if k not in ["temperature", "max_tokens"]}
             )
             
         elif model_info.model_type == ModelType.LM_STUDIO:
@@ -695,7 +696,6 @@ class LLMRouter:
                 temperature=kwargs.get("temperature", 0.7),
                 max_tokens=kwargs.get("max_tokens"),
                 stream=stream,
-                **{k: v for k, v in kwargs.items() if k not in ["temperature", "max_tokens"]}
             )
             
         elif model_info.model_type == ModelType.LOCAL_GGUF:
@@ -704,7 +704,6 @@ class LLMRouter:
                 temperature=kwargs.get("temperature", 0.7),
                 max_tokens=kwargs.get("max_tokens", 512),
                 stream=stream,
-                **{k: v for k, v in kwargs.items() if k not in ["temperature", "max_tokens"]}
             )
         elif model_info.model_type == ModelType.OLLAMA:
             return client.chat_completion(
@@ -712,7 +711,6 @@ class LLMRouter:
                 temperature=kwargs.get("temperature", 0.7),
                 max_tokens=kwargs.get("max_tokens"),
                 stream=stream,
-                **{k: v for k, v in kwargs.items() if k not in ["temperature", "max_tokens"]}
             )
             
         else:
