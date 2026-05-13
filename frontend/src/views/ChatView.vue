@@ -40,14 +40,46 @@
         </div>
       </div>
 
-      <div v-if="chatStore.streamingContent" class="message-wrapper assistant">
-        <div class="message-bubble assistant-bubble streaming">
-          {{ chatStore.streamingContent }}
-          <span class="cursor-blink">|</span>
+      <div v-if="todoList.length > 0" class="message-wrapper assistant">
+        <div class="todo-card">
+          <div class="todo-header">任务计划</div>
+          <div
+            v-for="task in todoList"
+            :key="task.id"
+            class="todo-item"
+            :class="'todo-' + task.status"
+          >
+            <span class="todo-icon">
+              <template v-if="task.status === 'completed'">✓</template>
+              <template v-else-if="task.status === 'in_progress'">◷</template>
+              <template v-else>○</template>
+            </span>
+            <span class="todo-content" :class="{ 'todo-done': task.status === 'completed' }">
+              {{ task.content }}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div v-if="chatStore.isLoading && !chatStore.streamingContent" class="loading-indicator">
+      <template v-if="currentSteps.length > 0">
+        <div
+          v-for="(step, idx) in currentSteps"
+          :key="idx"
+          class="message-wrapper assistant"
+        >
+          <div class="thought-bubble" v-if="step.thought && step.action !== '_Exception'">
+            <div class="thought-label">Thought</div>
+            <div class="thought-text">{{ step.thought }}</div>
+          </div>
+        </div>
+        <div v-if="chatStore.isLoading && lastStepHasObservation" class="loading-indicator">
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+      </template>
+
+      <div v-if="chatStore.isLoading && currentSteps.length === 0" class="loading-indicator">
         <span class="dot"></span>
         <span class="dot"></span>
         <span class="dot"></span>
@@ -116,9 +148,18 @@ const inputText = ref('')
 const inputRef = ref(null)
 const messagesContainer = ref(null)
 const abortController = ref(null)
+const currentRequestId = ref('')
+const currentSteps = ref([])
+const todoList = ref([])
 
 const canSend = computed(() => {
   return inputText.value.trim().length > 0 && !chatStore.isLoading
+})
+
+const lastStepHasObservation = computed(() => {
+  const steps = currentSteps.value
+  if (steps.length === 0) return true
+  return steps[steps.length - 1].observation != null
 })
 
 function autoResize() {
@@ -133,7 +174,8 @@ const SKILL_PROMPTS = {
   rag: '请帮我查一下崩坏3的攻略：',
   vision: '请识别当前游戏画面中的内容，',
   memory: '回顾一下我们之前的对话，',
-  tool: '请使用工具帮我完成：'
+  tool: '请使用工具帮我完成：',
+  audio: '请用爱莉希雅的声音说：'
 }
 
 function useSkill(skill) {
@@ -154,12 +196,29 @@ function scrollToBottom() {
   })
 }
 
-function stopMessage() {
+async function stopMessage() {
+  if (currentRequestId.value) {
+    try {
+      await fetch('/api/chat/cancel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ request_id: currentRequestId.value })
+      })
+    } catch (e) {
+    }
+  }
   if (abortController.value) {
     abortController.value.abort()
     abortController.value = null
   }
+
+  chatStore.addMessage({ role: 'assistant', content: '生成已终止。' })
+
+  currentSteps.value = []
+  todoList.value = []
+  currentRequestId.value = ''
   chatStore.isLoading = false
+  chatStore.streamingContent = ''
 }
 
 async function sendMessage() {
@@ -167,6 +226,10 @@ async function sendMessage() {
   if (!text || chatStore.isLoading) return
 
   abortController.value = new AbortController()
+  const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`
+  currentRequestId.value = requestId
+  currentSteps.value = []
+  todoList.value = []
 
   chatStore.addMessage({ role: 'user', content: text })
   inputText.value = ''
@@ -178,16 +241,17 @@ async function sendMessage() {
   chatStore.isLoading = true
   chatStore.setError(null)
 
+  let finalOutput = ''
+
   try {
-    const response = await fetch('/api/chat/', {
+    const response = await fetch('/api/chat/stream', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         messages: [{ role: 'user', content: text }],
+        request_id: requestId,
         use_rag: true,
-        stream: false,
+        stream: true,
         show_thinking: true,
         llm_provider: settingsStore.llmProvider,
         llm_model: settingsStore.activeModel,
@@ -201,33 +265,75 @@ async function sendMessage() {
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}))
-      throw new Error(errorData.detail || errorData.message || `HTTP ${response.status}`)
+      throw new Error(errorData.detail || `HTTP ${response.status}`)
     }
 
-    const data = await response.json()
+    const reader = response.body.getReader()
+    const decoder = new TextDecoder()
+    let buffer = ''
 
-    if (data.message) {
-      chatStore.addMessage({
-        role: 'assistant',
-        content: data.message.content || data.message
-      })
-    } else if (data.content) {
-      chatStore.addMessage({
-        role: 'assistant',
-        content: data.content
-      })
-    } else if (typeof data === 'string') {
-      chatStore.addMessage({
-        role: 'assistant',
-        content: data
-      })
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+
+      buffer += decoder.decode(value, { stream: true })
+      const lines = buffer.split('\n')
+      buffer = lines.pop() || ''
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue
+        try {
+          const event = JSON.parse(line.slice(6))
+          switch (event.type) {
+            case 'step': {
+              currentSteps.value.push({
+                thought: event.thought || '',
+                action: event.action || '',
+                action_input: event.action_input || '',
+                observation: null
+              })
+              break
+            }
+            case 'observation': {
+              const steps = currentSteps.value
+              for (let i = steps.length - 1; i >= 0; i--) {
+                if (steps[i].observation == null) {
+                  steps[i].observation = event.observation || ''
+                  break
+                }
+              }
+              break
+            }
+            case 'todo':
+              todoList.value = event.tasks || []
+              break
+            case 'finish':
+              finalOutput = event.output || ''
+              break
+            case 'cancelled':
+              finalOutput = ''
+              break
+            case 'error':
+              finalOutput = ''
+              break
+          }
+          scrollToBottom()
+        } catch (e) {
+          // 忽略 JSON 解析错误的行
+        }
+      }
+    }
+
+    // 完成 — 仅保留最终答案
+    if (finalOutput) {
+      chatStore.addMessage({ role: 'assistant', content: finalOutput })
+    } else if (currentSteps.value.length > 0) {
+      chatStore.addMessage({ role: 'assistant', content: '请求已完成' })
     }
   } catch (error) {
+    chatStore.streamingContent = ''
     if (error.name === 'AbortError') {
-      chatStore.addMessage({
-        role: 'assistant',
-        content: '生成已终止。'
-      })
+      chatStore.addMessage({ role: 'assistant', content: '生成已终止。' })
     } else {
       console.error('发送消息失败:', error)
       chatStore.setError(error.message || '发送失败')
@@ -237,7 +343,10 @@ async function sendMessage() {
       })
     }
   } finally {
+    currentSteps.value = []
+    todoList.value = []
     abortController.value = null
+    currentRequestId.value = ''
     chatStore.isLoading = false
     scrollToBottom()
   }
@@ -368,6 +477,82 @@ onMounted(() => {
   background: #f3f3f3;
   color: #1a1a1a;
   border-bottom-left-radius: 4px;
+}
+
+.todo-card {
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  font-size: 13px;
+  max-width: 85%;
+}
+
+.todo-header {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #22c55e;
+  margin-bottom: 8px;
+}
+
+.todo-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.todo-icon {
+  flex-shrink: 0;
+  width: 18px;
+  font-size: 13px;
+  text-align: center;
+  line-height: 1.6;
+}
+
+.todo-pending .todo-icon { color: #a0a0a0; }
+.todo-in_progress .todo-icon { color: #f59e0b; animation: spin 2s linear infinite; }
+.todo-completed .todo-icon { color: #22c55e; }
+
+.todo-content {
+  color: #333;
+  line-height: 1.6;
+}
+
+.todo-done {
+  color: #a0a0a0;
+  text-decoration: line-through;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.thought-bubble {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: #faf5ff;
+  border: 1px solid #e9d5ff;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #4a3560;
+  max-width: 85%;
+}
+
+.thought-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #a78bfa;
+  margin-bottom: 4px;
+}
+
+.thought-text {
+  white-space: pre-wrap;
 }
 
 .streaming .cursor-blink {

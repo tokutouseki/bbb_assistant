@@ -1,13 +1,19 @@
-from fastapi import APIRouter, HTTPException
-from pydantic import BaseModel, Field
-from typing import List, Optional, Dict, Any
+import asyncio
+import json
 import os
+import queue
 import importlib.util
+from typing import List, Optional, Dict, Any
+
+from fastapi import APIRouter, HTTPException
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel, Field
 
 import requests
 
 from ..config.settings import get_settings
 from ..config.runtime_settings import update_runtime_settings
+from ..config.cancel_signal import register_request, clear_request, cancel_request
 from ..modules.agent.react_agent import get_react_agent
 
 router = APIRouter()
@@ -19,6 +25,7 @@ class ChatMessage(BaseModel):
 
 class ChatRequest(BaseModel):
     messages: List[ChatMessage] = Field(..., description="对话历史")
+    request_id: Optional[str] = Field(None, description="请求ID，用于取消")
     game_scene: Optional[str] = Field(None, description="当前游戏场景")
     use_rag: bool = Field(default=True, description="是否使用RAG知识库")
     stream: bool = Field(default=False, description="是否流式输出")
@@ -93,9 +100,11 @@ async def chat_completion(request: ChatRequest):
     update_runtime_settings(llm_overrides)
 
     # 使用ReAct Agent处理
+    request_id = request.request_id or str(time.time())
+    register_request(request_id)
     try:
         agent = get_react_agent()
-        result = agent.run(last_user_message)
+        result = await asyncio.to_thread(agent.run, last_user_message, request_id=request_id)
         
         # 将ReAct步骤转换为tool_steps格式
         tool_steps = []
@@ -135,16 +144,118 @@ async def chat_completion(request: ChatRequest):
         return response
         
     except Exception as e:
+        error_msg = str(e)
+        if "CancelledError" in error_msg or "cancelled" in error_msg.lower():
+            return ChatResponse(
+                message=ChatMessage(
+                    role="assistant",
+                    content="请求已被取消",
+                    timestamp=time.time()
+                ),
+                processing_time=time.time() - start_time,
+                tool_steps=[],
+                thinking_steps=[]
+            )
         return ChatResponse(
             message=ChatMessage(
                 role="assistant",
-                content=f"ReAct Agent执行失败: {str(e)}",
+                content=f"ReAct Agent执行失败: {error_msg}",
                 timestamp=time.time()
             ),
             processing_time=time.time() - start_time,
             tool_steps=[],
             thinking_steps=[]
         )
+    finally:
+        clear_request(request_id)
+
+
+@router.post("/stream")
+async def chat_stream(request: ChatRequest):
+    """
+    SSE 流式聊天接口——Agent 每一步实时推送到前端。
+    """
+    import time
+
+    last_user_message = None
+    for msg in reversed(request.messages):
+        if msg.role == "user":
+            last_user_message = msg.content
+            break
+
+    if not last_user_message:
+        async def empty_generator():
+            yield f"data: {json.dumps({'type': 'error', 'message': '没有收到用户消息'}, ensure_ascii=False)}\n\n"
+        return StreamingResponse(empty_generator(), media_type="text/event-stream")
+
+    llm_overrides = {
+        "llm_provider": request.llm_provider,
+        "llm_model": request.llm_model,
+        "llm_api_key": request.llm_api_key,
+        "llm_api_base_url": request.llm_api_base_url,
+        "llm_temperature": request.llm_temperature,
+        "llm_max_tokens": request.llm_max_tokens,
+    }
+    update_runtime_settings(llm_overrides)
+
+    request_id = request.request_id or str(time.time())
+    register_request(request_id)
+    event_queue = queue.Queue()
+
+    async def generate():
+        loop = asyncio.get_event_loop()
+
+        def run_agent():
+            agent = get_react_agent()
+            return agent.run_streaming(last_user_message, request_id, event_queue)
+
+        future = loop.run_in_executor(None, run_agent)
+
+        while True:
+            try:
+                event = await loop.run_in_executor(None, event_queue.get, True, 0.1)
+            except queue.Empty:
+                if future.done():
+                    break
+                continue
+
+            event_type = event.get("type", "")
+            if event_type in ("finish", "cancelled", "error"):
+                yield f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
+                break
+
+            yield f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
+
+        if future.done():
+            try:
+                await future
+            except Exception:
+                pass
+        else:
+            future.cancel()
+
+        clear_request(request_id)
+
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
+class CancelRequest(BaseModel):
+    request_id: str = Field(..., description="要取消的请求ID")
+
+
+@router.post("/cancel")
+async def cancel_chat(req: CancelRequest):
+    """取消正在运行的聊天请求"""
+    ok = cancel_request(req.request_id)
+    return {"success": ok, "message": "已发送取消信号" if ok else "未找到对应请求"}
 
 @router.get("/history/{user_id}")
 async def get_chat_history(user_id: str, limit: int = 50):

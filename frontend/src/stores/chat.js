@@ -11,7 +11,8 @@ export const useChatStore = defineStore('chat', () => {
     { id: 'rag', name: '知识库检索', icon: 'book', description: '崩坏3攻略与知识点查询' },
     { id: 'vision', name: '游戏识别', icon: 'eye', description: '识别游戏画面中的元素' },
     { id: 'memory', name: '对话记忆', icon: 'brain', description: '记住之前的对话内容' },
-    { id: 'tool', name: '工具调用', icon: 'wrench', description: '调用外部工具完成任务' }
+    { id: 'tool', name: '工具调用', icon: 'wrench', description: '调用外部工具完成任务' },
+    { id: 'audio', name: '语音合成', icon: 'mic', description: '使用TTS引擎生成角色语音' }
   ])
 
   const lastMessage = computed(() =>

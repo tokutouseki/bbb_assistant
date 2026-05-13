@@ -23,7 +23,8 @@ class SearchEngine(Enum):
     """搜索引擎类型"""
     GOOGLE = "google"
     DUCKDUCKGO = "duckduckgo"
-    BING = "bing"  # 未来支持
+    BING_CHINA = "bing_china"  # 必应中国 (cn.bing.com, 国内可访问)
+    BING = "bing"  # 国际版Bing
     MIYOUSHE = "miyoushe"  # 米游社搜索
     HONKAI_OFFICIAL = "honkai_official"  # 崩坏3官网
 
@@ -94,6 +95,8 @@ class WebSearcher:
                 results = self._search_google(query, **kwargs)
             elif self.engine == SearchEngine.DUCKDUCKGO:
                 results = self._search_duckduckgo(query, **kwargs)
+            elif self.engine == SearchEngine.BING_CHINA:
+                results = self._search_bing_china(query, **kwargs)
             elif self.engine == SearchEngine.MIYOUSHE:
                 results = self._search_miyoushe(query, **kwargs)
             elif self.engine == SearchEngine.HONKAI_OFFICIAL:
@@ -144,23 +147,22 @@ class WebSearcher:
             return results
             
         except ImportError:
-            logger.warning("googlesearch-python不可用，使用模拟搜索")
-            return self._mock_search(query, "google")
+            logger.warning("googlesearch-python不可用")
+            raise
     
     def _search_duckduckgo(self, query: str, **kwargs) -> List[SearchResult]:
         """使用DuckDuckGo搜索"""
         try:
-            from duckduckgo_search import DDGS
-            
+            from ddgs import DDGS
+
             results = []
             with DDGS() as ddgs:
                 search_results = ddgs.text(
                     query,
                     max_results=self.max_results,
-                    region='wt-wt',
                     safesearch='moderate'
                 )
-                
+
                 for i, item in enumerate(search_results):
                     result = SearchResult(
                         title=item.get('title', ''),
@@ -170,13 +172,53 @@ class WebSearcher:
                         relevance=1.0 - (i * 0.1)
                     )
                     results.append(result)
-            
+
             return results
-            
+
         except ImportError:
-            logger.warning("duckduckgo-search不可用，使用模拟搜索")
-            return self._mock_search(query, "duckduckgo")
-    
+            logger.warning("ddgs库不可用")
+            raise
+        except Exception as e:
+            logger.error(f"DuckDuckGo搜索失败: {e}")
+            raise
+
+    def _search_bing_china(self, query: str, **kwargs) -> List[SearchResult]:
+        """使用必应中国搜索 (cn.bing.com, 国内可访问)
+
+        ensearch=1 是关键参数：不加此参数时 Bing 中文分词会把"崩坏3"
+        拆成"崩"单独匹配，导致返回词典释义和星穹铁道。加上后启用增强搜索，
+        正确识别完整词组。
+        """
+        headers = {'User-Agent': self.user_agent}
+        params = {'q': query, 'count': min(self.max_results, 15), 'ensearch': '1'}
+        response = requests.get(
+            'https://cn.bing.com/search',
+            headers=headers,
+            params=params,
+            timeout=self.timeout
+        )
+        response.raise_for_status()
+
+        soup = BeautifulSoup(response.text, 'html.parser')
+        results = []
+
+        for item in soup.select('li.b_algo')[:self.max_results]:
+            title_elem = item.select_one('h2 a')
+            if not title_elem:
+                continue
+            snippet_elem = item.select_one('.b_caption p, .b_lineclamp2, .b_algoSlug')
+            result = SearchResult(
+                title=title_elem.get_text(strip=True),
+                url=title_elem.get('href', ''),
+                snippet=snippet_elem.get_text(strip=True) if snippet_elem else '',
+                source="bing_china",
+                relevance=1.0 - (len(results) * 0.1)
+            )
+            results.append(result)
+
+        logger.info(f"必应中国搜索完成: '{query}' -> {len(results)} 条结果")
+        return results
+
     def _search_miyoushe(self, query: str, **kwargs) -> List[SearchResult]:
         """使用米游社搜索"""
         try:
@@ -197,8 +239,8 @@ class WebSearcher:
             return results
             
         except Exception as e:
-            logger.warning(f"米游社搜索失败: {e}，使用模拟搜索")
-            return self._mock_search(query, "miyoushe")
+            logger.error(f"米游社搜索失败: {e}")
+            raise
     
     def _search_honkai_official(self, query: str, **kwargs) -> List[SearchResult]:
         """使用崩坏3官网搜索"""
@@ -220,8 +262,8 @@ class WebSearcher:
             return results
             
         except Exception as e:
-            logger.warning(f"崩坏3官网搜索失败: {e}，使用模拟搜索")
-            return self._mock_search(query, "honkai_official")
+            logger.error(f"崩坏3官网搜索失败: {e}")
+            raise
     
     def _fetch_page_content(self, url: str) -> str:
         """获取页面内容"""
@@ -229,59 +271,29 @@ class WebSearcher:
             headers = {'User-Agent': self.user_agent}
             response = requests.get(url, headers=headers, timeout=self.timeout)
             response.raise_for_status()
-            
-            # 解析HTML
+
             soup = BeautifulSoup(response.text, 'html.parser')
-            
-            # 移除脚本和样式
+
             for script in soup(["script", "style", "nav", "footer", "header"]):
                 script.decompose()
-            
-            # 获取文本内容
+
             text = soup.get_text(separator='\n', strip=True)
-            
-            # 清理多余空白
+
             lines = (line.strip() for line in text.splitlines())
             chunks = (phrase.strip() for line in lines for phrase in line.split("  "))
             text = ' '.join(chunk for chunk in chunks if chunk)
-            
+
             return text
-            
+
+        except requests.HTTPError as e:
+            # 403/404 等 HTTP 错误很常见，很多网站反爬，不影响搜索结果使用
+            logger.debug(f"获取页面内容 HTTP 错误 {url}: {e}")
+            return ""
         except Exception as e:
-            logger.warning(f"获取页面内容失败 {url}: {e}")
+            logger.debug(f"获取页面内容失败 {url}: {e}")
             return ""
     
-    def _mock_search(self, query: str, source: str) -> List[SearchResult]:
-        """模拟搜索（当真实搜索不可用时）"""
-        logger.info(f"使用模拟搜索: {query}")
-        
-        # 生成模拟结果
-        mock_results = [
-            SearchResult(
-                title=f"{query} - 搜索结果1",
-                url=f"https://example.com/result1",
-                snippet=f"这是关于'{query}'的模拟搜索结果1。",
-                source=source,
-                relevance=0.9
-            ),
-            SearchResult(
-                title=f"{query} - 搜索结果2",
-                url=f"https://example.com/result2",
-                snippet=f"这是关于'{query}'的模拟搜索结果2。",
-                source=source,
-                relevance=0.8
-            ),
-            SearchResult(
-                title=f"{query} - 搜索结果3",
-                url=f"https://example.com/result3",
-                snippet=f"这是关于'{query}'的模拟搜索结果3。",
-                source=source,
-                relevance=0.7
-            )
-        ]
-        
-        return mock_results[:self.max_results]
-    
+
     def search_with_context(
         self,
         query: str,
@@ -479,7 +491,7 @@ def create_web_search_tool():
         Returns:
             搜索结果摘要
         """
-        searcher = WebSearcher(engine=SearchEngine.GOOGLE)
+        searcher = WebSearcher(engine=SearchEngine.BING_CHINA)
         
         try:
             # 执行搜索

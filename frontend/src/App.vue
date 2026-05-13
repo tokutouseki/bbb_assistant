@@ -38,13 +38,19 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useChatStore } from '@/stores/chat'
 
 const router = useRouter()
 const route = useRoute()
+const chatStore = useChatStore()
 
 const currentRoute = computed(() => route.name)
+
+onMounted(() => {
+  chatStore.clearMessages()
+})
 
 function navigateToChat() {
   router.push({ name: 'chat' })

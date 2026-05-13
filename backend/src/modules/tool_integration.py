@@ -152,18 +152,31 @@ class LLMToolIntegration:
         
         # TTS 工具
         if self.enable_audio:
-            self.tools["tts_generate"] = {
-                "name": "tts_generate",
-                "description": "生成语音合成。支持多种语音角色和情感。",
-                "function": self.generate_tts,
+            self.tools["tts_qwen3"] = {
+                "name": "tts_qwen3",
+                "description": "使用Qwen3-TTS引擎生成语音。支持10种预设音色（温柔女声、活力女声、沉稳男声、可爱萝莉、专业客服、新闻播报、爱莉希雅、琪亚娜、雷电芽衣、布洛妮娅），通过自然语言描述即可切换声音风格，无需参考音频。",
+                "function": self.generate_tts_qwen3,
                 "parameters": {
                     "text": {"type": "string", "description": "要合成的文本"},
-                    "voice_id": {"type": "string", "description": "语音ID，如elysia、kiana、mei等", "optional": True, "default": "default"},
-                    "emotion": {"type": "string", "description": "情感类型，如neutral、happy、sad、angry、surprised", "optional": True, "default": "neutral"}
+                    "voice_style": {"type": "string", "description": "声音风格（预设或自然语言描述），可选: 温柔女声/活力女声/沉稳男声/可爱萝莉/专业客服/新闻播报/爱莉希雅/琪亚娜/雷电芽衣/布洛妮娅", "optional": True, "default": "温柔女声"},
+                    "language": {"type": "string", "description": "语言: Chinese/English/Japanese/Korean等", "optional": True, "default": "Chinese"}
                 },
                 "examples": [
-                    "用爱莉希雅的声音说'你好，我是崩坏3的AI助手'",
-                    "生成琪亚娜的语音'舰长，今天也要加油哦'"
+                    "用爱莉希雅的声音说'大家好呀，我是爱莉希雅~'",
+                    "用可爱萝莉风格朗读'哥哥你回来啦'"
+                ]
+            }
+            self.tools["tts_voxcpm"] = {
+                "name": "tts_voxcpm",
+                "description": "使用VoxCPM引擎进行语音克隆合成。需要提供崩坏3角色参考音频来克隆其声音，目前仅爱莉希雅(elysia)有可用的参考音频。",
+                "function": self.generate_tts_voxcpm,
+                "parameters": {
+                    "text": {"type": "string", "description": "要合成的文本"},
+                    "voice_id": {"type": "string", "description": "角色ID（当前仅elysia可用）", "optional": True, "default": "elysia"},
+                    "emotion": {"type": "string", "description": "情感类型: neutral/happy/sad/angry/surprised", "optional": True, "default": "neutral"}
+                },
+                "examples": [
+                    "用VoxCPM克隆爱莉希雅声音说'舰长，任务完成了'"
                 ]
             }
         
@@ -464,13 +477,50 @@ class LLMToolIntegration:
             return {"success": False, "error": "YOLO工具未启用"}
         return self.yolo_manager.unload_model(model_name=model_name)
     
-    def generate_tts(self, text: str, voice_id: str = "default", emotion: str = "neutral") -> Dict[str, Any]:
+    def generate_tts_qwen3(self, text: str, voice_style: str = "温柔女声", language: str = "Chinese") -> Dict[str, Any]:
         """
-        生成语音合成
+        使用Qwen3-TTS引擎生成语音（声音设计模式，无需参考音频）
         
         Args:
             text: 要合成的文本
-            voice_id: 语音ID
+            voice_style: 声音风格（预设名或自然语言描述）
+            language: 语言
+            
+        Returns:
+            生成结果
+        """
+        try:
+            from src.modules.audio.qwen3_tts_generator import Qwen3TTSGenerator
+            tts = Qwen3TTSGenerator(device="cuda:0")
+            result = tts.generate(
+                text=text,
+                voice_style=voice_style,
+                language=language
+            )
+            filepath = tts.save_to_file(result)
+            return {
+                "success": True,
+                "engine": "qwen3",
+                "text": text,
+                "voice_style": voice_style,
+                "language": language,
+                "filepath": filepath,
+                "sample_rate": result.sample_rate,
+                "processing_time": result.processing_time
+            }
+        except Exception as e:
+            return {
+                "success": False,
+                "error": str(e)
+            }
+
+    def generate_tts_voxcpm(self, text: str, voice_id: str = "elysia", emotion: str = "neutral") -> Dict[str, Any]:
+        """
+        使用VoxCPM引擎进行语音克隆合成（需要参考音频）
+        
+        Args:
+            text: 要合成的文本
+            voice_id: 角色ID（当前仅elysia可用）
             emotion: 情感类型
             
         Returns:
@@ -478,15 +528,17 @@ class LLMToolIntegration:
         """
         try:
             from src.modules.audio.tts_generator import TTSGenerator
-            tts = TTSGenerator()
+            tts = TTSGenerator(device="cuda:0")
             result = tts.generate_with_emotion(text=text, voice_id=voice_id, emotion=emotion, save_result=True)
             filepath = tts.save_to_file(result)
             return {
                 "success": True,
+                "engine": "voxcpm",
                 "text": text,
                 "voice_id": voice_id,
                 "emotion": emotion,
                 "filepath": filepath,
+                "sample_rate": result.sample_rate,
                 "processing_time": result.processing_time
             }
         except Exception as e:
@@ -800,9 +852,15 @@ class LLMToolIntegration:
         
         # TTS 工具判断
         if self.enable_audio:
-            tts_keywords = ["语音", "声音", "说", "朗读", "发音", "tts", "speech", "voice", "say", "speak", "generate audio", "tts_generate"]
-            if any(keyword in message_lower for keyword in tts_keywords):
-                suggested_tools.append("tts_generate")
+            voxcpm_keywords = ["voxcpm", "语音克隆", "克隆声音", "声音克隆", "参考音频", "tts_voxcpm"]
+            qwen3_keywords = ["qwen3", "qwen", "声音设计", "tts_qwen3"]
+            generic_tts_keywords = ["语音", "声音", "说", "朗读", "发音", "tts", "speech", "voice", "say", "speak", "generate audio", "tts_generate"]
+            if any(keyword in message_lower for keyword in voxcpm_keywords):
+                suggested_tools.append("tts_voxcpm")
+            elif any(keyword in message_lower for keyword in qwen3_keywords):
+                suggested_tools.append("tts_qwen3")
+            elif any(keyword in message_lower for keyword in generic_tts_keywords):
+                suggested_tools.append("tts_qwen3")
         
         # ASR 工具判断
         if self.enable_audio:
@@ -996,19 +1054,36 @@ class LLMToolIntegration:
                     f"- 已加载模型: {', '.join(loaded) if loaded else '无'}"
                 )
         
-        elif tool_name == "tts_generate":
-            # 提取文本内容
+        elif tool_name == "tts_qwen3":
             import re
             text_match = re.search(r'说[“"\'](.*?)[“"\']', user_message)
             if text_match:
                 text = text_match.group(1)
-                result = self.execute_tool("tts_generate", text=text)
+                result = self.execute_tool("tts_qwen3", text=text)
                 if result.get("success"):
                     return (
-                        f"🎤 **语音生成成功**:\n"
+                        f"🎤 **Qwen3-TTS 语音生成成功**:\n"
+                        f"- 引擎: {result.get('engine')}\n"
                         f"- 文本: {result.get('text')}\n"
-                        f"- 语音ID: {result.get('voice_id')}\n"
+                        f"- 声音风格: {result.get('voice_style')}\n"
+                        f"- 采样率: {result.get('sample_rate')} Hz\n"
+                        f"- 保存路径: {result.get('filepath')}"
+                    )
+
+        elif tool_name == "tts_voxcpm":
+            import re
+            text_match = re.search(r'说[“"\'](.*?)[“"\']', user_message)
+            if text_match:
+                text = text_match.group(1)
+                result = self.execute_tool("tts_voxcpm", text=text, voice_id="elysia")
+                if result.get("success"):
+                    return (
+                        f"🎙️ **VoxCPM 语音克隆成功**:\n"
+                        f"- 引擎: {result.get('engine')}\n"
+                        f"- 文本: {result.get('text')}\n"
+                        f"- 角色: {result.get('voice_id')}\n"
                         f"- 情感: {result.get('emotion')}\n"
+                        f"- 采样率: {result.get('sample_rate')} Hz\n"
                         f"- 保存路径: {result.get('filepath')}"
                     )
         

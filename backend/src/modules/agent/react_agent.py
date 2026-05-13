@@ -1,16 +1,19 @@
 import logging
 import os
+import queue
 from threading import Lock
 from typing import Any, Dict, List, Optional
 
 import cv2
 from langchain_classic.agents import AgentExecutor, create_react_agent
+from langchain_core.callbacks import BaseCallbackHandler
 from langchain_core.language_models.llms import LLM
 from langchain_core.prompts import PromptTemplate
 from langchain_core.tools import tool
 
 from src.config.settings import get_settings
 from src.config.runtime_settings import get_runtime_settings
+from src.config.cancel_signal import is_cancelled
 from src.modules.llm.llm_router import TaskType, get_llm_router
 from src.modules.rag import RAGConfig, RAGEngine, SearchMode
 from src.modules.vision.yolo_model_manager import YOLOModelManager
@@ -28,6 +31,10 @@ class RouterLLM(LLM):
         return "bbb_router_llm"
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None, run_manager=None, **kwargs: Any) -> str:
+        request_id = getattr(self, '_current_request_id', None)
+        if request_id and is_cancelled(request_id):
+            raise RuntimeError("CancelledError: 请求已被用户取消")
+
         router = get_llm_router()
         runtime = get_runtime_settings()
 
@@ -69,6 +76,73 @@ class RouterLLM(LLM):
             if "error" in result:
                 return f"发生错误: {result['error']}"
         return str(result)
+
+
+class QueueStreamingHandler(BaseCallbackHandler):
+    """将 Agent 每一步事件放入线程安全队列，供 SSE 端点消费。"""
+
+    def __init__(self, event_queue: queue.Queue, agent_ref: Any = None):
+        self.event_queue = event_queue
+        self.agent_ref = agent_ref
+        self._last_action = None
+
+    def _check_cancel(self):
+        if self.agent_ref is None:
+            return
+        request_id = getattr(self.agent_ref, '_request_id', None)
+        if request_id and is_cancelled(request_id):
+            raise RuntimeError("CancelledError: 请求已被用户取消")
+
+    def on_agent_action(self, action, **kwargs):
+        self._check_cancel()
+        tool_name = getattr(action, 'tool', '')
+        self._last_action = tool_name
+        self.event_queue.put({
+            "type": "step",
+            "thought": getattr(action, 'log', ''),
+            "action": tool_name,
+            "action_input": str(getattr(action, 'tool_input', '')),
+            "timestamp": __import__('time').time(),
+        })
+
+    def on_tool_end(self, output, **kwargs):
+        output_str = str(output)
+        ts = __import__('time').time()
+        if self._last_action == 'todo_write':
+            try:
+                import json as _json
+                data = _json.loads(output_str)
+                self.event_queue.put({
+                    "type": "todo",
+                    "tasks": data.get("tasks", []),
+                    "timestamp": ts,
+                })
+            except Exception:
+                self.event_queue.put({
+                    "type": "observation",
+                    "observation": output_str,
+                    "timestamp": ts,
+                })
+        else:
+            self.event_queue.put({
+                "type": "observation",
+                "observation": output_str,
+                "timestamp": ts,
+            })
+
+    def on_agent_finish(self, finish, **kwargs):
+        self.event_queue.put({
+            "type": "finish",
+            "output": finish.return_values.get("output", str(finish)),
+            "timestamp": __import__('time').time(),
+        })
+
+    def on_tool_error(self, error, **kwargs):
+        self.event_queue.put({
+            "type": "error",
+            "message": str(error),
+            "timestamp": __import__('time').time(),
+        })
 
 
 class ReActGameAgent:
@@ -651,11 +725,160 @@ class ReActGameAgent:
             except Exception as e:
                 return f"❌ OCR识别失败: {str(e)}"
 
-        tools = [list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates]
+        @tool
+        def tts_qwen3(text: str = "") -> str:
+            """使用Qwen3-TTS引擎将文本转为语音（声音设计模式，无需参考音频）。参数: text - 要合成语音的文本内容。支持多种声音风格（爱莉希雅、琪亚娜、雷电芽衣、布洛妮娅、温柔女声、可爱萝莉等），默认使用爱莉希雅预设音色。生成后返回音频文件路径，你必须在下一步调用 play_audio 工具播放生成的音频文件！"""
+            if not text or text.strip() == "":
+                return "❌ 请提供要合成语音的文本内容。"
+            try:
+                from src.utils.model_manager import get_qwen3_tts_model
+                tts = get_qwen3_tts_model(device="cuda:0")
+                result = tts.generate(
+                    text=text.strip(),
+                    voice_style="爱莉希雅",
+                    language="Chinese"
+                )
+                filepath = tts.save_to_file(result)
+                duration = len(result.audio_data) / result.sample_rate
+                return (
+                    f"✅ Qwen3-TTS 语音生成成功！\n"
+                    f"- 文本: {text.strip()}\n"
+                    f"- 声音风格: 爱莉希雅\n"
+                    f"- 采样率: {result.sample_rate} Hz\n"
+                    f"- 时长: {duration:.1f}s\n"
+                    f"- 文件: {filepath}\n\n"
+                    f"⚠️ 请在下一步调用 play_audio 工具播放此文件: {filepath}"
+                )
+            except Exception as e:
+                return f"❌ Qwen3-TTS 语音生成失败: {str(e)}"
+
+        @tool
+        def tts_voxcpm(text: str = "") -> str:
+            """使用VoxCPM引擎通过参考音频克隆爱莉希雅声音生成语音。参数: text - 要合成语音的文本内容。基于爱莉希雅参考音频进行声音克隆，生成后返回音频文件路径，你必须在下一步调用 play_audio 工具播放生成的音频文件！"""
+            if not text or text.strip() == "":
+                return "❌ 请提供要合成语音的文本内容。"
+            try:
+                from src.utils.model_manager import get_tts_model
+                tts = get_tts_model(device="cuda:0")
+                result = tts.generate(
+                    text=text.strip(),
+                    voice_id="elysia",
+                    save_result=True
+                )
+                filepath = tts.save_to_file(result)
+                duration = len(result.audio_data) / result.sample_rate
+                return (
+                    f"✅ VoxCPM 语音克隆成功！\n"
+                    f"- 文本: {text.strip()}\n"
+                    f"- 角色: 爱莉希雅(elysia)\n"
+                    f"- 采样率: {result.sample_rate} Hz\n"
+                    f"- 时长: {duration:.1f}s\n"
+                    f"- 文件: {filepath}\n\n"
+                    f"⚠️ 请在下一步调用 play_audio 工具播放此文件: {filepath}"
+                )
+            except Exception as e:
+                return f"❌ VoxCPM 语音克隆失败: {str(e)}"
+
+        @tool
+        def play_audio(filepath: str = "") -> str:
+            """播放指定路径的音频文件（WAV格式）。参数: filepath - 音频文件的完整路径。通常在 tts_qwen3 或 tts_voxcpm 生成音频后调用此工具来播放。"""
+            if not filepath or filepath.strip() == "":
+                return "❌ 请提供要播放的音频文件路径。"
+            try:
+                from src.modules.audio.audio_player import get_audio_player
+                player = get_audio_player()
+                success = player.play_audio(filepath.strip())
+                if success:
+                    return f"✅ 音频播放成功: {filepath}"
+                else:
+                    return f"❌ 音频播放失败: {filepath}"
+            except Exception as e:
+                return f"❌ 音频播放异常: {str(e)}"
+
+        @tool
+        def todo_write(tasks_json: str = "") -> str:
+            """创建和更新任务计划列表。当任务需要3步以上时，必须先用此工具创建TODO计划，然后每完成一步更新状态。
+
+参数为 JSON 字符串，格式:
+  {"tasks": [{"id": "1", "status": "pending", "content": "任务描述"}, ...]}
+
+status 可选: pending, in_progress, completed
+
+使用方式:
+- 首次: 列出全部任务的完整 JSON，全部初始为 pending
+- 开始某任务: 只发该任务 status: "in_progress"
+- 完成某任务: 只发该任务 status: "completed"
+- 一次可更新多个任务状态
+
+返回当前完整的 TODO 列表状态。"""
+            import json as _json
+            try:
+                data = _json.loads(tasks_json) if tasks_json and tasks_json.strip() else {"tasks": []}
+                tasks = data.get("tasks", [])
+                if not hasattr(self, '_todo_list'):
+                    self._todo_list = []
+                for t in tasks:
+                    tid = t.get("id", "")
+                    existing = next((x for x in self._todo_list if x.get("id") == tid), None)
+                    if existing:
+                        if "status" in t:
+                            existing["status"] = t["status"]
+                        if "content" in t:
+                            existing["content"] = t["content"]
+                    else:
+                        self._todo_list.append({
+                            "id": tid,
+                            "status": t.get("status", "pending"),
+                            "content": t.get("content", ""),
+                        })
+                result = {"tasks": self._todo_list}
+                return _json.dumps(result, ensure_ascii=False)
+            except Exception as e:
+                return _json.dumps({"error": str(e), "tasks": getattr(self, '_todo_list', [])}, ensure_ascii=False)
+
+        @tool
+        def web_search(query: str = "") -> str:
+            """联网搜索最新信息。参数: query - 搜索关键词。当本地RAG知识库无法回答或需要最新资讯时使用。支持崩坏3相关的最新攻略、活动、角色信息等。"""
+            if not query or query.strip() == "":
+                return "❌ 请提供搜索关键词"
+            try:
+                from src.modules.web_search.web_searcher import WebSearcher, SearchEngine
+                searcher = WebSearcher(engine=SearchEngine.BING_CHINA, max_results=5, enable_content_fetch=True)
+                results = searcher.search(query.strip())
+                if not results:
+                    return "未找到相关搜索结果"
+                lines = [f"搜索: {query.strip()}", ""]
+                for i, r in enumerate(results, 1):
+                    lines.append(f"{i}. {r.title}")
+                    lines.append(f"   {r.snippet[:200]}")
+                    if r.content:
+                        lines.append(f"   详情: {r.content[:300]}")
+                    lines.append(f"   来源: {r.url}")
+                    lines.append("")
+                return "\n".join(lines)
+            except ImportError:
+                return "❌ 联网搜索模块未安装"
+            except Exception as e:
+                return f"❌ 搜索失败: {str(e)}"
+
+        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search]
         llm = RouterLLM()
+        self._llm = llm
 
         prompt = PromptTemplate.from_template(
             """你是一个严格遵循 ReAct 范式的崩坏3游戏助手。
+
+【任务规划】
+- 当任务预计需要3步以上（含）才能完成时，必须先用 todo_write 创建计划
+- 创建计划时，列出所有子任务，每个子任务初始 status 为 "pending"
+- 开始执行某任务时，更新其 status 为 "in_progress"
+- 完成某任务时，更新其 status 为 "completed"
+- 完成所有任务后，给出最终回复
+
+【知识获取策略】
+- 游戏基础设定/攻略 → 优先用 rag_search 查本地知识库（速度快）
+- 最新资讯/活动/版本更新 → 用 web_search 联网搜索（信息新）
+- 两者结果冲突时，以联网搜索结果为准
 
 【游戏背景知识】
 - bridge（舰桥界面）是崩坏3的主界面/首页
@@ -705,6 +928,16 @@ Question: 你好
 Thought: 我已经得到最终答案
 Final Answer: 你好！我是崩坏3助手。
 
+TTS语音合成必须的两步流程：
+Question: 用爱莉希雅的声音说你好
+Thought: 用户想要用爱莉希雅声音说"你好"，我需要先调用 tts_qwen3 生成语音
+Action: tts_qwen3
+Action Input: 你好
+（等待Observation返回文件路径，然后进行第二步）
+Thought: 语音已生成，现在需要播放
+Action: play_audio
+Action Input: [上一步返回的文件路径]
+
 【开始】
 Question: {input}
 {agent_scratchpad}"""
@@ -722,7 +955,8 @@ Question: {input}
             memory=self._memory,
         )
 
-    def run(self, user_input: str, max_retries: int = 2) -> Dict[str, Any]:
+    def run(self, user_input: str, max_retries: int = 2, request_id: str = "") -> Dict[str, Any]:
+        self._request_id = request_id
         # 首先检查是否有匹配的技能
         skill_manager = get_skill_manager()
         matched_skill = skill_manager.find_matching_skill(user_input)
@@ -756,14 +990,61 @@ Question: {input}
             logger.warning(f"音频播放失败: {str(e)}")
         
         return result
-    
-    def _run_with_retry(self, user_input: str, max_retries: int) -> Dict[str, Any]:
+
+    def run_streaming(self, user_input: str, request_id: str, event_queue: queue.Queue, max_retries: int = 2) -> Dict[str, Any]:
+        """流式运行 Agent，每一步通过 event_queue 实时推送。"""
+        self._request_id = request_id
+        skill_manager = get_skill_manager()
+        matched_skill = skill_manager.find_matching_skill(user_input)
+
+        if matched_skill:
+            skill_name = matched_skill['name']
+            user_input = f"""用户请求: {user_input}
+
+已匹配到技能「{skill_name}」，请按以下步骤执行：
+1. 使用 view_skill 工具查看该技能的详细操作说明
+2. 根据技能说明中的步骤，依次调用相应的工具完成任务
+3. 完成后请总结执行过程和结果"""
+
+        handler = QueueStreamingHandler(event_queue, agent_ref=self)
+        try:
+            result = self._run_with_retry(user_input, max_retries, callbacks=[handler])
+        except Exception as e:
+            error_msg = str(e)
+            if "CancelledError" in error_msg:
+                event_queue.put({"type": "cancelled"})
+            else:
+                event_queue.put({"type": "error", "message": error_msg})
+            raise
+
+        errors = result.get("errors", [])
+        if errors or result.get("loop_detected"):
+            event_queue.put({"type": "warning", "message": "\\n".join(errors) if errors else "检测到循环调用"})
+
+        # 根据结果播放相应的音频
+        try:
+            from src.modules.audio.audio_player import get_audio_player
+
+            player = get_audio_player()
+            if errors or result.get("loop_detected"):
+                player.play_error()
+            else:
+                player.play_success()
+        except Exception as e:
+            logger.warning(f"音频播放失败: {str(e)}")
+
+        return result
+
+    def _run_with_retry(self, user_input: str, max_retries: int, callbacks: Optional[List] = None) -> Dict[str, Any]:
         retry_count = 0
         last_errors = []
         tool_call_history = []
         
         while retry_count <= max_retries:
-            result = self._agent.invoke({"input": user_input})
+            if hasattr(self, '_llm'):
+                self._llm._current_request_id = self._request_id
+            invoke_config = {"callbacks": callbacks} if callbacks else None
+            result = self._agent.invoke({"input": user_input}, config=invoke_config)
             steps = []
             
             has_parsing_error = False
@@ -837,6 +1118,8 @@ Question: {input}
             last_errors = errors
             
             if retry_count < max_retries:
+                if self._request_id and is_cancelled(self._request_id):
+                    raise RuntimeError("CancelledError: 请求已被用户取消")
                 if has_valid_action:
                     logger.warning(f"工具执行成功但格式验证失败，跳过重试")
                     break
