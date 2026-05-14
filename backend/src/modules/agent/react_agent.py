@@ -172,17 +172,80 @@ class ReActGameAgent:
         self._formatter = ReActFormatter()
         # 初始化对话记忆
         self._memory = self._build_memory()
+        # 加载并缓存用户偏好（嵌入系统 prompt）
+        self._cached_preferences = self._load_user_preferences()
         self._agent = self._build_agent()
     
     def _build_memory(self):
         """构建对话记忆组件"""
         from langchain_classic.memory.buffer import ConversationBufferMemory
-        
+
         return ConversationBufferMemory(
             memory_key="chat_history",
             return_messages=True,
             max_token_limit=2000
         )
+
+    def clear_context(self) -> Dict[str, Any]:
+        """清除对话上下文，重置记忆和 agent 状态。用于用户手动刷新上下文或任务切换时。"""
+        import os
+        result = {
+            "success": True,
+            "memory_cleared": True,
+            "checkpoint_deleted": False,
+            "agent_rebuilt": True,
+        }
+
+        # 1. 重置对话记忆
+        self._memory.clear()
+        self._memory = self._build_memory()
+
+        # 2. 删除任务检查点文件（如果存在）
+        checkpoint_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "..", "..", "..", "..", "outputs", "task_checkpoint.json"
+        )
+        checkpoint_path = os.path.normpath(checkpoint_path)
+        if os.path.exists(checkpoint_path):
+            try:
+                os.remove(checkpoint_path)
+                result["checkpoint_deleted"] = True
+                logger.info("已删除任务检查点文件")
+            except OSError as e:
+                logger.warning(f"删除检查点文件失败: {e}")
+
+        # 3. 重新加载偏好（允许热更新）
+        self._cached_preferences = self._load_user_preferences()
+
+        # 4. 重建 agent（确保 tool 绑定使用新的 memory，偏好嵌入系统 prompt）
+        self._agent = self._build_agent()
+
+        logger.info("Agent 上下文已清除")
+        return result
+
+    def _load_user_preferences(self) -> str:
+        """读取用户偏好设置文件，返回注入到 prompt 的上下文字符串。"""
+        import os
+        prefs_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "..", "..", "..", "..", "user_preferences.md"
+        )
+        prefs_path = os.path.normpath(prefs_path)
+        try:
+            if os.path.exists(prefs_path):
+                with open(prefs_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                logger.info("已加载用户偏好设置")
+                return f"""[系统上下文 - 用户偏好设置]
+以下是用户的偏好设置，请在执行任务时遵守这些偏好：
+
+{content}
+
+---
+请在回复和执行任务时考虑以上用户偏好设置。"""
+        except Exception as e:
+            logger.warning(f"读取用户偏好设置失败: {e}")
+        return ""
 
     def _warm_up_rag(self) -> None:
         """在初始化时同步预热RAG引擎"""
@@ -359,6 +422,32 @@ class ReActGameAgent:
             except Exception as e:
                 logger.error(f"加载模型失败: {e}")
                 return f"❌ 模型加载失败: {str(e)}"
+
+        @tool
+        def yolo_unload_model(model_name: str) -> str:
+            """卸载指定的YOLO模型以释放GPU/CPU内存。参数: model_name - 要卸载的模型名称（先调用yolo_list_models查看已加载模型）。当需要释放显存加载其他模型时使用此工具。"""
+            try:
+                import json
+
+                # 解析可能的JSON格式输入
+                if model_name.startswith("{"):
+                    try:
+                        parsed = json.loads(model_name)
+                        model_name = parsed.get("model_name", model_name)
+                    except json.JSONDecodeError:
+                        pass
+
+                result = self.yolo_manager.unload_model(model_name=model_name.strip())
+
+                if result.get("success"):
+                    return f"✅ {result.get('message', '模型已卸载')}"
+                else:
+                    error_msg = result.get("message", "卸载失败")
+                    return f"❌ 卸载失败: {error_msg}"
+
+            except Exception as e:
+                logger.error(f"卸载模型失败: {e}")
+                return f"❌ 卸载模型失败: {str(e)}"
 
         @tool
         def yolo_detect_image(model_name: str = "") -> str:
@@ -861,12 +950,20 @@ status 可选: pending, in_progress, completed
             except Exception as e:
                 return f"❌ 搜索失败: {str(e)}"
 
-        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search]
+        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search]
         llm = RouterLLM()
         self._llm = llm
 
+        # 嵌入用户偏好到系统 prompt
+        prefs_section = ""
+        if self._cached_preferences:
+            prefs_section = f"""
+
+【用户偏好设置 - 必须遵守】
+{self._cached_preferences}"""
+
         prompt = PromptTemplate.from_template(
-            """你是一个严格遵循 ReAct 范式的崩坏3游戏助手。
+            f"""你是一个严格遵循 ReAct 范式的崩坏3游戏助手。
 
 【任务规划】
 - 当任务预计需要3步以上（含）才能完成时，必须先用 todo_write 创建计划
@@ -895,15 +992,16 @@ status 可选: pending, in_progress, completed
 **规则4**: 每次只输出一个Thought + Action + Action Input，然后停止，等待系统返回Observation
 **规则5**: 绝对不要自己生成Observation或工具结果！工具结果由系统自动返回
 **规则6**: 绝对不要在Action Input后面输出日志、时间戳或任何额外内容
+{prefs_section}
 
 【对话历史】
-{chat_history}
+{{chat_history}}
 
 【可用工具】
-{tools}
+{{tools}}
 
 【工具名称列表】
-{tool_names}
+{{tool_names}}
 
 【格式选择】
 --- 选择A: 需要调用工具 ---
@@ -939,8 +1037,8 @@ Action: play_audio
 Action Input: [上一步返回的文件路径]
 
 【开始】
-Question: {input}
-{agent_scratchpad}"""
+Question: {{input}}
+{{agent_scratchpad}}"""
         )
 
         agent = create_react_agent(llm=llm, tools=tools, prompt=prompt)
@@ -957,12 +1055,12 @@ Question: {input}
 
     def run(self, user_input: str, max_retries: int = 2, request_id: str = "") -> Dict[str, Any]:
         self._request_id = request_id
-        # 首先检查是否有匹配的技能
+
+        # 检查是否有匹配的技能
         skill_manager = get_skill_manager()
         matched_skill = skill_manager.find_matching_skill(user_input)
-        
+
         if matched_skill:
-            # 提示agent查看技能说明并按步骤执行
             skill_name = matched_skill['name']
             user_input = f"""用户请求: {user_input}
 
@@ -970,7 +1068,7 @@ Question: {input}
 1. 使用 view_skill 工具查看该技能的详细操作说明
 2. 根据技能说明中的步骤，依次调用相应的工具完成任务
 3. 完成后请总结执行过程和结果"""
-        
+
         result = self._run_with_retry(user_input, max_retries)
         
         # 根据结果播放相应的音频
@@ -994,6 +1092,7 @@ Question: {input}
     def run_streaming(self, user_input: str, request_id: str, event_queue: queue.Queue, max_retries: int = 2) -> Dict[str, Any]:
         """流式运行 Agent，每一步通过 event_queue 实时推送。"""
         self._request_id = request_id
+
         skill_manager = get_skill_manager()
         matched_skill = skill_manager.find_matching_skill(user_input)
 
@@ -1034,6 +1133,225 @@ Question: {input}
             logger.warning(f"音频播放失败: {str(e)}")
 
         return result
+
+    def _is_phased_skill(self, skill_name: str) -> bool:
+        """检查技能是否定义了阶段"""
+        if not skill_name:
+            return False
+        skill_manager = get_skill_manager()
+        phases = skill_manager.get_skill_phases(skill_name)
+        return len(phases) > 0
+
+    def _build_phase_prompt(self, phase_name: str, phase_content: str, phase_index: int,
+                            total_phases: int, checkpoint_summary: str,
+                            original_request: str = "") -> str:
+        """为单个阶段构建隔离的 prompt。只包含本阶段的指令和检查点上下文。"""
+        checkpoint_block = ""
+        if checkpoint_summary:
+            checkpoint_block = f"""[上一阶段完成后的状态]
+{checkpoint_summary}
+"""
+
+        original_block = ""
+        if original_request:
+            original_block = f"""\n[用户原始请求]
+{original_request}
+"""
+
+        return f"""[任务阶段 {phase_index + 1}/{total_phases}]
+请执行以下阶段：{phase_name}
+{original_block}
+
+{checkpoint_block}
+[阶段操作说明]
+{phase_content}
+
+---
+完成本阶段后，请确保已按说明写入检查点到 outputs/task_checkpoint.json。"""
+
+    def _read_checkpoint_summary(self) -> str:
+        """读取检查点文件，返回简要上下文摘要供下一阶段使用。"""
+        import os
+        checkpoint_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "..", "..", "..", "..", "outputs", "task_checkpoint.json"
+        )
+        checkpoint_path = os.path.normpath(checkpoint_path)
+        try:
+            if os.path.exists(checkpoint_path):
+                import json
+                with open(checkpoint_path, "r", encoding="utf-8") as f:
+                    cp = json.load(f)
+                lines = []
+                lines.append(f"已完成阶段: {', '.join(cp.get('completed_phases', []))}")
+                lines.append(f"当前场景: {cp.get('scene', 'unknown')}")
+                lines.append(f"状态: {cp.get('context_summary', '')}")
+                if cp.get("key_data"):
+                    lines.append(f"关键数据: {json.dumps(cp.get('key_data', {}), ensure_ascii=False)}")
+                return "\n".join(lines)
+        except Exception as e:
+            logger.warning(f"读取检查点失败: {e}")
+        return ""
+
+    def _get_checkpoint_phase(self, skill_name: str) -> int:
+        """检查是否存在任务断点，返回应从第几个阶段开始（0-indexed）。
+        如果没有断点或断点属于其他技能，返回 0。
+        """
+        import os, json
+        checkpoint_path = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            "..", "..", "..", "..", "outputs", "task_checkpoint.json"
+        )
+        checkpoint_path = os.path.normpath(checkpoint_path)
+        try:
+            if os.path.exists(checkpoint_path):
+                with open(checkpoint_path, "r", encoding="utf-8") as f:
+                    cp = json.load(f)
+                if cp.get("skill") == skill_name:
+                    phase = cp.get("current_phase", 0)
+                    logger.info(f"检测到断点: skill={skill_name}, phase={phase}")
+                    return phase
+        except Exception as e:
+            logger.warning(f"读取断点失败: {e}")
+        return 0
+
+    def run_phased(self, skill_name: str, user_input: str, request_id: str = "",
+                   max_retries: int = 2) -> Dict[str, Any]:
+        """分阶段执行（非流式）— 每个阶段在干净的上下文中独立运行。"""
+        skill_manager = get_skill_manager()
+        phases = skill_manager.get_skill_phases(skill_name)
+
+        if not phases:
+            return {"output": "", "errors": ["未定义阶段"], "steps": []}
+
+        # 检查断点，确定起始阶段
+        start_phase = self._get_checkpoint_phase(skill_name)
+        if start_phase > 0:
+            logger.info(f"从阶段 {start_phase + 1}/{len(phases)} 恢复: {skill_name}")
+
+        all_steps = []
+        checkpoint_summary = self._read_checkpoint_summary() if start_phase > 0 else ""
+
+        for i in range(start_phase, len(phases)):
+            phase_name = phases[i]
+            phase_content = skill_manager.extract_phase_content(skill_name, phase_name)
+            if not phase_content:
+                return {"output": "", "errors": [f"未找到阶段: {phase_name}"], "steps": all_steps}
+
+            phase_prompt = self._build_phase_prompt(
+                phase_name, phase_content, i, len(phases), checkpoint_summary,
+                original_request=user_input
+            )
+
+            self.clear_context()
+            result = self._run_with_retry(phase_prompt, max_retries)
+            all_steps.extend(result.get("steps", []))
+
+            errors = result.get("errors", [])
+            if errors or result.get("loop_detected"):
+                return {"output": result.get("output", ""), "errors": errors, "steps": all_steps}
+
+            checkpoint_summary = self._read_checkpoint_summary()
+
+        return {
+            "output": f"任务「{skill_name}」全部 {len(phases)} 个阶段已完成",
+            "steps": all_steps,
+            "errors": [],
+        }
+
+    def run_phased_streaming(self, skill_name: str, user_input: str, request_id: str,
+                              event_queue: queue.Queue, max_retries: int = 2) -> Dict[str, Any]:
+        """分阶段流式执行 — 每个阶段在干净的上下文中独立运行，通过检查点文件交接状态。"""
+        skill_manager = get_skill_manager()
+        phases = skill_manager.get_skill_phases(skill_name)
+
+        if not phases:
+            event_queue.put({"type": "error", "message": f"技能 {skill_name} 未定义阶段"})
+            return {"output": "", "errors": ["未定义阶段"], "steps": []}
+
+        # 检查断点，确定起始阶段
+        start_phase = self._get_checkpoint_phase(skill_name)
+        if start_phase > 0:
+            logger.info(f"从阶段 {start_phase + 1}/{len(phases)} 恢复: {skill_name}")
+            event_queue.put({
+                "type": "phase_resume",
+                "phase_index": start_phase,
+                "phase_name": phases[start_phase],
+                "total_phases": len(phases),
+            })
+
+        logger.info(f"开始分阶段执行: {skill_name}, 共 {len(phases)} 个阶段")
+
+        all_steps = []
+        checkpoint_summary = self._read_checkpoint_summary() if start_phase > 0 else ""
+
+        for i in range(start_phase, len(phases)):
+            phase_name = phases[i]
+            # 发送阶段开始事件
+            event_queue.put({
+                "type": "phase_start",
+                "phase_index": i,
+                "phase_name": phase_name,
+                "total_phases": len(phases),
+            })
+
+            # 提取阶段内容
+            phase_content = skill_manager.extract_phase_content(skill_name, phase_name)
+            if not phase_content:
+                error_msg = f"未找到阶段内容: {phase_name}"
+                logger.error(error_msg)
+                event_queue.put({"type": "error", "message": error_msg})
+                return {"output": "", "errors": [error_msg], "steps": all_steps}
+
+            # 构建阶段 prompt（只包含本阶段指令 + 检查点摘要）
+            phase_prompt = self._build_phase_prompt(
+                phase_name, phase_content, i, len(phases), checkpoint_summary,
+                original_request=user_input
+            )
+
+            # 清除上一阶段的上下文，为每个阶段提供干净的对话记忆
+            self.clear_context()
+
+            # 执行阶段
+            handler = QueueStreamingHandler(event_queue, agent_ref=self)
+            try:
+                result = self._run_with_retry(phase_prompt, max_retries, callbacks=[handler])
+            except Exception as e:
+                error_msg = str(e)
+                if "CancelledError" in error_msg:
+                    event_queue.put({"type": "cancelled"})
+                else:
+                    event_queue.put({"type": "error", "message": error_msg})
+                raise
+
+            # 收集步骤
+            all_steps.extend(result.get("steps", []))
+
+            # 检查错误
+            errors = result.get("errors", [])
+            if errors or result.get("loop_detected"):
+                event_queue.put({
+                    "type": "warning",
+                    "message": "\n".join(errors) if errors else "检测到循环调用"
+                })
+
+            # 发送阶段完成事件
+            event_queue.put({
+                "type": "phase_complete",
+                "phase_index": i,
+                "phase_name": phase_name,
+                "output": result.get("output", ""),
+            })
+
+            # 读取检查点供下一阶段使用
+            checkpoint_summary = self._read_checkpoint_summary()
+
+        logger.info(f"分阶段执行完成: {skill_name}")
+        return {
+            "output": f"任务「{skill_name}」全部 {len(phases)} 个阶段已完成",
+            "steps": all_steps,
+            "errors": [],
+        }
 
     def _run_with_retry(self, user_input: str, max_retries: int, callbacks: Optional[List] = None) -> Dict[str, Any]:
         retry_count = 0

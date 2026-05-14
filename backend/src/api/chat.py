@@ -99,12 +99,22 @@ async def chat_completion(request: ChatRequest):
     }
     update_runtime_settings(llm_overrides)
 
-    # 使用ReAct Agent处理
+    # 使用ReAct Agent处理（透明切换分阶段执行）
+    from ..modules.skill.skill_manager import get_skill_manager as _get_sm
+    _sm = _get_sm()
+    _matched = _sm.find_matching_skill(last_user_message)
+    _has_phases = _matched and len(_sm.get_skill_phases(_matched["name"])) > 0
+
     request_id = request.request_id or str(time.time())
     register_request(request_id)
     try:
         agent = get_react_agent()
-        result = await asyncio.to_thread(agent.run, last_user_message, request_id=request_id)
+        if _has_phases:
+            result = await asyncio.to_thread(
+                agent.run_phased, _matched["name"], last_user_message, request_id
+            )
+        else:
+            result = await asyncio.to_thread(agent.run, last_user_message, request_id=request_id)
         
         # 将ReAct步骤转换为tool_steps格式
         tool_steps = []
@@ -202,12 +212,27 @@ async def chat_stream(request: ChatRequest):
     register_request(request_id)
     event_queue = queue.Queue()
 
+    # 预检测技能是否定义了阶段（用于透明切换分阶段执行）
+    from ..modules.skill.skill_manager import get_skill_manager
+    skill_manager_s = get_skill_manager()
+    matched = skill_manager_s.find_matching_skill(last_user_message)
+    use_phased = (
+        matched is not None
+        and len(skill_manager_s.get_skill_phases(matched["name"])) > 0
+    )
+    phased_skill_name = matched["name"] if use_phased else None
+
     async def generate():
         loop = asyncio.get_event_loop()
 
         def run_agent():
             agent = get_react_agent()
-            return agent.run_streaming(last_user_message, request_id, event_queue)
+            if phased_skill_name:
+                return agent.run_phased_streaming(
+                    phased_skill_name, last_user_message, request_id, event_queue
+                )
+            else:
+                return agent.run_streaming(last_user_message, request_id, event_queue)
 
         future = loop.run_in_executor(None, run_agent)
 
@@ -251,11 +276,33 @@ class CancelRequest(BaseModel):
     request_id: str = Field(..., description="要取消的请求ID")
 
 
+class ClearContextResponse(BaseModel):
+    success: bool
+    memory_cleared: bool
+    checkpoint_deleted: bool
+    agent_rebuilt: bool
+    message: str = "上下文已清除"
+
+
 @router.post("/cancel")
 async def cancel_chat(req: CancelRequest):
     """取消正在运行的聊天请求"""
     ok = cancel_request(req.request_id)
     return {"success": ok, "message": "已发送取消信号" if ok else "未找到对应请求"}
+
+
+@router.post("/clear", response_model=ClearContextResponse)
+async def clear_chat_context():
+    """清除对话上下文：重置 LLM 记忆、删除任务检查点、重建 Agent"""
+    agent = get_react_agent()
+    result = agent.clear_context()
+    return ClearContextResponse(
+        success=result["success"],
+        memory_cleared=result["memory_cleared"],
+        checkpoint_deleted=result["checkpoint_deleted"],
+        agent_rebuilt=result["agent_rebuilt"],
+        message="对话上下文、任务检查点已清除，Agent 已重建"
+    )
 
 @router.get("/history/{user_id}")
 async def get_chat_history(user_id: str, limit: int = 50):

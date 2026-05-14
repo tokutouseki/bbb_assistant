@@ -13,6 +13,21 @@
           <span class="agent-status">在线</span>
         </div>
       </div>
+      <div class="header-actions">
+        <button
+          class="clear-context-btn"
+          @click="clearContext"
+          :disabled="isClearingContext"
+          title="清除对话上下文和任务检查点"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/>
+            <line x1="10" y1="11" x2="10" y2="17"/>
+            <line x1="14" y1="11" x2="14" y2="17"/>
+          </svg>
+          <span>{{ isClearingContext ? '清除中...' : '刷新上下文' }}</span>
+        </button>
+      </div>
     </div>
 
     <div class="chat-messages" ref="messagesContainer">
@@ -152,6 +167,8 @@ const currentRequestId = ref('')
 const currentSteps = ref([])
 const todoList = ref([])
 
+const isClearingContext = ref(false)
+
 const canSend = computed(() => {
   return inputText.value.trim().length > 0 && !chatStore.isLoading
 })
@@ -219,6 +236,27 @@ async function stopMessage() {
   currentRequestId.value = ''
   chatStore.isLoading = false
   chatStore.streamingContent = ''
+}
+
+async function clearContext() {
+  if (isClearingContext.value) return
+  isClearingContext.value = true
+  try {
+    const response = await fetch('/api/chat/clear', { method: 'POST' })
+    if (response.ok) {
+      const result = await response.json()
+      chatStore.clearMessages()
+      currentSteps.value = []
+      todoList.value = []
+      console.log('上下文已清除:', result.message)
+    } else {
+      console.error('清除上下文失败:', response.status)
+    }
+  } catch (e) {
+    console.error('清除上下文请求失败:', e)
+  } finally {
+    isClearingContext.value = false
+  }
 }
 
 async function sendMessage() {
@@ -374,6 +412,40 @@ onMounted(() => {
   flex-shrink: 0;
   padding: 12px 20px;
   border-bottom: 1px solid #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clear-context-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #f9fafb;
+  color: #6b7280;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.clear-context-btn:hover:not(:disabled) {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #ef4444;
+}
+
+.clear-context-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .agent-avatar {
