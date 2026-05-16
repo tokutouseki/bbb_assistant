@@ -50,9 +50,7 @@
         <div v-if="msg.role === 'user'" class="message-bubble user-bubble">
           {{ msg.content }}
         </div>
-        <div v-else class="message-bubble assistant-bubble">
-          {{ msg.content }}
-        </div>
+        <div v-else class="message-bubble assistant-bubble" v-html="renderMarkdown(msg.content)"></div>
       </div>
 
       <div v-if="todoList.length > 0" class="message-wrapper assistant">
@@ -155,6 +153,17 @@
 import { ref, computed, nextTick, watch, onMounted } from 'vue'
 import { useChatStore } from '@/stores/chat'
 import { useSettingsStore } from '@/stores/settings'
+import { marked } from 'marked'
+
+marked.use({
+  breaks: true,
+  gfm: true,
+})
+
+function renderMarkdown(text) {
+  if (!text) return ''
+  return marked.parse(text)
+}
 
 const chatStore = useChatStore()
 const settingsStore = useSettingsStore()
@@ -550,6 +559,23 @@ onMounted(() => {
   color: #1a1a1a;
   border-bottom-left-radius: 4px;
 }
+
+/* Markdown 渲染样式 */
+.assistant-bubble :deep(h1) { font-size: 1.3em; font-weight: 700; margin: 12px 0 6px; }
+.assistant-bubble :deep(h2) { font-size: 1.15em; font-weight: 700; margin: 10px 0 5px; }
+.assistant-bubble :deep(h3) { font-size: 1.05em; font-weight: 600; margin: 8px 0 4px; }
+.assistant-bubble :deep(p) { margin: 4px 0; }
+.assistant-bubble :deep(ul), .assistant-bubble :deep(ol) { padding-left: 20px; margin: 4px 0; }
+.assistant-bubble :deep(li) { margin: 2px 0; }
+.assistant-bubble :deep(strong) { font-weight: 600; color: #111; }
+.assistant-bubble :deep(hr) { border: none; border-top: 1px solid #ddd; margin: 10px 0; }
+.assistant-bubble :deep(code) { background: #e8e8e8; padding: 1px 5px; border-radius: 3px; font-size: 0.9em; }
+.assistant-bubble :deep(pre) { background: #2d2d2d; color: #f0f0f0; padding: 10px 14px; border-radius: 6px; overflow-x: auto; margin: 8px 0; }
+.assistant-bubble :deep(pre code) { background: transparent; padding: 0; }
+.assistant-bubble :deep(a) { color: #2563eb; text-decoration: underline; }
+.assistant-bubble :deep(blockquote) { border-left: 3px solid #ccc; padding-left: 12px; margin: 6px 0; color: #555; }
+.assistant-bubble :deep(*:first-child) { margin-top: 0; }
+.assistant-bubble :deep(*:last-child) { margin-bottom: 0; }
 
 .todo-card {
   padding: 12px 16px;

@@ -267,33 +267,37 @@ class IndexManager:
         top_k: int = 10
     ) -> List[PreciseSearchResult]:
         """
-        按关键词搜索
-        
-        Args:
-            keywords: 关键词列表
-            category: 限定分类
-            top_k: 返回数量
-            
-        Returns:
-            搜索结果
+        按关键词搜索 — TF词频加权
+
+        解决 binary 匹配的缺陷: "提到过芽衣" 和 "芽衣是主题" 得分不再相同。
+        TF (词频) 越高 → 文档越以此为主题 → 得分越高。
+        名称命中额外加分。
         """
         doc_scores: Dict[str, float] = defaultdict(float)
-        
+
         for keyword in keywords:
             keyword_lower = keyword.lower()
             if keyword_lower in self._keyword_index:
                 for doc_id in self._keyword_index[keyword_lower]:
-                    doc_scores[doc_id] += 1.0
-        
+                    doc = self._name_index.get(doc_id)
+                    if doc:
+                        # TF: 关键词在文档内容中出现的次数
+                        tf = doc.content.lower().count(keyword_lower)
+                        # 基础匹配 + TF加成(cap 10) + 名称命中加成
+                        score = 1.0 + min(tf * 0.5, 5.0)
+                        if keyword_lower in doc.name.lower():
+                            score += 3.0
+                        doc_scores[doc_id] += score
+
         if category:
             category_docs = self._category_index.get(category, set())
             doc_scores = {
-                k: v for k, v in doc_scores.items() 
+                k: v for k, v in doc_scores.items()
                 if k in category_docs
             }
-        
+
         sorted_docs = sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)[:top_k]
-        
+
         results = []
         for doc_id, score in sorted_docs:
             doc = self._name_index.get(doc_id)
@@ -304,11 +308,11 @@ class IndexManager:
                     content=doc.content,
                     category=doc.category,
                     subcategory=doc.subcategory,
-                    match_type="keyword",
-                    match_score=score / len(keywords) if keywords else 0,
+                    match_type="keyword_tf",
+                    match_score=min(score / max(1, len(keywords)), 1.0),
                     metadata=doc.metadata
                 ))
-        
+
         return results
     
     async def search_by_category(

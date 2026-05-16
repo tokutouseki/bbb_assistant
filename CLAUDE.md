@@ -24,7 +24,7 @@ bbb_assistant/
 │       │   ├── agent/react_agent.py # ReAct Agent (核心)
 │       │   ├── skill/skill_manager.py # 技能管理 (SKILL.md解析、阶段提取)
 │       │   ├── tool_integration.py  # 工具注册 (YOLO, OCR, web_search, TTS等)
-│       │   ├── web_search/          # 联网搜索 (必应中国)
+│       │   ├── web_search/          # 联网搜索 (百度主引擎 + Playwright兜底)
 │       │   ├── rag/                 # RAG检索引擎
 │       │   ├── llm/                 # LLM路由 (多模型切换)
 │       │   └── yolo/                # YOLO管理 (加载/卸载/检测/分类)
@@ -82,33 +82,40 @@ bbb_assistant/
 
 ## 当前工作状态
 
-### 已提交 (commit 4647651, 2026-05-13 13:23)
-SSE流式对话、TTS语音合成、任务规划与取消机制、web_search必应中国、爱莉希雅视角技能、RAG重建脚本
+### 已提交
+- **718c735** (2026-05-14): 分阶段执行机制、上下文清除、用户偏好注入、项目文档 (CLAUDE.md)
+- **4647651** (2026-05-13): SSE流式对话、TTS语音合成、任务规划与取消机制、爱莉希雅视角技能
 
-### 未提交 (2026-05-13 22:14~22:59)
-**分阶段执行机制**:
-- react_agent.py 新增 342 行: run_phased(), run_phased_streaming(), clear_context(), _load_user_preferences(), _build_phase_prompt(), _get_checkpoint_phase(), _read_checkpoint_summary()
-- 每个阶段在干净的上下文中独立运行，通过 outputs/task_checkpoint.json 交接状态
-- 支持断点续传 (从上次中断的阶段恢复)
+### 未提交 (2026-05-15)
 
-**上下文清除功能**:
-- chat.py 新增 POST /api/chat/clear 接口
-- ChatView.vue 头部新增"刷新上下文"按钮
-- clear_context() 方法: 重置记忆 → 删除检查点 → 重新加载偏好 → 重建Agent
+**联网搜索重构 (web_searcher.py, +373/-361)**:
+- 搜索引擎从 必应中国 切换为 **百度直搜** (requests + Session/Cookie)
+- 两级回退机制: 百度HTTP请求 → Playwright 真实浏览器兜底
+- 百度反爬对抗: Session 持久化 (预访问首页获取 BAIDUID Cookie)、安全验证自动重试
+- Playwright 反检测: 伪造 navigator.webdriver/plugins/languages、zh-CN locale
+- 短角色名消歧: ≤2字角色名 (芽衣/希儿/符华等) 自动追加 "崩坏3" 前缀
+- 无关结果过滤: 过滤星穹铁道/原神/绝区零、官网首页URL
+- **fetch_page 工具**: 新增 `fetch_page_content(url, use_browser)` — `use_browser=False` 用 requests 直抓，`use_browser=True` 用 Playwright 渲染 SPA 站点 (米游社等)
+- 正文截断改为 100000 字符兜底 (仅安全保护，实际不可达)
 
-**用户偏好注入**:
-- user_preferences.md 内容在 Agent 初始化时通过 _load_user_preferences() 嵌入系统 prompt
-- 技能 SKILL.md frontmatter 新增 `phases` 字段支持
+**Agent 工具改进 (react_agent.py, +59/-31)**:
+- `web_search` 工具: 引擎切换为 BAIDU、`enable_content_fetch=False`、URL 截断到 200 字符、使用 `search_with_fallback` 两级回退
+- 新增 `fetch_page(url, use_browser)` 工具: Agent 可从搜索结果中选择性抓取全文
+- `rag_search` 工具增强: RRF 分数阈值过滤 (<0.015 视为噪声)、[直接匹配] 标签、低相关性警告
+- max_iterations 从 1000 降为 8 (防止无限循环)
+- 解析错误恢复: 工具调用成功但格式错误时直接从输出提取答案，不再重试
+- 取消信号: QueueStreamingHandler 增加 `_cancelled` 标记，防止取消后继续推送事件
 
-**技能更新**:
-- 4个技能 (material_expedition_one_click, club_consignment_recovery, find_direction, game_navigation) 重写为分阶段结构
+**RAG 检索增强 (retriever.py + index_manager.py)**:
+- 混合检索算法从加权平均改为 **RRF (Reciprocal Rank Fusion, k=60)**: 不依赖原始分数只看排名，解决向量和关键词分数不可比问题
+- 名称匹配加权: 文档名精确命中查询词 +0.5，部分匹配 +0.15
+- 关键词检索从 binary 匹配改为 **TF 词频加权**: `1.0 + min(tf * 0.5, 5.0)` + 名称命中 +3.0
+- 噪声过滤: RRF 最低阈值 0.01
 
-**YOLO卸载工具**:
-- 新增 yolo_unload_model 工具释放 GPU 内存
-
-**前端**:
-- ChatView.vue 新增清除上下文按钮和 clearContext() 方法
+**前端 (ChatView.vue)**:
+- 引入 `marked` 库，助手消息支持 Markdown 渲染 (v-html)
+- 完整的 Markdown CSS 样式: 标题/h/p/li/strong/hr/code/pre/a/blockquote
 
 ## 可用工具列表
 
-Agent 可调用的工具: rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search
+Agent 可调用的工具: rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search, fetch_page

@@ -175,61 +175,58 @@ class Retriever:
         top_k: int,
         score_threshold: float
     ) -> List[UnifiedSearchResult]:
-        """混合检索"""
+        """混合检索 — 使用 RRF (Reciprocal Rank Fusion) + 名称匹配加权"""
         try:
             fast_task = self._fast_search(query, category, top_k * 2, score_threshold)
             precise_task = self._precise_search(query, category, top_k * 2)
-            
+
             fast_results, precise_results = await asyncio.gather(
                 fast_task, precise_task
             )
-            
-            combined_scores: Dict[str, Dict[str, Any]] = {}
-            
-            for r in fast_results:
-                combined_scores[r.id] = {
-                    "result": r,
-                    "fast_score": r.score,
-                    "precise_score": 0.0,
-                    "count": 1
-                }
-            
-            for r in precise_results:
-                if r.id in combined_scores:
-                    combined_scores[r.id]["precise_score"] = r.score
-                    combined_scores[r.id]["count"] += 1
-                else:
-                    combined_scores[r.id] = {
-                        "result": r,
-                        "fast_score": 0.0,
-                        "precise_score": r.score,
-                        "count": 1
-                    }
-            
+
+            # RRF: Reciprocal Rank Fusion, k=60 是行业标准
+            # 不依赖原始分数只看排名，避免向量端和关键词端分数不可比的问题
+            K = 60
+            rrf_scores: Dict[str, float] = {}
+            result_map: Dict[str, UnifiedSearchResult] = {}
+
+            for rank, r in enumerate(fast_results):
+                rrf_scores[r.id] = rrf_scores.get(r.id, 0.0) + 1.0 / (K + rank + 1)
+                if r.id not in result_map:
+                    result_map[r.id] = r
+
+            for rank, r in enumerate(precise_results):
+                rrf_scores[r.id] = rrf_scores.get(r.id, 0.0) + 1.0 / (K + rank + 1)
+                if r.id not in result_map:
+                    result_map[r.id] = r
+
+            # 名称匹配加权: 文档名精确命中查询词时给予大幅加分
+            # 解决 "芽衣" 查询返回无关圣痕/故事的根本问题
+            # 精确匹配 +0.5 (≈在两边都排第一), 部分匹配 +0.15
+            query_lower = query.lower().strip()
+            for doc_id, r in result_map.items():
+                name_lower = r.name.lower()
+                if query_lower == name_lower:
+                    rrf_scores[doc_id] += 0.5
+                elif query_lower in name_lower or name_lower in query_lower:
+                    rrf_scores[doc_id] += 0.15
+
+            # 最低阈值过滤纯噪声 (单边排名60+才≈0.008, 两边第一≈0.032)
+            min_rrf = 0.01
+            sorted_items = sorted(rrf_scores.items(), key=lambda x: x[1], reverse=True)
+
             final_results = []
-            for doc_id, data in combined_scores.items():
-                fast_score = data["fast_score"]
-                precise_score = data["precise_score"]
-                
-                hybrid_score = (
-                    self.hybrid_alpha * fast_score +
-                    (1 - self.hybrid_alpha) * precise_score
-                )
-                
-                if data["count"] > 1:
-                    hybrid_score *= 1.2
-                
-                result = data["result"]
-                result.score = hybrid_score
-                result.match_type = "hybrid"
-                result.source = "hybrid"
-                
-                final_results.append(result)
-            
-            final_results.sort(key=lambda x: x.score, reverse=True)
-            
-            return final_results[:top_k]
-            
+            for doc_id, score in sorted_items[:top_k]:
+                if score < min_rrf:
+                    continue
+                r = result_map[doc_id]
+                r.score = score
+                r.match_type = "hybrid_rrf"
+                r.source = "hybrid"
+                final_results.append(r)
+
+            return final_results
+
         except Exception as e:
             logger.error(f"混合检索失败: {e}")
             return []

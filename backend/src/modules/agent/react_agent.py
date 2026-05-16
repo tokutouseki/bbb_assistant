@@ -85,12 +85,16 @@ class QueueStreamingHandler(BaseCallbackHandler):
         self.event_queue = event_queue
         self.agent_ref = agent_ref
         self._last_action = None
+        self._cancelled = False
 
     def _check_cancel(self):
+        if self._cancelled:
+            return
         if self.agent_ref is None:
             return
         request_id = getattr(self.agent_ref, '_request_id', None)
         if request_id and is_cancelled(request_id):
+            self._cancelled = True
             raise RuntimeError("CancelledError: 请求已被用户取消")
 
     def on_agent_action(self, action, **kwargs):
@@ -131,6 +135,8 @@ class QueueStreamingHandler(BaseCallbackHandler):
             })
 
     def on_agent_finish(self, finish, **kwargs):
+        if self._cancelled:
+            return
         self.event_queue.put({
             "type": "finish",
             "output": finish.return_values.get("output", str(finish)),
@@ -301,14 +307,17 @@ class ReActGameAgent:
     def _build_agent(self) -> AgentExecutor:
         @tool
         def rag_search(query: str) -> str:
-            """查询本地 RAG 知识库，返回游戏相关知识摘要。"""
+            """查询本地 RAG 知识库，返回游戏相关知识摘要。
+
+结果按相关性从高到低排列。名称精确匹配的结果带 [直接匹配] 标记，最可信。
+如果所有结果得分都很低，说明知识库中缺乏相关内容。"""
             self._ensure_rag_initialized()
             import concurrent.futures
             import asyncio
-            
+
             def run_async_search():
-                return asyncio.run(self.rag_engine.search(query=query, mode=SearchMode.HYBRID, top_k=5))
-            
+                return asyncio.run(self.rag_engine.search(query=query, mode=SearchMode.HYBRID, top_k=8))
+
             try:
                 with concurrent.futures.ThreadPoolExecutor() as executor:
                     future = executor.submit(run_async_search)
@@ -316,12 +325,24 @@ class ReActGameAgent:
             except Exception as e:
                 logger.error(f"RAG搜索失败: {e}")
                 return f"RAG搜索失败: {str(e)}"
-            
+
             if not results:
                 return "未检索到相关知识。"
+
+            # RRF 分数阈值: 名称精确匹配≈0.53, 双路命中≈0.032, 单路噪声<0.017
+            # 低于 0.015 的结果视为不相关
+            min_score = 0.015
+            relevant = [r for r in results if r.score >= min_score]
+
+            if not relevant:
+                # 所有结果都低于阈值，返回得分最高的一条作为参考
+                best = results[0]
+                return f"[低相关性] {best.name}: {best.content[:200]}\n(知识库中未找到与'{query}'直接匹配的内容，以下结果仅供参考)"
+
             lines = []
-            for r in results[:5]:
-                lines.append(f"{r.name}: {r.content[:200]}")
+            for i, r in enumerate(relevant[:5]):
+                tag = "[直接匹配]" if query.lower().strip() == r.name.lower() else ""
+                lines.append(f"{tag}{r.name}: {r.content[:200]}")
             return "\n".join(lines)
 
         @tool
@@ -932,17 +953,17 @@ status 可选: pending, in_progress, completed
                 return "❌ 请提供搜索关键词"
             try:
                 from src.modules.web_search.web_searcher import WebSearcher, SearchEngine
-                searcher = WebSearcher(engine=SearchEngine.BING_CHINA, max_results=5, enable_content_fetch=True)
-                results = searcher.search(query.strip())
+                searcher = WebSearcher(engine=SearchEngine.BAIDU, max_results=5, enable_content_fetch=False)
+                results = searcher.search_with_fallback(query.strip())
                 if not results:
                     return "未找到相关搜索结果"
                 lines = [f"搜索: {query.strip()}", ""]
                 for i, r in enumerate(results, 1):
                     lines.append(f"{i}. {r.title}")
-                    lines.append(f"   {r.snippet[:200]}")
-                    if r.content:
-                        lines.append(f"   详情: {r.content[:300]}")
-                    lines.append(f"   来源: {r.url}")
+                    if r.snippet:
+                        lines.append(f"   摘要: {r.snippet[:200]}")
+                    url_display = r.url[:200] if len(r.url) > 200 else r.url
+                    lines.append(f"   来源: {url_display}")
                     lines.append("")
                 return "\n".join(lines)
             except ImportError:
@@ -950,7 +971,28 @@ status 可选: pending, in_progress, completed
             except Exception as e:
                 return f"❌ 搜索失败: {str(e)}"
 
-        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search]
+        @tool
+        def fetch_page(url: str = "", use_browser: bool = False) -> str:
+            """获取指定网页的完整内容。
+参数:
+  - url: 网页地址(来自web_search返回的来源URL)
+  - use_browser: 默认false。当网页是SPA/JS渲染站点（如米游社），摘要信息显示为"Loading..."时，设为true使用真实浏览器抓取全文。
+使用时机: 当web_search返回的摘要信息不足，需要深入阅读某条结果的详细内容时使用。"""
+            if not url or url.strip() == "":
+                return "❌ 请提供网页URL"
+            try:
+                from src.modules.web_search.web_searcher import WebSearcher
+                searcher = WebSearcher(enable_content_fetch=False)
+                content = searcher.fetch_page_content(url.strip(), use_browser=use_browser)
+                if not content:
+                    hint = "（提示：如果网页是米游社等SPA站点，请设置 use_browser=true 重试）"
+                    return f"❌ 无法获取该网页内容。{hint}"
+                # 不硬截断，返回完整内容让 LLM 自行提取关键信息
+                return content
+            except Exception as e:
+                return f"❌ 获取网页失败: {str(e)}"
+
+        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search, fetch_page]
         llm = RouterLLM()
         self._llm = llm
 
@@ -1047,7 +1089,7 @@ Question: {{input}}
             tools=tools,
             verbose=True,
             handle_parsing_errors=True,
-            max_iterations=1000,
+            max_iterations=8,
             max_execution_time=5400,
             return_intermediate_steps=True,
             memory=self._memory,
@@ -1434,7 +1476,23 @@ Question: {{input}}
                 }
             
             last_errors = errors
-            
+
+            # 工具调用成功但最终输出格式错误 (LLM 忘记加 "Final Answer:" 前缀)
+            # 直接提取答案内容，不重试（重试只会让 LLM 重复相同错误）
+            if has_parsing_error and has_valid_action:
+                logger.warning("工具调用成功但最终格式错误，直接从输出中提取答案")
+                clean_answer = self._formatter.extract_clean_answer(raw_output)
+                if not clean_answer or len(clean_answer) < 10:
+                    clean_answer = "操作已完成，但未能提取到有效的回复内容。"
+                return {
+                    "output": clean_answer,
+                    "formatted_output": clean_answer,
+                    "steps": steps,
+                    "raw": result,
+                    "retry_count": retry_count,
+                    "errors": []
+                }
+
             if retry_count < max_retries:
                 if self._request_id and is_cancelled(self._request_id):
                     raise RuntimeError("CancelledError: 请求已被用户取消")
