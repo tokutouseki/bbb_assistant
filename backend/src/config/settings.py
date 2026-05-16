@@ -176,6 +176,13 @@ class Settings(BaseSettings):
     default_search_engine: str = Field(default="google", description="默认搜索引擎: google, duckduckgo, miyoushe, honkai_official")
     miyoushe_search_url: str = Field(default="https://www.miyoushe.com/bh3/search?keyword=", description="米游社搜索URL")
     honkai_official_url: str = Field(default="https://bh3.mihoyo.com/main", description="崩坏3官网URL")
+
+    # 图片描述配置
+    image_describer_backend: str = Field(default="bailian", description="图片描述后端优先级(bailian/pixai_tagger/lmstudio)")
+    bailian_api_key: Optional[str] = Field(default=None, description="阿里百炼API密钥")
+    bailian_base_url: str = Field(default="https://dashscope.aliyuncs.com/compatible-mode/v1", description="阿里百炼兼容OpenAI接口地址")
+    bailian_vision_model: str = Field(default="qwen-vl-plus", description="阿里百炼视觉模型: qwen-vl-plus, qwen-vl-max")
+    pixai_tagger_model_path: str = Field(default="D:/TokusCode/models/PixAI-Tagger", description="PixAI Tagger模型目录路径")
     
     # Uvicorn日志级别
     uvicorn_log_level: str = Field(default="info", description="Uvicorn日志级别")

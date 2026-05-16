@@ -21,6 +21,8 @@ DEFAULT_SETTINGS = {
     "llm_api_base_url": "https://api.deepseek.com/v1",
     "llm_temperature": 0.7,
     "llm_max_tokens": 4096,
+    "image_describer_backend": "bailian",
+    "bailian_api_key": "",
 }
 
 _lock = Lock()

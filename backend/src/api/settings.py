@@ -23,6 +23,8 @@ class LLMSettings(BaseModel):
     llm_api_base_url: Optional[str] = Field(None, description="API地址")
     llm_temperature: Optional[float] = Field(None, ge=0, le=2)
     llm_max_tokens: Optional[int] = Field(None, ge=256, le=32768)
+    image_describer_backend: Optional[str] = Field(None, description="图片描述后端优先级: bailian / pixai_tagger / lmstudio")
+    bailian_api_key: Optional[str] = Field(None, description="阿里百炼API密钥")
 
 
 class SettingsResponse(BaseModel):

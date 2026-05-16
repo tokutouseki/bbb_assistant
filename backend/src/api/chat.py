@@ -30,6 +30,9 @@ class ChatRequest(BaseModel):
     use_rag: bool = Field(default=True, description="是否使用RAG知识库")
     stream: bool = Field(default=False, description="是否流式输出")
     show_thinking: bool = Field(default=True, description="是否显示思考过程")
+    images: Optional[List[str]] = Field(None, description="base64图片列表(data:image/...;base64,...)")
+    image_describer_backend: Optional[str] = Field(None, description="图片描述后端优先级: bailian / pixai_tagger / lmstudio")
+    bailian_api_key: Optional[str] = Field(None, description="阿里百炼API密钥覆盖")
     llm_provider: Optional[str] = Field(None, description="LLM提供商覆盖: deepseek / lmstudio / ollama")
     llm_model: Optional[str] = Field(None, description="模型名称覆盖")
     llm_api_key: Optional[str] = Field(None, description="API密钥覆盖")
@@ -96,6 +99,8 @@ async def chat_completion(request: ChatRequest):
         "llm_api_base_url": request.llm_api_base_url,
         "llm_temperature": request.llm_temperature,
         "llm_max_tokens": request.llm_max_tokens,
+        "image_describer_backend": request.image_describer_backend,
+        "bailian_api_key": request.bailian_api_key,
     }
     update_runtime_settings(llm_overrides)
 
@@ -109,12 +114,13 @@ async def chat_completion(request: ChatRequest):
     register_request(request_id)
     try:
         agent = get_react_agent()
+        images = request.images or None
         if _has_phases:
             result = await asyncio.to_thread(
-                agent.run_phased, _matched["name"], last_user_message, request_id
+                agent.run_phased, _matched["name"], last_user_message, request_id, 2, images
             )
         else:
-            result = await asyncio.to_thread(agent.run, last_user_message, request_id=request_id)
+            result = await asyncio.to_thread(agent.run, last_user_message, 2, request_id, images)
         
         # 将ReAct步骤转换为tool_steps格式
         tool_steps = []
@@ -205,6 +211,8 @@ async def chat_stream(request: ChatRequest):
         "llm_api_base_url": request.llm_api_base_url,
         "llm_temperature": request.llm_temperature,
         "llm_max_tokens": request.llm_max_tokens,
+        "image_describer_backend": request.image_describer_backend,
+        "bailian_api_key": request.bailian_api_key,
     }
     update_runtime_settings(llm_overrides)
 
@@ -227,12 +235,13 @@ async def chat_stream(request: ChatRequest):
 
         def run_agent():
             agent = get_react_agent()
+            images = request.images or None
             if phased_skill_name:
                 return agent.run_phased_streaming(
-                    phased_skill_name, last_user_message, request_id, event_queue
+                    phased_skill_name, last_user_message, request_id, event_queue, 2, images
                 )
             else:
-                return agent.run_streaming(last_user_message, request_id, event_queue)
+                return agent.run_streaming(last_user_message, request_id, event_queue, 2, images)
 
         future = loop.run_in_executor(None, run_agent)
 

@@ -90,6 +90,54 @@
           请确保 LM Studio 已启动并加载了模型。如果留空将自动使用当前加载的模型。
         </p>
       </section>
+      <section class="setting-section">
+        <h3 class="section-title">图片描述后端</h3>
+        <p class="form-hint" style="margin: 4px 0 12px;">
+          用户上传图片时，使用哪个后端进行图片识别和分析。
+        </p>
+        <div class="provider-tabs">
+          <button
+            v-for="opt in imageDescriberOptions"
+            :key="opt.id"
+            class="provider-tab"
+            :class="{ active: settingsStore.imageDescriberBackend === opt.id }"
+            @click="settingsStore.imageDescriberBackend = opt.id"
+          >
+            <span class="provider-radio">
+              <span v-if="settingsStore.imageDescriberBackend === opt.id" class="radio-dot"></span>
+            </span>
+            <div class="provider-info">
+              <span class="provider-name">{{ opt.name }}</span>
+              <span class="provider-desc">{{ opt.desc }}</span>
+            </div>
+          </button>
+        </div>
+        <div class="form-group" style="margin-top: 16px;">
+          <label>阿里百炼 API 密钥</label>
+          <div class="input-wrapper">
+            <input
+              :type="showBailianKey ? 'text' : 'password'"
+              v-model="settingsStore.bailianApiKey"
+              class="form-input"
+              placeholder="sk-xxxxxxxxxxxxxxxx"
+            />
+            <button class="toggle-vis" @click="showBailianKey = !showBailianKey">
+              <svg v-if="!showBailianKey" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24"/>
+                <line x1="1" y1="1" x2="23" y2="23"/>
+              </svg>
+            </button>
+          </div>
+          <p class="form-hint" style="margin: 6px 0 0;">
+            用于阿里百炼 Qwen-VL 图片识别，<a href="https://bailian.console.aliyun.com" target="_blank">点此注册</a>
+          </p>
+        </div>
+      </section>
+
       <div class="settings-actions">
         <button class="save-btn" @click="handleSave">保存设置</button>
       </div>
@@ -107,11 +155,35 @@ import { useSettingsStore } from '@/stores/settings'
 
 const settingsStore = useSettingsStore()
 const showApiKey = ref(false)
+const showBailianKey = ref(false)
 const savedToast = ref(false)
 
 const providers = [
   { id: 'deepseek', name: '云端 API', desc: '支持OpenAI兼容接口的云端大模型' },
   { id: 'lmstudio', name: 'LM Studio', desc: '本地运行，免费无限制' }
+]
+
+const imageDescriberOptions = [
+  {
+    id: 'bailian',
+    name: '阿里百炼 Qwen-VL (推荐)',
+    desc: '云端多模态模型，中文理解强，价格约¥0.0015/千tokens，需配置API Key'
+  },
+  {
+    id: 'bailian,pixai_tagger,lmstudio',
+    name: '百炼 → PixAI标签 → LM Studio',
+    desc: '优先云端，百炼不可用时降级到本地 PixAI 标签器，最后尝试 LM Studio'
+  },
+  {
+    id: 'pixai_tagger,bailian',
+    name: 'PixAI标签 (本地优先)',
+    desc: '优先本地动漫标签器（角色识别F1 0.86），不可用时降级到百炼 API'
+  },
+  {
+    id: 'pixai_tagger,lmstudio',
+    name: '仅本地模型',
+    desc: '完全离线使用，PixAI 标签器 + LM Studio 视觉模型'
+  }
 ]
 
 async function handleSave() {
@@ -127,7 +199,9 @@ async function handleSave() {
         llm_api_key: settingsStore.apiKey || null,
         llm_api_base_url: settingsStore.activeApiUrl || null,
         llm_temperature: settingsStore.temperature,
-        llm_max_tokens: settingsStore.maxTokens
+        llm_max_tokens: settingsStore.maxTokens,
+        image_describer_backend: settingsStore.imageDescriberBackend,
+        bailian_api_key: settingsStore.bailianApiKey || null
       })
     })
   } catch (e) {
@@ -334,8 +408,8 @@ select.form-input {
 .form-hint {
   font-size: 12px;
   color: #999999;
-  margin: -8px 0 16px;
-  line-height: 1.5;
+  margin: 4px 0 8px;
+  line-height: 1.6;
 }
 
 .form-hint code {

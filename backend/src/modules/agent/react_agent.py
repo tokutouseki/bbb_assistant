@@ -26,6 +26,10 @@ logger = logging.getLogger(__name__)
 class RouterLLM(LLM):
     """将现有 LLMRouter 适配为 LangChain LLM。"""
 
+    def __init__(self):
+        super().__init__()
+        self._current_images: Optional[List[str]] = None
+
     @property
     def _llm_type(self) -> str:
         return "bbb_router_llm"
@@ -58,6 +62,13 @@ class RouterLLM(LLM):
         if runtime.get("llm_api_key"):
             router_kwargs["api_key"] = runtime["llm_api_key"]
 
+        # 有图片时强制走 LM Studio（本地视觉模型）
+        images = getattr(self, '_current_images', None)
+        if images:
+            router_kwargs["preferred_runtime"] = "lmstudio"
+            router_kwargs["user_preference"] = "lm-studio-default"
+            router_kwargs["images"] = images
+
         result = router.route_request(
             messages=[
                 {
@@ -74,7 +85,8 @@ class RouterLLM(LLM):
             if "content" in result:
                 return result["content"]
             if "error" in result:
-                return f"发生错误: {result['error']}"
+                # 返回 Final Answer 格式避免 Agent 无限重试
+                return f"Thought: 模型调用遇到问题\nFinal Answer: {result['error']}"
         return str(result)
 
 
@@ -180,6 +192,8 @@ class ReActGameAgent:
         self._memory = self._build_memory()
         # 加载并缓存用户偏好（嵌入系统 prompt）
         self._cached_preferences = self._load_user_preferences()
+        # 用户上传的图片（供 describe_image 工具使用）
+        self._current_images: List[str] = []
         self._agent = self._build_agent()
     
     def _build_memory(self):
@@ -804,30 +818,37 @@ class ReActGameAgent:
                 
                 if not results:
                     return "未识别到文字"
-                
+
+                MAX_RESULTS = 20
+                MAX_TEXT_LEN = 80
+
+                # 按置信度过滤和排序
+                valid_results = [r for r in results if r.text.strip()]
+                valid_results.sort(key=lambda r: r.confidence, reverse=True)
+
+                total_count = len(valid_results)
+                truncated = total_count > MAX_RESULTS
+                valid_results = valid_results[:MAX_RESULTS]
+
                 lines = []
-                lines.append("📝 OCR识别结果:")
+                lines.append(f"📝 OCR识别结果 (共{total_count}条，显示前{len(valid_results)}条):")
                 lines.append("")
-                
-                # 统计识别到的文字
-                text_count = 0
-                for idx, result in enumerate(results, 1):
-                    if result.text.strip():
-                        text_count += 1
-                        lines.append(f"区域 #{idx}:")
-                        lines.append(f"   文字: {result.text}")
-                        lines.append(f"   置信度: {result.confidence:.2f}")
-                        if result.bbox:
-                            # 计算实际坐标（如果有区域裁剪）
-                            bbox_x1 = result.bbox[0] + (x1 or 0)
-                            bbox_y1 = result.bbox[1] + (y1 or 0)
-                            bbox_x2 = result.bbox[2] + (x1 or 0)
-                            bbox_y2 = result.bbox[3] + (y1 or 0)
-                            lines.append(f"   位置: ({int(bbox_x1)}, {int(bbox_y1)}) - ({int(bbox_x2)}, {int(bbox_y2)})")
-                        lines.append("")
-                
-                lines.append(f"📊 共识别到 {text_count} 个文本区域")
-                
+
+                for idx, result in enumerate(valid_results, 1):
+                    text = result.text.strip()
+                    if len(text) > MAX_TEXT_LEN:
+                        text = text[:MAX_TEXT_LEN] + "..."
+                    lines.append(f"{idx}. \"{text}\" (置信度:{result.confidence:.2f})")
+                    if result.bbox:
+                        bbox_x1 = result.bbox[0] + (x1 or 0)
+                        bbox_y1 = result.bbox[1] + (y1 or 0)
+                        bbox_x2 = result.bbox[2] + (x1 or 0)
+                        bbox_y2 = result.bbox[3] + (y1 or 0)
+                        lines.append(f"   位置: ({int(bbox_x1)},{int(bbox_y1)})-({int(bbox_x2)},{int(bbox_y2)})")
+
+                if truncated:
+                    lines.append(f"\n⚠️ 还有 {total_count - MAX_RESULTS} 条结果未显示（限制{MAX_RESULTS}条）")
+
                 return "\n".join(lines)
                 
             except ImportError as e:
@@ -992,7 +1013,20 @@ status 可选: pending, in_progress, completed
             except Exception as e:
                 return f"❌ 获取网页失败: {str(e)}"
 
-        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search, fetch_page]
+        @tool
+        def describe_image(_: str = "") -> str:
+            """获取用户上传图片的详细描述。用于分析图片中的角色、场景、文字、UI等内容。调用后返回图片的文本描述，然后基于描述继续分析和回答。"""
+            if not self._current_images:
+                return "❌ 用户未上传图片，无需调用此工具。"
+            try:
+                from src.modules.vision.image_describer import get_image_describer
+                describer = get_image_describer()
+                desc, backend = describer.describe(self._current_images)
+                return f"[图片描述 - 识别后端: {backend}]\n{desc}"
+            except Exception as e:
+                return f"❌ 图片描述失败: {str(e)}"
+
+        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search, fetch_page, describe_image]
         llm = RouterLLM()
         self._llm = llm
 
@@ -1018,6 +1052,14 @@ status 可选: pending, in_progress, completed
 - 游戏基础设定/攻略 → 优先用 rag_search 查本地知识库（速度快）
 - 最新资讯/活动/版本更新 → 用 web_search 联网搜索（信息新）
 - 两者结果冲突时，以联网搜索结果为准
+
+【图片分析 - 重要】
+- 如果用户请求中包含"用户上传了 N 张图片"提示，说明用户上传了图片
+- 第一步必须先调用 describe_image 工具（无需参数）获取图片的详细文本描述
+- 获得描述后，基于描述进行分析、搜索、推理和回答
+- 绝对不要对用户上传的图片调用 yolo_load_model / yolo_detect_image / yolo_classify_image / ocr_recognize
+- 这些 YOLO/OCR 工具截取的是实时屏幕画面，不是用户上传的图片！
+- 只有当用户明确要求分析"当前游戏画面"时，才使用 YOLO/OCR 工具
 
 【游戏背景知识】
 - bridge（舰桥界面）是崩坏3的主界面/首页
@@ -1068,6 +1110,18 @@ Question: 你好
 Thought: 我已经得到最终答案
 Final Answer: 你好！我是崩坏3助手。
 
+图片分析流程示例：
+Question: [用户上传了 1 张图片，请先使用 describe_image 工具获取图片描述]
+
+[用户请求]
+这张图里有什么？
+Thought: 用户上传了图片，第一步必须调用 describe_image 获取描述
+Action: describe_image
+Action Input:
+（等待Observation返回图片描述文本）
+Thought: 已获得图片描述，现在基于描述回答用户问题
+Final Answer: 根据图片描述，图中是...[基于实际描述内容回答]
+
 TTS语音合成必须的两步流程：
 Question: 用爱莉希雅的声音说你好
 Thought: 用户想要用爱莉希雅声音说"你好"，我需要先调用 tts_qwen3 生成语音
@@ -1095,8 +1149,15 @@ Question: {{input}}
             memory=self._memory,
         )
 
-    def run(self, user_input: str, max_retries: int = 2, request_id: str = "") -> Dict[str, Any]:
+    def run(self, user_input: str, max_retries: int = 2, request_id: str = "",
+            images: Optional[List[str]] = None) -> Dict[str, Any]:
         self._request_id = request_id
+
+        self._current_images = images or []
+        self._llm._current_images = None  # LLM 不直接接收图片，由 describe_image 工具处理
+        if images:
+            hint = f"[用户上传了 {len(images)} 张图片，请先使用 describe_image 工具获取图片描述]"
+            user_input = f"{hint}\n\n[用户请求]\n{user_input}"
 
         # 检查是否有匹配的技能
         skill_manager = get_skill_manager()
@@ -1131,9 +1192,16 @@ Question: {{input}}
         
         return result
 
-    def run_streaming(self, user_input: str, request_id: str, event_queue: queue.Queue, max_retries: int = 2) -> Dict[str, Any]:
+    def run_streaming(self, user_input: str, request_id: str, event_queue: queue.Queue,
+                      max_retries: int = 2, images: Optional[List[str]] = None) -> Dict[str, Any]:
         """流式运行 Agent，每一步通过 event_queue 实时推送。"""
         self._request_id = request_id
+
+        self._current_images = images or []
+        self._llm._current_images = None  # LLM 不直接接收图片，由 describe_image 工具处理
+        if images:
+            hint = f"[用户上传了 {len(images)} 张图片，请先使用 describe_image 工具获取图片描述]"
+            user_input = f"{hint}\n\n[用户请求]\n{user_input}"
 
         skill_manager = get_skill_manager()
         matched_skill = skill_manager.find_matching_skill(user_input)
@@ -1258,8 +1326,15 @@ Question: {{input}}
         return 0
 
     def run_phased(self, skill_name: str, user_input: str, request_id: str = "",
-                   max_retries: int = 2) -> Dict[str, Any]:
+                   max_retries: int = 2, images: Optional[List[str]] = None) -> Dict[str, Any]:
         """分阶段执行（非流式）— 每个阶段在干净的上下文中独立运行。"""
+
+        self._current_images = images or []
+        self._llm._current_images = None  # LLM 不直接接收图片，由 describe_image 工具处理
+        if images:
+            hint = f"[用户上传了 {len(images)} 张图片，请先使用 describe_image 工具获取图片描述]"
+            user_input = f"{hint}\n\n[用户请求]\n{user_input}"
+
         skill_manager = get_skill_manager()
         phases = skill_manager.get_skill_phases(skill_name)
 
@@ -1302,8 +1377,16 @@ Question: {{input}}
         }
 
     def run_phased_streaming(self, skill_name: str, user_input: str, request_id: str,
-                              event_queue: queue.Queue, max_retries: int = 2) -> Dict[str, Any]:
+                              event_queue: queue.Queue, max_retries: int = 2,
+                              images: Optional[List[str]] = None) -> Dict[str, Any]:
         """分阶段流式执行 — 每个阶段在干净的上下文中独立运行，通过检查点文件交接状态。"""
+
+        self._current_images = images or []
+        self._llm._current_images = None  # LLM 不直接接收图片，由 describe_image 工具处理
+        if images:
+            hint = f"[用户上传了 {len(images)} 张图片，请先使用 describe_image 工具获取图片描述]"
+            user_input = f"{hint}\n\n[用户请求]\n{user_input}"
+
         skill_manager = get_skill_manager()
         phases = skill_manager.get_skill_phases(skill_name)
 

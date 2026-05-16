@@ -51,6 +51,16 @@
           {{ msg.content }}
         </div>
         <div v-else class="message-bubble assistant-bubble" v-html="renderMarkdown(msg.content)"></div>
+        <div v-if="msg.images && msg.images.length" class="msg-images">
+          <img
+            v-for="(img, i) in msg.images"
+            :key="i"
+            :src="img"
+            class="msg-image"
+            @click="previewFullImage(img)"
+            alt="attached image"
+          />
+        </div>
       </div>
 
       <div v-if="todoList.length > 0" class="message-wrapper assistant">
@@ -100,7 +110,25 @@
     </div>
 
     <div class="chat-input-area">
+      <div v-if="selectedImages.length > 0" class="image-preview-row">
+        <div v-for="(img, idx) in selectedImages" :key="idx" class="preview-thumb">
+          <img :src="previewUrls[idx]" alt="preview" />
+          <button class="remove-img-btn" @click="removeImage(idx)" title="移除图片">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
       <div class="input-box">
+        <input
+          ref="imageInput"
+          type="file"
+          accept="image/*"
+          multiple
+          style="display:none"
+          @change="handleImageSelect"
+        />
         <textarea
           v-model="inputText"
           class="message-input"
@@ -111,6 +139,18 @@
           ref="inputRef"
         ></textarea>
         <div class="skills-bar">
+          <button
+            class="attach-btn"
+            @click="triggerImageSelect"
+            title="上传图片"
+            :disabled="chatStore.isLoading"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </button>
           <button
             v-for="skill in chatStore.agentSkills"
             :key="skill.id"
@@ -147,6 +187,18 @@
       </div>
     </div>
   </div>
+
+  <!-- 图片灯箱 -->
+  <teleport to="body">
+    <div v-if="lightboxSrc" class="lightbox-backdrop" @click="closeLightbox">
+      <img :src="lightboxSrc" class="lightbox-image" @click.stop />
+      <button class="lightbox-close" @click="closeLightbox" title="关闭">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+  </teleport>
 </template>
 
 <script setup>
@@ -170,17 +222,75 @@ const settingsStore = useSettingsStore()
 
 const inputText = ref('')
 const inputRef = ref(null)
+const imageInput = ref(null)
 const messagesContainer = ref(null)
 const abortController = ref(null)
 const currentRequestId = ref('')
 const currentSteps = ref([])
 const todoList = ref([])
 
+const selectedImages = ref([])
+const previewUrls = ref([])
+const lightboxSrc = ref(null)
+
 const isClearingContext = ref(false)
 
 const canSend = computed(() => {
-  return inputText.value.trim().length > 0 && !chatStore.isLoading
+  return (inputText.value.trim().length > 0 || selectedImages.value.length > 0) && !chatStore.isLoading
 })
+
+function triggerImageSelect() {
+  imageInput.value?.click()
+}
+
+function handleImageSelect(e) {
+  const files = Array.from(e.target.files || [])
+  for (const file of files) {
+    if (!file.type.startsWith('image/')) continue
+    selectedImages.value.push(file)
+    previewUrls.value.push(URL.createObjectURL(file))
+  }
+  // Reset input so same file can be re-selected
+  if (imageInput.value) imageInput.value.value = ''
+}
+
+function removeImage(idx) {
+  URL.revokeObjectURL(previewUrls.value[idx])
+  selectedImages.value.splice(idx, 1)
+  previewUrls.value.splice(idx, 1)
+}
+
+function compressImage(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      const img = new Image()
+      img.onload = () => {
+        const maxDim = 1024
+        let { width, height } = img
+        if (width <= maxDim && height <= maxDim) {
+          resolve(e.target.result)
+          return
+        }
+        if (width > height) {
+          height = Math.round(height * maxDim / width)
+          width = maxDim
+        } else {
+          width = Math.round(width * maxDim / height)
+          height = maxDim
+        }
+        const canvas = document.createElement('canvas')
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')
+        ctx.drawImage(img, 0, 0, width, height)
+        resolve(canvas.toDataURL('image/jpeg', 0.8))
+      }
+      img.src = e.target.result
+    }
+    reader.readAsDataURL(file)
+  })
+}
 
 const lastStepHasObservation = computed(() => {
   const steps = currentSteps.value
@@ -212,6 +322,14 @@ function useSkill(skill) {
     el.focus()
     autoResize()
   }
+}
+
+function previewFullImage(src) {
+  lightboxSrc.value = src
+}
+
+function closeLightbox() {
+  lightboxSrc.value = null
 }
 
 function scrollToBottom() {
@@ -270,7 +388,16 @@ async function clearContext() {
 
 async function sendMessage() {
   const text = inputText.value.trim()
-  if (!text || chatStore.isLoading) return
+  const hasImages = selectedImages.value.length > 0
+  if ((!text && !hasImages) || chatStore.isLoading) return
+
+  // Compress images to base64
+  let imageBase64List = null
+  if (hasImages) {
+    imageBase64List = await Promise.all(
+      selectedImages.value.map(f => compressImage(f))
+    )
+  }
 
   abortController.value = new AbortController()
   const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`
@@ -278,8 +405,12 @@ async function sendMessage() {
   currentSteps.value = []
   todoList.value = []
 
-  chatStore.addMessage({ role: 'user', content: text })
+  chatStore.addMessage({ role: 'user', content: text || '(图片)', images: imageBase64List })
   inputText.value = ''
+  // Cleanup image previews
+  previewUrls.value.forEach(url => URL.revokeObjectURL(url))
+  selectedImages.value = []
+  previewUrls.value = []
   if (inputRef.value) {
     inputRef.value.style.height = 'auto'
   }
@@ -291,22 +422,30 @@ async function sendMessage() {
   let finalOutput = ''
 
   try {
+    const body = {
+      messages: [{ role: 'user', content: text || '请描述这张图片' }],
+      request_id: requestId,
+      use_rag: true,
+      stream: true,
+      show_thinking: true,
+      llm_provider: settingsStore.llmProvider,
+      llm_model: settingsStore.activeModel,
+      llm_api_key: settingsStore.apiKey || undefined,
+      llm_api_base_url: settingsStore.activeApiUrl || undefined,
+      llm_temperature: settingsStore.temperature,
+      llm_max_tokens: settingsStore.maxTokens,
+      image_describer_backend: settingsStore.imageDescriberBackend
+    }
+    if (settingsStore.bailianApiKey) {
+      body.bailian_api_key = settingsStore.bailianApiKey
+    }
+    if (imageBase64List) {
+      body.images = imageBase64List
+    }
     const response = await fetch('/api/chat/stream', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        messages: [{ role: 'user', content: text }],
-        request_id: requestId,
-        use_rag: true,
-        stream: true,
-        show_thinking: true,
-        llm_provider: settingsStore.llmProvider,
-        llm_model: settingsStore.activeModel,
-        llm_api_key: settingsStore.apiKey || undefined,
-        llm_api_base_url: settingsStore.activeApiUrl || undefined,
-        llm_temperature: settingsStore.temperature,
-        llm_max_tokens: settingsStore.maxTokens
-      }),
+      body: JSON.stringify(body),
       signal: abortController.value.signal
     })
 
@@ -373,20 +512,21 @@ async function sendMessage() {
 
     // 完成 — 仅保留最终答案
     if (finalOutput) {
-      chatStore.addMessage({ role: 'assistant', content: finalOutput })
+      chatStore.addMessage({ role: 'assistant', content: finalOutput, images: imageBase64List })
     } else if (currentSteps.value.length > 0) {
-      chatStore.addMessage({ role: 'assistant', content: '请求已完成' })
+      chatStore.addMessage({ role: 'assistant', content: '请求已完成', images: imageBase64List })
     }
   } catch (error) {
     chatStore.streamingContent = ''
     if (error.name === 'AbortError') {
-      chatStore.addMessage({ role: 'assistant', content: '生成已终止。' })
+      chatStore.addMessage({ role: 'assistant', content: '生成已终止。', images: imageBase64List })
     } else {
       console.error('发送消息失败:', error)
       chatStore.setError(error.message || '发送失败')
       chatStore.addMessage({
         role: 'assistant',
-        content: '抱歉，消息发送失败了。请检查网络连接和后端服务是否正常运行。'
+        content: '抱歉，消息发送失败了。请检查网络连接和后端服务是否正常运行。',
+        images: imageBase64List
       })
     }
   } finally {
@@ -529,6 +669,7 @@ onMounted(() => {
 
 .message-wrapper {
   display: flex;
+  flex-direction: column;
   max-width: 80%;
 }
 
@@ -576,6 +717,27 @@ onMounted(() => {
 .assistant-bubble :deep(blockquote) { border-left: 3px solid #ccc; padding-left: 12px; margin: 6px 0; color: #555; }
 .assistant-bubble :deep(*:first-child) { margin-top: 0; }
 .assistant-bubble :deep(*:last-child) { margin-bottom: 0; }
+
+.msg-images {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.msg-image {
+  max-width: 240px;
+  max-height: 320px;
+  border-radius: 10px;
+  border: 1px solid #e0e0e0;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.msg-image:hover {
+  transform: scale(1.03);
+}
 
 .todo-card {
   padding: 12px 16px;
@@ -769,6 +931,78 @@ onMounted(() => {
   color: #bbbbbb;
 }
 
+.image-preview-row {
+  display: flex;
+  gap: 6px;
+  padding: 0 0 4px 0;
+  overflow-x: auto;
+  flex-shrink: 0;
+}
+
+.preview-thumb {
+  position: relative;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.preview-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-img-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  font-size: 10px;
+}
+
+.remove-img-btn:hover {
+  background: rgba(0,0,0,0.8);
+}
+
+.attach-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  color: #888888;
+  border: 1px solid #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.attach-btn:hover:not(:disabled) {
+  background: #f0f0f0;
+  color: #333333;
+  border-color: #999999;
+}
+
+.attach-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 .send-btn {
   width: 34px;
   height: 34px;
@@ -824,5 +1058,48 @@ onMounted(() => {
 .stop-btn svg {
   width: 16px;
   height: 16px;
+}
+
+/* 图片灯箱 */
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  cursor: zoom-out;
+}
+
+.lightbox-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  cursor: default;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  cursor: pointer;
+  transition: background 0.2s;
+  z-index: 10000;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 </style>

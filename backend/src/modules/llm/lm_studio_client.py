@@ -12,6 +12,11 @@ import requests
 logger = logging.getLogger(__name__)
 
 
+class ContextOverflowError(Exception):
+    """上下文超出模型限制的异常。"""
+    pass
+
+
 class LMStudioClient:
     """LM Studio客户端"""
     
@@ -63,17 +68,21 @@ class LMStudioClient:
     def _make_request(self, method: str, endpoint: str, **kwargs) -> requests.Response:
         """
         发送HTTP请求，支持重试
-        
+
         Args:
             method: HTTP方法
             endpoint: API端点
             **kwargs: 请求参数
-            
+
         Returns:
             HTTP响应
+
+        Raises:
+            ContextOverflowError: 上下文超出模型限制
+            requests.RequestException: 其他请求错误
         """
         url = f"{self.base_url.rstrip('/')}/{endpoint.lstrip('/')}"
-        
+
         for attempt in range(self.max_retries):
             try:
                 response = self._session.request(
@@ -82,16 +91,34 @@ class LMStudioClient:
                     timeout=self.timeout,
                     **kwargs
                 )
-                
+
                 # LM Studio在模型未加载时可能返回503或其他错误
                 if response.status_code == 503:
                     logger.warning(f"模型可能未加载 (尝试 {attempt + 1}/{self.max_retries})，等待后重试...")
                     time.sleep(2 * (attempt + 1))
                     continue
-                    
+
+                # 400 错误：检查是否为上下文溢出
+                if response.status_code == 400:
+                    error_detail = ""
+                    try:
+                        error_body = response.json()
+                        error_detail = error_body.get("error", {}).get("message", "") if isinstance(error_body.get("error"), dict) else str(error_body.get("error", ""))
+                    except Exception:
+                        error_detail = response.text[:500]
+                    # 上下文溢出关键词检测
+                    if any(kw in error_detail.lower() for kw in ["context length", "too long", "maximum", "token", "exceed", "reduce"]):
+                        raise ContextOverflowError(
+                            f"上下文超出模型限制 — {error_detail}\n"
+                            f"建议：清除对话上下文（点击刷新上下文按钮）或减少输入内容后重试"
+                        )
+                    response.raise_for_status()
+
                 response.raise_for_status()
                 return response
-                
+
+            except ContextOverflowError:
+                raise  # 不重试，直接抛出
             except requests.exceptions.RequestException as e:
                 logger.warning(f"请求失败 (尝试 {attempt + 1}/{self.max_retries}): {e}")
                 if attempt == self.max_retries - 1:

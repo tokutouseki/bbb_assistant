@@ -11,6 +11,7 @@ from enum import Enum
 from dataclasses import dataclass, field
 
 from src.config.settings import get_settings
+from .lm_studio_client import ContextOverflowError
 
 logger = logging.getLogger(__name__)
 
@@ -55,6 +56,7 @@ class ModelInfo:
     requires_api_key: bool = False
     requires_internet: bool = False
     config: Dict[str, Any] = field(default_factory=dict)
+    model_capabilities: List[str] = field(default_factory=list)  # 模型级能力: "vision", "tool_use", "streaming"
 
 
 @dataclass
@@ -67,6 +69,7 @@ class TaskContext:
     budget_limit: Optional[float] = None  # 成本预算限制
     internet_available: bool = True
     user_preference: Optional[str] = None  # 用户偏好
+    has_images: bool = False  # 是否包含图片，需要 vision 能力
 
 
 class LLMRouter:
@@ -128,6 +131,7 @@ class LLMRouter:
                 supports_streaming=True,
                 requires_api_key=False,
                 requires_internet=False,
+                model_capabilities=["vision", "streaming"],
                 config={
                     "base_url": self.settings.lm_studio_base_url,
                     "model": self.settings.lm_studio_model,
@@ -304,10 +308,18 @@ class LLMRouter:
                 
                 candidate_models.append(model)
         
+        # 检查视觉能力要求
+        if task_context.has_images:
+            vision_models = [m for m in candidate_models if "vision" in m.model_capabilities]
+            if not vision_models:
+                logger.warning("需要视觉模型但当前没有支持 vision 的模型可用")
+                return None
+            candidate_models = vision_models
+
         if not candidate_models:
             logger.warning(f"没有找到适合任务类型 {task_context.task_type} 的模型")
             return None
-        
+
         # 根据优先级和任务类型选择模型
         selected_model = self._rank_and_select_model(candidate_models, task_context)
         
@@ -439,22 +451,24 @@ class LLMRouter:
         messages: List[Dict[str, str]],
         task_type: Union[TaskType, str],
         stream: bool = False,
+        images: Optional[List[str]] = None,
         **kwargs
     ) -> Dict[str, Any]:
         """
         路由请求到合适的模型
-        
+
         Args:
             messages: 消息列表
             task_type: 任务类型
             stream: 是否流式输出
+            images: base64 图片列表 (data:image/...;base64,...)，用于 vision 模型
             **kwargs: 其他参数
-            
+
         Returns:
             模型响应
         """
         start_time = time.time()
-        
+
         # 转换任务类型
         if isinstance(task_type, str):
             try:
@@ -463,10 +477,26 @@ class LLMRouter:
                 # 默认使用日常聊天
                 task_type = TaskType.CASUAL_CHAT
                 logger.warning(f"未知的任务类型: {task_type}，使用默认类型: CASUAL_CHAT")
-        
+
+        # 构建多模态消息（如果有图片）
+        if images:
+            multimodal_messages = []
+            for msg in messages:
+                if msg.get("role") == "user" and isinstance(msg.get("content"), str):
+                    content_parts = [{"type": "text", "text": msg["content"]}]
+                    for img in images:
+                        content_parts.append({"type": "image_url", "image_url": {"url": img}})
+                    multimodal_messages.append({"role": "user", "content": content_parts})
+                else:
+                    multimodal_messages.append(msg)
+            messages = multimodal_messages
+
         # 构建任务上下文
-        total_message_length = sum(len(msg.get("content", "")) for msg in messages)
-        
+        total_message_length = sum(
+            len(msg.get("content", "")) if isinstance(msg.get("content"), str) else 0
+            for msg in messages
+        )
+
         task_context = TaskContext(
             task_type=task_type,
             message_length=total_message_length,
@@ -474,7 +504,8 @@ class LLMRouter:
             requires_low_latency=kwargs.get("low_latency", False),
             budget_limit=kwargs.get("budget_limit"),
             internet_available=kwargs.get("internet_available", True),
-            user_preference=kwargs.get("user_preference")
+            user_preference=kwargs.get("user_preference"),
+            has_images=bool(images),
         )
         
         # 选择模型
@@ -483,6 +514,11 @@ class LLMRouter:
         selected_model = self.select_model(task_context)
         
         if not selected_model:
+            if task_context.has_images:
+                return {
+                    "error": "当前没有可用的视觉模型支持图片输入，请加载支持视觉的模型后再试",
+                    "suggestions": ["请确认 LM Studio 正在运行并已加载 Qwen-VL 等视觉模型"],
+                }
             return {
                 "error": "没有可用的模型处理此请求",
                 "suggestions": ["请检查网络连接", "确认已配置API密钥", "尝试使用不同的任务类型"]
@@ -498,6 +534,11 @@ class LLMRouter:
         
         if not client:
             if kwargs.get("fallback", True):
+                if task_context.has_images:
+                    return {
+                        "error": "视觉模型客户端未就绪，且没有其他可用的视觉模型作为备用",
+                        "model_id": selected_model.model_id,
+                    }
                 return self._try_fallback_model(
                     original_model_id=selected_model.model_id,
                     messages=messages,
@@ -541,6 +582,12 @@ class LLMRouter:
             
             return response
             
+        except ContextOverflowError as e:
+            # 上下文溢出 — 不重试不 fallback，直接返回清晰提示
+            return {
+                "error": str(e),
+                "model_id": selected_model.model_id if selected_model else None,
+            }
         except Exception as e:
             logger.error(f"模型调用失败: {e}")
             
@@ -557,6 +604,13 @@ class LLMRouter:
             
             # 尝试使用备用模型
             if kwargs.get("fallback", True):
+                # 图片请求且唯一的 vision 模型已失败，无需尝试文本模型 fallback
+                if task_context.has_images:
+                    return {
+                        "error": "视觉模型调用失败，且没有其他可用的视觉模型作为备用",
+                        "model_id": selected_model.model_id,
+                        "detail": str(e),
+                    }
                 return self._try_fallback_model(
                     original_model_id=selected_model.model_id,
                     messages=messages,
@@ -597,7 +651,7 @@ class LLMRouter:
                 return client
                 
             elif model_info.model_type == ModelType.LM_STUDIO:
-                from .lm_studio_client import create_lm_studio_client
+                from .lm_studio_client import create_lm_studio_client, ContextOverflowError
                 
                 client = create_lm_studio_client(
                     base_url=model_info.config.get("base_url"),

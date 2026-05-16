@@ -12,6 +12,8 @@ export const useSettingsStore = defineStore('settings', () => {
   const ollamaModel = ref('qwen2.5:7b')
   const temperature = ref(0.7)
   const maxTokens = ref(4096)
+  const imageDescriberBackend = ref('bailian')
+  const bailianApiKey = ref('')
 
   const activeModel = computed(() => {
     if (llmProvider.value === 'deepseek') return model.value
@@ -50,6 +52,8 @@ export const useSettingsStore = defineStore('settings', () => {
         ollamaModel.value = parsed.ollamaModel || 'qwen2.5:7b'
         temperature.value = parsed.temperature ?? 0.7
         maxTokens.value = parsed.maxTokens ?? 4096
+        imageDescriberBackend.value = parsed.imageDescriberBackend || 'bailian'
+        bailianApiKey.value = parsed.bailianApiKey || ''
       }
     } catch (e) {
       console.warn('加载设置失败:', e)
@@ -67,7 +71,9 @@ export const useSettingsStore = defineStore('settings', () => {
       ollamaUrl: ollamaUrl.value,
       ollamaModel: ollamaModel.value,
       temperature: temperature.value,
-      maxTokens: maxTokens.value
+      maxTokens: maxTokens.value,
+      imageDescriberBackend: imageDescriberBackend.value,
+      bailianApiKey: bailianApiKey.value
     }
     localStorage.setItem('bbb-assistant-settings-llm', JSON.stringify(settings))
   }
@@ -83,6 +89,8 @@ export const useSettingsStore = defineStore('settings', () => {
     ollamaModel,
     temperature,
     maxTokens,
+    imageDescriberBackend,
+    bailianApiKey,
     activeModel,
     activeApiUrl,
     setProvider,
