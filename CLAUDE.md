@@ -44,10 +44,19 @@ bbb_assistant/
 │       ├── chat.js                  # 聊天状态管理
 │       └── settings.js              # 设置状态 (localStorage持久化)
 ├── skills/                          # 技能定义 (每个技能一个目录)
-│   ├── material_expedition_one_click/ # 材料远征一键减负
-│   ├── club_consignment_recovery/    # 家园委托找回
-│   ├── find_direction/              # 方向查找
-│   ├── game_navigation/             # 游戏导航
+│   ├── full_operation/              # 全量日常调度 — 根据星期自动执行当日全部任务
+│   ├── letu/                        # 往世乐土自动化 — 乐土全流程一键完成
+│   ├── renwu_jianfu/                # 任务减负 — 作战任务一键减负
+│   ├── everyweek_gift/              # 每周礼包 — 商城免费礼包领取
+│   ├── zhanchang/                   # 记忆战场 — BOSS减负
+│   ├── simulation_combat_room/      # 模拟作战室 — 舰团模拟作战室减负
+│   ├── jiantuangongxian/            # 舰团贡献 — 每日5000贡献
+│   ├── maoxian_weituo/              # 冒险委托 — 后崩坏书1委托接取
+│   ├── chaoxiankongjian/            # 超弦空间 — 战斗准备导航
+│   ├── shenzhijian/                 # 神之键 — 乐土神之键配置
+│   ├── zhuzhanrenwu_set/            # 驻战任务 — 出战人物/筛选设置
+│   ├── find_direction/              # 方向查找 — 场景迷失时自救援导航
+│   ├── game_navigation/             # 游戏场景导航 — 任意场景到目标场景
 │   └── elysia-perspective/          # 爱莉希雅视角角色扮演
 ├── outputs/
 │   ├── asr_transcriptions/          # ASR转录输出
@@ -137,10 +146,54 @@ bbb_assistant/
 
 ## 可用工具列表
 
-Agent 可调用的工具 (共19个):
+Agent 可调用的工具 (共20个):
 rag_search, list_skills, view_skill,
 yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image,
 ocr_recognize, describe_image,
 get_runtime_status, focus_bh3_window, click_coordinates,
+run_hongkai_task,
 tts_qwen3, tts_voxcpm, play_audio,
 todo_write, web_search, fetch_page
+
+## 自动化模块: hongkai（方案二）
+
+hongkai_done 的核心已提取到本项目 `backend/src/modules/hongkai/`，不再依赖外部项目。
+
+### 模块结构
+```
+backend/src/modules/hongkai/
+├── __init__.py
+├── templates/
+│   ├── clicks_keyboard.py         # 模板匹配 + 键鼠模拟（Win32 SendInput）
+│   └── *.png                      # 112 张游戏 UI 模板图片
+├── ocr/
+│   ├── ocr_functions.py           # OCR 封装（RapidOCR 识别、点击、查找）
+│   ├── ocr_click.py               # 100+ 游戏文本点击映射
+│   ├── ocr_client.py              # OCR TCP 客户端
+│   ├── ocr_server_final.py        # OCR TCP 服务端（端口 5002）
+│   └── models/                    # PP-OCRv4 ONNX 模型
+├── call_YOLO.py                   # YOLO 调用层（自动管理服务端）
+├── yolo_client.py                 # YOLO TCP 客户端
+├── yolo_server_final.py           # YOLO TCP 服务端（端口 5001）
+├── bh3_yolo_recognizer.py         # YOLO 识别入口
+├── on_window.py                   # Win32 窗口管理
+├── config.py / config.json        # 运行时配置
+├── replay_keyboard.py             # 键鼠录制回放
+├── save_output.py                 # 日志拦截（print → 文件）
+├── vedio_log.py                   # 屏幕录制
+├── time_date/custom_datetime.py   # 时间同步
+└── scripts/                       # 流程脚本（待迁移）
+```
+
+### YOLO 模型
+`backend/data/models/detect/yolo11n_elysian_realm_det.onnx`（从 hongkai_done 的 best.onnx 复制，24类游戏元素）
+
+### run_hongkai_task tool
+- 当前仍通过 subprocess 调用 hongkai_done 的 Python3.11 执行流程脚本
+- YOLO/OCR 服务由模块内部自动拉起
+- 目标：流程脚本逐步迁移到 `scripts/`，最终直接 import 使用，去掉 subprocess
+
+### 常见问题
+- **YOLO 服务启动失败**: 检查模型路径 `yolo11n_elysian_realm_det.onnx`，查看 `yolo_server.log`
+- **OCR 服务启动失败**: 检查 `ocr/models/ch_PP-OCRv4_*.onnx` 是否存在
+- **模板匹配失败**: 确认游戏窗口标题为"崩坏3"，检查屏幕分辨率

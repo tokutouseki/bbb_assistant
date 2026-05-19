@@ -73,7 +73,7 @@ class RouterLLM(LLM):
             messages=[
                 {
                     "role": "system",
-                    "content": "你是崩坏3助手，请严格遵循 ReAct 格式并按需调用工具。",
+                    "content": "你是一个AI助手，请严格遵循 ReAct 格式并按需调用工具。",
                 },
                 {"role": "user", "content": prompt},
             ],
@@ -1014,6 +1014,105 @@ status 可选: pending, in_progress, completed
                 return f"❌ 获取网页失败: {str(e)}"
 
         @tool
+        def run_hongkai_task(task: str = "") -> str:
+            """调用 hongkai_done 项目执行崩坏3自动化任务。参数: task - 任务名称。
+
+可用的任务:
+- everyday / daily: 每日任务（登录领取、出击减负、家园委托、舰团、任务奖励）
+- letu / elysian: 往世乐土周常
+- full / full_operation: 按星期执行当日全部任务
+- renwu_jianfu / mission_reduce: 任务减负
+- everyweek_gift / weekly_gift: 每周礼包领取
+- zhanchang / memorial_arena: 记忆战场减负
+- simulation_combat_room / simulation: 模拟作战室减负
+- jiantuangongxian / armada_contribution: 舰团贡献
+- maoxian_weituo / adventure_commission: 冒险委托
+- chaoxiankongjian / superstring: 超弦空间
+- shenzhijian / divine_key: 神之键配置
+- zhuzhanrenwu_set / garrison_setup: 驻战任务设置
+
+返回脚本的执行日志。脚本运行可能需要几分钟，请耐心等待。"""
+            import subprocess
+
+            if not task or task.strip() == "":
+                return "❌ 请指定任务名称。可用: everyday, letu, full, renwu_jianfu, everyweek_gift, zhanchang, simulation_combat_room, jiantuangongxian, maoxian_weituo, chaoxiankongjian, shenzhijian, zhuzhanrenwu_set"
+
+            task_lower = task.strip().lower()
+            task_map = {
+                "everyday": "process/everyday.py",
+                "daily": "process/everyday.py",
+                "letu": "process/letu.py",
+                "elysian": "process/letu.py",
+                "elysian_realm": "process/letu.py",
+                "full": "process/full_operation.py",
+                "full_operation": "process/full_operation.py",
+                "renwu_jianfu": "process/renwu_jianfu.py",
+                "mission_reduce": "process/renwu_jianfu.py",
+                "everyweek_gift": "process/everyweek_gift.py",
+                "weekly_gift": "process/everyweek_gift.py",
+                "zhanchang": "process/zhanchang.py",
+                "memorial_arena": "process/zhanchang.py",
+                "simulation": "process/simulation_combat_room.py",
+                "simulation_combat_room": "process/simulation_combat_room.py",
+                "jiantuangongxian": "process/jiantuangongxian.py",
+                "armada_contribution": "process/jiantuangongxian.py",
+                "maoxian_weituo": "process/maoxian_weituo.py",
+                "adventure_commission": "process/maoxian_weituo.py",
+                "chaoxiankongjian": "process/chaoxiankongjian.py",
+                "superstring": "process/chaoxiankongjian.py",
+                "shenzhijian": "process/shenzhijian.py",
+                "divine_key": "process/shenzhijian.py",
+                "zhuzhanrenwu_set": "process/zhuzhanrenwu_set.py",
+                "garrison_setup": "process/zhuzhanrenwu_set.py",
+            }
+
+            script = task_map.get(task_lower)
+            if not script:
+                return f"❌ 未知任务 '{task.strip()}'。可用: everyday, letu, full, renwu_jianfu, everyweek_gift, zhanchang, simulation_combat_room, jiantuangongxian, maoxian_weituo, chaoxiankongjian, shenzhijian, zhuzhanrenwu_set"
+
+            hongkai_root = r"D:\hongkai_done"
+            python_exe = rf"{hongkai_root}\Python3.11\python.exe"
+            if not os.path.exists(python_exe):
+                return f"❌ 找不到 hongkai_done 的 Python 解释器: {python_exe}"
+
+            script_path = os.path.join(hongkai_root, script)
+            if not os.path.exists(script_path):
+                return f"❌ 找不到脚本: {script_path}"
+
+            try:
+                # 在可见的控制台窗口中运行，用户可以实时看到进度
+                import platform
+                creationflags = subprocess.CREATE_NEW_CONSOLE if platform.system() == "Windows" else 0
+                proc = subprocess.Popen(
+                    [python_exe, script_path],
+                    cwd=hongkai_root,
+                    creationflags=creationflags,
+                )
+                proc.wait(timeout=600)
+
+                # 读取最新日志文件
+                import glob as _glob
+                log_dir = os.path.join(hongkai_root, "all_log")
+                log_pattern = os.path.join(log_dir, f"{os.path.splitext(os.path.basename(script))[0]}_*.log")
+                log_files = sorted(_glob.glob(log_pattern), key=os.path.getmtime, reverse=True)
+
+                log_content = ""
+                if log_files:
+                    try:
+                        with open(log_files[0], "r", encoding="utf-8", errors="replace") as f:
+                            log_content = f.read()[-8000:]
+                        log_content = f"\n\n[日志 {os.path.basename(log_files[0])}]:\n{log_content}"
+                    except Exception:
+                        pass
+
+                status = "✅ 完成" if proc.returncode == 0 else f"⚠️ 退出码: {proc.returncode}"
+                return f"{status}\n任务: {task.strip()}\n脚本: {script}{log_content}"
+            except subprocess.TimeoutExpired:
+                return f"⏱️ 任务超时 (600s): {task.strip()}\n脚本可能需要检查游戏状态或手动干预。"
+            except Exception as e:
+                return f"❌ 执行失败: {str(e)}"
+
+        @tool
         def describe_image(_: str = "") -> str:
             """获取用户上传图片的详细描述。用于分析图片中的角色、场景、文字、UI等内容。调用后返回图片的文本描述，然后基于描述继续分析和回答。"""
             if not self._current_images:
@@ -1026,7 +1125,7 @@ status 可选: pending, in_progress, completed
             except Exception as e:
                 return f"❌ 图片描述失败: {str(e)}"
 
-        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search, fetch_page, describe_image]
+        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search, fetch_page, run_hongkai_task, describe_image]
         llm = RouterLLM()
         self._llm = llm
 
@@ -1039,7 +1138,7 @@ status 可选: pending, in_progress, completed
 {self._cached_preferences}"""
 
         prompt = PromptTemplate.from_template(
-            f"""你是一个严格遵循 ReAct 范式的崩坏3游戏助手。
+            f"""你是一个严格遵循 ReAct 范式的AI助手。
 
 【任务规划】
 - 当任务预计需要3步以上（含）才能完成时，必须先用 todo_write 创建计划
@@ -1049,25 +1148,21 @@ status 可选: pending, in_progress, completed
 - 完成所有任务后，给出最终回复
 
 【知识获取策略】
-- 游戏基础设定/攻略 → 优先用 rag_search 查本地知识库（速度快）
+- 游戏相关设定/攻略/背景知识 → 优先用 rag_search 查本地知识库（速度快）
 - 最新资讯/活动/版本更新 → 用 web_search 联网搜索（信息新）
 - 两者结果冲突时，以联网搜索结果为准
+- 通用知识可以直接回答，不需要查知识库
 
 【图片分析 - 重要】
 - 如果用户请求中包含"用户上传了 N 张图片"提示，说明用户上传了图片
 - 第一步必须先调用 describe_image 工具（无需参数）获取图片的详细文本描述
-- 获得描述后，基于描述进行分析、搜索、推理和回答
+- 获得描述后，基于描述进行客观分析、推理和回答
+- 不要默认假设图片内容与任何特定游戏或作品相关！先根据描述客观回答用户问题
+- 只有当描述中的特征确实与用户询问的内容高度吻合时，才建立关联
 - 绝对不要对用户上传的图片调用 yolo_load_model / yolo_detect_image / yolo_classify_image / ocr_recognize
 - 这些 YOLO/OCR 工具截取的是实时屏幕画面，不是用户上传的图片！
 - 只有当用户明确要求分析"当前游戏画面"时，才使用 YOLO/OCR 工具
-
-【游戏背景知识】
-- bridge（舰桥界面）是崩坏3的主界面/首页
-- 从舰桥可以导航到各个功能界面（家园、任务、补给等）
-- home（家园界面）是日常活动聚集地
-- mission（任务界面）包含主线、支线、日常等任务
-- gacha（补给界面）是抽卡界面
-- club（舰团界面）是社团相关功能
+- 如果描述结果包含"综合提示"，说明使用了多个后端分析同一图片。你必须综合各后端的分析结果进行判断。当两者对人物数量判断不一致时，优先相信视觉模型的文字描述。
 
 【绝对规则 - 必须遵守】
 **规则1**: 输出只能是两种格式之一，绝对不能混合！
@@ -1101,14 +1196,14 @@ Final Answer: [你的中文回答]
 【示例】
 调用工具示例：
 Question: 我现在在哪里？
-Thought: 用户想知道当前所在界面，需要调用场景分类工具识别当前游戏场景
+Thought: 用户想知道当前所在界面，需要调用场景分类工具识别当前画面
 Action: yolo_load_model
 Action Input: yolo11n_scene_cls
 
 直接回答示例：
 Question: 你好
 Thought: 我已经得到最终答案
-Final Answer: 你好！我是崩坏3助手。
+Final Answer: 你好！有什么可以帮你的？
 
 图片分析流程示例：
 Question: [用户上传了 1 张图片，请先使用 describe_image 工具获取图片描述]
@@ -1122,9 +1217,9 @@ Action Input:
 Thought: 已获得图片描述，现在基于描述回答用户问题
 Final Answer: 根据图片描述，图中是...[基于实际描述内容回答]
 
-TTS语音合成必须的两步流程：
-Question: 用爱莉希雅的声音说你好
-Thought: 用户想要用爱莉希雅声音说"你好"，我需要先调用 tts_qwen3 生成语音
+TTS语音合成步骤示例：
+Question: 用温柔的语气说你好
+Thought: 用户想要语音合成，先调用 tts_qwen3 生成语音
 Action: tts_qwen3
 Action Input: 你好
 （等待Observation返回文件路径，然后进行第二步）
@@ -1492,20 +1587,20 @@ Question: {{input}}
             
             has_parsing_error = False
             has_valid_action = False
-            current_tool_chain = []
-            
+            current_tool_chain = []   # (tool_name, action_input) tuples
+
             for action, observation in result.get("intermediate_steps", []):
                 action_tool = action.tool if hasattr(action, "tool") else ""
                 action_input = str(action.tool_input) if hasattr(action, "tool_input") else ""
                 action_log = action.log if hasattr(action, "log") else ""
-                
+
                 if action_tool == "_Exception":
                     has_parsing_error = True
                     action_log = f"解析错误: {action_input}"
                 elif action_tool and action_tool != "_Exception":
                     has_valid_action = True
-                    current_tool_chain.append(action_tool)
-                
+                    current_tool_chain.append((action_tool, action_input))
+
                 steps.append(
                     {
                         "thought": action_log,
@@ -1514,19 +1609,20 @@ Question: {{input}}
                         "observation": str(observation),
                     }
                 )
-            
-            # 检测循环调用（同一工具连续执行超过3次）
+
+            # 检测循环调用（同一工具+同一输入连续执行超过3次）
             if current_tool_chain:
                 tool_call_history.extend(current_tool_chain)
-                
-                # 检查是否有工具连续调用超过3次
+
                 consecutive_count = 1
                 for i in range(1, len(tool_call_history)):
-                    if tool_call_history[i] == tool_call_history[i-1]:
+                    prev = tool_call_history[i-1]
+                    curr = tool_call_history[i]
+                    # 工具名和输入都相同才算连续重复
+                    if curr[0] == prev[0] and curr[1] == prev[1]:
                         consecutive_count += 1
                         if consecutive_count >= 3:
-                            logger.warning(f"检测到工具 {tool_call_history[i]} 连续调用 {consecutive_count} 次，已达到限制")
-                            # 返回当前结果，不再继续
+                            logger.warning(f"检测到工具 {curr[0]}({curr[1][:60]}) 连续重复调用 {consecutive_count} 次，已达到限制")
                             raw_output = result.get("output", "")
                             clean_answer = self._formatter.extract_clean_answer(raw_output)
                             return {
@@ -1535,7 +1631,7 @@ Question: {{input}}
                                 "steps": steps,
                                 "raw": result,
                                 "retry_count": retry_count,
-                                "errors": [f"工具 {tool_call_history[i]} 连续调用超过3次，已自动终止循环"],
+                                "errors": [f"工具 {curr[0]} 以相同输入连续调用 {consecutive_count} 次，已自动终止循环"],
                                 "loop_detected": True
                             }
                     else:

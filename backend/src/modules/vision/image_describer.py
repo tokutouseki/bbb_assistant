@@ -40,6 +40,11 @@ class ImageDescriber:
                 backend_order = ["bailian"]
         self.backend_order = backend_order or ["bailian"]
 
+    # 综合模式：指定哪些后端组合必须全部运行并合并结果
+    ENSEMBLE_COMBOS = [
+        ["pixai_tagger", "lmstudio"],
+    ]
+
     def describe(self, images: List[str]) -> Tuple[str, str]:
         """
         描述图片，按优先级尝试各后端。
@@ -56,6 +61,10 @@ class ImageDescriber:
         if not self.backend_order:
             self.backend_order = ["bailian"]
 
+        # 综合模式：运行所有后端并合并结果
+        if self.backend_order in self.ENSEMBLE_COMBOS:
+            return self._describe_ensemble(images, self.backend_order)
+
         errors = []
         for backend in self.backend_order:
             try:
@@ -71,6 +80,64 @@ class ImageDescriber:
 
         raise RuntimeError(f"所有图片描述后端均失败: {'; '.join(errors)}")
 
+    def _describe_ensemble(self, images: List[str], backends: List[str]) -> Tuple[str, str]:
+        """综合模式：运行所有后端，合并结果。每个后端独立运行，互不影响。"""
+        BACKEND_LABELS = {
+            "pixai_tagger": "PixAI Tagger 标签分析",
+            "lmstudio": "LM Studio 视觉分析",
+            "bailian": "百炼 Qwen-VL 视觉分析",
+        }
+
+        results = []
+        unavailable = []
+
+        for backend in backends:
+            try:
+                desc = getattr(self, f"_describe_{backend}")(images)
+                if desc and desc.strip():
+                    results.append((backend, desc))
+                else:
+                    unavailable.append((backend, "返回空结果"))
+            except Exception as e:
+                logger.warning(f"[综合模式] 后端 {backend} 失败: {e}")
+                unavailable.append((backend, str(e)))
+
+        if not results and not unavailable:
+            raise RuntimeError("综合模式：所有后端均无输出")
+        if not results:
+            raise RuntimeError(
+                "综合模式：所有后端均不可用 — "
+                + "; ".join(f"{b}: {e}" for b, e in unavailable)
+            )
+
+        parts = []
+        for backend, desc in results:
+            label = BACKEND_LABELS.get(backend, backend)
+            parts.append(f"=== {label} ===")
+            parts.append(desc)
+            parts.append("")
+
+        for backend, error in unavailable:
+            label = BACKEND_LABELS.get(backend, backend)
+            parts.append(f"=== {label} === ❌ 不可用：{error}")
+            parts.append("")
+
+        # 综合提示
+        if unavailable:
+            missing_names = [BACKEND_LABELS.get(b, b) for b, _ in unavailable]
+            parts.append(
+                f"⚠ 注意：{'、'.join(missing_names)} 不可用，请基于现有结果进行分析。"
+            )
+        if len(results) >= 2:
+            parts.append(
+                "⚠ 综合提示：请结合以上多个后端的分析结果进行综合判断。"
+                "PixAI Tagger 提供标签维度的参考，LM Studio 提供视觉模型的文字描述。"
+                "当两者对人物数量、特征的判断不一致时，优先以 LM Studio 的视觉描述为准。"
+            )
+
+        available_names = "+".join(b for b, _ in results)
+        return "\n".join(parts), available_names
+
     # ── Bailian (阿里百炼 Qwen-VL) ──────────────────────────
 
     def _describe_bailian(self, images: List[str]) -> str:
@@ -85,10 +152,11 @@ class ImageDescriber:
             {
                 "type": "text",
                 "text": (
-                    "请详细描述这张图片中的所有内容，包括但不限于："
-                    "角色外观特征（发色、瞳色、服装、标志性装饰）、"
-                    "场景环境、文字内容、UI界面元素、物品道具等。"
-                    "请尽可能详细和准确。"
+                    "请以客观中立的视角详细描述这张图片的所有内容。"
+                    "包括：人物外观特征（发色、瞳色、服装、标志性装饰等）、"
+                    "场景环境、文字内容、UI元素、物品等。"
+                    "注意：不要假设图片来自任何特定作品或游戏，"
+                    "请仅描述你实际看到的内容，不要添加推测性信息。"
                 ),
             }
         ]
@@ -224,9 +292,10 @@ class ImageDescriber:
             {
                 "type": "text",
                 "text": (
-                    "请详细描述这张图片中的所有内容，包括但不限于："
-                    "角色外观特征、场景环境、文字内容、UI界面元素、物品道具等。"
-                    "请尽可能详细和准确。"
+                    "请以客观中立的视角详细描述这张图片的所有内容。"
+                    "包括：人物外观特征、场景环境、文字内容、UI元素、物品等。"
+                    "注意：不要假设图片来自任何特定作品或游戏，"
+                    "请仅描述你实际看到的内容，不要添加推测性信息。"
                 ),
             }
         ]

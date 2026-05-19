@@ -18,6 +18,52 @@ from ..modules.agent.react_agent import get_react_agent
 
 router = APIRouter()
 
+import tempfile
+import base64
+import logging
+logger = logging.getLogger(__name__)
+
+
+def _transcribe_audios(audios: List[str]) -> str:
+    """将 base64 音频列表转写为文本，返回可前置到用户消息的转写结果。"""
+    settings = get_settings()
+    if not settings.enable_audio or not settings.enable_asr:
+        return ""
+    try:
+        from ..modules.audio.asr_processor import ASRProcessor
+        asr = ASRProcessor(
+            model_path=settings.asr_model_path,
+            device="cuda:0",
+        )
+        if asr.model is None:
+            return ""
+    except Exception:
+        return ""
+
+    transcriptions = []
+    for i, audio_b64 in enumerate(audios):
+        try:
+            if "," in audio_b64:
+                audio_b64 = audio_b64.split(",", 1)[1]
+            audio_bytes = base64.b64decode(audio_b64)
+            suffix = ".webm"
+            with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as f:
+                f.write(audio_bytes)
+                tmp_path = f.name
+            try:
+                result = asr.transcribe_file(tmp_path, language="zh")
+                if result.text and not result.text.startswith("这是SenseVoiceSmall"):
+                    transcriptions.append(f"[音频{i+1}转写] {result.text}")
+            finally:
+                os.unlink(tmp_path)
+        except Exception as e:
+            logger.warning(f"音频{i+1}转写失败: {e}")
+
+    if transcriptions:
+        return "\n".join(transcriptions) + "\n\n"
+    return ""
+
+
 class ChatMessage(BaseModel):
     role: str = Field(..., description="角色: user, assistant, system")
     content: str = Field(..., description="消息内容")
@@ -31,6 +77,7 @@ class ChatRequest(BaseModel):
     stream: bool = Field(default=False, description="是否流式输出")
     show_thinking: bool = Field(default=True, description="是否显示思考过程")
     images: Optional[List[str]] = Field(None, description="base64图片列表(data:image/...;base64,...)")
+    audios: Optional[List[str]] = Field(None, description="base64音频列表(data:audio/...;base64,...)")
     image_describer_backend: Optional[str] = Field(None, description="图片描述后端优先级: bailian / pixai_tagger / lmstudio")
     bailian_api_key: Optional[str] = Field(None, description="阿里百炼API密钥覆盖")
     llm_provider: Optional[str] = Field(None, description="LLM提供商覆盖: deepseek / lmstudio / ollama")
@@ -103,6 +150,13 @@ async def chat_completion(request: ChatRequest):
         "bailian_api_key": request.bailian_api_key,
     }
     update_runtime_settings(llm_overrides)
+
+    # 自动转写音频
+    audios = request.audios or None
+    if audios:
+        audio_text = _transcribe_audios(audios)
+        if audio_text:
+            last_user_message = audio_text + last_user_message
 
     # 使用ReAct Agent处理（透明切换分阶段执行）
     from ..modules.skill.skill_manager import get_skill_manager as _get_sm
@@ -215,6 +269,13 @@ async def chat_stream(request: ChatRequest):
         "bailian_api_key": request.bailian_api_key,
     }
     update_runtime_settings(llm_overrides)
+
+    # 自动转写音频
+    audios = request.audios or None
+    if audios:
+        audio_text = _transcribe_audios(audios)
+        if audio_text:
+            last_user_message = audio_text + last_user_message
 
     request_id = request.request_id or str(time.time())
     register_request(request_id)

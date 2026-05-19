@@ -147,8 +147,8 @@ class Settings(BaseSettings):
     chat_history_limit: int = Field(default=50, description="聊天历史限制")
     
     # 音频处理配置
-    enable_audio: bool = Field(default=False, description="启用音频处理功能（ASR/TTS）")
-    enable_asr: bool = Field(default=False, description="启用语音识别（SenseVoiceSmall）")
+    enable_audio: bool = Field(default=True, description="启用音频处理功能（ASR/TTS）")
+    enable_asr: bool = Field(default=True, description="启用语音识别（SenseVoiceSmall）")
     enable_tts: bool = Field(default=False, description="启用文本转语音（Qwen3-TTS/VoxCPM）")
     
     # 记忆配置

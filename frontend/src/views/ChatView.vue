@@ -61,6 +61,15 @@
             alt="attached image"
           />
         </div>
+        <div v-if="msg.audios && msg.audios.length" class="msg-audios">
+          <audio
+            v-for="(aud, i) in msg.audios"
+            :key="i"
+            :src="aud"
+            controls
+            class="msg-audio"
+          ></audio>
+        </div>
       </div>
 
       <div v-if="todoList.length > 0" class="message-wrapper assistant">
@@ -120,6 +129,21 @@
           </button>
         </div>
       </div>
+      <div v-if="selectedAudios.length > 0" class="audio-preview-row">
+        <div v-for="(audio, idx) in selectedAudios" :key="idx" class="preview-audio-item">
+          <audio :src="audioPreviewUrls[idx]" controls class="audio-preview-player"></audio>
+          <button class="remove-img-btn" @click="removeAudio(idx)" title="移除音频">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div v-if="recordingState === 'recording'" class="recording-indicator">
+        <span class="recording-dot"></span>
+        <span class="recording-timer">{{ formatDuration(recordingDuration) }}</span>
+        <span class="recording-hint">点击麦克风按钮停止录音</span>
+      </div>
       <div class="input-box">
         <input
           ref="imageInput"
@@ -128,6 +152,13 @@
           multiple
           style="display:none"
           @change="handleImageSelect"
+        />
+        <input
+          ref="audioFileInput"
+          type="file"
+          accept="audio/*"
+          style="display:none"
+          @change="handleAudioFileSelect"
         />
         <textarea
           v-model="inputText"
@@ -149,6 +180,33 @@
               <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
               <circle cx="8.5" cy="8.5" r="1.5"/>
               <polyline points="21 15 16 10 5 21"/>
+            </svg>
+          </button>
+          <button
+            class="attach-btn"
+            @click="audioFileInput?.click()"
+            title="上传音频文件"
+            :disabled="chatStore.isLoading || recordingState !== 'idle'"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M9 18V5l12-2v13"/>
+              <circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+            </svg>
+          </button>
+          <button
+            class="attach-btn mic-btn"
+            :class="{ 'is-recording': recordingState === 'recording' }"
+            @click="toggleRecording"
+            :disabled="recordingState === 'requesting'"
+            :title="recordingState === 'idle' ? '录制语音' : '停止录制'"
+          >
+            <svg v-if="recordingState !== 'recording'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <rect x="9" y="2" width="6" height="12" rx="3"/>
+              <path d="M5 10a7 7 0 0014 0"/>
+              <line x1="12" y1="19" x2="12" y2="22"/>
+            </svg>
+            <svg v-else viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+              <rect x="6" y="6" width="12" height="12" rx="2"/>
             </svg>
           </button>
           <button
@@ -186,19 +244,19 @@
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- 图片灯箱 -->
-  <teleport to="body">
-    <div v-if="lightboxSrc" class="lightbox-backdrop" @click="closeLightbox">
-      <img :src="lightboxSrc" class="lightbox-image" @click.stop />
-      <button class="lightbox-close" @click="closeLightbox" title="关闭">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
-  </teleport>
+    <!-- 图片灯箱 -->
+    <teleport to="body">
+      <div v-if="lightboxSrc" class="lightbox-backdrop" @click="closeLightbox">
+        <img :src="lightboxSrc" class="lightbox-image" @click.stop />
+        <button class="lightbox-close" @click="closeLightbox" title="关闭">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="24" height="24">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+    </teleport>
+  </div>
 </template>
 
 <script setup>
@@ -233,10 +291,20 @@ const selectedImages = ref([])
 const previewUrls = ref([])
 const lightboxSrc = ref(null)
 
+// Audio recording state
+const recordingState = ref('idle')  // 'idle' | 'requesting' | 'recording'
+const recordingDuration = ref(0)
+let recordingTimer = null
+const mediaRecorder = ref(null)
+const audioChunks = ref([])
+const audioFileInput = ref(null)
+const selectedAudios = ref([])      // File or Blob objects
+const audioPreviewUrls = ref([])    // blob URLs for playback
+
 const isClearingContext = ref(false)
 
 const canSend = computed(() => {
-  return (inputText.value.trim().length > 0 || selectedImages.value.length > 0) && !chatStore.isLoading
+  return (inputText.value.trim().length > 0 || selectedImages.value.length > 0 || selectedAudios.value.length > 0) && !chatStore.isLoading
 })
 
 function triggerImageSelect() {
@@ -332,6 +400,84 @@ function closeLightbox() {
   lightboxSrc.value = null
 }
 
+// --- Audio recording ---
+
+function formatDuration(seconds) {
+  const m = Math.floor(seconds / 60)
+  const s = seconds % 60
+  return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
+}
+
+async function toggleRecording() {
+  if (recordingState.value === 'recording') {
+    if (mediaRecorder.value && mediaRecorder.value.state === 'recording') {
+      mediaRecorder.value.stop()
+    }
+    return
+  }
+
+  recordingState.value = 'requesting'
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+    const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+      ? 'audio/webm;codecs=opus'
+      : 'audio/webm'
+    const recorder = new MediaRecorder(stream, { mimeType })
+
+    audioChunks.value = []
+    recorder.ondataavailable = (e) => {
+      if (e.data.size > 0) audioChunks.value.push(e.data)
+    }
+
+    recorder.onstop = () => {
+      stream.getTracks().forEach(t => t.stop())
+      finishRecording()
+    }
+
+    mediaRecorder.value = recorder
+    recorder.start()
+    recordingState.value = 'recording'
+    recordingDuration.value = 0
+    recordingTimer = setInterval(() => {
+      recordingDuration.value++
+    }, 1000)
+  } catch (err) {
+    console.error('麦克风访问失败:', err)
+    recordingState.value = 'idle'
+    alert('无法访问麦克风，请检查浏览器权限设置。')
+  }
+}
+
+function finishRecording() {
+  if (recordingTimer) {
+    clearInterval(recordingTimer)
+    recordingTimer = null
+  }
+  if (audioChunks.value.length === 0) {
+    recordingState.value = 'idle'
+    return
+  }
+  const blob = new Blob(audioChunks.value, { type: 'audio/webm' })
+  selectedAudios.value.push(blob)
+  audioPreviewUrls.value.push(URL.createObjectURL(blob))
+  audioChunks.value = []
+  recordingState.value = 'idle'
+}
+
+async function handleAudioFileSelect(e) {
+  const file = e.target.files?.[0]
+  if (!file || !file.type.startsWith('audio/')) return
+  selectedAudios.value.push(file)
+  audioPreviewUrls.value.push(URL.createObjectURL(file))
+  if (audioFileInput.value) audioFileInput.value.value = ''
+}
+
+function removeAudio(idx) {
+  URL.revokeObjectURL(audioPreviewUrls.value[idx])
+  selectedAudios.value.splice(idx, 1)
+  audioPreviewUrls.value.splice(idx, 1)
+}
+
 function scrollToBottom() {
   nextTick(() => {
     if (messagesContainer.value) {
@@ -386,10 +532,19 @@ async function clearContext() {
   }
 }
 
+function encodeAudioToBase64(blob) {
+  return new Promise((resolve) => {
+    const reader = new FileReader()
+    reader.onload = (e) => resolve(e.target.result)
+    reader.readAsDataURL(blob)
+  })
+}
+
 async function sendMessage() {
   const text = inputText.value.trim()
   const hasImages = selectedImages.value.length > 0
-  if ((!text && !hasImages) || chatStore.isLoading) return
+  const hasAudios = selectedAudios.value.length > 0
+  if ((!text && !hasImages && !hasAudios) || chatStore.isLoading) return
 
   // Compress images to base64
   let imageBase64List = null
@@ -399,18 +554,30 @@ async function sendMessage() {
     )
   }
 
+  // Encode audios to base64
+  let audioBase64List = null
+  if (hasAudios) {
+    audioBase64List = await Promise.all(
+      selectedAudios.value.map(f => encodeAudioToBase64(f))
+    )
+  }
+
   abortController.value = new AbortController()
   const requestId = `req_${Date.now()}_${Math.random().toString(36).substr(2, 8)}`
   currentRequestId.value = requestId
   currentSteps.value = []
   todoList.value = []
 
-  chatStore.addMessage({ role: 'user', content: text || '(图片)', images: imageBase64List })
+  chatStore.addMessage({ role: 'user', content: text || '(音频)', images: imageBase64List, audios: audioBase64List })
   inputText.value = ''
   // Cleanup image previews
   previewUrls.value.forEach(url => URL.revokeObjectURL(url))
   selectedImages.value = []
   previewUrls.value = []
+  // Cleanup audio previews
+  audioPreviewUrls.value.forEach(url => URL.revokeObjectURL(url))
+  selectedAudios.value = []
+  audioPreviewUrls.value = []
   if (inputRef.value) {
     inputRef.value.style.height = 'auto'
   }
@@ -423,7 +590,7 @@ async function sendMessage() {
 
   try {
     const body = {
-      messages: [{ role: 'user', content: text || '请描述这张图片' }],
+      messages: [{ role: 'user', content: text || '请转写这段音频' }],
       request_id: requestId,
       use_rag: true,
       stream: true,
@@ -441,6 +608,9 @@ async function sendMessage() {
     }
     if (imageBase64List) {
       body.images = imageBase64List
+    }
+    if (audioBase64List) {
+      body.audios = audioBase64List
     }
     const response = await fetch('/api/chat/stream', {
       method: 'POST',
@@ -1101,5 +1271,90 @@ onMounted(() => {
 
 .lightbox-close:hover {
   background: rgba(255, 255, 255, 0.3);
+}
+
+/* --- Audio Preview Row --- */
+.audio-preview-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 0 4px 0;
+  flex-shrink: 0;
+}
+
+.preview-audio-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.audio-preview-player {
+  flex: 1;
+  height: 32px;
+  border-radius: 6px;
+}
+
+/* --- Audio Recording --- */
+.recording-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 0 6px 0;
+  flex-shrink: 0;
+}
+
+.recording-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ef4444;
+  animation: pulse-recording 1s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse-recording {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.5; }
+}
+
+.recording-timer {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ef4444;
+  font-variant-numeric: tabular-nums;
+}
+
+.recording-hint {
+  font-size: 12px;
+  color: #999;
+  margin-left: 4px;
+}
+
+/* Mic button states */
+.mic-btn.is-recording {
+  background: #fee2e2;
+  color: #ef4444;
+  border-color: #fca5a5;
+  animation: mic-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes mic-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3); }
+  50% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+}
+
+/* --- Audio in Messages --- */
+.msg-audios {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.msg-audio {
+  max-width: 280px;
+  height: 32px;
+  border-radius: 8px;
 }
 </style>

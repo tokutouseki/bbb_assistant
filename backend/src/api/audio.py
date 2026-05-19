@@ -1,4 +1,4 @@
-from fastapi import APIRouter, UploadFile, File, HTTPException, Query
+from fastapi import APIRouter, UploadFile, File, HTTPException, Query, Form
 from pydantic import BaseModel, Field
 from typing import Optional
 import base64
@@ -34,7 +34,7 @@ if settings.enable_audio:
             from ..modules.audio.asr_processor import ASRProcessor, ASRResult
             logger.info("正在初始化 ASR 处理器...")
             asr_processor = ASRProcessor(
-                model_path=os.path.join(project_root, "SenseVoiceSmall"), 
+                model_path=settings.asr_model_path,
                 device="cuda:0",
                 output_dir=os.path.join(project_root, "outputs", "asr_transcriptions")
             )
@@ -110,7 +110,9 @@ class VoiceCloneRequest(BaseModel):
 @router.post("/asr", response_model=ASRResponse)
 async def speech_recognition(
     audio: UploadFile = File(...),
-    request: Optional[ASRRequest] = None
+    language: str = Form("zh"),
+    audio_format: str = Form("wav"),
+    sample_rate: int = Form(16000)
 ):
     """
     语音识别（ASR）使用SenseVoiceSmall模型
@@ -118,23 +120,22 @@ async def speech_recognition(
     # 检查 ASR 是否启用
     if not settings.enable_audio or not settings.enable_asr or asr_processor is None:
         raise HTTPException(status_code=503, detail="ASR 功能已禁用")
-    
+
     start_time = time.time()
-    
+
     try:
         # 读取上传的音频文件内容
         audio_content = await audio.read()
-        
+
         # 保存到临时文件
         with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp_file:
             tmp_file.write(audio_content)
             tmp_path = tmp_file.name
-        
+
         try:
             # 使用ASR处理器进行识别
-            language = request.language if request else "zh"
             result = asr_processor.transcribe_file(tmp_path, language=language)
-            
+
             return ASRResponse(
                 text=result.text,
                 confidence=result.confidence,
@@ -145,7 +146,7 @@ async def speech_recognition(
             import os
             if os.path.exists(tmp_path):
                 os.unlink(tmp_path)
-                
+
     except Exception as e:
         # 如果出错，返回模拟结果
         processing_time = time.time() - start_time
