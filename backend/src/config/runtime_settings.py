@@ -23,6 +23,14 @@ DEFAULT_SETTINGS = {
     "llm_max_tokens": 4096,
     "image_describer_backend": "bailian",
     "bailian_api_key": "",
+    "live2d_enabled": True,
+    "live2d_model_name": "",
+    "live2d_auto_emotion": True,
+    "live2d_window_alpha": 1.0,
+    "live2d_window_width": 400,
+    "live2d_window_height": 500,
+    "live2d_window_x": 100,
+    "live2d_window_y": 100,
 }
 
 _lock = Lock()

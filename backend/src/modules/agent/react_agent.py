@@ -1,5 +1,80 @@
 import logging
 import os
+import sys
+import re as _re
+
+# DeepSeek 模型经常在 ReAct 格式前插入对话文本，清理之
+_REACT_LINE = _re.compile(
+    r'^(Thought|Action|Action\s*Input|Final\s*Answer)\s*\d*\s*:',
+    _re.IGNORECASE | _re.MULTILINE,
+)
+_ACTION_RE = _re.compile(r'^Action\s*\d*\s*:', _re.IGNORECASE | _re.MULTILINE)
+_FINAL_RE = _re.compile(r'^Final\s+Answer\s*\d*\s*:', _re.IGNORECASE | _re.MULTILINE)
+
+def _clean_llm_output(text: str) -> str:
+    """清洗 LLM 输出，只保留第一个有效的 ReAct 意图。
+
+    DeepSeek 经常在一次输出中虚构完整的 ReAct 循环（Action + 虚构的 Observation
+    + 下一个 Action + ...），导致框架只执行第一个 Action，其余都是幻觉文本。
+    此函数截断多步骤输出，确保解析器只看到一个明确的意图。
+    """
+    if not text or not text.strip():
+        return text
+    stripped = text.strip()
+
+    # 找到第一个 ReAct 标记，截掉前面的对话文本
+    match = _REACT_LINE.search(stripped)
+    if not match:
+        return f"Thought: 我已经得到最终答案\nFinal Answer: {stripped}"
+    stripped = stripped[match.start():]
+
+    action_matches = list(_ACTION_RE.finditer(stripped))
+    final_matches = list(_FINAL_RE.finditer(stripped))
+
+    if action_matches:
+        first_action = action_matches[0]
+        # 找到这个 Action 对应的 Action Input 行
+        # Action Input 必须紧跟在 Action 之后（中间可以有 Thought/Observation 行）
+        action_input_match = _re.compile(
+            r'^Action\s+Input\s*\d*\s*:',
+            _re.IGNORECASE | _re.MULTILINE,
+        )
+        ai_match = action_input_match.search(stripped, first_action.end())
+
+        if ai_match:
+            # 截断点：Action Input 所在行的行尾
+            ai_line_end = stripped.find('\n', ai_match.end())
+            if ai_line_end == -1:
+                ai_line_end = len(stripped)
+            cut_pos = ai_line_end
+
+            # 如果后面还有第二个 Action，在它之前截断（更激进）
+            if len(action_matches) > 1:
+                second_action_pos = action_matches[1].start()
+                cut_pos = min(cut_pos, second_action_pos)
+
+            # 如果后面有 Final Answer，在它之前截断
+            if final_matches:
+                cut_pos = min(cut_pos, final_matches[0].start())
+
+            stripped = stripped[:cut_pos].rstrip()
+        else:
+            # Action 后面没有 Action Input，只保留 Action 行
+            if len(action_matches) > 1:
+                stripped = stripped[:action_matches[1].start()].rstrip()
+            elif final_matches:
+                stripped = stripped[:final_matches[0].start()].rstrip()
+    elif final_matches:
+        # 只有 Final Answer
+        stripped = stripped[final_matches[0].start():]
+    else:
+        # 只有 Thought
+        pass
+
+    if not stripped or not _REACT_LINE.match(stripped):
+        return f"Thought: 我已经得到最终答案\nFinal Answer: {text.strip()}"
+
+    return stripped
 import queue
 from threading import Lock
 from typing import Any, Dict, List, Optional
@@ -83,11 +158,11 @@ class RouterLLM(LLM):
         )
         if isinstance(result, dict):
             if "content" in result:
-                return result["content"]
+                return _clean_llm_output(result["content"])
             if "error" in result:
                 # 返回 Final Answer 格式避免 Agent 无限重试
                 return f"Thought: 模型调用遇到问题\nFinal Answer: {result['error']}"
-        return str(result)
+        return _clean_llm_output(str(result))
 
 
 class QueueStreamingHandler(BaseCallbackHandler):
@@ -1015,13 +1090,13 @@ status 可选: pending, in_progress, completed
 
         @tool
         def run_hongkai_task(task: str = "") -> str:
-            """调用 hongkai_done 项目执行崩坏3自动化任务。参数: task - 任务名称。
+            """执行崩坏3游戏自动化任务。参数: task - 任务名称。
 
 可用的任务:
 - everyday / daily: 每日任务（登录领取、出击减负、家园委托、舰团、任务奖励）
 - letu / elysian: 往世乐土周常
 - full / full_operation: 按星期执行当日全部任务
-- renwu_jianfu / mission_reduce: 任务减负
+- meizhou_jianfu / renwu_jianfu / mission_reduce: 每周减负
 - everyweek_gift / weekly_gift: 每周礼包领取
 - zhanchang / memorial_arena: 记忆战场减负
 - simulation_combat_room / simulation: 模拟作战室减负
@@ -1035,47 +1110,46 @@ status 可选: pending, in_progress, completed
             import subprocess
 
             if not task or task.strip() == "":
-                return "❌ 请指定任务名称。可用: everyday, letu, full, renwu_jianfu, everyweek_gift, zhanchang, simulation_combat_room, jiantuangongxian, maoxian_weituo, chaoxiankongjian, shenzhijian, zhuzhanrenwu_set"
+                return "❌ 请指定任务名称。可用: everyday, letu, full, meizhou_jianfu, renwu_jianfu, everyweek_gift, zhanchang, simulation_combat_room, jiantuangongxian, maoxian_weituo, chaoxiankongjian, shenzhijian, zhuzhanrenwu_set"
 
             task_lower = task.strip().lower()
-            task_map = {
-                "everyday": "process/everyday.py",
-                "daily": "process/everyday.py",
-                "letu": "process/letu.py",
-                "elysian": "process/letu.py",
-                "elysian_realm": "process/letu.py",
-                "full": "process/full_operation.py",
-                "full_operation": "process/full_operation.py",
-                "renwu_jianfu": "process/renwu_jianfu.py",
-                "mission_reduce": "process/renwu_jianfu.py",
-                "everyweek_gift": "process/everyweek_gift.py",
-                "weekly_gift": "process/everyweek_gift.py",
-                "zhanchang": "process/zhanchang.py",
-                "memorial_arena": "process/zhanchang.py",
-                "simulation": "process/simulation_combat_room.py",
-                "simulation_combat_room": "process/simulation_combat_room.py",
-                "jiantuangongxian": "process/jiantuangongxian.py",
-                "armada_contribution": "process/jiantuangongxian.py",
-                "maoxian_weituo": "process/maoxian_weituo.py",
-                "adventure_commission": "process/maoxian_weituo.py",
-                "chaoxiankongjian": "process/chaoxiankongjian.py",
-                "superstring": "process/chaoxiankongjian.py",
-                "shenzhijian": "process/shenzhijian.py",
-                "divine_key": "process/shenzhijian.py",
-                "zhuzhanrenwu_set": "process/zhuzhanrenwu_set.py",
-                "garrison_setup": "process/zhuzhanrenwu_set.py",
+            script_map = {
+                "everyday": "everyday.py",
+                "daily": "everyday.py",
+                "letu": "letu.py",
+                "elysian": "letu.py",
+                "elysian_realm": "letu.py",
+                "full": "full_operation.py",
+                "full_operation": "full_operation.py",
+                "meizhou_jianfu": "meizhou_jianfu.py",
+                "renwu_jianfu": "meizhou_jianfu.py",
+                "mission_reduce": "meizhou_jianfu.py",
+                "everyweek_gift": "everyweek_gift.py",
+                "weekly_gift": "everyweek_gift.py",
+                "zhanchang": "zhanchang.py",
+                "memorial_arena": "zhanchang.py",
+                "simulation": "simulation_combat_room.py",
+                "simulation_combat_room": "simulation_combat_room.py",
+                "jiantuangongxian": "jiantuangongxian.py",
+                "armada_contribution": "jiantuangongxian.py",
+                "maoxian_weituo": "maoxian_weituo.py",
+                "adventure_commission": "maoxian_weituo.py",
+                "chaoxiankongjian": "chaoxiankongjian.py",
+                "superstring": "chaoxiankongjian.py",
+                "shenzhijian": "shenzhijian.py",
+                "divine_key": "shenzhijian.py",
+                "zhuzhanrenwu_set": "zhuzhanrenwu_set.py",
+                "garrison_setup": "zhuzhanrenwu_set.py",
             }
 
-            script = task_map.get(task_lower)
-            if not script:
-                return f"❌ 未知任务 '{task.strip()}'。可用: everyday, letu, full, renwu_jianfu, everyweek_gift, zhanchang, simulation_combat_room, jiantuangongxian, maoxian_weituo, chaoxiankongjian, shenzhijian, zhuzhanrenwu_set"
+            script_name = script_map.get(task_lower)
+            if not script_name:
+                return f"❌ 未知任务 '{task.strip()}'。可用: everyday, letu, full, meizhou_jianfu, renwu_jianfu, everyweek_gift, zhanchang, simulation_combat_room, jiantuangongxian, maoxian_weituo, chaoxiankongjian, shenzhijian, zhuzhanrenwu_set"
 
-            hongkai_root = r"D:\hongkai_done"
-            python_exe = rf"{hongkai_root}\Python3.11\python.exe"
-            if not os.path.exists(python_exe):
-                return f"❌ 找不到 hongkai_done 的 Python 解释器: {python_exe}"
+            hongkai_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "modules", "hongkai")
+            scripts_dir = os.path.join(hongkai_dir, "scripts")
+            script_path = os.path.join(scripts_dir, script_name)
 
-            script_path = os.path.join(hongkai_root, script)
             if not os.path.exists(script_path):
                 return f"❌ 找不到脚本: {script_path}"
 
@@ -1084,16 +1158,16 @@ status 可选: pending, in_progress, completed
                 import platform
                 creationflags = subprocess.CREATE_NEW_CONSOLE if platform.system() == "Windows" else 0
                 proc = subprocess.Popen(
-                    [python_exe, script_path],
-                    cwd=hongkai_root,
+                    [sys.executable, script_path],
+                    cwd=hongkai_dir,
                     creationflags=creationflags,
                 )
                 proc.wait(timeout=600)
 
                 # 读取最新日志文件
                 import glob as _glob
-                log_dir = os.path.join(hongkai_root, "all_log")
-                log_pattern = os.path.join(log_dir, f"{os.path.splitext(os.path.basename(script))[0]}_*.log")
+                log_dir = os.path.join(hongkai_dir, "all_log")
+                log_pattern = os.path.join(log_dir, f"{os.path.splitext(script_name)[0]}_*.log")
                 log_files = sorted(_glob.glob(log_pattern), key=os.path.getmtime, reverse=True)
 
                 log_content = ""
@@ -1106,11 +1180,112 @@ status 可选: pending, in_progress, completed
                         pass
 
                 status = "✅ 完成" if proc.returncode == 0 else f"⚠️ 退出码: {proc.returncode}"
-                return f"{status}\n任务: {task.strip()}\n脚本: {script}{log_content}"
+                return f"{status}\n任务: {task.strip()}\n脚本: scripts/{script_name}{log_content}"
             except subprocess.TimeoutExpired:
                 return f"⏱️ 任务超时 (600s): {task.strip()}\n脚本可能需要检查游戏状态或手动干预。"
             except Exception as e:
                 return f"❌ 执行失败: {str(e)}"
+
+        @tool
+        def find_direction(_: str = "") -> str:
+            """游戏场景自救定位工具。当Agent无法识别当前界面、场景分类置信度低、或在界面中迷路时调用。自动尝试：1）在任意界面寻找舰桥按钮一键返回；2）按ESC逐级返回上级界面并结合场景分类确认位置。一次调用完成全部定位流程，无需分步操作。返回定位结果（成功/失败 + 当前场景名）。"""
+            try:
+                from src.modules.hongkai.scripts.find_direction import find_direction as _find_dir
+                result = _find_dir()
+                if result.get("success"):
+                    return f"✅ {result['message']}\n当前场景: {result.get('scene', '未知')}"
+                else:
+                    return f"❌ {result['message']}\n最后识别场景: {result.get('scene', '未知')}"
+            except Exception as e:
+                logger.error(f"find_direction 失败: {e}")
+                return f"❌ 定位失败: {str(e)}"
+
+        @tool
+        def navigate_to(target: str = "") -> str:
+            """导航到指定的游戏场景。参数: target - 目标场景英文名（attack/club/bridge/mission/home）。所有导航经过舰桥（bridge）中转，自动识别当前位置→返回舰桥→点击目标按钮→验证到达。包含最多3次自动重试。找不到路时自动调用find_direction自救。一次调用完成全部导航流程。"""
+            if not target or target.strip() == "":
+                return "❌ 请指定目标场景。可选: attack, club, bridge, mission, home"
+            try:
+                from src.modules.hongkai.scripts.navigate_to import navigate_to as _nav_to
+                result = _nav_to(target.strip())
+                if result.get("success"):
+                    return f"✅ {result['message']}\n当前场景: {result.get('scene', '未知')}"
+                else:
+                    return f"❌ {result['message']}\n当前场景: {result.get('scene', '未知')}\n重试次数: {result.get('retries', 0)}"
+            except Exception as e:
+                logger.error(f"navigate_to 失败: {e}")
+                return f"❌ 导航失败: {str(e)}"
+
+        @tool
+        def live2d_control(params: str = "") -> str:
+            """控制Live2D看板娘模型的表情、动作、口型和窗口。参数: params - JSON字符串，包含action和对应参数。
+
+首次使用流程: 先调用 list_models 查看可用模型 → 再用 load_model 指定模型名加载。
+模型加载后才能使用 set_emotion, play_motion, set_lipsync 等动作。
+
+支持的动作 (action):
+- list_models: 列出所有可用的Live2D模型
+- get_status: 获取Live2D当前状态（模型是否加载、当前情绪、窗口位置等）
+- load_model: 加载模型 (需提供 model_name，例如: {"action": "load_model", "model_name": "小米塔"})
+- unload_model: 卸载当前模型
+- set_emotion: 设置情绪 (需提供 emotion: neutral/happy/sad/angry/surprised/love/sleepy, 可选 intensity: 0.0-1.0)
+- play_motion: 播放动作 (可选 group/motion, index, priority)
+- set_lipsync: 驱动口型 (需提供 rms_volume: 0.0-1.0)
+- show_window / hide_window: 显示/隐藏窗口
+- set_window_position: 设置窗口位置 (需提供 x, y)
+- set_window_alpha: 设置窗口透明度 (需提供 alpha: 0.0-1.0)
+- set_window_size: 设置窗口大小 (需提供 width, height)
+- shutdown: 关闭Live2D服务
+
+示例: {"action": "set_emotion", "emotion": "happy", "intensity": 0.8}
+示例: {"action": "load_model", "model_name": "小米塔"}"""
+            import json as _json
+            try:
+                if not params or params.strip() == "":
+                    return "❌ 请提供参数。用法: live2d_control(params='{\"action\": \"get_status\"}')。支持的动作: list_models, get_status, load_model, unload_model, set_emotion, play_motion, set_lipsync, show_window, hide_window, set_window_position, set_window_alpha, shutdown"
+
+                try:
+                    req = _json.loads(params) if isinstance(params, str) else params
+                except _json.JSONDecodeError:
+                    return f"❌ 参数JSON解析失败: {params}"
+
+                action = req.get("action", "")
+                if not action:
+                    return "❌ 请指定 action。支持: list_models, get_status, load_model, unload_model, set_emotion, play_motion, set_lipsync, show_window, hide_window, set_window_position, set_window_alpha, shutdown"
+
+                from src.modules.live2d_control import call_live2d
+                result = call_live2d(action=action, **{k: v for k, v in req.items() if k != "action"})
+
+                if result.get("success"):
+                    # list_models returns a models list
+                    models = result.get("models")
+                    if models is not None:
+                        if not models:
+                            return "✅ 暂无可用模型。请通过前端设置页导入模型。"
+                        lines = [f"✅ 可用模型 ({len(models)}个):"]
+                        for m in models:
+                            name = m.get("name", "?")
+                            path = m.get("path", "")
+                            lines.append(f"  - {name}")
+                        return "\n".join(lines)
+
+                    status = result.get("status", {})
+                    if status:
+                        lines = [f"✅ {result.get('message', 'OK')}"]
+                        lines.append(f"模型已加载: {status.get('model_loaded', False)}")
+                        if status.get('model_loaded'):
+                            lines.append(f"模型路径: {status.get('model_path', '')}")
+                            lines.append(f"当前情绪: {status.get('emotion', 'neutral')}")
+                        lines.append(f"窗口可见: {status.get('window_visible', True)}")
+                        return "\n".join(lines)
+                    return f"✅ {result.get('message', 'OK')}"
+                else:
+                    return f"❌ {result.get('message', 'Unknown error')}"
+
+            except ImportError:
+                return "❌ Live2D模块未安装。需要安装依赖: pip install live2d-py PySide6"
+            except Exception as e:
+                return f"❌ Live2D控制失败: {str(e)}"
 
         @tool
         def describe_image(_: str = "") -> str:
@@ -1125,7 +1300,7 @@ status 可选: pending, in_progress, completed
             except Exception as e:
                 return f"❌ 图片描述失败: {str(e)}"
 
-        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search, fetch_page, run_hongkai_task, describe_image]
+        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, find_direction, navigate_to, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search, fetch_page, run_hongkai_task, describe_image, live2d_control]
         llm = RouterLLM()
         self._llm = llm
 
@@ -1168,9 +1343,10 @@ status 可选: pending, in_progress, completed
 **规则1**: 输出只能是两种格式之一，绝对不能混合！
 **规则2**: 如果调用工具，就只输出 Thought + Action + Action Input，不要有 Final Answer
 **规则3**: 如果直接回答，就只输出 Thought + Final Answer，不要有 Action
-**规则4**: 每次只输出一个Thought + Action + Action Input，然后停止，等待系统返回Observation
+**规则4**: 每次只输出一个Thought + Action + Action Input，然后停止，等待系统返回Observation。完成所有工具调用后，再单独输出 Thought + Final Answer
 **规则5**: 绝对不要自己生成Observation或工具结果！工具结果由系统自动返回
 **规则6**: 绝对不要在Action Input后面输出日志、时间戳或任何额外内容
+**规则7**: 绝对不要在一次回复中同时输出 Action 和 Final Answer！两者必须分开：先完成所有 Action→Observation 循环，确认任务完成后才输出 Final Answer
 {prefs_section}
 
 【对话历史】
@@ -1233,13 +1409,30 @@ Question: {{input}}
         )
 
         agent = create_react_agent(llm=llm, tools=tools, prompt=prompt)
+
+        def _handle_parsing_error(error_msg: str) -> str:
+            error_str = str(error_msg)
+            if "both a final answer and a parse-able action" in error_str:
+                return (
+                    "你的操作已经全部执行完成。请现在只输出 Final Answer 总结执行结果，"
+                    "不要包含任何 Action / Action Input 相关内容。"
+                    "\n格式：\nThought: 我已经得到最终答案\nFinal Answer: [你的总结]"
+                )
+            return (
+                "输出格式不符合 ReAct 规范。请严格遵循：\n"
+                "调用工具：Thought + Action + Action Input（每次只输出一组，等待 Observation）\n"
+                "直接回答：Thought + Final Answer\n"
+                "绝对不要在一次输出中同时包含 Action 和 Final Answer。"
+            )
+
         return AgentExecutor(
             agent=agent,
             tools=tools,
             verbose=True,
-            handle_parsing_errors=True,
-            max_iterations=8,
+            handle_parsing_errors=_handle_parsing_error,
+            max_iterations=15,
             max_execution_time=5400,
+            early_stopping_method="generate",
             return_intermediate_steps=True,
             memory=self._memory,
         )

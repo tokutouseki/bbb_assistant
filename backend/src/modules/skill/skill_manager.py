@@ -56,7 +56,7 @@ class SkillManager:
                 "description": frontmatter.get("description", ""),
                 "content": body,
                 "phases": phases,
-                "trigger_words": self._extract_trigger_words(frontmatter.get("description", ""))
+                "trigger_words": self._extract_trigger_words(frontmatter.get("description", ""), body)
             }
             
             self.skills[skill_name] = skill
@@ -133,13 +133,15 @@ class SkillManager:
             return match.group(1).strip()
         return None
     
-    def _extract_trigger_words(self, description: str) -> List[str]:
-        """从描述中提取触发词"""
-        # 匹配中文引号内的内容
-        pattern = r'["“”]([^"“”]+)["“”]'
-        matches = re.findall(pattern, description)
-        return matches
-    
+    def _extract_trigger_words(self, description: str, body: str = "") -> List[str]:
+        """从描述和正文中提取触发词，兼容多种引号类型"""
+        # 支持: “...” "..."
+        pattern = r'[“”"]([^“”"]+)[“”"]'
+        words = []
+        for text in (description, body):
+            matches = re.findall(pattern, text)
+            words.extend(m.strip() for m in matches if m.strip())
+        return words
     def get_skill(self, skill_name: str) -> Optional[dict]:
         """获取指定技能"""
         return self.skills.get(skill_name)

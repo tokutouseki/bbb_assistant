@@ -1,29 +1,29 @@
 ---
-name: renwu_jianfu
-description: 任务减负 — 自动完成作战任务的一键减负，通过键盘宏回放快速完成任务领取。
+name: meizhou_jianfu
+description: 每周减负 — 自动完成作战任务的一键减负，通过键盘宏回放快速完成任务领取。
 ---
 
-# 任务减负技能
+# 每周减负技能
 
 ## When to Use
 
 当用户请求以下操作时使用此技能：
-- "任务减负"、"作战任务减负"
+- "每周减负"、"任务减负"、"作战任务减负"
 - "一键任务"、"mission reduce"
 - "帮我减负任务"
 
 ## 概述
 
-此技能调用 hongkai_done 的 `renwu_jianfu.py` 脚本，自动完成作战任务的一键减负流程：
-1. 点击"任务"按钮
-2. 点击"作战任务"
-3. 点击"任务减负"
+此技能调用 `meizhou_jianfu.py` 脚本，自动完成作战任务的一键减负流程：
+1. 点击任务按钮
+2. 点击作战任务
+3. 点击任务减负
 4. 回放键盘宏完成操作
 5. 按 ESC 返回主界面
 
 ## 技能流程
 
-**步骤 1** — 调用 `run_hongkai_task task="renwu_jianfu"`
+**步骤 1** — 调用 `run_hongkai_task task="meizhou_jianfu"`
 
 **步骤 2** — 报告结果
 
@@ -42,4 +42,4 @@ description: 任务减负 — 自动完成作战任务的一键减负，通过�
 
 | 工具名称 | 用途 |
 |----------|------|
-| `run_hongkai_task` | 执行任务减负 |
+| `run_hongkai_task` | 执行每周减负 |
