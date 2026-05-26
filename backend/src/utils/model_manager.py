@@ -200,14 +200,25 @@ class ModelManager:
             logger.warning(f"TTS模型预热失败: {e}")
     
     def _warmup_qwen3_tts_model(self, model, device: str):
-        """Qwen3-TTS模型预热"""
+        """Qwen3-TTS模型预热 (使用语音克隆)"""
         try:
             logger.info("开始Qwen3-TTS模型预热...")
-            warmup_text = "模型预热测试"
-            warmup_result = model.generate(
-                text=warmup_text,
-                voice_style="温柔女声",
-                language="Chinese"
+            import os as _os
+            import json as _json
+            index_path = _os.path.join(
+                _os.path.dirname(__file__), "..", "modules", "audio", "reference_audio", "index.json"
+            )
+            with open(index_path, "r", encoding="utf-8") as _f:
+                index = _json.load(_f)
+            first_entry = next(iter(index.values()))
+            ref_audio = first_entry["audio_path"]
+            ref_text = first_entry.get("ref_text", "")
+
+            warmup_result = model.generate_with_reference(
+                text="模型预热测试",
+                reference_audio=ref_audio,
+                language="Chinese",
+                ref_text=ref_text,
             )
             audio_length = len(warmup_result.audio_data) if hasattr(warmup_result, 'audio_data') else 0
             logger.info(f"Qwen3-TTS模型预热完成，生成音频长度: {audio_length}")

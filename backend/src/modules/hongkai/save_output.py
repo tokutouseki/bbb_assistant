@@ -42,8 +42,8 @@ def clean_old_logs():
     清理超过30天的日志文件
     """
     # 日志目录
-    log_dir = os.path.dirname(os.path.abspath(__file__))
-    
+    log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "all_log")
+
     # 当前时间
     current_time = time.time()
     
@@ -78,8 +78,8 @@ def save_log(message):
     """
     global _log_file_path
     
-    # 日志目录（固定为save_output.py所在的目录）
-    log_dir = os.path.dirname(os.path.abspath(__file__))
+    # 日志目录（固定为all_log目录）
+    log_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "all_log")
     
     # 清理过期日志
     if _log_file_path is None:

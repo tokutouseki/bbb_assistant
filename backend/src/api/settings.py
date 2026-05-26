@@ -33,6 +33,9 @@ class LLMSettings(BaseModel):
     live2d_window_height: Optional[int] = Field(None, ge=200, le=2000, description="窗口高度(像素)")
     live2d_window_x: Optional[int] = Field(None, ge=0, description="窗口X坐标")
     live2d_window_y: Optional[int] = Field(None, ge=0, description="窗口Y坐标")
+    companion_character: Optional[str] = Field(None, description="当前角色(中文名)")
+    companion_tts_voice: Optional[str] = Field(None, description="TTS音色")
+    companion_personality: Optional[str] = Field(None, description="性格微调描述")
 
 
 class SettingsResponse(BaseModel):
@@ -94,3 +97,17 @@ async def reset_settings():
         config_file=get_config_file_path(),
         message="已重置为默认设置"
     )
+
+
+@router.get("/characters")
+async def list_characters():
+    """列出所有可用的角色人格（来自 skills/characters/）。"""
+    from src.modules.character.character_manager import get_character_manager
+    cm = get_character_manager()
+    chars = cm.list_characters()
+    current = get_runtime_settings().get("companion_character", "爱莉希雅")
+    return {
+        "success": True,
+        "current": current,
+        "characters": chars,
+    }

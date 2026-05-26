@@ -154,16 +154,18 @@ class LLMToolIntegration:
         if self.enable_audio:
             self.tools["tts_qwen3"] = {
                 "name": "tts_qwen3",
-                "description": "使用Qwen3-TTS引擎生成语音。支持10种预设音色（温柔女声、活力女声、沉稳男声、可爱萝莉、专业客服、新闻播报、爱莉希雅、琪亚娜、雷电芽衣、布洛妮娅），通过自然语言描述即可切换声音风格，无需参考音频。",
+                "description": "使用Qwen3-TTS引擎将文本转为语音（默认使用爱莉希雅参考音频进行高精度ICL声音克隆）。支持39位崩坏3角色（爱莉希雅/琪亚娜/芽衣/布洛妮娅/符华等），通过ref_audio指定角色名即可切换克隆目标。",
                 "function": self.generate_tts_qwen3,
                 "parameters": {
                     "text": {"type": "string", "description": "要合成的文本"},
-                    "voice_style": {"type": "string", "description": "声音风格（预设或自然语言描述），可选: 温柔女声/活力女声/沉稳男声/可爱萝莉/专业客服/新闻播报/爱莉希雅/琪亚娜/雷电芽衣/布洛妮娅", "optional": True, "default": "温柔女声"},
+                    "ref_audio": {"type": "string", "description": "参考音频路径或崩坏3角色名（默认爱莉希雅）。可选: 爱莉希雅/琪亚娜/芽衣/布洛妮娅/符华/德丽莎/希儿/八重樱/卡莲/丽塔/姬子/渡鸦/阿波尼亚/梅比乌斯/维尔薇/帕朵菲莉丝/格蕾修/伊甸/苏莎娜/李素裳/时雨绮罗/幽兰黛尔/西琳/薇塔/花火/瑟莉姆/科拉莉/赫丽娅/灯/松雀/羽兔/普罗米修斯/爱衣/菲谢尔/刻晴/卡萝尔/明日香/希娜狄雅/伏特加女孩", "optional": True, "default": "爱莉希雅"},
+                    "ref_text": {"type": "string", "description": "可选，参考音频对应的文本内容。留空自动从索引读取。", "optional": True, "default": ""},
                     "language": {"type": "string", "description": "语言: Chinese/English/Japanese/Korean等", "optional": True, "default": "Chinese"}
                 },
                 "examples": [
                     "用爱莉希雅的声音说'大家好呀，我是爱莉希雅~'",
-                    "用可爱萝莉风格朗读'哥哥你回来啦'"
+                    "用琪亚娜的声音说'舰长，任务完成啦'",
+                    "用芽衣的声音朗读这段文本"
                 ]
             }
             self.tools["tts_voxcpm"] = {
@@ -477,32 +479,45 @@ class LLMToolIntegration:
             return {"success": False, "error": "YOLO工具未启用"}
         return self.yolo_manager.unload_model(model_name=model_name)
     
-    def generate_tts_qwen3(self, text: str, voice_style: str = "温柔女声", language: str = "Chinese") -> Dict[str, Any]:
+    def generate_tts_qwen3(self, text: str, ref_audio: str = "爱莉希雅", ref_text: str = "",
+                           language: str = "Chinese") -> Dict[str, Any]:
         """
-        使用Qwen3-TTS引擎生成语音（声音设计模式，无需参考音频）
-        
+        使用Qwen3-TTS引擎生成语音（默认ICL声音克隆模式，参考角色: 爱莉希雅）
+
         Args:
             text: 要合成的文本
-            voice_style: 声音风格（预设名或自然语言描述）
+            ref_audio: 参考音频路径或崩坏3角色名（默认爱莉希雅）
+            ref_text: 参考音频对应文本（可选，角色名模式自动读取）
             language: 语言
-            
+
         Returns:
             生成结果
         """
         try:
-            from src.modules.audio.qwen3_tts_generator import Qwen3TTSGenerator
-            tts = Qwen3TTSGenerator(device="cuda:0")
-            result = tts.generate(
-                text=text,
-                voice_style=voice_style,
-                language=language
+            from src.utils.model_manager import get_qwen3_tts_model
+            tts = get_qwen3_tts_model(device="cuda:0")
+
+            actual_path, actual_ref_text = self._resolve_ref_audio(
+                ref_audio.strip() if ref_audio.strip() else "爱莉希雅",
+                ref_text.strip() if ref_text else ""
             )
+            if not actual_path:
+                return {"success": False, "error": f"找不到角色 '{ref_audio}' 的参考音频"}
+
+            result = tts.generate_with_reference(
+                text=text,
+                reference_audio=actual_path,
+                language=language,
+                ref_text=actual_ref_text if actual_ref_text else None,
+            )
+
             filepath = tts.save_to_file(result)
             return {
                 "success": True,
                 "engine": "qwen3",
+                "mode": "clone",
                 "text": text,
-                "voice_style": voice_style,
+                "ref_audio": ref_audio,
                 "language": language,
                 "filepath": filepath,
                 "sample_rate": result.sample_rate,
@@ -513,6 +528,28 @@ class LLMToolIntegration:
                 "success": False,
                 "error": str(e)
             }
+
+    def _resolve_ref_audio(self, ref_audio: str, ref_text: str) -> tuple:
+        """将角色名或文件路径解析为 (audio_path, ref_text)."""
+        import os as _os
+        if _os.path.isfile(ref_audio):
+            return (ref_audio, ref_text)
+        try:
+            import json as _json
+            index_path = _os.path.join(
+                _os.path.dirname(__file__), "audio", "reference_audio", "index.json"
+            )
+            with open(index_path, "r", encoding="utf-8") as _f:
+                index = _json.load(_f)
+            if ref_audio in index:
+                entry = index[ref_audio]
+                return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
+            for name, entry in index.items():
+                if ref_audio in name or name in ref_audio:
+                    return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
+        except Exception:
+            pass
+        return ("", "")
 
     def generate_tts_voxcpm(self, text: str, voice_id: str = "elysia", emotion: str = "neutral") -> Dict[str, Any]:
         """

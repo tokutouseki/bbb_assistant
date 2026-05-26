@@ -14,6 +14,7 @@ import simulation_combat_room
 import save_output
 from on_window import focus_bh3_window, run_as_admin, is_admin
 from custom_datetime import save_datetime_data, get_datetime
+from main_screen import make_on_main
 
 if __name__ == "__main__":
     # 检查是否以管理员身份运行
@@ -102,4 +103,5 @@ if __name__ == "__main__":
             # 继续执行下一个任务
             continue
 
+    # 所有任务执行完毕后，返回主界面并清理消息
     make_on_main()

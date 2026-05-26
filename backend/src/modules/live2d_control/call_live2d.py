@@ -237,6 +237,12 @@ def call_live2d(action: str, **kwargs) -> dict:
     client = _get_client()
 
     # Map action to client method
+    current_status = None
+    try:
+        current_status = client.get_status()
+    except Exception:
+        pass
+
     method_map = {
         "health_check": lambda: client.health_check(),
         "load_model": lambda: client.load_model(
@@ -284,9 +290,47 @@ def call_live2d(action: str, **kwargs) -> dict:
         return {"success": False, "message": f"Unknown action: {action}"}
 
     try:
-        return handler()
+        result = handler()
+        return _simplify_response(result, action, current_status)
     except Exception as e:
         return {"success": False, "message": str(e)}
+
+
+def _simplify_response(result: dict, action: str, current_status: dict | None) -> dict:
+    """Simplify LLM-facing responses to reduce noise and prevent verification loops."""
+    if not result.get("success"):
+        return result
+
+    if action == "list_models":
+        models = result.get("models", [])
+        current = "无"
+        if current_status and current_status.get("success"):
+            st = current_status.get("status", {})
+            if st.get("model_loaded") and st.get("model_path"):
+                import os as _os
+                current = _os.path.basename(_os.path.dirname(st["model_path"]))
+        return {
+            "success": True,
+            "current_model": current,
+            "available_models": [m.get("name", "?") for m in models],
+        }
+
+    if action == "load_model":
+        return {"success": True, "message": "模型已加载并活跃显示"}
+
+    if action == "get_status":
+        st = result.get("status", {})
+        return {
+            "success": True,
+            "model_loaded": st.get("model_loaded", False),
+            "emotion": st.get("emotion", "neutral"),
+            "window_visible": st.get("window_visible", False),
+        }
+
+    if action == "set_emotion":
+        return {"success": True, "message": f"表情已切换"}
+
+    return result
 
 
 def call_live2d_cli():

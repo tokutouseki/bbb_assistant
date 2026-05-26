@@ -302,6 +302,42 @@
         </template>
       </div>
 
+      <!-- ================================================================ -->
+      <!-- Tab 4: 角色选择 -->
+      <!-- ================================================================ -->
+      <div v-show="activeTab === 'character'">
+        <section class="setting-section">
+          <h3 class="section-title">选择角色</h3>
+          <p class="form-hint" style="margin: 4px 0 12px;">
+            切换后下一轮对话自动生效，AI 将以所选角色身份回复。
+          </p>
+
+          <div v-if="settingsStore.characterListLoading" class="loading-row">加载中...</div>
+
+          <div v-else-if="settingsStore.characterList.length === 0" class="loading-row">
+            暂无角色，请检查 skills/characters/ 目录
+          </div>
+
+          <div v-else class="character-scroll">
+            <div
+              v-for="ch in settingsStore.characterList"
+              :key="ch.name"
+              class="model-card"
+              :class="{ selected: settingsStore.companionCharacter === ch.name }"
+              @click="settingsStore.selectCharacter(ch.name)"
+            >
+              <span class="model-radio">
+                <span v-if="settingsStore.companionCharacter === ch.name" class="radio-dot"></span>
+              </span>
+              <div class="model-info">
+                <span class="model-name">{{ ch.name }}</span>
+                <span class="model-meta">{{ ch.description }}</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
       <!-- Save button -->
       <div class="settings-actions">
         <button class="save-btn" @click="handleSave">保存设置</button>
@@ -392,6 +428,7 @@ const tabs = [
   { id: 'llm', label: 'LLM 设置' },
   { id: 'image', label: '图片描述' },
   { id: 'live2d', label: 'Live2D 看板娘' },
+  { id: 'character', label: '角色' },
 ]
 
 const providers = [
@@ -424,6 +461,7 @@ const imageDescriberOptions = [
 
 onMounted(async () => {
   settingsStore.fetchLive2dModels()
+  settingsStore.fetchCharacters()
   screenW.value = window.screen.width || 1920
   screenH.value = window.screen.height || 1080
   windowSizeMax.value = Math.max(screenW.value, screenH.value)
@@ -487,7 +525,8 @@ async function handleSave() {
         live2d_window_width: settingsStore.live2dWindowWidth,
         live2d_window_height: settingsStore.live2dWindowHeight,
         live2d_window_x: settingsStore.live2dWindowX,
-        live2d_window_y: settingsStore.live2dWindowY
+        live2d_window_y: settingsStore.live2dWindowY,
+        companion_character: settingsStore.companionCharacter || null
       })
     })
   } catch (e) {
@@ -994,6 +1033,31 @@ async function handleSave() {
 
 .size-control {
   margin-top: 12px;
+}
+
+.character-scroll {
+  max-height: 360px;
+  overflow-y: auto;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.character-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.character-scroll::-webkit-scrollbar-thumb {
+  background: #d0d0d0;
+  border-radius: 3px;
+}
+
+.character-scroll .model-card {
+  margin-bottom: 2px;
+}
+
+.character-scroll .model-card:last-child {
+  margin-bottom: 0;
 }
 
 .size-field label {

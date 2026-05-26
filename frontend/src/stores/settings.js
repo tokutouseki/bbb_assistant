@@ -22,6 +22,9 @@ export const useSettingsStore = defineStore('settings', () => {
   const live2dWindowHeight = ref(500)
   const live2dWindowX = ref(100)
   const live2dWindowY = ref(100)
+  const companionCharacter = ref('爱莉希雅')
+  const characterList = ref([])
+  const characterListLoading = ref(false)
 
   // Live2D model management
   const live2dModels = ref([])
@@ -106,6 +109,37 @@ export const useSettingsStore = defineStore('settings', () => {
     }
   }
 
+  async function fetchCharacters() {
+    characterListLoading.value = true
+    try {
+      const res = await fetch('/api/settings/characters')
+      const data = await res.json()
+      if (data.success) {
+        characterList.value = data.characters
+        if (data.current) companionCharacter.value = data.current
+      }
+    } catch (e) {
+      console.warn('获取角色列表失败:', e)
+    } finally {
+      characterListLoading.value = false
+    }
+  }
+
+  async function selectCharacter(name) {
+    companionCharacter.value = name
+    // Immediately persist via PUT /api/settings/
+    try {
+      await fetch('/api/settings/', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ companion_character: name })
+      })
+    } catch (e) {
+      console.warn('切换角色失败:', e)
+    }
+    saveSettings()
+  }
+
   let _applyTimer = null
   function applyWindowSettings() {
     if (_applyTimer) clearTimeout(_applyTimer)
@@ -153,6 +187,7 @@ export const useSettingsStore = defineStore('settings', () => {
         live2dWindowHeight.value = parsed.live2dWindowHeight ?? 500
         live2dWindowX.value = parsed.live2dWindowX ?? 100
         live2dWindowY.value = parsed.live2dWindowY ?? 100
+        companionCharacter.value = parsed.companionCharacter || '爱莉希雅'
       }
     } catch (e) {
       console.warn('加载设置失败:', e)
@@ -180,7 +215,8 @@ export const useSettingsStore = defineStore('settings', () => {
       live2dWindowWidth: live2dWindowWidth.value,
       live2dWindowHeight: live2dWindowHeight.value,
       live2dWindowX: live2dWindowX.value,
-      live2dWindowY: live2dWindowY.value
+      live2dWindowY: live2dWindowY.value,
+      companionCharacter: companionCharacter.value
     }
     localStorage.setItem('bbb-assistant-settings-llm', JSON.stringify(settings))
   }
@@ -213,6 +249,11 @@ export const useSettingsStore = defineStore('settings', () => {
     live2dDeleting,
     activeModel,
     activeApiUrl,
+    companionCharacter,
+    characterList,
+    characterListLoading,
+    fetchCharacters,
+    selectCharacter,
     setProvider,
     setApiKey,
     fetchLive2dModels,

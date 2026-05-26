@@ -178,7 +178,7 @@ def is_template(image_name, description=None, template_path=None, confidence=0.8
     
     if not os.path.exists(template_path):
         print(f"[{time.strftime('%H:%M:%S')}] 图片不存在: {template_path}")
-        return False, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None
+        return False, None, None, None
     
     try:
         template = cv2.imread(template_path, cv2.IMREAD_COLOR)

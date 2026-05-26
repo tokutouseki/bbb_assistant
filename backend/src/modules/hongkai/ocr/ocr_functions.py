@@ -12,7 +12,7 @@ import subprocess
 from rapidocr_onnxruntime import RapidOCR
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import all_log.save_output
+import save_output
 try:
     from ..on_window import focus_bh3_window, run_as_admin, is_admin
 except ImportError:
@@ -21,7 +21,7 @@ except ImportError:
 try:
     from ..templates.clicks_keyboard import click_at_position
 except ImportError:
-    from photos.clicks_keyboard import click_at_position
+    from templates.clicks_keyboard import click_at_position
 
 # 使用用户指定的模型目录
 current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

@@ -7,7 +7,6 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import save_output
 from on_window import focus_bh3_window, run_as_admin, is_admin
 import templates.clicks_keyboard as ck
-from custom_datetime import save_datetime_data
 from main_screen import make_on_main
 
 def simulation_combat_room():

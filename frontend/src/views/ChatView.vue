@@ -50,7 +50,39 @@
         <div v-if="msg.role === 'user'" class="message-bubble user-bubble">
           {{ msg.content }}
         </div>
-        <div v-else class="message-bubble assistant-bubble" v-html="renderMarkdown(msg.content)"></div>
+        <div v-else class="assistant-message-block">
+          <div class="message-bubble assistant-bubble" v-html="renderMarkdown(msg.content)"></div>
+          <div v-if="msg.steps && msg.steps.length > 0" class="steps-toggle" @click="toggleExpand(msg.id)">
+            <svg
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"
+              :class="{ rotated: expandedMessages.has(msg.id) }"
+            >
+              <polyline points="6 9 12 15 18 9"/>
+            </svg>
+            <span>{{ expandedMessages.has(msg.id) ? '收起思考过程' : '查看思考过程 (' + msg.steps.length + ' 步)' }}</span>
+          </div>
+          <div v-if="expandedMessages.has(msg.id) && msg.steps" class="steps-panel">
+            <div
+              v-for="(step, idx) in msg.steps"
+              :key="idx"
+              class="step-item"
+            >
+              <div class="step-thought" v-if="step.thought && step.action !== '_Exception'">
+                <span class="step-label">Thought</span>
+                <span class="step-text">{{ step.thought }}</span>
+              </div>
+              <div class="step-action" v-if="step.action && step.action !== '_Exception'">
+                <span class="step-label">Action</span>
+                <code class="step-code">{{ step.action }}</code>
+                <span v-if="step.action_input" class="step-input">{{ step.action_input }}</span>
+              </div>
+              <div class="step-observation" v-if="step.observation">
+                <span class="step-label">Observation</span>
+                <span class="step-text">{{ step.observation }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
         <div v-if="msg.images && msg.images.length" class="msg-images">
           <img
             v-for="(img, i) in msg.images"
@@ -302,6 +334,14 @@ const selectedAudios = ref([])      // File or Blob objects
 const audioPreviewUrls = ref([])    // blob URLs for playback
 
 const isClearingContext = ref(false)
+const expandedMessages = ref(new Set())
+
+function toggleExpand(msgId) {
+  const s = new Set(expandedMessages.value)
+  if (s.has(msgId)) s.delete(msgId)
+  else s.add(msgId)
+  expandedMessages.value = s
+}
 
 const canSend = computed(() => {
   return (inputText.value.trim().length > 0 || selectedImages.value.length > 0 || selectedAudios.value.length > 0) && !chatStore.isLoading
@@ -680,11 +720,12 @@ async function sendMessage() {
       }
     }
 
-    // 完成 — 仅保留最终答案
+    // 完成 — 保留最终答案 + 思考步骤（默认折叠）
+    const savedSteps = [...currentSteps.value]
     if (finalOutput) {
-      chatStore.addMessage({ role: 'assistant', content: finalOutput, images: imageBase64List })
-    } else if (currentSteps.value.length > 0) {
-      chatStore.addMessage({ role: 'assistant', content: '请求已完成', images: imageBase64List })
+      chatStore.addMessage({ role: 'assistant', content: finalOutput, images: imageBase64List, steps: savedSteps })
+    } else if (savedSteps.length > 0) {
+      chatStore.addMessage({ role: 'assistant', content: '请求已完成', images: imageBase64List, steps: savedSteps })
     }
   } catch (error) {
     chatStore.streamingContent = ''
@@ -1356,5 +1397,110 @@ onMounted(() => {
   max-width: 280px;
   height: 32px;
   border-radius: 8px;
+}
+
+/* ---- Steps toggle (collapsible ReAct chain) ---- */
+.assistant-message-block {
+  display: flex;
+  flex-direction: column;
+  max-width: 85%;
+}
+
+.steps-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  color: #a0a0a0;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  user-select: none;
+  width: fit-content;
+}
+
+.steps-toggle:hover {
+  color: #6d28d9;
+  background: #f5f3ff;
+}
+
+.steps-toggle svg {
+  transition: transform 0.2s;
+}
+
+.steps-toggle svg.rotated {
+  transform: rotate(180deg);
+}
+
+.steps-panel {
+  margin-top: 6px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #fafafa;
+  border: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.step-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #e5e5e5;
+}
+
+.step-item:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.step-label {
+  font-size: 9px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: #a78bfa;
+  margin-bottom: 1px;
+}
+
+.step-text {
+  font-size: 12px;
+  color: #555;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.step-code {
+  font-size: 11px;
+  background: #f3f4f6;
+  padding: 1px 6px;
+  border-radius: 4px;
+  color: #6d28d9;
+  font-family: 'SF Mono', 'Menlo', monospace;
+}
+
+.step-input {
+  font-size: 11px;
+  color: #888;
+  margin-left: 4px;
+}
+
+.step-action {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.step-observation {
+  margin-top: 2px;
+}
+
+.step-thought {
+  margin-bottom: 2px;
 }
 </style>

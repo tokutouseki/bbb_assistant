@@ -4,8 +4,11 @@
 model_cache:
   # VoxCPM主模型路径
   voxcpm_path: "D:/TokusCode/models/VoxCPM-0.5B"
-  
-  # SenseVoice ASR模型路径  
+
+  # Qwen3-TTS Base模型路径 (语音克隆)
+  qwen3_tts_path: "D:/TokusCode/models/Qwen3-TTS"
+
+  # SenseVoice ASR模型路径
   sensevoice_path: "D:/TokusCode/models/SenseVoiceSmall"
   
   # ZipEnhancer音频增强模型路径

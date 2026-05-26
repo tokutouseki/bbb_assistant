@@ -6,7 +6,7 @@ import sys
 
 # 将父目录添加到sys.path中，以便能够导入上层目录的模块
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-import all_log.save_output
+import save_output
 from on_window import focus_bh3_window, run_as_admin, is_admin
 
 def replay_keyboard_events(json_file_path, stop_event=None, debug=False):

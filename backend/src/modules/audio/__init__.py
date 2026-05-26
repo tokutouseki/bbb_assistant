@@ -24,9 +24,9 @@ TTS语音合成:
     tts = TTSGenerator(device="cuda:0")
     audio = tts.generate("你好", reference_audio="ref.wav")
     
-    # Qwen3-TTS语音合成
+    # Qwen3-TTS语音合成 (ICL语音克隆)
     tts = Qwen3TTSGenerator(device="cuda:0")
-    audio = tts.generate("你好", voice_style="温柔女声")
+    audio = tts.generate("你好", voice_style="爱莉希雅")
 """
 
 from .asr_processor import ASRProcessor

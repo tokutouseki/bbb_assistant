@@ -1,0 +1,237 @@
+{
+  "丽塔": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/丽塔/reference.wav",
+    "ref_text": "下午茶已经准备好了，请享用。",
+    "original_file": "丽塔-下午茶已经准备好了，请享用。.wav"
+  },
+  "伊甸": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/伊甸/reference.wav",
+    "ref_text": "一不小心就准备了太多礼物了...生日快乐爱莉。",
+    "original_file": "伊甸-一不小心就准备了太多礼物了...生日快乐爱莉。.wav"
+  },
+  "伏特加女孩": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/伏特加女孩/reference.wav",
+    "ref_text": "Captain Happy Birthday。Happy Birthday！",
+    "original_file": "伏特加女孩-Captain Happy Birthday。Happy Birthday！ .wav"
+  },
+  "八重樱": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/八重樱/reference.wav",
+    "ref_text": "为什么这副身体，就连寒冷都感受不到呢？",
+    "original_file": "八重樱-为什么这副身体，就连寒冷都感受不到呢？.wav"
+  },
+  "刻晴": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/刻晴/reference.wav",
+    "ref_text": "一起上吧！",
+    "original_file": "刻晴-一起上吧！.wav"
+  },
+  "卡萝尔": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/卡萝尔/reference.wav",
+    "ref_text": "今天是儿童节诶，给我放一天假去逛街，也无可厚非吧？",
+    "original_file": "卡萝尔-今天是儿童节诶，给我放一天假去逛街，也无可厚非吧？.wav"
+  },
+  "姬子": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/姬子/reference.wav",
+    "ref_text": "NONONO，我们都还没有正式约会过呢~",
+    "original_file": "姬子-NONONO，我们都还没有正式约会过呢~.wav"
+  },
+  "布洛妮娅": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/布洛妮娅/reference.wav",
+    "ref_text": "HB3074档案显示，摸头是表示安慰，鼓励，或疼爱的含蓄表达，那么舰长想表达的是什么呢？",
+    "original_file": "布洛妮娅-HB3074档案显示，摸头是表示安慰，鼓励，或疼爱的含蓄表达，那么舰长想表达的是什么呢？.wav"
+  },
+  "希娜狄雅": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/希娜狄雅/reference.wav",
+    "ref_text": "上次那个空中跑酷的视频？嘻嘻，还是多亏了你的那台无人机，不然我肯定拍不好。",
+    "original_file": "希娜狄雅-上次那个空中跑酷的视频？嘻嘻，还是多亏了你的那台无人机，不然我肯定拍不好。.wav"
+  },
+  "帕朵菲莉丝": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/帕朵菲莉丝/reference.wav",
+    "ref_text": "一起吃午饭？好呀，你想吃什么？小鱼干还是金枪鱼罐头？",
+    "original_file": "帕朵菲莉丝-一起吃午饭？好呀，你想吃什么？小鱼干还是金枪鱼罐头？.wav"
+  },
+  "幽兰黛尔": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/幽兰黛尔/reference.wav",
+    "ref_text": "我喜欢那个世界里的很多人，珍惜和他们的每一份回忆，有机会真想再去看看。",
+    "original_file": "不灭星锚-我喜欢那个世界里的很多人，珍惜和他们的每一份回忆，有机会真想再去看看。.wav"
+  },
+  "德丽莎": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/德丽莎/reference.wav",
+    "ref_text": "下班不积极，思想有问题...啊，难道你...是在等我？",
+    "original_file": "天命难逃-下班不积极，思想有问题...啊，难道你...是在等我？.wav"
+  },
+  "时雨绮罗": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/时雨绮罗/reference.wav",
+    "ref_text": "你这个人吸引其他人注意力的手段...呵，还挺有年代感的嘛。",
+    "original_file": "时雨绮罗-你这个人吸引其他人注意力的手段...呵，还挺有年代感的嘛。.wav"
+  },
+  "明日香": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/明日香/reference.wav",
+    "ref_text": "え~你竟然没带便当来吗？你难道是打算让我的午休泡汤吗？",
+    "original_file": "明日香-え~你竟然没带便当来吗？你难道是打算让我的午休泡汤吗？.wav"
+  },
+  "普罗米修斯": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/普罗米修斯/reference.wav",
+    "ref_text": "不同的名字可能会产生不同的意义，所以你希望我怎样称呼你？",
+    "original_file": "普罗米修斯-不同的名字可能会产生不同的意义，所以你希望我怎样称呼你？.wav"
+  },
+  "李素裳": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/李素裳/reference.wav",
+    "ref_text": "上次和幽兰黛尔切磋是什么时候？她现在还没我的剑高，真的假的？",
+    "original_file": "一客逍游-上次和幽兰黛尔切磋是什么时候？她现在还没我的剑高，真的假的？.wav"
+  },
+  "松雀": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/松雀/reference.wav",
+    "ref_text": "下次能让咱也试试你们这箱箱乐吗？要是能掌握其中的门道...嘻嘻。",
+    "original_file": "松雀-下次能让咱也试试你们这箱箱乐吗？要是能掌握其中的门道...嘻嘻。.wav"
+  },
+  "格蕾修": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/格蕾修/reference.wav",
+    "ref_text": "下雨了，雨水...也会让大地染上新的颜色吗？",
+    "original_file": "格蕾修-下雨了，雨水...也会让大地染上新的颜色吗？.wav"
+  },
+  "梅比乌斯": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/梅比乌斯/reference.wav",
+    "ref_text": "今晚到实验室来找我，好吗？我会一直等你的。",
+    "original_file": "梅比乌斯-今晚到实验室来找我，好吗？我会一直等你的。.wav"
+  },
+  "渡鸦": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/渡鸦/reference.wav",
+    "ref_text": "不是我说啊，你这驾驶技术还有待提升啊。",
+    "original_file": "渡鸦-不是我说啊，你这驾驶技术还有待提升啊。.wav"
+  },
+  "灯": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/灯/reference.wav",
+    "ref_text": "一起吃午餐？只要你不介意，只有咖啡和冷掉的三明治。",
+    "original_file": "灯-一起吃午餐？只要你不介意，只有咖啡和冷掉的三明治。.wav"
+  },
+  "爱莉希雅": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/爱莉希雅/reference.wav",
+    "ref_text": "“愿时光永驻此刻”...伊甸的歌很美吧？就像是我们的心声。",
+    "original_file": "人之律者-“愿时光永驻此刻”...伊甸的歌很美吧？就像是我们的心声。.wav"
+  },
+  "爱衣": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/爱衣/reference.wav",
+    "ref_text": "下午的日程安排我已经帮你列好了，嗯，你一定没问题的。",
+    "original_file": "爱衣-下午的日程安排我已经帮你列好了，嗯，你一定没问题的。.wav"
+  },
+  "琪亚娜": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/琪亚娜/reference.wav",
+    "ref_text": "一个人的日子，也不是那么难过。",
+    "original_file": "天穹游侠-一个人的日子，也不是那么难过。.wav"
+  },
+  "瑟莉姆": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/瑟莉姆/reference.wav",
+    "ref_text": "一切尽在掌控也很无聊，所以我不讨厌捣乱的家伙，支配它们的过程会特别令人享受。",
+    "original_file": "瑟莉姆-一切尽在掌控也很无聊，所以我不讨厌捣乱的家伙，支配它们的过程会特别令人享受。.wav"
+  },
+  "科拉莉": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/科拉莉/reference.wav",
+    "ref_text": "为了不被笨蛋拜托修电脑或者涡轮，我一般不告诉别人自己的研究专业。",
+    "original_file": "科拉莉-为了不被笨蛋拜托修电脑或者涡轮，我一般不告诉别人自己的研究专业。.wav"
+  },
+  "符华": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/符华/reference.wav",
+    "ref_text": "不必担心我的安危，生死对我来说已经无所谓了。",
+    "original_file": "云墨丹心-不必担心我的安危，生死对我来说已经无所谓了。.wav"
+  },
+  "维尔薇": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/维尔薇/reference.wav",
+    "ref_text": "一般来说我会制作一台用于提醒的机械，不过...就为了你破例几次吧。",
+    "original_file": "维尔薇-一般来说我会制作一台用于提醒的机械，不过...就为了你破例几次吧。.wav"
+  },
+  "羽兔": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/羽兔/reference.wav",
+    "ref_text": "不得不说，有时候这些能力的确很方便，至少可以用来应付体重测量。",
+    "original_file": "羽兔-不得不说，有时候这些能力的确很方便，至少可以用来应付体重测量。.wav"
+  },
+  "花火": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/花火/reference.wav",
+    "ref_text": "不能再玩啦？我才不管，欢愉是不需要束缚的。",
+    "original_file": "花火-不能再玩啦？我才不管，欢愉是不需要束缚的。.wav"
+  },
+  "芽衣": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/芽衣/reference.wav",
+    "ref_text": "周末！嗯好耶！又可以通宵了？（诶嘿嘿...那个...）再熬夜，年糕就要变成眼镜蛇了。",
+    "original_file": "偃月叩晓&年糕-周末！嗯好耶！又可以通宵了？（诶嘿嘿...那个...）再熬夜，年糕就要变成眼镜蛇了。.wav"
+  },
+  "苏莎娜": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/苏莎娜/reference.wav",
+    "ref_text": "一起吃午饭吗？上次执行任务的时候我发现一家很好吃的店。",
+    "original_file": "苏莎娜-一起吃午饭吗？上次执行任务的时候我发现一家很好吃的店。.wav"
+  },
+  "菲谢尔": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/菲谢尔/reference.wav",
+    "ref_text": "不知在遥远彼方的扈从…毋需担心冒险家协会的大家。啊？哎，奥兹！哼。",
+    "original_file": "菲谢尔&奥兹-不知在遥远彼方的扈从…毋需担心冒险家协会的大家。啊？哎，奥兹！哼。.wav"
+  },
+  "薇塔": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/薇塔/reference.wav",
+    "ref_text": "一起吃午餐吗？我这里有各种...量子之海里搜罗到的珍馐。",
+    "original_file": "薇塔-一起吃午餐吗？我这里有各种...量子之海里搜罗到的珍馐。.wav"
+  },
+  "赫丽娅": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/赫丽娅/reference.wav",
+    "ref_text": "不知道做什么的时候可以试试我和科拉莉的劳逸结合飞镖游戏，我保证，每一个选项都会很有收获。",
+    "original_file": "失序时空-不知道做什么的时候可以试试我和科拉莉的劳逸结合飞镖游戏，我保证，每一个选项都会很有收获。.wav"
+  },
+  "阿波尼亚": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/阿波尼亚/reference.wav",
+    "ref_text": "不休息是因为什么也不做会感到无聊？呵，我会让你...舒服的睡着的。",
+    "original_file": "阿波尼亚-不休息是因为什么也不做会感到无聊？呵，我会让你...舒服的睡着的。.wav"
+  },
+  "白希儿": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/希儿/reference.wav",
+    "ref_text": "下雨了，舰长不带伞的话会感冒的。",
+    "original_file": "白希儿-下雨了，舰长不带伞的话会感冒的。.wav"
+  },
+  "魔法少女西琳": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/西琳/reference.wav",
+    "ref_text": "不出去晒晒太阳吗？这么喜欢蒙在房间里？要不要让我把你变成魔法蘑菇？嘻嘻...",
+    "original_file": "魔法少女西琳-不出去晒晒太阳吗？这么喜欢蒙在房间里？要不要让我把你变成魔法蘑菇？嘻嘻....wav"
+  },
+  "黑希儿": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/黑希儿/reference.wav",
+    "ref_text": "要不是希儿阻拦，我早该毁掉这个世界了。",
+    "original_file": "黑希儿-要不是希儿阻拦，我早该毁掉这个世界了。.wav"
+  },
+  "空之律者": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/空之律者/reference.wav",
+    "ref_text": "人类，告诉我，你是怎样看待崩坏的呢？",
+    "original_file": "空之律者-人类，告诉我，你是怎样看待崩坏的呢？.wav"
+  },
+  "识之律者": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/识之律者/reference.wav",
+    "ref_text": "嗯嗯，看见这么勤劳的你，我也热血沸腾起来了。",
+    "original_file": "识之律者-嗯嗯，看见这么勤劳的你，我也热血沸腾起来了。.wav"
+  },
+  "朔夜观星": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/朔夜观星/reference.wav",
+    "ref_text": "今夜月冷星稀，刺客先生，陪我去放盏天灯吧。",
+    "original_file": "朔夜观星-今夜月冷星稀，刺客先生，陪我去放盏天灯吧。.wav"
+  },
+  "月下初拥": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/月下初拥/reference.wav",
+    "ref_text": "做个交易，我帮你完成任务，你要带我出去玩。",
+    "original_file": "月下初拥-做个交易，我帮你完成任务，你要带我出去玩。.wav"
+  },
+  "月下誓约": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/月下誓约/reference.wav",
+    "ref_text": "姐姐说我只是个子变高了，内心还是小孩子，是不是很过分？",
+    "original_file": "月下誓约-姐姐说我只是个子变高了，内心还是小孩子，是不是很过分？.wav"
+  },
+  "萝莎莉娅": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/萝莎莉娅/reference.wav",
+    "ref_text": "萝莎莉娅，闪亮登场。",
+    "original_file": "萝莎莉娅-萝莎莉娅，闪亮登场。.wav"
+  },
+  "莉莉娅": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/莉莉娅/reference.wav",
+    "ref_text": "莉莉娅闪亮登场。",
+    "original_file": "莉莉娅-莉莉娅闪亮登场。.wav"
+  },
+  "德尔塔": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/德尔塔/reference.wav",
+    "ref_text": "下次再把我错认成萝莎莉娅的话，我可是会让你吃点苦头的哦。",
+    "original_file": "狂热蓝调-下次再把我错认成萝莎莉娅的话，我可是会让你吃点苦头的哦。.wav"
+  }
+}

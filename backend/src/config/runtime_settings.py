@@ -4,8 +4,11 @@
 """
 import json
 import os
+import logging
 from typing import Dict, Any
 from threading import Lock
+
+logger = logging.getLogger(__name__)
 
 _CONFIG_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))),
@@ -31,6 +34,9 @@ DEFAULT_SETTINGS = {
     "live2d_window_height": 500,
     "live2d_window_x": 100,
     "live2d_window_y": 100,
+    "companion_character": "爱莉希雅",
+    "companion_tts_voice": "爱莉希雅",
+    "companion_personality": "",
 }
 
 _lock = Lock()
@@ -63,8 +69,8 @@ def _save_to_file(settings: Dict[str, Any]) -> None:
     try:
         with open(_CONFIG_FILE, "w", encoding="utf-8") as f:
             json.dump(settings, f, indent=2, ensure_ascii=False)
-    except Exception:
-        pass
+    except Exception as e:
+        logger.error(f"保存设置文件失败 ({_CONFIG_FILE}): {e}")
 
 
 _runtime_settings = _load_from_file()
@@ -96,11 +102,16 @@ def update_runtime_settings(overrides: Dict[str, Any]) -> None:
         for key in DEFAULT_SETTINGS:
             if key in overrides and overrides[key] is not None:
                 new_val = overrides[key]
-                if _runtime_settings.get(key) != new_val:
+                old_val = _runtime_settings.get(key)
+                if old_val != new_val:
                     _runtime_settings[key] = new_val
                     changed = True
+                    if key == "companion_character":
+                        logger.info(f"运行时设置变更: companion_character = '{old_val}' → '{new_val}'")
         if changed:
             _save_to_file(_runtime_settings)
+            if "companion_character" in overrides:
+                logger.info(f"设置已保存到文件: companion_character = '{_runtime_settings.get('companion_character')}'")
 
 
 def reset_to_defaults() -> None:

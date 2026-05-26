@@ -14,7 +14,7 @@ import requests
 from ..config.settings import get_settings
 from ..config.runtime_settings import update_runtime_settings
 from ..config.cancel_signal import register_request, clear_request, cancel_request
-from ..modules.agent.react_agent import get_react_agent
+from ..modules.agent.react_agent import get_main_agent, get_sub_agent, get_react_agent
 
 router = APIRouter()
 
@@ -158,7 +158,7 @@ async def chat_completion(request: ChatRequest):
         if audio_text:
             last_user_message = audio_text + last_user_message
 
-    # 使用ReAct Agent处理（透明切换分阶段执行）
+    # 双 Agent 编排: 主 Agent (游戏任务) → 子 Agent (角色化回复)
     from ..modules.skill.skill_manager import get_skill_manager as _get_sm
     _sm = _get_sm()
     _matched = _sm.find_matching_skill(last_user_message)
@@ -167,30 +167,48 @@ async def chat_completion(request: ChatRequest):
     request_id = request.request_id or str(time.time())
     register_request(request_id)
     try:
-        agent = get_react_agent()
         images = request.images or None
+
+        # 阶段 1: 主 Agent 执行游戏任务，输出 JSON 报告
+        main_agent = get_main_agent()
         if _has_phases:
-            result = await asyncio.to_thread(
-                agent.run_phased, _matched["name"], last_user_message, request_id, 2, images
+            main_result = await asyncio.to_thread(
+                main_agent.run_phased, _matched["name"], last_user_message, request_id, 2, images
             )
         else:
-            result = await asyncio.to_thread(agent.run, last_user_message, 2, request_id, images)
+            main_result = await asyncio.to_thread(
+                main_agent.run, last_user_message, 2, request_id, images
+            )
+        main_output = main_result.get("output", "")
+        logger.info(f"[MainAgent] 任务报告: {main_output[:500]}")
+
+        # 阶段 2: 子 Agent 角色化回复
+        sub_input = (
+            f"[用户消息] {last_user_message}\n\n"
+            f"[后台任务报告] {main_output}\n\n"
+            f"请以当前角色身份回复用户。"
+        )
+        sub_agent = get_sub_agent()
+        sub_result = await asyncio.to_thread(
+            sub_agent.run, sub_input, 1, request_id, None
+        )
+
+        # 构建响应 (使用子 Agent 的输出)
+        final_output = sub_result.get("output", main_output)
         
-        # 将ReAct步骤转换为tool_steps格式
+        # 合并主 Agent 和子 Agent 的步骤（子 Agent 步骤在前端展示）
         tool_steps = []
         thinking_steps = []
-        for step in result.get("steps", []):
+        for step in sub_result.get("steps", []):
             tool_steps.append({
                 "tool": step.get("action", ""),
-                "input": last_user_message,
+                "input": sub_input,
                 "start_time": "",
                 "end_time": "",
                 "result": bool(step.get("observation", "")),
                 "output": step.get("observation", ""),
                 "thought": step.get("thought", "")
             })
-            
-            # 构建思考步骤格式（用于前端显示）
             if request.show_thinking:
                 thinking_steps.append({
                     "thought": step.get("thought", ""),
@@ -198,12 +216,11 @@ async def chat_completion(request: ChatRequest):
                     "action_input": step.get("action_input", ""),
                     "observation": step.get("observation", "")
                 })
-        
-        # 构建响应
+
         response = ChatResponse(
             message=ChatMessage(
                 role="assistant",
-                content=result.get("output", "无法生成响应"),
+                content=final_output,
                 timestamp=time.time()
             ),
             sources=None,
@@ -281,7 +298,7 @@ async def chat_stream(request: ChatRequest):
     register_request(request_id)
     event_queue = queue.Queue()
 
-    # 预检测技能是否定义了阶段（用于透明切换分阶段执行）
+    # 预检测技能是否定义了阶段
     from ..modules.skill.skill_manager import get_skill_manager
     skill_manager_s = get_skill_manager()
     matched = skill_manager_s.find_matching_skill(last_user_message)
@@ -293,18 +310,44 @@ async def chat_stream(request: ChatRequest):
 
     async def generate():
         loop = asyncio.get_event_loop()
+        images = request.images or None
 
-        def run_agent():
-            agent = get_react_agent()
-            images = request.images or None
+        # 阶段 1: 主 Agent 执行游戏任务（后台，不推前端）
+        def run_main_agent():
+            main_agent = get_main_agent()
             if phased_skill_name:
-                return agent.run_phased_streaming(
-                    phased_skill_name, last_user_message, request_id, event_queue, 2, images
+                return main_agent.run_phased(
+                    phased_skill_name, last_user_message, request_id, 2, images
                 )
             else:
-                return agent.run_streaming(last_user_message, request_id, event_queue, 2, images)
+                return main_agent.run(last_user_message, 2, request_id, images)
 
-        future = loop.run_in_executor(None, run_agent)
+        try:
+            main_result = await loop.run_in_executor(None, run_main_agent)
+            main_output = main_result.get("output", "")
+            logger.info(f"[MainAgent] 任务报告: {main_output[:500]}")
+        except Exception as e:
+            error_msg = str(e)
+            if "CancelledError" in error_msg:
+                event_queue.put({"type": "cancelled"})
+            else:
+                event_queue.put({"type": "error", "message": f"主Agent执行失败: {error_msg}"})
+            clear_request(request_id)
+            yield f"data: {json.dumps({'type': 'error', 'message': f'主Agent执行失败: {error_msg}'}, ensure_ascii=False)}\n\n"
+            return
+
+        # 阶段 2: 子 Agent 角色化回复（流式推前端）
+        sub_input = (
+            f"[用户消息] {last_user_message}\n\n"
+            f"[后台任务报告] {main_output}\n\n"
+            f"请以当前角色身份回复用户。"
+        )
+
+        def run_sub_agent():
+            sub_agent = get_sub_agent()
+            return sub_agent.run_streaming(sub_input, request_id, event_queue, 1, None)
+
+        future = loop.run_in_executor(None, run_sub_agent)
 
         while True:
             try:
@@ -363,15 +406,15 @@ async def cancel_chat(req: CancelRequest):
 
 @router.post("/clear", response_model=ClearContextResponse)
 async def clear_chat_context():
-    """清除对话上下文：重置 LLM 记忆、删除任务检查点、重建 Agent"""
-    agent = get_react_agent()
-    result = agent.clear_context()
+    """清除对话上下文：重置 LLM 记忆、删除任务检查点、重建双 Agent"""
+    main_result = get_main_agent().clear_context()
+    sub_result = get_sub_agent().clear_context()
     return ClearContextResponse(
-        success=result["success"],
-        memory_cleared=result["memory_cleared"],
-        checkpoint_deleted=result["checkpoint_deleted"],
-        agent_rebuilt=result["agent_rebuilt"],
-        message="对话上下文、任务检查点已清除，Agent 已重建"
+        success=main_result["success"] and sub_result["success"],
+        memory_cleared=main_result["memory_cleared"] and sub_result["memory_cleared"],
+        checkpoint_deleted=main_result["checkpoint_deleted"],
+        agent_rebuilt=main_result["agent_rebuilt"] and sub_result["agent_rebuilt"],
+        message="对话上下文、任务检查点已清除，双 Agent 已重建"
     )
 
 @router.get("/history/{user_id}")

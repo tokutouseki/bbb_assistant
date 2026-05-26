@@ -20,12 +20,13 @@ bbb_assistant/
 ├── backend/
 │   └── src/
 │       ├── api/chat.py              # 聊天API (/api/chat/stream, /cancel, /clear)
-│       ├── api/settings.py          # 设置API (LLM/图片描述配置持久化到 user_settings.json)
+│       ├── api/settings.py          # 设置API (含角色人格字段 + GET /characters 列表)
 │       ├── config/settings.py       # 应用配置 (Pydantic Settings)
-│       ├── config/runtime_settings.py # 运行时设置 (JSON持久化, 重启加载)
+│       ├── config/runtime_settings.py # 运行时设置 (JSON持久化, 重启加载, 变更日志)
 │       ├── config/cancel_signal.py  # 请求取消信号机制
 │       ├── modules/
-│       │   ├── agent/react_agent.py # ReAct Agent (核心, +describe_image工具)
+│       │   ├── agent/react_agent.py # 双Agent架构 (MainGameAgent + SubCompanionAgent)
+│       │   ├── character/character_manager.py # 角色人格管理 (SKILL.md加载/缓存/TTS音色)
 │       │   ├── skill/skill_manager.py # 技能管理 (SKILL.md解析、阶段提取)
 │       │   ├── vision/
 │       │   │   ├── image_describer.py   # 多后端图片描述 (Bailian/PixAI/LM Studio)
@@ -36,16 +37,25 @@ bbb_assistant/
 │       │   ├── web_search/          # 联网搜索 (百度主引擎 + Playwright兜底)
 │       │   ├── rag/                 # RAG检索引擎
 │       │   ├── llm/                 # LLM路由 (多模型切换, vision能力过滤)
-│       │   ├── audio/               # 音频播放
+│       │   ├── audio/               # 音频 (TTS声音克隆 + 播放)
+│       │   │   ├── qwen3_tts_generator.py  # Qwen3-TTS (ICL语音克隆)
+│       │   │   ├── tts_generator.py        # VoxCPM TTS
+│       │   │   ├── audio_player.py         # 音频播放
+│       │   │   └── reference_audio/        # 39位崩坏3角色参考音频
+│       │   │       └── index.json          # 角色→音频路径+transcript索引
 │       │   └── live2d_control/      # Live2D看板娘 (Qt OpenGL窗口 + TCP服务)
 │       └── services/                # 聊天服务、游戏监控
 ├── frontend/src/
 │   ├── views/ChatView.vue           # 聊天主界面 (SSE流式、图片上传/预览/灯箱、Markdown渲染)
 │   ├── views/SettingsView.vue       # 设置界面 (LLM提供商、图片描述后端、Bailian密钥)
 │   └── stores/
-│       ├── chat.js                  # 聊天状态管理
-│       └── settings.js              # 设置状态 (localStorage持久化)
-├── skills/                          # 技能定义 (每个技能一个目录)
+│       ├── chat.js                  # 聊天状态管理 (SSE流式、消息列表)
+│       ├── settings.js              # 设置状态 (localStorage持久化, 角色切换, Live2D管理)
+│       └── character.js             # 旧角色store (未使用, 保留兼容)
+├── skills/
+│   ├── characters/                  # 角色人格定义 (每个角色一个目录, SKILL.md)
+│   │   ├── elysia/SKILL.md          # 爱莉希雅 — 粉色妖精小姐, 始源之律者
+│   │   └── bronya/SKILL.md          # 布洛妮娅 — 前乌拉尔银狼, 理之律者
 │   ├── full_operation/              # 全量日常调度 — 根据星期自动执行当日全部任务
 │   ├── letu/                        # 往世乐土自动化 — 乐土全流程一键完成
 │   ├── meizhou_jianfu/              # 每周减负 — 作战任务一键减负
@@ -73,14 +83,36 @@ bbb_assistant/
 
 ## 核心架构
 
-### ReAct Agent (react_agent.py)
+### 双 Agent 架构 (react_agent.py)
+
+**MainGameAgent (主 Agent)**: DeepSeek Pro — 游戏任务执行器，输出 JSON 任务报告，不直接对用户说话。
+**SubCompanionAgent (子 Agent)**: DeepSeek Flash — 情感陪伴 + 角色扮演，输出角色化回复，唯一对用户可见的 Agent。
+
+```
+用户消息 → MainGameAgent (游戏任务 → JSON报告) → SubCompanionAgent (角色化回复 + TTS + Live2D) → 用户(SSE)
+              ↑ 后端日志可见 (logger.info)                ↑ 前端 SSE 流式显示 (可折叠)
+```
+
+**MainGameAgent 工具 (20个)**:
+rag_search, web_search, fetch_page, list_skills, view_skill,
+yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image,
+ocr_recognize, describe_image, get_runtime_status, focus_bh3_window, click_coordinates,
+find_direction, navigate_to, run_hongkai_task, update_user_setting, todo_write
+
+**SubCompanionAgent 工具 (9个)**:
+web_search, fetch_page, rag_search, tts_qwen3, tts_voxcpm, play_audio,
+live2d_control, todo_write, get_runtime_status
+
+**关键设计**:
 - 严格遵循 ReAct 范式: Thought → Action → Action Input → Observation 循环
-- 支持流式输出 (run_streaming) 和非流式输出 (run)
-- 透明分阶段执行: 当技能定义了 `phases` 时自动切换到分阶段模式
-- 系统 prompt 中嵌入用户偏好 (user_preferences.md) 和图片分析流程示例
+- `BaseGameAgent`: 公共基类 (memory、RAG、YOLO、分阶段执行、重试逻辑)
+- `_get_tools()` / `_get_prompt_template()`: 子类覆盖，提供工具集和系统 prompt
+- `RouterLLM(agent_type)`: "main" → Pro 模型, "sub" → Flash 模型 (温度≤0.9)
+- 子 Agent 角色人格动态注入: `RouterLLM._call()` 从 `skills/characters/{name}/SKILL.md` 读取，替换 `[CHARACTER_PERSONALITY]` 占位符
+- 角色切换零重建: 改 `user_settings.json` → 下一轮 `_call()` 自动读取新人格
 - 对话记忆使用 ConversationBufferMemory (max 2000 tokens)
-- 图片处理: 用户上传图片 → Agent 存储到 `_current_images` → prompt 中提示调用 `describe_image` 工具 → 获得文本描述后分析回答
-- RouterLLM 每次 `_call()` 重新读取运行时设置，确保用户配置即时生效
+- 图片处理: 用户上传图片 → 主 Agent `describe_image` 工具 → 文本描述注入子 Agent 上下文
+- `_clean_llm_output()`: 输出清洗，截断 DeepSeek 虚构的多步骤幻觉文本
 
 ### 图片描述系统 (image_describer.py)
 - 多后端自动降级: `bailian` → `pixai_tagger` → `lmstudio` (顺序可配置)
@@ -138,6 +170,29 @@ backend/src/modules/live2d_control/
 
 **通信协议**: TCP JSON + `\nEOF\n` 消息分隔符，端口 5003。跨线程操作通过 Qt Signal/Slot 队列到 GUI 线程。
 
+### Qwen3-TTS 语音克隆系统 (qwen3_tts_generator.py)
+
+**模型**: `Qwen3-TTS-12Hz-1.7B-Base` (位于 `D:/TokusCode/models/Qwen3-TTS/`)，支持 ICL 语音克隆（从 3 秒参考音频克隆声音）。
+
+`generate()` 内部调用 `generate_voice_clone`，通过 `voice_style` 角色名匹配参考音频。
+
+**参考音频库** (`backend/src/modules/audio/reference_audio/`):
+- 来源: `D:/hongkai_voice/` — 39 位崩坏3角色语音
+- 每个角色一个目录，包含 `reference.wav`（约3-30秒对话片段）
+- `index.json` 映射: 角色名 → `audio_path` + `ref_text`（文件名中提取的对话文本）
+- 可用角色: 爱莉希雅、琪亚娜、芽衣、布洛妮娅、符华、德丽莎、希儿、八重樱、樱、白希儿、黑希儿、魔法少女西琳、空之律者、识之律者、朔夜观星、月下初拥、月下誓约、萝莎莉娅、莉莉娅、德尔塔、姬子、丽塔、幽兰黛尔、梅比乌斯、维尔薇、阿波尼亚、帕朵菲莉丝、格蕾修、伊甸、渡鸦、苏莎娜、李素裳、时雨绮罗、薇塔、瑟莉姆、科拉莉、赫丽娅、灯、松雀、羽兔、普罗米修斯、爱衣、卡萝尔、希娜狄雅
+
+**Agent 工具 `tts_qwen3`** (react_agent.py):
+- **默认模式: ICL 声音克隆**，默认角色: 爱莉希雅
+- 参数: `text`（必填）、`ref_audio`（角色名或文件路径，默认"爱莉希雅"）、`ref_text`（可选，自动从索引读取）
+- 角色名匹配: 精确匹配 → 模糊匹配（包含关系），找不到返回可用角色列表
+- 辅助函数: `_resolve_ref_audio()` (角色名→路径+transcript), `_list_ref_characters()` (列出39个角色), `_load_ref_index()` (加载索引JSON)
+- 生成后返回 WAV 文件路径，Agent 需调用 `play_audio` 播放
+
+**tool_integration.py**:
+- `_resolve_ref_audio()` 方法同步存在，独立读取索引文件，避免循环导入
+- 默认 `ref_audio="爱莉希雅"`，始终走克隆模式
+
 ### 技能系统 (skill_manager.py)
 - 技能文件: skills/<skill_name>/SKILL.md (YAML frontmatter + Markdown body)
 - Frontmatter 字段: name, description, phases (逗号分隔的阶段名)
@@ -154,6 +209,7 @@ backend/src/modules/live2d_control/
 - `GET /api/settings/` — 获取运行时设置
 - `PUT /api/settings/` — 更新运行时设置 (持久化到 data/user_settings.json)
 - `POST /api/settings/reset` — 重置为默认设置
+- `GET /api/settings/characters` — 列出所有可用角色人格 (从 skills/characters/ 扫描)
 - `GET /api/live2d/models` — 列出已安装的 Live2D 模型
 - `POST /api/live2d/models/import` — 导入模型 (从本地路径)
 - `DELETE /api/live2d/models/{name}` — 删除模型
@@ -180,6 +236,7 @@ backend/src/modules/live2d_control/
 - 上下文清除按钮
 
 ### 前端设置 (SettingsView.vue)
+- **Tab 布局**: LLM 设置 / 图片描述 / Live2D 看板娘 / 角色
 - LLM 提供商选择: DeepSeek API / LM Studio
 - 图片描述后端选择: 4 种预设方案
   - 百炼 Qwen-VL (推荐)
@@ -194,20 +251,40 @@ backend/src/modules/live2d_control/
   - 窗口大小滑块 (200-2000px)
   - 透明度滑块
   - 实时反馈: 拖动/滑动即时发送 `PUT /api/live2d/apply` (mouseup 触发, 200ms 防抖)
-- 设置持久化: 前端 localStorage + 后端 `data/user_settings.json`
+- **角色选择 Tab**:
+  - 卡片列表展示所有可用角色 (从 `GET /api/settings/characters` 加载)
+  - 内部可滚动 (max-height 360px)，保存按钮始终可见
+  - 点击角色卡片即时切换: `selectCharacter()` → `PUT /api/settings/` → 下一轮对话生效
+  - 当前选中角色高亮显示 (radio dot)
+- 设置持久化: 前端 localStorage (`settings.js`) + 后端 `data/user_settings.json` (`runtime_settings.py`)
 
 ## 可用工具列表
 
-Agent 可调用的工具 (共23个):
+**MainGameAgent (主 Agent, 共20个工具，后端日志可见)**:
 rag_search, list_skills, view_skill,
 yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image,
 ocr_recognize, describe_image,
 get_runtime_status, focus_bh3_window, click_coordinates,
-run_hongkai_task,
-find_direction, navigate_to,
-tts_qwen3, tts_voxcpm, play_audio,
-live2d_control,
-todo_write, web_search, fetch_page
+run_hongkai_task, find_direction, navigate_to,
+web_search, fetch_page, update_user_setting, todo_write
+
+**SubCompanionAgent (子 Agent, 共9个工具，前端SSE可见，可折叠)**:
+web_search, fetch_page, rag_search,
+tts_qwen3 (默认爱莉希雅ICL声音克隆，支持39位角色切换), tts_voxcpm, play_audio,
+live2d_control, todo_write, get_runtime_status
+
+### 角色人格系统 (character_manager.py)
+
+- **CharacterManager**: 单例，从 `skills/characters/{name}/SKILL.md` 加载角色人格（当前 30 个角色目录）
+- **动态注入**: `RouterLLM._call()` 每次读取 `companion_character` 设置 → `_resolve_name()` 映射中文名→目录名 → 读取 SKILL.md → 替换 prompt 中的 `[CHARACTER_PERSONALITY]` 占位符
+- **名称解析**: `_build_name_map()` 扫描所有 SKILL.md 的 YAML `name:` / `tts_voice:` 字段，构建 中文名→目录名 映射。支持中文名（如"爱莉希雅"）和目录名（如"elysia"）双向查找
+- **列表**: `list_characters()` 返回中文展示名列表（从 YAML `name:` 字段），用于前端角色选择器
+- **切换角色 (双重路径)**:
+  1. **前端角色选择器 (推荐)**: SettingsView 角色 Tab → `selectCharacter()` → 直接 `PUT /api/settings/` → `update_runtime_settings()` 更新内存缓存。绕过 Agent，不中断当前对话
+  2. **Agent 工具**: 主 Agent 通过 `update_user_setting(key="companion_character", value="角色名")` 修改（会导致本轮对话结束）
+- **切换角色零重建**: 改 `_runtime_settings` 内存字典 → 下一轮 `RouterLLM._call()` 自动读取新人格，无需重建 Agent
+- **设置项**: `companion_character` (角色名), `companion_tts_voice` (TTS音色), `companion_personality` (性格微调)
+- **tts_voice 多对一**: 多个人格文件可共享同一音色（如 `baixier` 和 `seele` 的 tts_voice 均为"白希儿"），名称映射可能覆盖，不影响功能
 
 ## 自动化模块: hongkai（方案二）
 
@@ -236,16 +313,14 @@ backend/src/modules/hongkai/
 ├── save_output.py                 # 日志拦截（print → 文件）
 ├── vedio_log.py                   # 屏幕录制
 ├── time_date/custom_datetime.py   # 时间同步
-└── scripts/                       # 流程脚本（待迁移）
+└── scripts/                       # 流程脚本（已迁移为进程内调用）
 ```
 
 ### YOLO 模型
 `backend/data/models/detect/yolo11n_elysian_realm_det.onnx`（从 hongkai_done 的 best.onnx 复制，24类游戏元素）
 
 ### run_hongkai_task tool
-- 当前仍通过 subprocess 调用 hongkai_done 的 Python3.11 执行流程脚本
-- YOLO/OCR 服务由模块内部自动拉起
-- 目标：流程脚本逐步迁移到 `scripts/`，最终直接 import 使用，去掉 subprocess
+- 已全部迁移为进程内直接调用，共享 YOLOModelManager 单例，不再使用 subprocess
 
 ### 常见问题
 - **YOLO 服务启动失败**: 检查模型路径 `yolo11n_elysian_realm_det.onnx`，查看 `yolo_server.log`
@@ -306,7 +381,7 @@ backend/src/modules/hongkai/
 
 两个技能从 20-24 次 LLM 调用缩减为 **每次 1 次工具调用**，完全消除了中间步骤的解析错误风险和 LLM 幻觉可能。
 
-## DeepSeek LLM 输出解析问题 (进行中)
+## DeepSeek LLM 输出解析问题 (已解决)
 
 ### 问题根源
 
@@ -392,7 +467,7 @@ Final Answer: 所有模型已卸载完成  ← 一切都是幻觉，模型实际
 - 问题2: 通过截断 Action 后的 Final Answer
 - 问题3: 通过截断第一个 Action Input 后的所有虚构内容
 
-**当前状态**: 已实现，**等待用户测试验证**。
+**当前状态**: 已实现，已验证通过。
 
 #### 第二层: `_handle_parsing_error()` — 解析错误反馈 (react_agent.py)
 
@@ -418,3 +493,137 @@ Final Answer: 所有模型已卸载完成  ← 一切都是幻觉，模型实际
 - 第一层防御越强，第二层的触发频率越低，但第二层的反馈质量对 LLM 自我修正至关重要
 - 最根本的解决方案是让 LLM 严格遵循格式，但 DeepSeek 的指令遵循能力有限
 - 如果三层防御仍不够，可考虑切换到指令遵循能力更强的模型 (如 Claude API)
+
+### 重复循环检测 (Loop Detection)
+
+LangChain 的 `AgentExecutor` 在工具连续返回相同结果时不会自动停止，导致 Agent 陷入无限循环。
+
+**问题**: `QueueStreamingHandler` 中 `raise RuntimeError` 被 LangChain callback manager 捕获并降级为 WARNING 日志，不会终止 Agent 循环。
+
+**解决方案**: 通过 `RouterLLM._force_stop` 共享标志位实现跨组件通信:
+
+- **`QueueStreamingHandler._check_repeat_loop()`** (react_agent.py):
+  - 跟踪最近 3 次 `(tool_name, tool_input)` 调用历史
+  - 连续 3 次相同调用 → 设置 `llm._force_stop = True` + `_force_stop_reason`
+  - 不再抛 RuntimeError，直接操作 RouterLLM 标志位
+
+- **`RouterLLM._force_stop` 标志位** (react_agent.py):
+  - `__init__()`: 初始化 `_force_stop = False`, `_force_stop_reason = ""`
+  - `_call()`: 每次 LLM 调用前检查，若置位则返回终止 Final Answer（不清空 AgentExecutor 的内部状态即可让循环优雅退出），然后重置标志
+  - `_run_with_retry()`: 每轮开始前重置标志，确保新一轮不受旧标志影响
+
+- **效果**: 重复循环被检测到后，最多再消耗 1 次 LLM 调用即可终止，不再无限循环
+
+## 角色人格文件生成任务 (进行中)
+
+### 背景
+
+用户需要为 reference_audio/index.json 中所有崩坏3角色生成 SKILL.md 人格文件。核心原则：**声音不同 = 分开 SKILL.md**。
+
+### 已完成 (2026-05-25)
+
+#### 参考音频拆分
+
+- `希儿` → `白希儿` (rename) + `黑希儿` (new)
+- `西琳` → `魔法少女西琳` (rename) + `空之律者` (new, 音频来自 琪亚娜/空之律者 装甲)
+- `符华` 目录已有 识之律者 装甲音频 → 新建 `识之律者` 条目
+- `德丽莎` 目录已有 朔夜观星/月下初拥/月下誓约 装甲音频 → 各建条目
+- `伏特加女孩` 拆为 `萝莎莉娅` + `莉莉娅` + `德尔塔` (狂热蓝调装甲)
+
+#### index.json 更新
+
+从 39 个条目扩展到 48 个条目。包含所有新拆分角色的 audio_path、ref_text、original_file。
+
+### 已有 SKILL.md (6个，不动)
+
+| 目录 | 角色 | 状态 |
+|------|------|------|
+| `skills/characters/elysia/SKILL.md` | 爱莉希雅 | 完整版 |
+| `skills/characters/kiana/SKILL.md` | 琪亚娜 | 已复制 |
+| `skills/characters/mei/SKILL.md` | 芽衣 | 已复制 |
+| `skills/characters/fu-hua/SKILL.md` | 符华 | 已复制 |
+| `skills/characters/theresa/SKILL.md` | 德丽莎 | 已复制 |
+| `skills/characters/bronya/SKILL.md` | 布洛妮娅 | 精简版，暂不动 |
+
+### 待生成 SKILL.md (37个)
+
+**重要原则**：每个角色人格文件需要仔细、慢慢地写，不能批量生成简短内容。每个 SKILL.md 需要：
+- YAML frontmatter (name, description, tts_voice)
+- 身份卡 (我是谁)
+- 3-5 个核心心智模型 (每个有证据/应用/局限)
+- 表达DNA (句式、词汇、语气、幽默方式)
+- 决策启发式
+- 价值观与反模式
+- 诚实边界
+
+#### 拆分角色 (11个，优先写，需要区分与同源角色的差异)
+
+| # | 目录名 | 角色 | TTS音色 | 关键人格特征 | 状态 |
+|---|--------|------|---------|-------------|------|
+| 1 | `baixier` | 白希儿 | 白希儿 | 温柔怯懦，第三人称自指，害怕孤独，渴望被需要 | 待写 |
+| 2 | `heixier` | 黑希儿 | 黑希儿 | 嗜虐危险的守护者，以毁灭护希儿，病娇但不越界 | 待写 |
+| 3 | `magical-sirin` | 魔法少女西琳 | 魔法少女西琳 | 天真腹黑，蘑菇魔法，欢愉至上，和空律完全不同 | 待写 |
+| 4 | `herrscher-of-void` | 空之律者 | 空之律者 | 高傲俯视人类，崩坏女王，神的视角，被琪亚娜羁绊困惑 | 待写 |
+| 5 | `herrscher-of-sentience` | 识之律者 | 识之律者 | 嚣张豪爽，不是符华的影子，别扭的温柔，五万年记忆 | 待写 |
+| 6 | `stargazer-theresa` | 朔夜观星 | 朔夜观星 | 煌帝国军师，文雅傲娇，夜观天象，刺客先生 | 待写 |
+| 7 | `luna-kindred-young` | 月下初拥 | 月下初拥 | 小恶魔吸血猫，契约即羁绊，渴望陪伴 | 待写 |
+| 8 | `luna-kindred-grown` | 月下誓约 | 月下誓约 | 长大但没成熟的吸血姬，害羞软糯，不敢表白 | 待写 |
+| 9 | `rozaliya` | 萝莎莉娅 | 萝莎莉娅 | 伏特加女孩姐姐，元气冲动，超级头槌，先冲再说 | 待写 |
+| 10 | `liliya` | 莉莉娅 | 莉莉娅 | 伏特加女孩妹妹，慵懒冷静，永远没睡醒，吐槽担当 | 待写 |
+| 11 | `delta` | 德尔塔 | 德尔塔 | 世界泡双子融合体，冷淡孤独，背负失去的代价 | 待写 |
+
+#### 单一身份角色 (26个)
+
+| # | 目录名 | 角色 | TTS音色 | 关键特征 | 状态 |
+|---|--------|------|---------|---------|------|
+| 12 | `rita` | 丽塔 | 丽塔 | 完美女仆，优雅腹黑，什么都做到最好 | 待写 |
+| 13 | `eden` | 伊甸 | 伊甸 | 逐火英桀第四位，黄金的歌唱者，华丽慵懒 | 待写 |
+| 14 | `yae-sakura` | 八重樱 | 八重樱 | 500年前巫女，冷酷与温柔并存 | 已完成 |
+| 15 | `sakura` | 樱 | 八重樱 | 逐火英桀第八席「刹那」之铭，沉默之刃 | 已完成 |
+| 16 | `carol` | 卡萝尔 | 卡萝尔 | 后崩坏书，活泼元气少女，拳头比脑子快 | 待写 |
+| 17 | `himeko` | 姬子 | 姬子 | 无量塔姬子，前女武神教官，燃烧自己照亮他人 | 待写 |
+| 18 | `durandal` | 幽兰黛尔 | 幽兰黛尔 | 天命最强S级女武神，认真直率，不灭之刃队长 | 待写 |
+| 19 | `shigure-kira` | 时雨绮罗 | 时雨绮罗 | 天命偶像女武神，自信闪耀，偶尔年代感笑话 | 待写 |
+| 20 | `prometheus` | 普罗米修斯 | 普罗米修斯 | 前文明AI，理性冷静，分析一切 | 待写 |
+| 21 | `li-sushang` | 李素裳 | 李素裳 | 太虚剑传人，活泼好斗，和幽兰黛尔是好友 | 待写 |
+| 22 | `songque` | 松雀 | 松雀 | 第二部，慵懒自由，箱箱乐爱好者 | 待写 |
+| 23 | `griseo` | 格蕾修 | 格蕾修 | 逐火英桀第十一位，画家，安静观察世界，用颜色表达情感 | 待写 |
+| 24 | `mobius` | 梅比乌斯 | 梅比乌斯 | 逐火英桀第十位，疯狂科学家，蛇一般危险魅惑，追求无限 | 待写 |
+| 25 | `raven` | 渡鸦 | 渡鸦 | 世界蛇干部，娜塔莎·希奥拉，嘴硬心软，照顾孤儿院 | 待写 |
+| 26 | `deng` | 灯 | 灯 | 第二部，咖啡和三明治，冷淡寡言但可靠 | 待写 |
+| 27 | `ai-chan` | 爱衣 | 爱衣 | 休伯利安AI，活泼可爱的辅助人格，从AI进化为伙伴 | 待写 |
+| 28 | `senadina` | 希娜狄雅 | 希娜狄雅 | 第二部，无人机和跑酷，自由奔放的冒险者 | 待写 |
+| 29 | `serelim` | 瑟莉姆 | 瑟莉姆 | 第二部，享受支配的过程，不讨厌捣乱的家伙 | 待写 |
+| 30 | `coralie` | 科拉莉 | 科拉莉 | 第二部，机械工程天才，不想被笨蛋拜托修电脑 | 待写 |
+| 31 | `vill-v` | 维尔薇 | 维尔薇 | 逐火英桀第五位，多重人格工程师(魔术师/专家等)，同一实体 | 待写 |
+| 32 | `feather` | 羽兔 | 羽兔 | 第二部，能力方便可以应付体重测量，随性悠然 | 待写 |
+| 33 | `susannah` | 苏莎娜 | 苏莎娜 | 天命女武神，吃货，发现很多好吃的店 | 待写 |
+| 34 | `vita` | 薇塔 | 薇塔 | 第二部，量子之海珍馐收藏家，神秘优雅 | 待写 |
+| 35 | `heralia` | 赫丽娅 | 赫丽娅 | 第二部，和科拉莉搭档，劳逸结合飞镖游戏 | 待写 |
+| 36 | `aponia` | 阿波尼亚 | 阿波尼亚 | 逐火英桀第三位，戒律的守护者，温柔到让人睡着的危险 | 待写 |
+| 37 | `pardofelis` | 帕朵菲莉丝 | 帕朵菲莉丝 | 逐火英桀第九位，猫娘商人，小鱼干和金枪鱼罐头 | 待写 |
+
+### 联动角色 (4个，跳过不生成)
+
+刻晴 (原神), 菲谢尔 (原神), 明日香 (EVA), 花火 (星穹铁道)
+
+### 伏特加女孩 (1个，保留音频但不单独生成 SKILL.md)
+
+已拆分为萝莎莉娅+莉莉娅+德尔塔，伏特加女孩作为组合名保留音频。
+
+### 音频来源
+
+参考音频来自 `D:/hongkai_voice/`，按角色名 → 装甲名 → 语音类别(互动/备战/战斗/语气) 组织。
+音频格式: WAV, 16-bit, 采样率不确定, 文件大小 250KB-820KB (约3-10秒)。
+
+### 生成方法
+
+对每个角色：
+1. 基于崩坏3游戏设定和剧情知识，手工撰写完整人格描述
+2. 参考已有 SKILL.md 格式 (如 fu-hua/SKILL.md 是最完整的范本)
+3. 拆分角色重点描述与同源角色的差异
+4. YAML frontmatter 必须包含 name, description, tts_voice 三个字段
+
+### 下一步
+
+逐个、仔细地写每个角色的 SKILL.md。从拆分角色开始（优先），然后是单一身份角色。

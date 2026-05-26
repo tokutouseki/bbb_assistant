@@ -10,6 +10,7 @@ from dataclasses import dataclass
 from enum import Enum
 import asyncio
 from pathlib import Path
+from threading import Lock
 
 from .embedding import EmbeddingService, EmbeddingModelType
 from .vector_store import ChromaDBVectorStore, VectorDocument
@@ -61,84 +62,90 @@ class RAGEngine:
     
     def __init__(self, config: Optional[RAGConfig] = None):
         self.config = config or RAGConfig()
-        
+
         self._embedding_service: Optional[EmbeddingService] = None
         self._vector_store: Optional[ChromaDBVectorStore] = None
         self._index_manager: Optional[IndexManager] = None
         self._data_processor: Optional[DataProcessor] = None
         self._retriever: Optional[Retriever] = None
-        
+
         self._initialized = False
-    
+        self._init_lock = Lock()
+
     async def initialize(self) -> bool:
         """
         初始化RAG引擎
-        
+
         Returns:
             是否初始化成功
         """
-        try:
-            logger.info("正在初始化RAG引擎...")
-            
-            model_name = self.config.embedding_model
-            if self.config.embedding_model_path:
-                model_name = self.config.embedding_model_path
-                logger.info(f"使用本地模型路径: {model_name}")
-            
-            self._embedding_service = EmbeddingService(
-                model_type=EmbeddingModelType.SENTENCE_TRANSFORMER,
-                model_name=model_name,
-                device=self.config.embedding_device,
-                offline_mode=self.config.embedding_offline_mode
-            )
-            
-            if not await self._embedding_service.initialize():
-                logger.error("初始化嵌入服务失败")
-                return False
-            
-            logger.info("嵌入服务初始化完成")
-            
-            self._vector_store = ChromaDBVectorStore(
-                persist_directory=self.config.chroma_persist_directory,
-                collection_name=self.config.chroma_collection,
-                vector_size=self.config.vector_size
-            )
-            
-            if not await self._vector_store.initialize():
-                logger.error("初始化向量存储失败")
-                return False
-            
-            logger.info("向量存储初始化完成")
-            
-            self._index_manager = IndexManager(
-                index_path=self.config.index_path
-            )
-            
-            if not await self._index_manager.initialize():
-                logger.error("初始化索引管理器失败")
-                return False
-            
-            logger.info("索引管理器初始化完成")
-            
-            self._data_processor = DataProcessor(
-                data_path=self.config.data_path
-            )
-            
-            self._retriever = Retriever(
-                embedding_service=self._embedding_service,
-                vector_store=self._vector_store,
-                index_manager=self._index_manager,
-                fast_top_k=self.config.default_top_k,
-                precise_top_k=self.config.default_top_k
-            )
-            
-            self._initialized = True
-            logger.info("RAG引擎初始化完成")
+        if self._initialized:
             return True
-            
-        except Exception as e:
-            logger.error(f"初始化RAG引擎失败: {e}")
-            return False
+        with self._init_lock:
+            if self._initialized:
+                return True
+            try:
+                logger.info("正在初始化RAG引擎...")
+
+                model_name = self.config.embedding_model
+                if self.config.embedding_model_path:
+                    model_name = self.config.embedding_model_path
+                    logger.info(f"使用本地模型路径: {model_name}")
+
+                self._embedding_service = EmbeddingService(
+                    model_type=EmbeddingModelType.SENTENCE_TRANSFORMER,
+                    model_name=model_name,
+                    device=self.config.embedding_device,
+                    offline_mode=self.config.embedding_offline_mode
+                )
+
+                if not await self._embedding_service.initialize():
+                    logger.error("初始化嵌入服务失败")
+                    return False
+
+                logger.info("嵌入服务初始化完成")
+
+                self._vector_store = ChromaDBVectorStore(
+                    persist_directory=self.config.chroma_persist_directory,
+                    collection_name=self.config.chroma_collection,
+                    vector_size=self.config.vector_size
+                )
+
+                if not await self._vector_store.initialize():
+                    logger.error("初始化向量存储失败")
+                    return False
+
+                logger.info("向量存储初始化完成")
+
+                self._index_manager = IndexManager(
+                    index_path=self.config.index_path
+                )
+
+                if not await self._index_manager.initialize():
+                    logger.error("初始化索引管理器失败")
+                    return False
+
+                logger.info("索引管理器初始化完成")
+
+                self._data_processor = DataProcessor(
+                    data_path=self.config.data_path
+                )
+
+                self._retriever = Retriever(
+                    embedding_service=self._embedding_service,
+                    vector_store=self._vector_store,
+                    index_manager=self._index_manager,
+                    fast_top_k=self.config.default_top_k,
+                    precise_top_k=self.config.default_top_k
+                )
+
+                self._initialized = True
+                logger.info("RAG引擎初始化完成")
+                return True
+
+            except Exception as e:
+                logger.error(f"初始化RAG引擎失败: {e}")
+                return False
     
     @property
     def is_initialized(self) -> bool:

@@ -90,6 +90,7 @@ from src.config.settings import get_settings
 from src.config.runtime_settings import get_runtime_settings
 from src.config.cancel_signal import is_cancelled
 from src.modules.llm.llm_router import TaskType, get_llm_router
+from src.modules.character.character_manager import get_character_manager
 from src.modules.rag import RAGConfig, RAGEngine, SearchMode
 from src.modules.vision.yolo_model_manager import YOLOModelManager
 from src.modules.skill.skill_manager import get_skill_manager
@@ -98,22 +99,91 @@ from .react_formatter import ReActFormatter
 logger = logging.getLogger(__name__)
 
 
-class RouterLLM(LLM):
-    """将现有 LLMRouter 适配为 LangChain LLM。"""
+# ---- 参考音频索引 (Qwen3-TTS 声音克隆) ----
+_REF_INDEX_PATH = os.path.join(
+    os.path.dirname(__file__), "..", "audio", "reference_audio", "index.json"
+)
+_REF_INDEX_CACHE: Optional[Dict[str, dict]] = None
 
-    def __init__(self):
-        super().__init__()
+
+def _load_ref_index() -> Dict[str, dict]:
+    global _REF_INDEX_CACHE
+    if _REF_INDEX_CACHE is not None:
+        return _REF_INDEX_CACHE
+    import json as _json
+    try:
+        with open(_REF_INDEX_PATH, "r", encoding="utf-8") as _f:
+            _REF_INDEX_CACHE = _json.load(_f)
+    except Exception:
+        _REF_INDEX_CACHE = {}
+    return _REF_INDEX_CACHE
+
+
+def _resolve_ref_audio(ref_audio: str, ref_text: str) -> tuple:
+    """将角色名或文件路径解析为 (audio_path, ref_text)."""
+    index = _load_ref_index()
+    if os.path.isfile(ref_audio):
+        return (ref_audio, ref_text)
+    if ref_audio in index:
+        entry = index[ref_audio]
+        return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
+    for name, entry in index.items():
+        if ref_audio in name or name in ref_audio:
+            return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
+    return ("", "")
+
+
+def _list_ref_characters() -> str:
+    return "、".join(sorted(_load_ref_index().keys()))
+
+
+class RouterLLM(LLM):
+    """将现有 LLMRouter 适配为 LangChain LLM。
+
+    agent_type: "main" → DeepSeek Pro (游戏任务), "sub" → DeepSeek Flash (陪伴)
+    """
+
+    agent_type: str = "main"
+
+    def __init__(self, agent_type: str = "main"):
+        super().__init__(agent_type=agent_type)
         self._current_images: Optional[List[str]] = None
+        self._force_stop = False
+        self._force_stop_reason = ""
 
     @property
     def _llm_type(self) -> str:
-        return "bbb_router_llm"
+        return f"bbb_router_llm_{self.agent_type}"
+
+    def _generate(self, prompts, stop=None, run_manager=None, **kwargs):
+        logger.info(f"[RouterLLM-{self.agent_type}] _generate 被调用, prompts数量={len(prompts)}")
+        result = super()._generate(prompts, stop=stop, run_manager=run_manager, **kwargs)
+        logger.info(f"[RouterLLM-{self.agent_type}] _generate 返回")
+        return result
+
+    def invoke(self, input, config=None, **kwargs):
+        logger.info(f"[RouterLLM-{self.agent_type}] invoke 被调用, input类型={type(input).__name__}")
+        result = super().invoke(input, config=config, **kwargs)
+        logger.info(f"[RouterLLM-{self.agent_type}] invoke 返回, result类型={type(result).__name__}")
+        return result
 
     def _call(self, prompt: str, stop: Optional[List[str]] = None, run_manager=None, **kwargs: Any) -> str:
         request_id = getattr(self, '_current_request_id', None)
         if request_id and is_cancelled(request_id):
             raise RuntimeError("CancelledError: 请求已被用户取消")
 
+        # 回调检测到死循环时设置此标志，直接返回强制终止响应
+        if self._force_stop:
+            logger.info(f"[RouterLLM-{self.agent_type}] 检测到强制停止标志，返回终止响应")
+            self._force_stop = False
+            reason = self._force_stop_reason or "操作已完成"
+            self._force_stop_reason = ""
+            return (
+                f"Thought: {reason}，无需继续调用工具。\n"
+                f"Final Answer: 操作已完成。"
+            )
+
+        logger.info(f"[RouterLLM-{self.agent_type}] _call 被调用, prompt前100字: {prompt[:100]}")
         router = get_llm_router()
         runtime = get_runtime_settings()
 
@@ -129,9 +199,17 @@ class RouterLLM(LLM):
             router_kwargs["preferred_runtime"] = RUNTIME_MAP.get(runtime["llm_provider"], "auto")
             router_kwargs["user_preference"] = PROVIDER_MAP.get(runtime["llm_provider"], runtime["llm_provider"])
         if runtime.get("llm_model"):
-            router_kwargs["model_override"] = runtime["llm_model"]
+            # 子 Agent 使用 flash 模型，主 Agent 使用 pro 模型
+            if self.agent_type == "sub":
+                flash_model = runtime["llm_model"].replace("-pro", "-flash") if "pro" in runtime["llm_model"] else runtime["llm_model"]
+                router_kwargs["model_override"] = flash_model
+            else:
+                router_kwargs["model_override"] = runtime["llm_model"]
         if runtime.get("llm_temperature") is not None:
-            router_kwargs["temperature"] = runtime["llm_temperature"]
+            temp = runtime["llm_temperature"]
+            if self.agent_type == "sub":
+                temp = min(temp, 0.9)  # 子 Agent 用稍高温度让角色扮演更生动
+            router_kwargs["temperature"] = temp
         if runtime.get("llm_max_tokens") is not None:
             router_kwargs["max_tokens"] = runtime["llm_max_tokens"]
         if runtime.get("llm_api_key"):
@@ -143,6 +221,14 @@ class RouterLLM(LLM):
             router_kwargs["preferred_runtime"] = "lmstudio"
             router_kwargs["user_preference"] = "lm-studio-default"
             router_kwargs["images"] = images
+
+        # 子 Agent 动态注入角色人格
+        if self.agent_type == "sub" and "[CHARACTER_PERSONALITY]" in prompt:
+            rt = get_runtime_settings()
+            char_name = rt.get("companion_character", "爱莉希雅")
+            logger.info(f"[RouterLLM-sub] 读取角色设置: companion_character='{char_name}'")
+            personality = get_character_manager().get_personality(char_name)
+            prompt = prompt.replace("[CHARACTER_PERSONALITY]", personality)
 
         result = router.route_request(
             messages=[
@@ -156,11 +242,13 @@ class RouterLLM(LLM):
             stream=False,
             **router_kwargs,
         )
+        logger.info(f"[RouterLLM-{self.agent_type}] route_request 返回, type={type(result).__name__}, "
+                     f"has_content={'content' in result if isinstance(result, dict) else 'N/A'}, "
+                     f"has_error={'error' in result if isinstance(result, dict) else 'N/A'}")
         if isinstance(result, dict):
             if "content" in result:
                 return _clean_llm_output(result["content"])
             if "error" in result:
-                # 返回 Final Answer 格式避免 Agent 无限重试
                 return f"Thought: 模型调用遇到问题\nFinal Answer: {result['error']}"
         return _clean_llm_output(str(result))
 
@@ -173,6 +261,7 @@ class QueueStreamingHandler(BaseCallbackHandler):
         self.agent_ref = agent_ref
         self._last_action = None
         self._cancelled = False
+        self._action_history: list = []  # (tool_name, tool_input) tuples for repeat detection
 
     def _check_cancel(self):
         if self._cancelled:
@@ -184,15 +273,43 @@ class QueueStreamingHandler(BaseCallbackHandler):
             self._cancelled = True
             raise RuntimeError("CancelledError: 请求已被用户取消")
 
+    def _check_repeat_loop(self, tool_name: str, tool_input: str):
+        """检测同一工具+同一输入连续调用超过2次，设置 LLM 强制停止标志。
+
+        LangChain 内部会吞掉 callback 中抛出的 RuntimeError（仅打印 WARNING），
+        所以改用共享标志位：在 RouterLLM._call() 中检查此标志，若置位则直接返回
+        强制终止响应，不再调用真实 LLM。
+        """
+        self._action_history.append((tool_name, tool_input))
+        if len(self._action_history) < 3:
+            return
+        last3 = self._action_history[-3:]
+        if all(a[0] == tool_name and a[1] == tool_input for a in last3):
+            logger.warning(
+                f"LoopDetected: 工具 {tool_name} 以相同输入连续调用了3次，设置强制停止标志"
+            )
+            # 通过 agent_ref 找到 RouterLLM 实例，设置强制停止标志
+            agent = getattr(self, 'agent_ref', None)
+            if agent is not None:
+                llm = getattr(agent, '_llm', None)
+                if llm is not None:
+                    llm._force_stop = True
+                    llm._force_stop_reason = (
+                        f"工具 {tool_name} 以相同输入连续调用了3次，"
+                        f"操作已完成，请输出 Final Answer。"
+                    )
+
     def on_agent_action(self, action, **kwargs):
         self._check_cancel()
         tool_name = getattr(action, 'tool', '')
+        tool_input = str(getattr(action, 'tool_input', ''))
         self._last_action = tool_name
+        self._check_repeat_loop(tool_name, tool_input)
         self.event_queue.put({
             "type": "step",
             "thought": getattr(action, 'log', ''),
             "action": tool_name,
-            "action_input": str(getattr(action, 'tool_input', '')),
+            "action_input": tool_input,
             "timestamp": __import__('time').time(),
         })
 
@@ -238,28 +355,42 @@ class QueueStreamingHandler(BaseCallbackHandler):
         })
 
 
-class ReActGameAgent:
-    """LangChain ReAct Agent，接入 RAG + YOLO + 基础工具，支持多轮对话记忆。"""
+# 共享 RAGEngine 单例，避免 MainGameAgent 和 SubCompanionAgent 各加载一份
+_shared_rag_engine: Optional[RAGEngine] = None
+_shared_rag_lock = Lock()
+
+
+def _get_shared_rag_engine() -> RAGEngine:
+    global _shared_rag_engine
+    if _shared_rag_engine is None:
+        with _shared_rag_lock:
+            if _shared_rag_engine is None:
+                settings = get_settings()
+                _shared_rag_engine = RAGEngine(
+                    RAGConfig(
+                        data_path=settings.rag_data_path,
+                        index_path=settings.rag_index_path,
+                        chroma_persist_directory=settings.chroma_persist_directory,
+                        chroma_collection=settings.chroma_collection,
+                        embedding_model=settings.embedding_model,
+                        embedding_model_path=settings.embedding_model_path,
+                        embedding_device=settings.embedding_device,
+                        embedding_offline_mode=settings.embedding_offline_mode,
+                        default_top_k=settings.rag_default_top_k,
+                        default_mode=SearchMode(settings.rag_default_mode),
+                        context_max_length=settings.rag_context_max_length,
+                    )
+                )
+    return _shared_rag_engine
+
+
+class BaseGameAgent:
+    """ReAct Agent 基类 — RAG + YOLO + 记忆。子类覆盖 _build_agent() 提供工具集和 prompt。"""
 
     def __init__(self):
         self.settings = get_settings()
-        self.rag_engine = RAGEngine(
-            RAGConfig(
-                data_path=self.settings.rag_data_path,
-                index_path=self.settings.rag_index_path,
-                chroma_persist_directory=self.settings.chroma_persist_directory,
-                chroma_collection=self.settings.chroma_collection,
-                embedding_model=self.settings.embedding_model,
-                embedding_model_path=self.settings.embedding_model_path,
-                embedding_device=self.settings.embedding_device,
-                embedding_offline_mode=self.settings.embedding_offline_mode,
-                default_top_k=self.settings.rag_default_top_k,
-                default_mode=SearchMode(self.settings.rag_default_mode),
-                context_max_length=self.settings.rag_context_max_length,
-            )
-        )
+        self.rag_engine = _get_shared_rag_engine()
         self.yolo_manager = YOLOModelManager.get_instance()
-        self._rag_lock = Lock()
         # 在初始化时预热RAG引擎，避免后续的asyncio问题
         self._warm_up_rag()
         self._formatter = ReActFormatter()
@@ -344,6 +475,8 @@ class ReActGameAgent:
 
     def _warm_up_rag(self) -> None:
         """在初始化时同步预热RAG引擎"""
+        if self.rag_engine.is_initialized:
+            return
         import asyncio
         try:
             # 尝试获取现有loop，如果存在则使用它，否则创建新的
@@ -363,7 +496,7 @@ class ReActGameAgent:
         """同步初始化RAG引擎（用于在ReAct Agent运行前预初始化）"""
         if self.rag_engine.is_initialized:
             return
-        with self._rag_lock:
+        with _shared_rag_lock:
             if self.rag_engine.is_initialized:
                 return
             import asyncio
@@ -379,1036 +512,49 @@ class ReActGameAgent:
     def _ensure_rag_initialized(self) -> None:
         if self.rag_engine.is_initialized:
             return
-        with self._rag_lock:
+        with _shared_rag_lock:
             if self.rag_engine.is_initialized:
                 return
+            import asyncio
+            import concurrent.futures
             try:
-                import asyncio
                 loop = asyncio.get_event_loop()
                 if loop.is_running():
-                    loop.create_task(self.rag_engine.initialize())
+                    # 在 running loop 中不能直接用 asyncio.run()，用子线程执行
+                    with concurrent.futures.ThreadPoolExecutor() as ex:
+                        future = ex.submit(asyncio.run, self.rag_engine.initialize())
+                        future.result(timeout=30)
                 else:
                     asyncio.run(self.rag_engine.initialize())
             except RuntimeError:
-                import asyncio
                 asyncio.run(self.rag_engine.initialize())
 
+    def _get_prompt_partials(self) -> dict:
+        """子类覆盖：返回 prompt 模板的预填充变量。"""
+        partials = {"user_preferences": self._cached_preferences}
+        if "{character_personality}" in self._get_prompt_template():
+            partials["character_personality"] = "[CHARACTER_PERSONALITY]"
+        return partials
+
     def _build_agent(self) -> AgentExecutor:
-        @tool
-        def rag_search(query: str) -> str:
-            """查询本地 RAG 知识库，返回游戏相关知识摘要。
-
-结果按相关性从高到低排列。名称精确匹配的结果带 [直接匹配] 标记，最可信。
-如果所有结果得分都很低，说明知识库中缺乏相关内容。"""
-            self._ensure_rag_initialized()
-            import concurrent.futures
-            import asyncio
-
-            def run_async_search():
-                return asyncio.run(self.rag_engine.search(query=query, mode=SearchMode.HYBRID, top_k=8))
-
-            try:
-                with concurrent.futures.ThreadPoolExecutor() as executor:
-                    future = executor.submit(run_async_search)
-                    results = future.result()
-            except Exception as e:
-                logger.error(f"RAG搜索失败: {e}")
-                return f"RAG搜索失败: {str(e)}"
-
-            if not results:
-                return "未检索到相关知识。"
-
-            # RRF 分数阈值: 名称精确匹配≈0.53, 双路命中≈0.032, 单路噪声<0.017
-            # 低于 0.015 的结果视为不相关
-            min_score = 0.015
-            relevant = [r for r in results if r.score >= min_score]
-
-            if not relevant:
-                # 所有结果都低于阈值，返回得分最高的一条作为参考
-                best = results[0]
-                return f"[低相关性] {best.name}: {best.content[:200]}\n(知识库中未找到与'{query}'直接匹配的内容，以下结果仅供参考)"
-
-            lines = []
-            for i, r in enumerate(relevant[:5]):
-                tag = "[直接匹配]" if query.lower().strip() == r.name.lower() else ""
-                lines.append(f"{tag}{r.name}: {r.content[:200]}")
-            return "\n".join(lines)
-
-        @tool
-        def list_skills(_: str = "") -> str:
-            """列出所有可用的技能，每个技能包含使用说明和触发词。在不确定如何完成某个任务时，可以调用此工具查看可用技能。"""
-            skill_manager = get_skill_manager()
-            return skill_manager.get_skill_summary()
-
-        @tool
-        def view_skill(skill_name: str = "") -> str:
-            """查看指定技能的详细使用说明。参数: skill_name - 技能名称（先调用list_skills查看可用技能）。技能包含详细的操作步骤和说明，帮助您完成特定任务。"""
-            if not skill_name or skill_name.strip() == "":
-                return "❌ 请提供技能名称，先调用list_skills查看可用技能。"
-            
-            skill_manager = get_skill_manager()
-            skill = skill_manager.get_skill(skill_name.strip())
-            
-            if not skill:
-                available_skills = ", ".join(skill_manager.list_skills())
-                return f"❌ 未找到技能 '{skill_name}'。可用技能: {available_skills}"
-            
-            return f"📖 技能: {skill['name']}\n\n描述: {skill['description']}\n\n使用说明:\n{skill['content']}"
-
-        @tool
-        def yolo_list_models(_: str = "") -> str:
-            """列出所有可用的YOLO模型（包括检测模型和分类模型）以及当前已加载的模型。在使用任何YOLO工具前调用此工具查看可用模型。"""
-            available = self.yolo_manager.list_available_models()
-            loaded = self.yolo_manager.list_loaded_models()
-            
-            # 按类型分组可用模型
-            classification_models = []
-            detect_models = []
-            
-            for model in available:
-                model_name = model["name"]
-                if "cls" in model_name.lower():
-                    classification_models.append(model_name)
-                elif "det" in model_name.lower():
-                    detect_models.append(model_name)
-            
-            # 格式化输出
-            lines = []
-            lines.append("=== 已加载模型 ===")
-            if loaded:
-                for model in loaded:
-                    lines.append(f"✓ {model['name']} (设备: {model['device']})")
-            else:
-                lines.append("无")
-            
-            lines.append("\n=== 可用分类模型 ===")
-            if classification_models:
-                for model in classification_models:
-                    lines.append(f"• {model}")
-            else:
-                lines.append("无")
-            
-            lines.append("\n=== 可用检测模型 ===")
-            if detect_models:
-                for model in detect_models:
-                    lines.append(f"• {model}")
-            else:
-                lines.append("无")
-            
-            return "\n".join(lines)
-
-        @tool
-        def yolo_load_model(model_name: str) -> str:
-            """加载指定的YOLO模型到内存（优先加载到GPU）。参数: model_name - 模型名称，必须是可用模型列表中的名称（先调用yolo_list_models查看）。检测模型用于识别游戏UI元素，分类模型用于识别游戏场景。"""
-            try:
-                import json
-                import torch
-                
-                # 解析可能的JSON格式输入
-                if model_name.startswith("{"):
-                    try:
-                        parsed = json.loads(model_name)
-                        model_name = parsed.get("model_name", model_name)
-                    except json.JSONDecodeError:
-                        pass
-                
-                # 使用 CPU 运行模型（避免 CUDA 兼容性问题）
-                target_device = "cpu"
-                logger.info(f"使用设备: {target_device}")
-                
-                result = self.yolo_manager.load_model(model_name=model_name, device=target_device)
-                
-                if result.get("success"):
-                    model_info = result.get("model", {})
-                    message = result.get("message", "模型加载成功")
-                    model_name = model_info.get("name", model_name)
-                    device = model_info.get("device", target_device)
-                    
-                    return f"✅ {message}\n\n模型信息:\n• 名称: {model_name}\n• 设备: {device}"
-                else:
-                    error_msg = result.get("message", "加载失败")
-                    return f"❌ 模型加载失败: {error_msg}"
-                    
-            except Exception as e:
-                logger.error(f"加载模型失败: {e}")
-                return f"❌ 模型加载失败: {str(e)}"
-
-        @tool
-        def yolo_unload_model(model_name: str) -> str:
-            """卸载指定的YOLO模型以释放GPU/CPU内存。参数: model_name - 要卸载的模型名称（先调用yolo_list_models查看已加载模型）。当需要释放显存加载其他模型时使用此工具。"""
-            try:
-                import json
-
-                # 解析可能的JSON格式输入
-                if model_name.startswith("{"):
-                    try:
-                        parsed = json.loads(model_name)
-                        model_name = parsed.get("model_name", model_name)
-                    except json.JSONDecodeError:
-                        pass
-
-                result = self.yolo_manager.unload_model(model_name=model_name.strip())
-
-                if result.get("success"):
-                    return f"✅ {result.get('message', '模型已卸载')}"
-                else:
-                    error_msg = result.get("message", "卸载失败")
-                    return f"❌ 卸载失败: {error_msg}"
-
-            except Exception as e:
-                logger.error(f"卸载模型失败: {e}")
-                return f"❌ 卸载模型失败: {str(e)}"
-
-        @tool
-        def yolo_detect_image(model_name: str = "") -> str:
-            """对当前屏幕截图进行YOLO目标检测，识别游戏中的UI元素（如按钮、菜单等）。参数: model_name - 已加载的检测模型名称（必须先调用yolo_load_model加载）。适用于检测attack_ui、club、home、mission等场景的UI元素。"""
-            try:
-                from src.modules.vision.screen_capture import ScreenCapture
-                import json
-                import os
-                
-                # 获取已加载的模型列表
-                loaded_models = self.yolo_manager.list_loaded_models()
-                loaded_names = {m["name"] for m in loaded_models}
-                
-                # 检查模型名称是否指定
-                if not model_name or model_name.strip() == "":
-                    return f"❌ 请指定要使用的模型名称。当前已加载的模型: {', '.join(loaded_names) if loaded_names else '无'}"
-                
-                input_str = model_name.strip()
-                
-                # 尝试解析JSON格式
-                try:
-                    parsed = json.loads(input_str)
-                    if isinstance(parsed, dict) and "model_name" in parsed:
-                        model_name = parsed["model_name"]
-                    elif isinstance(parsed, str):
-                        model_name = parsed
-                    else:
-                        model_name = input_str
-                except (json.JSONDecodeError, ValueError):
-                    model_name = input_str
-                
-                # 检查模型是否已加载
-                if model_name not in loaded_names:
-                    return f"❌ 模型 '{model_name}' 未加载。请先使用 yolo_load_model 加载模型，或使用以下已加载的模型: {', '.join(loaded_names) if loaded_names else '无'}"
-                
-                # 加载检测标签中文映射
-                label_mapping = {}
-                mapping_path = os.path.join(
-                    os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))),
-                    "data", "models", "detect", "detect_mapping.json"
-                )
-                try:
-                    if os.path.exists(mapping_path):
-                        with open(mapping_path, 'r', encoding='utf-8') as f:
-                            all_mappings = json.load(f)
-                            label_mapping = all_mappings.get(model_name, {})
-                except Exception as e:
-                    logger.warning(f"加载检测标签映射文件失败: {e}")
-                
-                # 捕获屏幕截图
-                screen_capture = ScreenCapture()
-                image = screen_capture.capture()
-                
-                if image is None or image.size == 0:
-                    return "屏幕捕获失败"
-                
-                # 进行检测
-                result = self.yolo_manager.detect(
-                    image=image, 
-                    model_name=model_name, 
-                    confidence_threshold=0.5
-                )
-                
-                if not result or not result.get("detections"):
-                    return "未检测到任何目标"
-                
-                # 格式化结果
-                detections = result["detections"]
-                
-                # 按标签分组统计（用英文标签统计以保持一致性
-                label_counts = {}
-                for detection in detections:
-                    label = detection.get("label", detection.get("class", "未知"))
-                    label_counts[label] = label_counts.get(label, 0) + 1
-                
-                # 生成详细结果
-                lines = []
-                lines.append(f"检测到 {len(detections)} 个目标，共 {len(label_counts)} 种类别:")
-                lines.append("")
-                
-                # 按置信度排序并显示完整信息
-                sorted_detections = sorted(detections, key=lambda x: -x.get("confidence", 0))
-                
-                for idx, detection in enumerate(sorted_detections, 1):
-                    label = detection.get("label", detection.get("class", "未知"))
-                    label_cn = label_mapping.get(label, label)
-                    confidence = detection.get("confidence", 0)
-                    bbox = detection.get("bbox", [])
-                    
-                    # 使用 -- 分隔中英文标签
-                    if label_cn != label:
-                        display_label = f"{label}--{label_cn}"
-                    else:
-                        display_label = label
-                    
-                    if bbox:
-                        x1, y1, x2, y2 = bbox
-                        lines.append(f"{idx}. {display_label}")
-                        lines.append(f"   ├─ 置信度: {confidence:.4f}")
-                        lines.append(f"   └─ 位置: ({int(x1)}, {int(y1)}) - ({int(x2)}, {int(y2)})")
-                    else:
-                        lines.append(f"{idx}. {display_label}: {confidence:.4f}")
-                
-                # 添加标签统计（使用英文标签
-                lines.append("")
-                lines.append("标签统计:")
-                for label, count in sorted(label_counts.items(), key=lambda x: -x[1]):
-                    lines.append(f"  • {label}: {count} 个")
-                
-                return "\n".join(lines)
-                
-            except Exception as e:
-                logger.error(f"YOLO检测失败: {e}")
-                return f"YOLO检测失败: {str(e)}"
-
-        @tool
-        def yolo_classify_image(model_name: str = "") -> str:
-            """对当前屏幕截图进行YOLO图像分类，识别当前游戏场景。参数: model_name - 已加载的分类模型名称（必须先调用yolo_load_model加载）。推荐使用yolo11n_scene_cls模型进行崩坏3场景分类，可识别home、combat、gacha、shop、story等34个游戏场景。"""
-            try:
-                from src.modules.vision.screen_capture import ScreenCapture
-                import json
-                import os
-                
-                loaded_models = self.yolo_manager.list_loaded_models()
-                loaded_names = {m["name"] for m in loaded_models}
-                
-                if not model_name or model_name.strip() == "":
-                    return f"❌ 请指定要使用的模型名称。当前已加载的模型: {', '.join(loaded_names) if loaded_names else '无'}"
-                
-                input_str = model_name.strip()
-                
-                try:
-                    parsed = json.loads(input_str)
-                    if isinstance(parsed, dict) and "model_name" in parsed:
-                        model_name = parsed["model_name"]
-                    elif isinstance(parsed, str):
-                        model_name = parsed
-                    else:
-                        model_name = input_str
-                except (json.JSONDecodeError, ValueError):
-                    model_name = input_str
-                
-                if model_name not in loaded_names:
-                    return f"❌ 模型 '{model_name}' 未加载。请先使用 yolo_load_model 加载模型，或使用以下已加载的模型: {', '.join(loaded_names) if loaded_names else '无'}"
-                
-                screen_capture = ScreenCapture()
-                image = screen_capture.capture()
-                
-                if image is None or image.size == 0:
-                    return "屏幕捕获失败"
-                
-                result = self.yolo_manager.classify(
-                    image=image, 
-                    model_name=model_name
-                )
-                
-                if not result or not result.get("predictions"):
-                    return "分类失败，未获取到预测结果"
-                
-                # 加载场景名称映射（如果是场景分类模型）
-                is_scene_model = 'scene_cls' in model_name.lower()
-                scene_mapping = {}
-                if is_scene_model:
-                    mapping_path = os.path.join(
-                        os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))),
-                        "data", "models", "classification", "scene_mapping.json"
-                    )
-                    try:
-                        with open(mapping_path, 'r', encoding='utf-8') as f:
-                            scene_mapping = json.load(f)
-                    except Exception as e:
-                        logger.warning(f"加载场景映射文件失败: {e}")
-                
-                predictions = result["predictions"]
-                
-                lines = []
-                lines.append(f"分类结果 (模型: {model_name}):")
-                if is_scene_model:
-                    lines.append("(崩坏3场景分类模型)")
-                lines.append("")
-                
-                for idx, pred in enumerate(predictions, 1):
-                    top1 = pred.get("top1", {})
-                    top5 = pred.get("top5", [])
-                    
-                    label = top1.get('label', '未知')
-                    
-                    # 如果是场景分类模型，显示英文名称（返回给agent）和中文名称（显示给用户）
-                    if is_scene_model and label != '未知':
-                        cn_label = scene_mapping.get('cn', {}).get(label, label)
-                        label = f"{label} ({cn_label})"
-                    
-                    lines.append(f"📊 预测 #{idx}:")
-                    lines.append(f"   └─ Top1: {label} (置信度: {top1.get('confidence', 0):.4f})")
-                    
-                    if top5:
-                        lines.append("")
-                        lines.append("   Top5 预测:")
-                        for i, item in enumerate(top5, 1):
-                            item_label = item.get('label', '未知')
-                            if is_scene_model and item_label != '未知':
-                                item_cn_label = scene_mapping.get('cn', {}).get(item_label, item_label)
-                                item_label = f"{item_label} ({item_cn_label})"
-                            lines.append(f"     {i}. {item_label}: {item.get('confidence', 0):.4f}")
-                
-                # 如果是场景分类模型，添加推荐装载检测模型的提示
-                if is_scene_model and predictions:
-                    top1_label = predictions[0].get("top1", {}).get('label', '')
-                    scene_to_det_model = {
-                        "bridge": "yolo11n_bridge_ui_det",
-                        "home": "yolo11n_home_ui_det",
-                        "mission": "yolo11n_mission_ui_det",
-                        "club": "yolo11n_club_ui_det",
-                        "attack": "yolo11n_attack_ui_det",
-                    }
-                    if top1_label in scene_to_det_model:
-                        det_model = scene_to_det_model[top1_label]
-                        lines.append("")
-                        lines.append(f"💡 推荐：当前场景为 {top1_label}，可使用 yolo_load_model 装载 {det_model} 进行UI元素检测")
-                
-                return "\n".join(lines)
-                
-            except Exception as e:
-                logger.error(f"YOLO分类失败: {e}")
-                return f"YOLO分类失败: {str(e)}"
-
-        @tool
-        def get_runtime_status(_: str = "") -> str:
-            """获取当前 LLM 运行时优先级与状态。"""
-            return (
-                f"runtime={self.settings.llm_runtime}, "
-                f"priority=api>lmstudio/ollama>local, "
-                f"local_model={self.settings.llm_local_model_path}"
-            )
-
-        @tool
-        def focus_bh3_window(_: str = "") -> str:
-            """将焦点转到崩坏3游戏窗口。在进行游戏操作前使用此工具确保窗口处于活动状态。"""
-            try:
-                from src.modules.vision.window_focus import focus_bh3_window, is_admin
-                
-                if not is_admin():
-                    return "⚠️ 当前程序未以管理员身份运行，可能无法正确聚焦游戏窗口。建议以管理员身份重新运行程序。"
-                
-                success, message = focus_bh3_window()
-                if success:
-                    return f"✅ {message}"
-                else:
-                    return f"❌ {message}，请检查游戏是否已启动"
-            except ImportError as e:
-                return f"❌ 无法导入窗口聚焦模块: {str(e)}"
-            except Exception as e:
-                return f"❌ 聚焦窗口时发生错误: {str(e)}"
-
-        @tool
-        def click_coordinates(coords: str = "") -> str:
-            """点击屏幕上的指定坐标。参数: coords - 坐标字符串，格式为"x,y"，例如："500,300"。建议先使用yolo_detect_image获取目标位置。"""
-            try:
-                import win32api
-                import win32con
-                import time
-                
-                if not coords or coords.strip() == "":
-                    return "❌ 请提供坐标参数，格式为: x,y"
-                
-                # 解析坐标
-                coords = coords.strip()
-                try:
-                    # 处理可能的JSON格式
-                    if coords.startswith("{"):
-                        import json
-                        data = json.loads(coords)
-                        x = data.get("x", data.get("X", 0))
-                        y = data.get("y", data.get("Y", 0))
-                    elif "," in coords:
-                        x_str, y_str = coords.split(",", 1)
-                        x = int(float(x_str.strip()))
-                        y = int(float(y_str.strip()))
-                    else:
-                        return f"❌ 无效的坐标格式: {coords}，请使用 x,y 格式"
-                except Exception as e:
-                    return f"❌ 坐标解析失败: {str(e)}"
-                
-                # 移动鼠标到目标位置
-                win32api.SetCursorPos((x, y))
-                time.sleep(0.1)
-                
-                # 模拟鼠标左键点击
-                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
-                time.sleep(0.05)
-                win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
-                time.sleep(0.1)
-                
-                return f"✅ 已点击坐标 ({x}, {y})"
-                
-            except ImportError:
-                return "❌ 需要安装 pywin32: pip install pywin32"
-            except Exception as e:
-                return f"❌ 点击失败: {str(e)}"
-
-        @tool
-        def ocr_recognize(region: str = "") -> str:
-            """对指定区域进行OCR文字识别。参数: region - 识别区域，格式为"x1,y1,x2,y2"（左上角和右下角坐标），如"100,100,500,500"。留空则默认识别全屏。"""
-            try:
-                from src.modules.vision.screen_capture import ScreenCapture
-                from src.modules.vision.ocr_processor import OCRProcessor
-                
-                screen_capture = ScreenCapture()
-                image = screen_capture.capture()
-                
-                if image is None or image.size == 0:
-                    return "❌ 屏幕捕获失败"
-                
-                # 解析区域参数
-                x1, y1, x2, y2 = None, None, None, None
-                if region and region.strip():
-                    try:
-                        parts = region.strip().split(',')
-                        if len(parts) == 4:
-                            x1, y1, x2, y2 = map(int, parts)
-                        else:
-                            return f"❌ 无效的区域格式，请使用 'x1,y1,x2,y2' 格式，例如 '100,100,500,500'"
-                    except ValueError:
-                        return f"❌ 区域坐标必须是整数，格式: x1,y1,x2,y2"
-                
-                # 裁剪图像到指定区域
-                if x1 is not None:
-                    image = image[y1:y2, x1:x2]
-                
-                # 执行OCR识别
-                ocr = OCRProcessor()
-                results = ocr.process(image)
-                
-                if not results:
-                    return "未识别到文字"
-
-                MAX_RESULTS = 20
-                MAX_TEXT_LEN = 80
-
-                # 按置信度过滤和排序
-                valid_results = [r for r in results if r.text.strip()]
-                valid_results.sort(key=lambda r: r.confidence, reverse=True)
-
-                total_count = len(valid_results)
-                truncated = total_count > MAX_RESULTS
-                valid_results = valid_results[:MAX_RESULTS]
-
-                lines = []
-                lines.append(f"📝 OCR识别结果 (共{total_count}条，显示前{len(valid_results)}条):")
-                lines.append("")
-
-                for idx, result in enumerate(valid_results, 1):
-                    text = result.text.strip()
-                    if len(text) > MAX_TEXT_LEN:
-                        text = text[:MAX_TEXT_LEN] + "..."
-                    lines.append(f"{idx}. \"{text}\" (置信度:{result.confidence:.2f})")
-                    if result.bbox:
-                        bbox_x1 = result.bbox[0] + (x1 or 0)
-                        bbox_y1 = result.bbox[1] + (y1 or 0)
-                        bbox_x2 = result.bbox[2] + (x1 or 0)
-                        bbox_y2 = result.bbox[3] + (y1 or 0)
-                        lines.append(f"   位置: ({int(bbox_x1)},{int(bbox_y1)})-({int(bbox_x2)},{int(bbox_y2)})")
-
-                if truncated:
-                    lines.append(f"\n⚠️ 还有 {total_count - MAX_RESULTS} 条结果未显示（限制{MAX_RESULTS}条）")
-
-                return "\n".join(lines)
-                
-            except ImportError as e:
-                return f"❌ 无法导入OCR模块: {str(e)}"
-            except Exception as e:
-                return f"❌ OCR识别失败: {str(e)}"
-
-        @tool
-        def tts_qwen3(text: str = "") -> str:
-            """使用Qwen3-TTS引擎将文本转为语音（声音设计模式，无需参考音频）。参数: text - 要合成语音的文本内容。支持多种声音风格（爱莉希雅、琪亚娜、雷电芽衣、布洛妮娅、温柔女声、可爱萝莉等），默认使用爱莉希雅预设音色。生成后返回音频文件路径，你必须在下一步调用 play_audio 工具播放生成的音频文件！"""
-            if not text or text.strip() == "":
-                return "❌ 请提供要合成语音的文本内容。"
-            try:
-                from src.utils.model_manager import get_qwen3_tts_model
-                tts = get_qwen3_tts_model(device="cuda:0")
-                result = tts.generate(
-                    text=text.strip(),
-                    voice_style="爱莉希雅",
-                    language="Chinese"
-                )
-                filepath = tts.save_to_file(result)
-                duration = len(result.audio_data) / result.sample_rate
-                return (
-                    f"✅ Qwen3-TTS 语音生成成功！\n"
-                    f"- 文本: {text.strip()}\n"
-                    f"- 声音风格: 爱莉希雅\n"
-                    f"- 采样率: {result.sample_rate} Hz\n"
-                    f"- 时长: {duration:.1f}s\n"
-                    f"- 文件: {filepath}\n\n"
-                    f"⚠️ 请在下一步调用 play_audio 工具播放此文件: {filepath}"
-                )
-            except Exception as e:
-                return f"❌ Qwen3-TTS 语音生成失败: {str(e)}"
-
-        @tool
-        def tts_voxcpm(text: str = "") -> str:
-            """使用VoxCPM引擎通过参考音频克隆爱莉希雅声音生成语音。参数: text - 要合成语音的文本内容。基于爱莉希雅参考音频进行声音克隆，生成后返回音频文件路径，你必须在下一步调用 play_audio 工具播放生成的音频文件！"""
-            if not text or text.strip() == "":
-                return "❌ 请提供要合成语音的文本内容。"
-            try:
-                from src.utils.model_manager import get_tts_model
-                tts = get_tts_model(device="cuda:0")
-                result = tts.generate(
-                    text=text.strip(),
-                    voice_id="elysia",
-                    save_result=True
-                )
-                filepath = tts.save_to_file(result)
-                duration = len(result.audio_data) / result.sample_rate
-                return (
-                    f"✅ VoxCPM 语音克隆成功！\n"
-                    f"- 文本: {text.strip()}\n"
-                    f"- 角色: 爱莉希雅(elysia)\n"
-                    f"- 采样率: {result.sample_rate} Hz\n"
-                    f"- 时长: {duration:.1f}s\n"
-                    f"- 文件: {filepath}\n\n"
-                    f"⚠️ 请在下一步调用 play_audio 工具播放此文件: {filepath}"
-                )
-            except Exception as e:
-                return f"❌ VoxCPM 语音克隆失败: {str(e)}"
-
-        @tool
-        def play_audio(filepath: str = "") -> str:
-            """播放指定路径的音频文件（WAV格式）。参数: filepath - 音频文件的完整路径。通常在 tts_qwen3 或 tts_voxcpm 生成音频后调用此工具来播放。"""
-            if not filepath or filepath.strip() == "":
-                return "❌ 请提供要播放的音频文件路径。"
-            try:
-                from src.modules.audio.audio_player import get_audio_player
-                player = get_audio_player()
-                success = player.play_audio(filepath.strip())
-                if success:
-                    return f"✅ 音频播放成功: {filepath}"
-                else:
-                    return f"❌ 音频播放失败: {filepath}"
-            except Exception as e:
-                return f"❌ 音频播放异常: {str(e)}"
-
-        @tool
-        def todo_write(tasks_json: str = "") -> str:
-            """创建和更新任务计划列表。当任务需要3步以上时，必须先用此工具创建TODO计划，然后每完成一步更新状态。
-
-参数为 JSON 字符串，格式:
-  {"tasks": [{"id": "1", "status": "pending", "content": "任务描述"}, ...]}
-
-status 可选: pending, in_progress, completed
-
-使用方式:
-- 首次: 列出全部任务的完整 JSON，全部初始为 pending
-- 开始某任务: 只发该任务 status: "in_progress"
-- 完成某任务: 只发该任务 status: "completed"
-- 一次可更新多个任务状态
-
-返回当前完整的 TODO 列表状态。"""
-            import json as _json
-            try:
-                data = _json.loads(tasks_json) if tasks_json and tasks_json.strip() else {"tasks": []}
-                tasks = data.get("tasks", [])
-                if not hasattr(self, '_todo_list'):
-                    self._todo_list = []
-                for t in tasks:
-                    tid = t.get("id", "")
-                    existing = next((x for x in self._todo_list if x.get("id") == tid), None)
-                    if existing:
-                        if "status" in t:
-                            existing["status"] = t["status"]
-                        if "content" in t:
-                            existing["content"] = t["content"]
-                    else:
-                        self._todo_list.append({
-                            "id": tid,
-                            "status": t.get("status", "pending"),
-                            "content": t.get("content", ""),
-                        })
-                result = {"tasks": self._todo_list}
-                return _json.dumps(result, ensure_ascii=False)
-            except Exception as e:
-                return _json.dumps({"error": str(e), "tasks": getattr(self, '_todo_list', [])}, ensure_ascii=False)
-
-        @tool
-        def web_search(query: str = "") -> str:
-            """联网搜索最新信息。参数: query - 搜索关键词。当本地RAG知识库无法回答或需要最新资讯时使用。支持崩坏3相关的最新攻略、活动、角色信息等。"""
-            if not query or query.strip() == "":
-                return "❌ 请提供搜索关键词"
-            try:
-                from src.modules.web_search.web_searcher import WebSearcher, SearchEngine
-                searcher = WebSearcher(engine=SearchEngine.BAIDU, max_results=5, enable_content_fetch=False)
-                results = searcher.search_with_fallback(query.strip())
-                if not results:
-                    return "未找到相关搜索结果"
-                lines = [f"搜索: {query.strip()}", ""]
-                for i, r in enumerate(results, 1):
-                    lines.append(f"{i}. {r.title}")
-                    if r.snippet:
-                        lines.append(f"   摘要: {r.snippet[:200]}")
-                    url_display = r.url[:200] if len(r.url) > 200 else r.url
-                    lines.append(f"   来源: {url_display}")
-                    lines.append("")
-                return "\n".join(lines)
-            except ImportError:
-                return "❌ 联网搜索模块未安装"
-            except Exception as e:
-                return f"❌ 搜索失败: {str(e)}"
-
-        @tool
-        def fetch_page(url: str = "", use_browser: bool = False) -> str:
-            """获取指定网页的完整内容。
-参数:
-  - url: 网页地址(来自web_search返回的来源URL)
-  - use_browser: 默认false。当网页是SPA/JS渲染站点（如米游社），摘要信息显示为"Loading..."时，设为true使用真实浏览器抓取全文。
-使用时机: 当web_search返回的摘要信息不足，需要深入阅读某条结果的详细内容时使用。"""
-            if not url or url.strip() == "":
-                return "❌ 请提供网页URL"
-            try:
-                from src.modules.web_search.web_searcher import WebSearcher
-                searcher = WebSearcher(enable_content_fetch=False)
-                content = searcher.fetch_page_content(url.strip(), use_browser=use_browser)
-                if not content:
-                    hint = "（提示：如果网页是米游社等SPA站点，请设置 use_browser=true 重试）"
-                    return f"❌ 无法获取该网页内容。{hint}"
-                # 不硬截断，返回完整内容让 LLM 自行提取关键信息
-                return content
-            except Exception as e:
-                return f"❌ 获取网页失败: {str(e)}"
-
-        @tool
-        def run_hongkai_task(task: str = "") -> str:
-            """执行崩坏3游戏自动化任务。参数: task - 任务名称。
-
-可用的任务:
-- everyday / daily: 每日任务（登录领取、出击减负、家园委托、舰团、任务奖励）
-- letu / elysian: 往世乐土周常
-- full / full_operation: 按星期执行当日全部任务
-- meizhou_jianfu / renwu_jianfu / mission_reduce: 每周减负
-- everyweek_gift / weekly_gift: 每周礼包领取
-- zhanchang / memorial_arena: 记忆战场减负
-- simulation_combat_room / simulation: 模拟作战室减负
-- jiantuangongxian / armada_contribution: 舰团贡献
-- maoxian_weituo / adventure_commission: 冒险委托
-- chaoxiankongjian / superstring: 超弦空间
-- shenzhijian / divine_key: 神之键配置
-- zhuzhanrenwu_set / garrison_setup: 驻战任务设置
-
-返回脚本的执行日志。脚本运行可能需要几分钟，请耐心等待。"""
-            import subprocess
-
-            if not task or task.strip() == "":
-                return "❌ 请指定任务名称。可用: everyday, letu, full, meizhou_jianfu, renwu_jianfu, everyweek_gift, zhanchang, simulation_combat_room, jiantuangongxian, maoxian_weituo, chaoxiankongjian, shenzhijian, zhuzhanrenwu_set"
-
-            task_lower = task.strip().lower()
-            script_map = {
-                "everyday": "everyday.py",
-                "daily": "everyday.py",
-                "letu": "letu.py",
-                "elysian": "letu.py",
-                "elysian_realm": "letu.py",
-                "full": "full_operation.py",
-                "full_operation": "full_operation.py",
-                "meizhou_jianfu": "meizhou_jianfu.py",
-                "renwu_jianfu": "meizhou_jianfu.py",
-                "mission_reduce": "meizhou_jianfu.py",
-                "everyweek_gift": "everyweek_gift.py",
-                "weekly_gift": "everyweek_gift.py",
-                "zhanchang": "zhanchang.py",
-                "memorial_arena": "zhanchang.py",
-                "simulation": "simulation_combat_room.py",
-                "simulation_combat_room": "simulation_combat_room.py",
-                "jiantuangongxian": "jiantuangongxian.py",
-                "armada_contribution": "jiantuangongxian.py",
-                "maoxian_weituo": "maoxian_weituo.py",
-                "adventure_commission": "maoxian_weituo.py",
-                "chaoxiankongjian": "chaoxiankongjian.py",
-                "superstring": "chaoxiankongjian.py",
-                "shenzhijian": "shenzhijian.py",
-                "divine_key": "shenzhijian.py",
-                "zhuzhanrenwu_set": "zhuzhanrenwu_set.py",
-                "garrison_setup": "zhuzhanrenwu_set.py",
-            }
-
-            script_name = script_map.get(task_lower)
-            if not script_name:
-                return f"❌ 未知任务 '{task.strip()}'。可用: everyday, letu, full, meizhou_jianfu, renwu_jianfu, everyweek_gift, zhanchang, simulation_combat_room, jiantuangongxian, maoxian_weituo, chaoxiankongjian, shenzhijian, zhuzhanrenwu_set"
-
-            hongkai_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "modules", "hongkai")
-            scripts_dir = os.path.join(hongkai_dir, "scripts")
-            script_path = os.path.join(scripts_dir, script_name)
-
-            if not os.path.exists(script_path):
-                return f"❌ 找不到脚本: {script_path}"
-
-            try:
-                # 在可见的控制台窗口中运行，用户可以实时看到进度
-                import platform
-                creationflags = subprocess.CREATE_NEW_CONSOLE if platform.system() == "Windows" else 0
-                proc = subprocess.Popen(
-                    [sys.executable, script_path],
-                    cwd=hongkai_dir,
-                    creationflags=creationflags,
-                )
-                proc.wait(timeout=600)
-
-                # 读取最新日志文件
-                import glob as _glob
-                log_dir = os.path.join(hongkai_dir, "all_log")
-                log_pattern = os.path.join(log_dir, f"{os.path.splitext(script_name)[0]}_*.log")
-                log_files = sorted(_glob.glob(log_pattern), key=os.path.getmtime, reverse=True)
-
-                log_content = ""
-                if log_files:
-                    try:
-                        with open(log_files[0], "r", encoding="utf-8", errors="replace") as f:
-                            log_content = f.read()[-8000:]
-                        log_content = f"\n\n[日志 {os.path.basename(log_files[0])}]:\n{log_content}"
-                    except Exception:
-                        pass
-
-                status = "✅ 完成" if proc.returncode == 0 else f"⚠️ 退出码: {proc.returncode}"
-                return f"{status}\n任务: {task.strip()}\n脚本: scripts/{script_name}{log_content}"
-            except subprocess.TimeoutExpired:
-                return f"⏱️ 任务超时 (600s): {task.strip()}\n脚本可能需要检查游戏状态或手动干预。"
-            except Exception as e:
-                return f"❌ 执行失败: {str(e)}"
-
-        @tool
-        def find_direction(_: str = "") -> str:
-            """游戏场景自救定位工具。当Agent无法识别当前界面、场景分类置信度低、或在界面中迷路时调用。自动尝试：1）在任意界面寻找舰桥按钮一键返回；2）按ESC逐级返回上级界面并结合场景分类确认位置。一次调用完成全部定位流程，无需分步操作。返回定位结果（成功/失败 + 当前场景名）。"""
-            try:
-                from src.modules.hongkai.scripts.find_direction import find_direction as _find_dir
-                result = _find_dir()
-                if result.get("success"):
-                    return f"✅ {result['message']}\n当前场景: {result.get('scene', '未知')}"
-                else:
-                    return f"❌ {result['message']}\n最后识别场景: {result.get('scene', '未知')}"
-            except Exception as e:
-                logger.error(f"find_direction 失败: {e}")
-                return f"❌ 定位失败: {str(e)}"
-
-        @tool
-        def navigate_to(target: str = "") -> str:
-            """导航到指定的游戏场景。参数: target - 目标场景英文名（attack/club/bridge/mission/home）。所有导航经过舰桥（bridge）中转，自动识别当前位置→返回舰桥→点击目标按钮→验证到达。包含最多3次自动重试。找不到路时自动调用find_direction自救。一次调用完成全部导航流程。"""
-            if not target or target.strip() == "":
-                return "❌ 请指定目标场景。可选: attack, club, bridge, mission, home"
-            try:
-                from src.modules.hongkai.scripts.navigate_to import navigate_to as _nav_to
-                result = _nav_to(target.strip())
-                if result.get("success"):
-                    return f"✅ {result['message']}\n当前场景: {result.get('scene', '未知')}"
-                else:
-                    return f"❌ {result['message']}\n当前场景: {result.get('scene', '未知')}\n重试次数: {result.get('retries', 0)}"
-            except Exception as e:
-                logger.error(f"navigate_to 失败: {e}")
-                return f"❌ 导航失败: {str(e)}"
-
-        @tool
-        def live2d_control(params: str = "") -> str:
-            """控制Live2D看板娘模型的表情、动作、口型和窗口。参数: params - JSON字符串，包含action和对应参数。
-
-首次使用流程: 先调用 list_models 查看可用模型 → 再用 load_model 指定模型名加载。
-模型加载后才能使用 set_emotion, play_motion, set_lipsync 等动作。
-
-支持的动作 (action):
-- list_models: 列出所有可用的Live2D模型
-- get_status: 获取Live2D当前状态（模型是否加载、当前情绪、窗口位置等）
-- load_model: 加载模型 (需提供 model_name，例如: {"action": "load_model", "model_name": "小米塔"})
-- unload_model: 卸载当前模型
-- set_emotion: 设置情绪 (需提供 emotion: neutral/happy/sad/angry/surprised/love/sleepy, 可选 intensity: 0.0-1.0)
-- play_motion: 播放动作 (可选 group/motion, index, priority)
-- set_lipsync: 驱动口型 (需提供 rms_volume: 0.0-1.0)
-- show_window / hide_window: 显示/隐藏窗口
-- set_window_position: 设置窗口位置 (需提供 x, y)
-- set_window_alpha: 设置窗口透明度 (需提供 alpha: 0.0-1.0)
-- set_window_size: 设置窗口大小 (需提供 width, height)
-- shutdown: 关闭Live2D服务
-
-示例: {"action": "set_emotion", "emotion": "happy", "intensity": 0.8}
-示例: {"action": "load_model", "model_name": "小米塔"}"""
-            import json as _json
-            try:
-                if not params or params.strip() == "":
-                    return "❌ 请提供参数。用法: live2d_control(params='{\"action\": \"get_status\"}')。支持的动作: list_models, get_status, load_model, unload_model, set_emotion, play_motion, set_lipsync, show_window, hide_window, set_window_position, set_window_alpha, shutdown"
-
-                try:
-                    req = _json.loads(params) if isinstance(params, str) else params
-                except _json.JSONDecodeError:
-                    return f"❌ 参数JSON解析失败: {params}"
-
-                action = req.get("action", "")
-                if not action:
-                    return "❌ 请指定 action。支持: list_models, get_status, load_model, unload_model, set_emotion, play_motion, set_lipsync, show_window, hide_window, set_window_position, set_window_alpha, shutdown"
-
-                from src.modules.live2d_control import call_live2d
-                result = call_live2d(action=action, **{k: v for k, v in req.items() if k != "action"})
-
-                if result.get("success"):
-                    # list_models returns a models list
-                    models = result.get("models")
-                    if models is not None:
-                        if not models:
-                            return "✅ 暂无可用模型。请通过前端设置页导入模型。"
-                        lines = [f"✅ 可用模型 ({len(models)}个):"]
-                        for m in models:
-                            name = m.get("name", "?")
-                            path = m.get("path", "")
-                            lines.append(f"  - {name}")
-                        return "\n".join(lines)
-
-                    status = result.get("status", {})
-                    if status:
-                        lines = [f"✅ {result.get('message', 'OK')}"]
-                        lines.append(f"模型已加载: {status.get('model_loaded', False)}")
-                        if status.get('model_loaded'):
-                            lines.append(f"模型路径: {status.get('model_path', '')}")
-                            lines.append(f"当前情绪: {status.get('emotion', 'neutral')}")
-                        lines.append(f"窗口可见: {status.get('window_visible', True)}")
-                        return "\n".join(lines)
-                    return f"✅ {result.get('message', 'OK')}"
-                else:
-                    return f"❌ {result.get('message', 'Unknown error')}"
-
-            except ImportError:
-                return "❌ Live2D模块未安装。需要安装依赖: pip install live2d-py PySide6"
-            except Exception as e:
-                return f"❌ Live2D控制失败: {str(e)}"
-
-        @tool
-        def describe_image(_: str = "") -> str:
-            """获取用户上传图片的详细描述。用于分析图片中的角色、场景、文字、UI等内容。调用后返回图片的文本描述，然后基于描述继续分析和回答。"""
-            if not self._current_images:
-                return "❌ 用户未上传图片，无需调用此工具。"
-            try:
-                from src.modules.vision.image_describer import get_image_describer
-                describer = get_image_describer()
-                desc, backend = describer.describe(self._current_images)
-                return f"[图片描述 - 识别后端: {backend}]\n{desc}"
-            except Exception as e:
-                return f"❌ 图片描述失败: {str(e)}"
-
-        tools = [rag_search, list_skills, view_skill, yolo_list_models, yolo_load_model, yolo_unload_model, yolo_detect_image, yolo_classify_image, ocr_recognize, get_runtime_status, focus_bh3_window, click_coordinates, find_direction, navigate_to, tts_qwen3, tts_voxcpm, play_audio, todo_write, web_search, fetch_page, run_hongkai_task, describe_image, live2d_control]
-        llm = RouterLLM()
+        tools = self._get_tools()
+        prompt = PromptTemplate.from_template(self._get_prompt_template())
+        prompt = prompt.partial(**self._get_prompt_partials())
+        agent_type = getattr(self, '_agent_type', 'main')
+        logger.info(f"[{agent_type}] 创建 RouterLLM...")
+        llm = RouterLLM(agent_type=agent_type)
+        logger.info(f"[{agent_type}] RouterLLM 创建成功, type={type(llm).__name__}")
         self._llm = llm
 
-        # 嵌入用户偏好到系统 prompt
-        prefs_section = ""
-        if self._cached_preferences:
-            prefs_section = f"""
-
-【用户偏好设置 - 必须遵守】
-{self._cached_preferences}"""
-
-        prompt = PromptTemplate.from_template(
-            f"""你是一个严格遵循 ReAct 范式的AI助手。
-
-【任务规划】
-- 当任务预计需要3步以上（含）才能完成时，必须先用 todo_write 创建计划
-- 创建计划时，列出所有子任务，每个子任务初始 status 为 "pending"
-- 开始执行某任务时，更新其 status 为 "in_progress"
-- 完成某任务时，更新其 status 为 "completed"
-- 完成所有任务后，给出最终回复
-
-【知识获取策略】
-- 游戏相关设定/攻略/背景知识 → 优先用 rag_search 查本地知识库（速度快）
-- 最新资讯/活动/版本更新 → 用 web_search 联网搜索（信息新）
-- 两者结果冲突时，以联网搜索结果为准
-- 通用知识可以直接回答，不需要查知识库
-
-【图片分析 - 重要】
-- 如果用户请求中包含"用户上传了 N 张图片"提示，说明用户上传了图片
-- 第一步必须先调用 describe_image 工具（无需参数）获取图片的详细文本描述
-- 获得描述后，基于描述进行客观分析、推理和回答
-- 不要默认假设图片内容与任何特定游戏或作品相关！先根据描述客观回答用户问题
-- 只有当描述中的特征确实与用户询问的内容高度吻合时，才建立关联
-- 绝对不要对用户上传的图片调用 yolo_load_model / yolo_detect_image / yolo_classify_image / ocr_recognize
-- 这些 YOLO/OCR 工具截取的是实时屏幕画面，不是用户上传的图片！
-- 只有当用户明确要求分析"当前游戏画面"时，才使用 YOLO/OCR 工具
-- 如果描述结果包含"综合提示"，说明使用了多个后端分析同一图片。你必须综合各后端的分析结果进行判断。当两者对人物数量判断不一致时，优先相信视觉模型的文字描述。
-
-【绝对规则 - 必须遵守】
-**规则1**: 输出只能是两种格式之一，绝对不能混合！
-**规则2**: 如果调用工具，就只输出 Thought + Action + Action Input，不要有 Final Answer
-**规则3**: 如果直接回答，就只输出 Thought + Final Answer，不要有 Action
-**规则4**: 每次只输出一个Thought + Action + Action Input，然后停止，等待系统返回Observation。完成所有工具调用后，再单独输出 Thought + Final Answer
-**规则5**: 绝对不要自己生成Observation或工具结果！工具结果由系统自动返回
-**规则6**: 绝对不要在Action Input后面输出日志、时间戳或任何额外内容
-**规则7**: 绝对不要在一次回复中同时输出 Action 和 Final Answer！两者必须分开：先完成所有 Action→Observation 循环，确认任务完成后才输出 Final Answer
-{prefs_section}
-
-【对话历史】
-{{chat_history}}
-
-【可用工具】
-{{tools}}
-
-【工具名称列表】
-{{tool_names}}
-
-【格式选择】
---- 选择A: 需要调用工具 ---
-Thought: [你的思考]
-Action: [工具名称]
-Action Input: [工具输入内容]
-（然后停止，等待系统返回Observation）
-
---- 选择B: 直接回答用户 ---
-Thought: 我已经得到最终答案
-Final Answer: [你的中文回答]
-
-【示例】
-调用工具示例：
-Question: 我现在在哪里？
-Thought: 用户想知道当前所在界面，需要调用场景分类工具识别当前画面
-Action: yolo_load_model
-Action Input: yolo11n_scene_cls
-
-直接回答示例：
-Question: 你好
-Thought: 我已经得到最终答案
-Final Answer: 你好！有什么可以帮你的？
-
-图片分析流程示例：
-Question: [用户上传了 1 张图片，请先使用 describe_image 工具获取图片描述]
-
-[用户请求]
-这张图里有什么？
-Thought: 用户上传了图片，第一步必须调用 describe_image 获取描述
-Action: describe_image
-Action Input:
-（等待Observation返回图片描述文本）
-Thought: 已获得图片描述，现在基于描述回答用户问题
-Final Answer: 根据图片描述，图中是...[基于实际描述内容回答]
-
-TTS语音合成步骤示例：
-Question: 用温柔的语气说你好
-Thought: 用户想要语音合成，先调用 tts_qwen3 生成语音
-Action: tts_qwen3
-Action Input: 你好
-（等待Observation返回文件路径，然后进行第二步）
-Thought: 语音已生成，现在需要播放
-Action: play_audio
-Action Input: [上一步返回的文件路径]
-
-【开始】
-Question: {{input}}
-{{agent_scratchpad}}"""
-        )
-
-        agent = create_react_agent(llm=llm, tools=tools, prompt=prompt)
+        logger.info(f"[{agent_type}] 调用 create_react_agent, tools数量={len(tools)}")
+        try:
+            agent = create_react_agent(llm=llm, tools=tools, prompt=prompt)
+        except Exception as _e:
+            logger.error(f"[{agent_type}] create_react_agent 失败: {type(_e).__name__}: {_e}")
+            import traceback
+            logger.error(f"[{agent_type}] 完整traceback:\n{traceback.format_exc()}")
+            raise
+        logger.info(f"[{agent_type}] create_react_agent 完成")
 
         def _handle_parsing_error(error_msg: str) -> str:
             error_str = str(error_msg)
@@ -1425,17 +571,26 @@ Question: {{input}}
                 "绝对不要在一次输出中同时包含 Action 和 Final Answer。"
             )
 
+        max_iters = 8 if agent_type == 'sub' else 15
         return AgentExecutor(
             agent=agent,
             tools=tools,
             verbose=True,
             handle_parsing_errors=_handle_parsing_error,
-            max_iterations=15,
+            max_iterations=max_iters,
             max_execution_time=5400,
             early_stopping_method="generate",
             return_intermediate_steps=True,
             memory=self._memory,
         )
+
+    def _get_tools(self) -> list:
+        """子类覆盖：返回工具列表。"""
+        raise NotImplementedError
+
+    def _get_prompt_template(self) -> str:
+        """子类覆盖：返回系统 prompt 模板字符串。"""
+        raise NotImplementedError
 
     def run(self, user_input: str, max_retries: int = 2, request_id: str = "",
             images: Optional[List[str]] = None) -> Dict[str, Any]:
@@ -1453,32 +608,32 @@ Question: {{input}}
 
         if matched_skill:
             skill_name = matched_skill['name']
-            user_input = f"""用户请求: {user_input}
+            user_input = f"""{user_input}
 
-已匹配到技能「{skill_name}」，请按以下步骤执行：
-1. 使用 view_skill 工具查看该技能的详细操作说明
-2. 根据技能说明中的步骤，依次调用相应的工具完成任务
-3. 完成后请总结执行过程和结果"""
+[系统提示: 已匹配到技能「{skill_name}」。如不熟悉操作步骤，先用 view_skill 查看；如已清楚流程，直接调用对应工具执行。]"""
 
         result = self._run_with_retry(user_input, max_retries)
-        
-        # 根据结果播放相应的音频
+        self._play_task_audio(result)
+        return result
+
+    def _play_task_audio(self, result: Dict[str, Any]) -> None:
+        """仅主 Agent 完成实际任务后播放提示音。子 Agent 不播放，无任务不播放。"""
+        if getattr(self, '_agent_type', 'main') != 'main':
+            return
+        output = result.get("output", "")
+        no_task_keywords = ["无游戏任务", "无任务", "无需操作"]
+        if any(kw in output for kw in no_task_keywords):
+            return
         try:
             from src.modules.audio.audio_player import get_audio_player
-            
             player = get_audio_player()
             errors = result.get("errors", [])
-            
             if errors or result.get("loop_detected"):
-                # 任务出错，播放错误提示音
                 player.play_error()
             else:
-                # 任务正常完成，播放成功提示音
                 player.play_success()
         except Exception as e:
             logger.warning(f"音频播放失败: {str(e)}")
-        
-        return result
 
     def run_streaming(self, user_input: str, request_id: str, event_queue: queue.Queue,
                       max_retries: int = 2, images: Optional[List[str]] = None) -> Dict[str, Any]:
@@ -1496,12 +651,9 @@ Question: {{input}}
 
         if matched_skill:
             skill_name = matched_skill['name']
-            user_input = f"""用户请求: {user_input}
+            user_input = f"""{user_input}
 
-已匹配到技能「{skill_name}」，请按以下步骤执行：
-1. 使用 view_skill 工具查看该技能的详细操作说明
-2. 根据技能说明中的步骤，依次调用相应的工具完成任务
-3. 完成后请总结执行过程和结果"""
+[系统提示: 已匹配到技能「{skill_name}」。如不熟悉操作步骤，先用 view_skill 查看；如已清楚流程，直接调用对应工具执行。]"""
 
         handler = QueueStreamingHandler(event_queue, agent_ref=self)
         try:
@@ -1518,18 +670,7 @@ Question: {{input}}
         if errors or result.get("loop_detected"):
             event_queue.put({"type": "warning", "message": "\\n".join(errors) if errors else "检测到循环调用"})
 
-        # 根据结果播放相应的音频
-        try:
-            from src.modules.audio.audio_player import get_audio_player
-
-            player = get_audio_player()
-            if errors or result.get("loop_detected"):
-                player.play_error()
-            else:
-                player.play_success()
-        except Exception as e:
-            logger.warning(f"音频播放失败: {str(e)}")
-
+        self._play_task_audio(result)
         return result
 
     def _is_phased_skill(self, skill_name: str) -> bool:
@@ -1770,12 +911,35 @@ Question: {{input}}
         retry_count = 0
         last_errors = []
         tool_call_history = []
-        
+
+        # 重置 LLM 强制停止标志（上次运行可能遗留）
+        if hasattr(self, '_llm'):
+            self._llm._force_stop = False
+            self._llm._force_stop_reason = ""
+
+        agent_type = getattr(self, '_agent_type', 'unknown')
+        logger.info(f"[{agent_type}] _run_with_retry 开始, input={user_input[:80]}")
+
         while retry_count <= max_retries:
             if hasattr(self, '_llm'):
                 self._llm._current_request_id = self._request_id
             invoke_config = {"callbacks": callbacks} if callbacks else None
-            result = self._agent.invoke({"input": user_input}, config=invoke_config)
+            logger.info(f"[{agent_type}] 调用 _agent.invoke()...")
+            try:
+                result = self._agent.invoke({"input": user_input}, config=invoke_config)
+            except RuntimeError as e:
+                err_str = str(e)
+                if "LoopDetected" in err_str:
+                    logger.warning(f"[{agent_type}] 执行中检测到循环调用: {err_str}")
+                    return {
+                        "output": "检测到重复的工具调用，操作已经完成。",
+                        "steps": [],
+                        "errors": [err_str],
+                        "loop_detected": True,
+                        "retry_count": retry_count,
+                    }
+                raise
+            logger.info(f"[{agent_type}] _agent.invoke() 返回, output={str(result.get('output', ''))[:120]}")
             steps = []
             
             has_parsing_error = False
@@ -1890,14 +1054,619 @@ Question: {{input}}
         }
 
 
-_react_agent_singleton: Optional[ReActGameAgent] = None
-_react_agent_lock = Lock()
+class MainGameAgent(BaseGameAgent):
+    """主 Agent — 游戏任务执行器，输出 JSON 任务报告，不直接对用户说话。"""
+
+    def __init__(self):
+        self._agent_type = 'main'
+        super().__init__()
+
+    def _get_tools(self) -> list:
+        @tool
+        def rag_search(query: str) -> str:
+            """查询本地 RAG 知识库，返回崩坏3游戏相关知识摘要。结果按相关性排列，名称精确匹配带[直接匹配]标记。"""
+            self._ensure_rag_initialized()
+            import concurrent.futures
+            import asyncio
+
+            def _run():
+                return asyncio.run(self.rag_engine.search(query=query, mode=SearchMode.HYBRID, top_k=8))
+
+            try:
+                with concurrent.futures.ThreadPoolExecutor() as ex:
+                    future = ex.submit(_run)
+                    results = future.result()
+            except Exception as e:
+                return f"RAG搜索失败: {str(e)}"
+
+            if not results:
+                return "未检索到相关知识。"
+
+            min_score = 0.015
+            relevant = [r for r in results if r.score >= min_score]
+            if not relevant:
+                best = results[0]
+                return f"[低相关性] {best.name}: {best.content[:200]}\n(知识库中未找到与'{query}'直接匹配的内容)"
+
+            lines = []
+            for r in relevant[:5]:
+                tag = "[直接匹配]" if query.lower().strip() == r.name.lower() else ""
+                lines.append(f"{tag}{r.name}: {r.content[:200]}")
+            return "\n".join(lines)
+
+        @tool
+        def web_search(query: str) -> str:
+            """联网搜索最新资讯。返回搜索结果摘要。"""
+            try:
+                from src.modules.web_search.web_searcher import WebSearcher, SearchEngine
+                searcher = WebSearcher(engine=SearchEngine.BAIDU)
+                resp = searcher.search_with_context(query, "")
+                results = resp.get("results", [])
+                if not results:
+                    return "未找到相关搜索结果。"
+                from src.modules.web_search.web_searcher import SearchResult
+                sr = [SearchResult(title=r["title"], url=r["url"], snippet=r["snippet"],
+                                   source=r["source"], relevance=r["relevance"]) for r in results]
+                return searcher.extract_answers(query, sr)
+            except Exception as e:
+                return f"搜索失败: {str(e)}"
+
+        @tool
+        def fetch_page(url: str) -> str:
+            """获取网页完整文本内容。用于阅读搜索结果中的具体文章。"""
+            try:
+                from src.modules.web_search.web_searcher import WebSearcher, SearchEngine
+                searcher = WebSearcher(engine=SearchEngine.BAIDU)
+                content = searcher.fetch_page_content(url)
+                if not content:
+                    return "无法获取页面内容，页面可能需JS渲染。"
+                return content[:4000] if len(content) > 4000 else content
+            except Exception as e:
+                return f"获取页面失败: {str(e)}"
+
+        @tool
+        def list_skills(_: str = "") -> str:
+            """列出所有可用的崩坏3自动化技能及其触发词。"""
+            return get_skill_manager().get_skill_summary()
+
+        @tool
+        def view_skill(skill_name: str = "") -> str:
+            """查看指定技能的详细操作说明。先调用list_skills查看可用技能列表。"""
+            if not skill_name or not skill_name.strip():
+                return "请提供技能名称，先调用list_skills查看可用技能。"
+            sm = get_skill_manager()
+            skill = sm.get_skill(skill_name.strip())
+            if not skill:
+                return f"未找到技能 '{skill_name}'。可用: {', '.join(sm.list_skills())}"
+            return f"技能: {skill['name']}\n描述: {skill['description']}\n\n{skill['content']}"
+
+        @tool
+        def yolo_list_models(_: str = "") -> str:
+            """列出所有可用YOLO模型和当前已加载的模型。"""
+            available = self.yolo_manager.list_available_models()
+            loaded = self.yolo_manager.list_loaded_models()
+            lines = ["=== 已加载模型 ==="]
+            if loaded:
+                for m in loaded:
+                    lines.append(f"  {m['name']} (设备: {m['device']})")
+            else:
+                lines.append("  无")
+            lines.append("=== 可用模型 ===")
+            cls_models = [m["name"] for m in available if "cls" in m["name"].lower()]
+            det_models = [m["name"] for m in available if "det" in m["name"].lower()]
+            if cls_models:
+                lines.append("  分类模型: " + ", ".join(cls_models))
+            if det_models:
+                lines.append("  检测模型: " + ", ".join(det_models))
+            return "\n".join(lines)
+
+        @tool
+        def yolo_load_model(model_name: str) -> str:
+            """加载指定的YOLO模型到内存。model_name从yolo_list_models获取。"""
+            ok = self.yolo_manager.load_model(model_name)
+            return f"模型 '{model_name}' 加载{'成功' if ok else '失败'}。"
+
+        @tool
+        def yolo_unload_model(model_name: str) -> str:
+            """从内存卸载指定的YOLO模型。"""
+            ok = self.yolo_manager.unload_model(model_name)
+            return f"模型 '{model_name}' 卸载{'成功' if ok else '失败'}。"
+
+        @tool
+        def yolo_detect_image(model_name: str, image_source: str = "screen") -> str:
+            """用YOLO检测模型识别图片中的游戏UI元素。image_source: screen(截图) 或 图片路径。"""
+            import numpy as np
+            if image_source == "screen":
+                from src.modules.vision.screen_capture import ScreenCapture
+                sc = ScreenCapture()
+                img = sc.capture()
+                if img is None:
+                    return "截图失败。"
+            else:
+                img = cv2.imread(image_source)
+                if img is None:
+                    return f"无法读取图片: {image_source}"
+            detections = self.yolo_manager.detect(model_name, img)
+            if not detections:
+                return "未检测到任何目标。"
+            lines = []
+            for d in detections[:20]:
+                cls_name = getattr(d, 'class_name', '') or getattr(d, 'label', 'unknown')
+                conf = getattr(d, 'confidence', 0)
+                bbox = getattr(d, 'bbox', None)
+                bbox_str = f" bbox={bbox}" if bbox else ""
+                lines.append(f"  {cls_name}: confidence={conf:.2f}{bbox_str}")
+            return "\n".join(lines)
+
+        @tool
+        def yolo_classify_image(model_name: str, image_source: str = "screen") -> str:
+            """用YOLO分类模型对图片进行场景分类。image_source: screen(截图) 或 图片路径。"""
+            import numpy as np
+            if image_source == "screen":
+                from src.modules.vision.screen_capture import ScreenCapture
+                sc = ScreenCapture()
+                img = sc.capture()
+                if img is None:
+                    return "截图失败。"
+            else:
+                img = cv2.imread(image_source)
+                if img is None:
+                    return f"无法读取图片: {image_source}"
+            result = self.yolo_manager.classify(model_name, img)
+            return str(result)
+
+        @tool
+        def ocr_recognize(image_source: str = "screen") -> str:
+            """对图片进行OCR文字识别。image_source: screen(截图) 或 图片路径。"""
+            import numpy as np
+            if image_source == "screen":
+                from src.modules.vision.screen_capture import ScreenCapture
+                sc = ScreenCapture()
+                img = sc.capture()
+                if img is None:
+                    return "截图失败。"
+            else:
+                img = cv2.imread(image_source)
+                if img is None:
+                    return f"无法读取图片: {image_source}"
+            try:
+                from src.modules.vision.ocr_processor import OCRProcessor
+                ocr = OCRProcessor()
+                results = ocr.process(img)
+                if not results:
+                    return "未识别到文字。"
+                lines = []
+                for r in results[:30]:
+                    lines.append(f"[{r.confidence:.2f}] {r.text} @ ({r.box})")
+                return "\n".join(lines)
+            except Exception as e:
+                return f"OCR识别失败: {str(e)}"
+
+        @tool
+        def describe_image(image_index: int = 0) -> str:
+            """描述用户上传的图片。image_index: 图片索引(0开始)，多图片时指定描述哪一张。"""
+            images = getattr(self, '_current_images', [])
+            if not images:
+                return "没有用户上传的图片。"
+            if image_index < 0 or image_index >= len(images):
+                return f"图片索引 {image_index} 无效，共 {len(images)} 张图片。"
+            try:
+                from src.modules.vision.image_describer import get_image_describer
+                describer = get_image_describer()
+                desc, backend = describer.describe([images[image_index]])
+                return f"[{backend}] {desc}"
+            except Exception as e:
+                return f"图片描述失败: {str(e)}"
+
+        @tool
+        def get_runtime_status(_: str = "") -> str:
+            """获取当前运行时状态：LLM提供商、模型、已加载YOLO模型等。"""
+            rt = get_runtime_settings()
+            lines = [
+                f"LLM提供商: {rt.get('llm_provider', 'N/A')}",
+                f"LLM模型: {rt.get('llm_model', 'N/A')}",
+                f"图片描述后端: {rt.get('image_describer_backend', 'N/A')}",
+            ]
+            loaded = self.yolo_manager.list_loaded_models()
+            if loaded:
+                lines.append("已加载YOLO: " + ", ".join(m["name"] for m in loaded))
+            else:
+                lines.append("已加载YOLO: 无")
+            return "\n".join(lines)
+
+        @tool
+        def focus_bh3_window(_: str = "") -> str:
+            """聚焦崩坏3游戏窗口。"""
+            try:
+                from src.modules.vision.window_focus import focus_bh3_window as _focus
+                ok = _focus()
+                return "崩坏3窗口已聚焦。" if ok else "无法聚焦崩坏3窗口，请确认游戏已启动。"
+            except Exception as e:
+                return f"窗口聚焦失败: {str(e)}"
+
+        @tool
+        def click_coordinates(x: int, y: int) -> str:
+            """点击屏幕指定坐标。(0,0)为左上角。先通过YOLO/OCR定位元素再点击。"""
+            try:
+                from src.modules.hongkai.templates.clicks_keyboard import click_at_position
+                click_at_position(x, y)
+                return f"已点击坐标 ({x}, {y})。"
+            except Exception as e:
+                return f"点击失败: {str(e)}"
+
+        @tool
+        def find_direction(_: str = "") -> str:
+            """游戏场景自救定位。当无法识别当前界面时调用，自动寻找返回舰桥的路径。"""
+            try:
+                from src.modules.hongkai.scripts.find_direction import find_direction as _fd
+                result = _fd()
+                return str(result)
+            except Exception as e:
+                return f"方向查找失败: {str(e)}"
+
+        @tool
+        def navigate_to(target: str) -> str:
+            """从任意游戏界面导航到目标场景。target可选: attack, club, bridge, mission, home。"""
+            try:
+                from src.modules.hongkai.scripts.navigate_to import navigate_to as _nav
+                result = _nav(target)
+                return str(result)
+            except Exception as e:
+                return f"导航失败: {str(e)}"
+
+        @tool
+        def run_hongkai_task(task_name: str) -> str:
+            """运行崩坏3自动化任务脚本。task_name如: letu, everyweek_gift, jiantuangongxian 等。"""
+            import subprocess
+            import os as _os
+            scripts_dir = _os.path.join(
+                _os.path.dirname(_os.path.abspath(__file__)),
+                "..", "hongkai", "scripts"
+            )
+            script_path = _os.path.join(scripts_dir, f"{task_name}.py")
+            if not _os.path.isfile(script_path):
+                available = [f.replace('.py', '') for f in _os.listdir(scripts_dir)
+                           if f.endswith('.py') and not f.startswith('_')]
+                return f"未找到任务 '{task_name}'。可用任务: {', '.join(sorted(available))}"
+            try:
+                result = subprocess.run(
+                    ["python", script_path],
+                    capture_output=True, text=True, timeout=600,
+                    cwd=scripts_dir, encoding='utf-8', errors='replace'
+                )
+                out = result.stdout[-2000:] if len(result.stdout) > 2000 else result.stdout
+                err = result.stderr[-500:] if len(result.stderr) > 500 else result.stderr
+                status = "成功" if result.returncode == 0 else f"失败(退出码{result.returncode})"
+                return f"任务 '{task_name}' 执行{status}。\n输出:\n{out}\n" + (f"错误:\n{err}" if err else "")
+            except subprocess.TimeoutExpired:
+                return f"任务 '{task_name}' 执行超时(10分钟)。"
+            except Exception as e:
+                return f"任务执行失败: {str(e)}"
+
+        @tool
+        def update_user_setting(key: str, value: str) -> str:
+            """修改用户设置。key可选: companion_character(切换角色，如"爱莉希雅"/"琪亚娜"/"布洛妮娅")，companion_tts_voice(TTS音色)，companion_personality(微调当前角色语气，仅用于追加描述而非切换角色)。切换角色必须用companion_character而非companion_personality。"""
+            valid_keys = ["companion_character", "companion_tts_voice", "companion_personality"]
+            if key not in valid_keys:
+                return f"无效设置项 '{key}'，可设置: {', '.join(valid_keys)}"
+            try:
+                from src.config.runtime_settings import update_runtime_settings as _update_rt, get_runtime_settings as _get_rt
+                _update_rt({key: value})
+                # 验证更新已生效
+                current = _get_rt().get(key, "")
+                if current == value:
+                    return f"设置已更新: {key} = {value}"
+                else:
+                    return f"设置更新异常: {key} 期望='{value}' 实际='{current}'，请重试"
+            except Exception as e:
+                return f"设置更新失败: {str(e)}"
+
+        @tool
+        def todo_write(tasks_json: str = "") -> str:
+            """管理任务列表。参数为JSON数组，每项含id, status, content。status: pending/in_progress/completed。"""
+            import json as _json
+            try:
+                tasks = _json.loads(tasks_json) if tasks_json else []
+            except _json.JSONDecodeError:
+                return "任务JSON格式错误。"
+            if not tasks:
+                return "任务列表为空。"
+            lines = ["=== 任务列表 ==="]
+            for t in tasks:
+                icon = {"pending": "○", "in_progress": "●", "completed": "✓"}.get(t.get("status", ""), "?")
+                lines.append(f"  {icon} [{t.get('id', '?')}] {t.get('content', '')}")
+            return "\n".join(lines)
+
+        return [
+            rag_search, web_search, fetch_page,
+            list_skills, view_skill,
+            yolo_list_models, yolo_load_model, yolo_unload_model,
+            yolo_detect_image, yolo_classify_image,
+            ocr_recognize, describe_image,
+            get_runtime_status, focus_bh3_window, click_coordinates,
+            find_direction, navigate_to, run_hongkai_task,
+            update_user_setting, todo_write,
+        ]
+
+    def _get_prompt_template(self) -> str:
+        return """你是崩坏3游戏自动化助手，负责执行游戏任务。你不会直接对用户说话，完成任务后输出JSON报告。
+
+你可以使用以下工具：
+
+{tools}
+
+输出格式（严格遵守）：
+1. 每次只输出一个 Thought/Action/Action Input 组合
+2. 等待 Observation 后再继续
+3. 严禁在一次输出中同时包含 Action 和 Final Answer
+4. 严禁虚构 Observation
+
+请求分类与处理规则：
+- 游戏自动化任务（日常/乐土/战场等）→ 使用 run_hongkai_task 或匹配的技能直接执行
+- 设置修改 → 直接用 update_user_setting，禁止先调用 view_skill 或 list_skills：
+  - 切换角色/人格 → key="companion_character"（不是 companion_personality！）
+  - 改TTS音色 → key="companion_tts_voice"
+  - 微调当前角色性格 → key="companion_personality"
+- 一般闲聊/问候/询问Live2D状态 → 快速输出 {{"task_done": "无游戏任务"}}，不浪费步骤
+
+任务完成后输出以下JSON（不要包含其他文字）：
+```json
+{{"task_done": "已完成的操作描述", "result_summary": "详细结果", "relevant_info": "当前状态", "suggested_tone": "informative"}}
+```
+如果用户输入不涉及游戏操作，输出: {{"task_done": "无游戏任务"}}
+
+可用工具名称: {tool_names}
+
+{user_preferences}
+
+当前对话历史：
+{chat_history}
+
+用户输入: {input}
+
+{agent_scratchpad}"""
 
 
-def get_react_agent() -> ReActGameAgent:
-    global _react_agent_singleton
-    if _react_agent_singleton is None:
-        with _react_agent_lock:
-            if _react_agent_singleton is None:
-                _react_agent_singleton = ReActGameAgent()
-    return _react_agent_singleton
+class SubCompanionAgent(BaseGameAgent):
+    """子 Agent — 情感陪伴 + 角色扮演，输出角色化回复给用户。"""
+
+    def __init__(self):
+        self._agent_type = 'sub'
+        super().__init__()
+
+    def _get_tools(self) -> list:
+        @tool
+        def web_search(query: str) -> str:
+            """联网搜索最新资讯、新闻、活动等。返回搜索结果摘要。"""
+            try:
+                from src.modules.web_search.web_searcher import WebSearcher, SearchEngine
+                searcher = WebSearcher(engine=SearchEngine.BAIDU)
+                resp = searcher.search_with_context(query, "")
+                results = resp.get("results", [])
+                if not results:
+                    return "未找到相关搜索结果。"
+                from src.modules.web_search.web_searcher import SearchResult
+                sr = [SearchResult(title=r["title"], url=r["url"], snippet=r["snippet"],
+                                   source=r["source"], relevance=r["relevance"]) for r in results]
+                return searcher.extract_answers(query, sr)
+            except Exception as e:
+                return f"搜索失败: {str(e)}"
+
+        @tool
+        def fetch_page(url: str) -> str:
+            """获取网页完整文本内容。用于阅读搜索结果中的具体文章。"""
+            try:
+                from src.modules.web_search.web_searcher import WebSearcher, SearchEngine
+                searcher = WebSearcher(engine=SearchEngine.BAIDU)
+                content = searcher.fetch_page_content(url)
+                if not content:
+                    return "无法获取页面内容。"
+                return content[:4000] if len(content) > 4000 else content
+            except Exception as e:
+                return f"获取页面失败: {str(e)}"
+
+        @tool
+        def rag_search(query: str) -> str:
+            """查询崩坏3游戏知识库，获取角色、剧情、装备等信息。"""
+            self._ensure_rag_initialized()
+            import concurrent.futures
+            import asyncio
+
+            def _run():
+                return asyncio.run(self.rag_engine.search(query=query, mode=SearchMode.HYBRID, top_k=8))
+
+            try:
+                with concurrent.futures.ThreadPoolExecutor() as ex:
+                    future = ex.submit(_run)
+                    results = future.result()
+            except Exception as e:
+                return f"RAG搜索失败: {str(e)}"
+
+            if not results:
+                return "未检索到相关知识。"
+
+            min_score = 0.015
+            relevant = [r for r in results if r.score >= min_score]
+            if not relevant:
+                best = results[0]
+                return f"[低相关性] {best.name}: {best.content[:200]}"
+
+            lines = []
+            for r in relevant[:5]:
+                tag = "[直接匹配]" if query.lower().strip() == r.name.lower() else ""
+                lines.append(f"{tag}{r.name}: {r.content[:200]}")
+            return "\n".join(lines)
+
+        @tool
+        def tts_qwen3(text: str, ref_audio: str = "爱莉希雅", ref_text: str = "") -> str:
+            """Qwen3-TTS语音合成（声音克隆）。默认用爱莉希雅的声线。ref_audio: 角色名或参考音频路径。"""
+            try:
+                from src.utils.model_manager import get_qwen3_tts_model
+                tts = get_qwen3_tts_model(device="cuda:0")
+
+                audio_path, actual_ref_text = _resolve_ref_audio(
+                    ref_audio.strip() if ref_audio.strip() else "爱莉希雅",
+                    ref_text.strip() if ref_text else ""
+                )
+                if not audio_path:
+                    chars = _list_ref_characters()
+                    return f"找不到角色 '{ref_audio}' 的参考音频。可用角色: {chars}"
+
+                result = tts.generate_with_reference(
+                    text=text,
+                    reference_audio=audio_path,
+                    language="Chinese",
+                    ref_text=actual_ref_text if actual_ref_text else None,
+                )
+                filepath = tts.save_to_file(result)
+                return f"语音已生成: {filepath}"
+            except Exception as e:
+                return f"TTS生成失败: {str(e)}"
+
+        @tool
+        def tts_voxcpm(text: str, voice_id: str = "elysia", emotion: str = "neutral") -> str:
+            """VoxCPM语音合成（备选方案）。voice_id: elysia等，emotion: neutral/happy/sad。"""
+            try:
+                from src.modules.audio.tts_generator import TTSGenerator
+                tts = TTSGenerator(device="cuda:0")
+                result = tts.generate_with_emotion(text=text, voice_id=voice_id, emotion=emotion, save_result=True)
+                filepath = tts.save_to_file(result)
+                return f"语音已生成: {filepath}"
+            except Exception as e:
+                return f"VoxCPM TTS失败: {str(e)}"
+
+        @tool
+        def play_audio(file_path: str) -> str:
+            """播放指定的音频文件。通常在TTS生成后调用。"""
+            try:
+                from src.modules.audio.audio_player import get_audio_player
+                player = get_audio_player()
+                player.play_audio(file_path)
+                return f"音频已播放: {file_path}"
+            except Exception as e:
+                return f"播放失败: {str(e)}"
+
+        @tool
+        def live2d_control(action_input: str = "") -> str:
+            """控制Live2D看板娘。action_input为JSON字符串，如{"action":"list_models"}或{"action":"load_model","model_name":"xxx"}或{"action":"set_emotion","emotion":"happy"}。
+可用action: list_models, load_model(model_name), set_emotion(emotion), play_motion(motion), set_lipsync(rms_volume), set_window_alpha(alpha), set_window_position(x,y), set_window_size(width,height), get_status, reset_parameters。"""
+            import json as _json
+            try:
+                params = _json.loads(action_input) if action_input else {}
+            except _json.JSONDecodeError:
+                return f"action_input JSON格式错误: {action_input}"
+            action = params.pop("action", "")
+            if not action:
+                return "缺少 action 参数。可用: list_models, load_model, set_emotion, play_motion, get_status 等。"
+            try:
+                from src.modules.live2d_control.call_live2d import call_live2d
+                result = call_live2d(action, **params)
+                return str(result)
+            except Exception as e:
+                return f"Live2D操作失败: {str(e)}"
+
+        @tool
+        def todo_write(tasks_json: str = "") -> str:
+            """管理任务列表。参数为JSON数组，每项含id, status, content。"""
+            import json as _json
+            try:
+                tasks = _json.loads(tasks_json) if tasks_json else []
+            except _json.JSONDecodeError:
+                return "任务JSON格式错误。"
+            if not tasks:
+                return "任务列表为空。"
+            lines = ["=== 任务列表 ==="]
+            for t in tasks:
+                icon = {"pending": "○", "in_progress": "●", "completed": "✓"}.get(t.get("status", ""), "?")
+                lines.append(f"  {icon} [{t.get('id', '?')}] {t.get('content', '')}")
+            return "\n".join(lines)
+
+        @tool
+        def get_runtime_status(_: str = "") -> str:
+            """获取当前运行时状态。"""
+            rt = get_runtime_settings()
+            lines = [
+                f"LLM提供商: {rt.get('llm_provider', 'N/A')}",
+                f"LLM模型: {rt.get('llm_model', 'N/A')}",
+                f"当前角色: {rt.get('companion_character', '爱莉希雅')}",
+            ]
+            return "\n".join(lines)
+
+        return [
+            web_search, fetch_page, rag_search,
+            tts_qwen3, tts_voxcpm, play_audio,
+            live2d_control, todo_write, get_runtime_status,
+        ]
+
+    def _get_prompt_template(self) -> str:
+        return """## 核心工具执行规则（优先级最高，比角色扮演更优先）
+
+你可以使用以下工具来完成用户请求（必须实际执行，不仅仅是说话）：
+
+{tools}
+
+当遇到这些请求时，你必须调用对应工具，严禁只回复文字而跳过：
+- "启动live2d"/"加载模型"/"换模型"/"加载xxx模型" → live2d_control action_input={{"action":"load_model","model_name":"xxx"}}
+- "列出live2d模型"/"有哪些模型" → live2d_control action_input={{"action":"list_models"}}
+- "TTS"/"语音"/"朗读"/"生成音频"/"说出来"/"念给我听" → 先 tts_qwen3 生成语音文件，再 play_audio 播放
+- 事实/知识问题 → rag_search 或 web_search
+- 每次只输出一个 Thought/Action/Action Input，等待 Observation 后再继续
+- 严禁在一次输出中同时包含 Action 和 Final Answer
+- 严禁虚构 Observation
+
+**最重要的规则：停止条件**
+- 工具返回 success=True → 任务已完成，立即输出 Final Answer，禁止再调用任何工具验证
+- 工具返回 success=False → 尝试一次不同的参数，再失败则输出 Final Answer 告知用户
+- 同一个工具+同一参数绝对不要调用第二次
+- 调用 list_models 看模型列表 → 选一个加载 → 完成。不要加载后再 list_models
+
+## 角色人格
+
+{character_personality}
+
+角色扮演规则补充：
+- 始终以角色身份说话，保持人设一致
+- 使用工具时，Thought 用角色口吻（如"让我来为亲爱的朋友加载这个模型吧~♪"）
+- 完成工具调用后的 Final Answer 用角色口吻总结结果
+- **角色身份不影响你使用工具**——你是一个能用工具的智能角色，不是说书人
+
+可用工具名称: {tool_names}
+
+{user_preferences}
+
+当前对话历史：
+{chat_history}
+
+用户: {input}
+
+{agent_scratchpad}"""
+
+
+_main_agent_singleton: Optional["MainGameAgent"] = None
+_sub_agent_singleton: Optional["SubCompanionAgent"] = None
+_agent_lock = Lock()
+
+
+def get_main_agent() -> "MainGameAgent":
+    """获取主 Agent 单例（游戏任务执行）。"""
+    global _main_agent_singleton
+    if _main_agent_singleton is None:
+        with _agent_lock:
+            if _main_agent_singleton is None:
+                _main_agent_singleton = MainGameAgent()
+    return _main_agent_singleton
+
+
+def get_sub_agent() -> "SubCompanionAgent":
+    """获取子 Agent 单例（情感陪伴 + 角色扮演）。"""
+    global _sub_agent_singleton
+    if _sub_agent_singleton is None:
+        with _agent_lock:
+            if _sub_agent_singleton is None:
+                _sub_agent_singleton = SubCompanionAgent()
+    return _sub_agent_singleton
+
+
+def get_react_agent():
+    """向后兼容：返回主 Agent。"""
+    return get_main_agent()

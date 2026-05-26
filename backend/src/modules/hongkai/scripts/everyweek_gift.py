@@ -2,8 +2,6 @@ import sys
 import os
 import time
 
-from requests import get
-
 # 将父目录添加到sys.path中，以便能够导入上层目录的模块
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import save_output
