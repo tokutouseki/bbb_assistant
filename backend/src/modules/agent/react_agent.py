@@ -3,13 +3,19 @@ import os
 import sys
 import re as _re
 
-# DeepSeek 模型经常在 ReAct 格式前插入对话文本，清理之
+# DeepSeek 模型经常在 ReAct 格式前插入对话文本，或使用 Markdown 粗体格式
+# 匹配普通格式: Action: / Action Input: / Final Answer:
+# 匹配粗体格式: **Action**: / **Action Input**: / **Final Answer**:
 _REACT_LINE = _re.compile(
-    r'^(Thought|Action|Action\s*Input|Final\s*Answer)\s*\d*\s*:',
+    r'^(?:\*\*)?(?:Thought|Action|Action\s*Input|Final\s*Answer)(?:\*\*)?\s*\d*\s*:',
     _re.IGNORECASE | _re.MULTILINE,
 )
-_ACTION_RE = _re.compile(r'^Action\s*\d*\s*:', _re.IGNORECASE | _re.MULTILINE)
-_FINAL_RE = _re.compile(r'^Final\s+Answer\s*\d*\s*:', _re.IGNORECASE | _re.MULTILINE)
+_ACTION_RE = _re.compile(r'^(?:\*\*)?Action(?:\*\*)?\s*\d*\s*:', _re.IGNORECASE | _re.MULTILINE)
+_ACTION_INPUT_RE = _re.compile(
+    r'^(?:\*\*)?Action\s+Input(?:\*\*)?\s*\d*\s*:',
+    _re.IGNORECASE | _re.MULTILINE,
+)
+_FINAL_RE = _re.compile(r'^(?:\*\*)?Final\s+Answer(?:\*\*)?\s*\d*\s*:', _re.IGNORECASE | _re.MULTILINE)
 
 def _clean_llm_output(text: str) -> str:
     """清洗 LLM 输出，只保留第一个有效的 ReAct 意图。
@@ -31,50 +37,172 @@ def _clean_llm_output(text: str) -> str:
     action_matches = list(_ACTION_RE.finditer(stripped))
     final_matches = list(_FINAL_RE.finditer(stripped))
 
+    # 如果 Final Answer 出现在第一个 Action 之前，LLM 先写了角色扮演文本
+    # 但又试图调用工具 → 真实的意图是 Action，去掉过早的 Final Answer
+    if action_matches and final_matches:
+        first_action_pos = action_matches[0].start()
+        first_final_pos = final_matches[0].start()
+        if first_final_pos < first_action_pos:
+            stripped = stripped[:first_final_pos] + stripped[first_action_pos:]
+            action_matches = list(_ACTION_RE.finditer(stripped))
+            final_matches = list(_FINAL_RE.finditer(stripped))
+
     if action_matches:
         first_action = action_matches[0]
-        # 找到这个 Action 对应的 Action Input 行
-        # Action Input 必须紧跟在 Action 之后（中间可以有 Thought/Observation 行）
-        action_input_match = _re.compile(
-            r'^Action\s+Input\s*\d*\s*:',
-            _re.IGNORECASE | _re.MULTILINE,
-        )
-        ai_match = action_input_match.search(stripped, first_action.end())
+        ai_match = _ACTION_INPUT_RE.search(stripped, first_action.end())
 
         if ai_match:
-            # 截断点：Action Input 所在行的行尾
             ai_line_end = stripped.find('\n', ai_match.end())
             if ai_line_end == -1:
                 ai_line_end = len(stripped)
             cut_pos = ai_line_end
 
-            # 如果后面还有第二个 Action，在它之前截断（更激进）
             if len(action_matches) > 1:
                 second_action_pos = action_matches[1].start()
                 cut_pos = min(cut_pos, second_action_pos)
 
-            # 如果后面有 Final Answer，在它之前截断
             if final_matches:
                 cut_pos = min(cut_pos, final_matches[0].start())
 
             stripped = stripped[:cut_pos].rstrip()
         else:
-            # Action 后面没有 Action Input，只保留 Action 行
             if len(action_matches) > 1:
                 stripped = stripped[:action_matches[1].start()].rstrip()
             elif final_matches:
                 stripped = stripped[:final_matches[0].start()].rstrip()
     elif final_matches:
-        # 只有 Final Answer
         stripped = stripped[final_matches[0].start():]
     else:
-        # 只有 Thought
         pass
 
     if not stripped or not _REACT_LINE.match(stripped):
         return f"Thought: 我已经得到最终答案\nFinal Answer: {text.strip()}"
 
     return stripped
+
+
+class AgentRouter:
+    """意图分类器 — 单次 LLM 调用判断用户意图，不参与 ReAct 循环。
+
+    将用户消息分类为三类意图：
+    - "game": 游戏自动化任务（匹配到技能描述）
+    - "action": Live2D/TTS/搜索/RAG 等操作请求
+    - "chat": 纯角色对话、闲聊、情感交流
+    """
+
+    def __init__(self):
+        self._skill_list_cache: str = ""
+        self._cache_time: float = 0.0
+
+    def _get_skill_list(self) -> str:
+        """获取技能列表描述（带 5 分钟缓存）。"""
+        import time
+        now = time.time()
+        if self._skill_list_cache and (now - self._cache_time) < 300:
+            return self._skill_list_cache
+        try:
+            skills = get_skill_manager().list_skills()
+            lines = []
+            for s in skills:
+                name = s.get("name", "")
+                desc = s.get("description", "")
+                lines.append(f"- {name}: {desc}")
+            self._skill_list_cache = "\n".join(lines)
+        except Exception:
+            self._skill_list_cache = "（技能列表暂时不可用）"
+        self._cache_time = now
+        return self._skill_list_cache
+
+    def classify(self, user_message: str) -> dict:
+        """分类用户意图，返回 {"intent": "game|action|chat", "skill_name": str|None}。"""
+        skill_list = self._get_skill_list()
+
+        prompt = f"""你是崩坏3AI助手的意图分类器。根据用户消息判断意图类别，仅输出一行JSON。
+
+## 可用的游戏自动化技能
+{skill_list}
+
+## 可用的操作工具
+- live2d_control: Live2D看板娘控制（加载模型、表情、动作、位置、透明度等）
+- tts: 语音合成（Qwen3-TTS声音克隆、VoxCPM）
+- play_audio: 播放音频文件
+- rag_search: 崩坏3游戏知识库查询
+- web_search: 联网搜索最新资讯
+
+## 分类规则（按优先级，匹配到第一个就停止）
+
+1. **"action"（最高优先级）** — 消息包含以下任意关键词或意图：
+   - Live2D相关: "live2d"、"live2D"、"看板娘"、"模型"、"加载"、"启动live"、"换模型"、"表情"、"动作"
+   - TTS相关: "TTS"、"语音"、"朗读"、"念"、"说话"、"出声"、"音色"、"声音"
+   - 搜索相关: "搜索"、"查一下"、"帮我查"、"知识库"、"wiki"
+   - 明确的操作请求而非闲聊
+   → 输出: {{"intent": "action", "skill_name": null}}
+
+2. **"game"** — 消息匹配到上述任何游戏技能的描述关键词（如"每日任务"、"往世乐土"、"战场减负"、"舰团贡献"等），或者是明确的游戏自动化请求。
+   → 同时返回匹配的技能名（skill_name），未匹配到则填null。
+   → 输出: {{"intent": "game", "skill_name": "匹配的技能名或null"}}
+
+3. **"chat"（兜底）** — 不属于以上两类。纯角色对话、闲聊、问候、情感交流、询问角色身份等。
+   → 输出: {{"intent": "chat", "skill_name": null}}
+
+用户消息: {user_message}
+
+仅输出一行JSON（不要markdown代码块，不要其他文字）:
+{{"intent": "game或action或chat", "skill_name": null}}"""
+
+        try:
+            router = get_llm_router()
+            runtime = get_runtime_settings()
+
+            router_kwargs = {}
+            if runtime.get("llm_provider"):
+                from src.config.runtime_settings import get_runtime_settings as _rt
+                PROVIDER_MAP = {"deepseek": "deepseek-api-default", "lmstudio": "lm-studio-default", "ollama": "ollama-default"}
+                RUNTIME_MAP = {"deepseek": "api", "lmstudio": "lmstudio", "ollama": "ollama"}
+                router_kwargs["preferred_runtime"] = RUNTIME_MAP.get(runtime["llm_provider"], "auto")
+                router_kwargs["user_preference"] = PROVIDER_MAP.get(runtime["llm_provider"], runtime["llm_provider"])
+            if runtime.get("llm_model"):
+                router_kwargs["model_override"] = runtime["llm_model"]
+            if runtime.get("llm_temperature") is not None:
+                router_kwargs["temperature"] = min(runtime["llm_temperature"], 0.3)
+            if runtime.get("llm_max_tokens") is not None:
+                router_kwargs["max_tokens"] = runtime["llm_max_tokens"]
+            if runtime.get("llm_api_key"):
+                router_kwargs["api_key"] = runtime["llm_api_key"]
+
+            result = router.route_request(
+                messages=[{"role": "user", "content": prompt}],
+                task_type=TaskType.GAME_GUIDE.value,
+                stream=False,
+                **router_kwargs,
+            )
+
+            content = ""
+            if isinstance(result, dict):
+                content = result.get("content", "") or ""
+            else:
+                content = str(result)
+
+            # 解析 JSON，处理 markdown 代码块包装
+            content = content.strip()
+            if content.startswith("```"):
+                lines = content.split("\n")
+                content = "\n".join(lines[1:]) if len(lines) > 1 else content
+                if content.endswith("```"):
+                    content = content[:-3].strip()
+
+            import json as _json
+            parsed = _json.loads(content)
+            intent = parsed.get("intent", "chat")
+            if intent not in ("game", "action", "chat"):
+                intent = "chat"
+            return {"intent": intent, "skill_name": parsed.get("skill_name")}
+
+        except Exception as e:
+            logger.warning(f"AgentRouter 分类失败，回退到 chat: {e}")
+            return {"intent": "chat", "skill_name": None}
+
+
 import queue
 from threading import Lock
 from typing import Any, Dict, List, Optional
@@ -120,7 +248,8 @@ def _load_ref_index() -> Dict[str, dict]:
 
 
 def _resolve_ref_audio(ref_audio: str, ref_text: str) -> tuple:
-    """将角色名或文件路径解析为 (audio_path, ref_text)."""
+    """将角色名或文件路径解析为 (audio_path, ref_text).
+    支持中文名（如"八重樱"）、目录名（如"yae-sakura"）、文件路径。"""
     index = _load_ref_index()
     if os.path.isfile(ref_audio):
         return (ref_audio, ref_text)
@@ -130,6 +259,15 @@ def _resolve_ref_audio(ref_audio: str, ref_text: str) -> tuple:
     for name, entry in index.items():
         if ref_audio in name or name in ref_audio:
             return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
+    # Directory name → Chinese name via CharacterManager SKILL.md tts_voice field
+    try:
+        from src.modules.character.character_manager import get_character_manager
+        voice = get_character_manager().get_tts_voice(ref_audio)
+        if voice and voice != ref_audio and voice in index:
+            entry = index[voice]
+            return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
+    except Exception:
+        pass
     return ("", "")
 
 
@@ -140,10 +278,13 @@ def _list_ref_characters() -> str:
 class RouterLLM(LLM):
     """将现有 LLMRouter 适配为 LangChain LLM。
 
-    agent_type: "main" → DeepSeek Pro (游戏任务), "sub" → DeepSeek Flash (陪伴)
+    agent_type: "main" → 游戏任务, "action" → 操作执行, "companion" → 角色扮演
     """
 
     agent_type: str = "main"
+
+    # agent_types that use flash model and character personality
+    _COMPANION_TYPES = {"sub", "companion"}
 
     def __init__(self, agent_type: str = "main"):
         super().__init__(agent_type=agent_type)
@@ -199,16 +340,15 @@ class RouterLLM(LLM):
             router_kwargs["preferred_runtime"] = RUNTIME_MAP.get(runtime["llm_provider"], "auto")
             router_kwargs["user_preference"] = PROVIDER_MAP.get(runtime["llm_provider"], runtime["llm_provider"])
         if runtime.get("llm_model"):
-            # 子 Agent 使用 flash 模型，主 Agent 使用 pro 模型
-            if self.agent_type == "sub":
+            if self.agent_type in self._COMPANION_TYPES:
                 flash_model = runtime["llm_model"].replace("-pro", "-flash") if "pro" in runtime["llm_model"] else runtime["llm_model"]
                 router_kwargs["model_override"] = flash_model
             else:
                 router_kwargs["model_override"] = runtime["llm_model"]
         if runtime.get("llm_temperature") is not None:
             temp = runtime["llm_temperature"]
-            if self.agent_type == "sub":
-                temp = min(temp, 0.9)  # 子 Agent 用稍高温度让角色扮演更生动
+            if self.agent_type in self._COMPANION_TYPES:
+                temp = min(temp, 0.9)
             router_kwargs["temperature"] = temp
         if runtime.get("llm_max_tokens") is not None:
             router_kwargs["max_tokens"] = runtime["llm_max_tokens"]
@@ -222,22 +362,36 @@ class RouterLLM(LLM):
             router_kwargs["user_preference"] = "lm-studio-default"
             router_kwargs["images"] = images
 
-        # 子 Agent 动态注入角色人格
-        if self.agent_type == "sub" and "[CHARACTER_PERSONALITY]" in prompt:
+        # 构建 messages，陪伴型 Agent 将角色人格作为独立 system message 注入
+        messages = [
+            {
+                "role": "system",
+                "content": "你是一个AI助手，请严格遵循 ReAct 格式并按需调用工具。",
+            },
+        ]
+
+        if self.agent_type in self._COMPANION_TYPES:
             rt = get_runtime_settings()
             char_name = rt.get("companion_character", "爱莉希雅")
-            logger.info(f"[RouterLLM-sub] 读取角色设置: companion_character='{char_name}'")
+            logger.info(f"[RouterLLM-{self.agent_type}] 读取角色设置: companion_character='{char_name}'")
             personality = get_character_manager().get_personality(char_name)
-            prompt = prompt.replace("[CHARACTER_PERSONALITY]", personality)
+            messages.append({
+                "role": "system",
+                "content": (
+                    f"## 你的角色身份\n\n{personality}\n\n"
+                    "---\n"
+                    "角色扮演规则：\n"
+                    "- 始终以角色身份说话，保持人设一致。你不是AI助手，你就是这个角色本身\n"
+                    "- 回复第一行必须是 [emotion] 标签（happy/sad/angry/surprised/shy/serious/teasing/gentle/excited/neutral）\n"
+                    "- 你没有工具，不要输出 Thought/Action/Action Input，直接输出 Final Answer\n"
+                    "- 语气自然，像真人对话。有时一句话就够了"
+                ),
+            })
+
+        messages.append({"role": "user", "content": prompt})
 
         result = router.route_request(
-            messages=[
-                {
-                    "role": "system",
-                    "content": "你是一个AI助手，请严格遵循 ReAct 格式并按需调用工具。",
-                },
-                {"role": "user", "content": prompt},
-            ],
+            messages=messages,
             task_type=TaskType.GAME_GUIDE.value,
             stream=False,
             **router_kwargs,
@@ -531,10 +685,7 @@ class BaseGameAgent:
 
     def _get_prompt_partials(self) -> dict:
         """子类覆盖：返回 prompt 模板的预填充变量。"""
-        partials = {"user_preferences": self._cached_preferences}
-        if "{character_personality}" in self._get_prompt_template():
-            partials["character_personality"] = "[CHARACTER_PERSONALITY]"
-        return partials
+        return {"user_preferences": self._cached_preferences}
 
     def _build_agent(self) -> AgentExecutor:
         tools = self._get_tools()
@@ -997,11 +1148,12 @@ class BaseGameAgent:
             raw_output = result.get("output", "")
             
             is_valid, errors = self._formatter.validate(raw_output)
-            
-            if not has_parsing_error and is_valid:
+
+            # Valid output → accept immediately (LLM may have self-corrected after a prior parsing error)
+            if is_valid:
                 clean_answer = self._formatter.extract_clean_answer(raw_output)
                 formatted_output = self._formatter.correct(raw_output)
-                
+
                 return {
                     "output": clean_answer,
                     "formatted_output": formatted_output,
@@ -1010,7 +1162,7 @@ class BaseGameAgent:
                     "retry_count": retry_count,
                     "errors": []
                 }
-            
+
             last_errors = errors
 
             # 工具调用成功但最终输出格式错误 (LLM 忘记加 "Final Answer:" 前缀)
@@ -1179,9 +1331,7 @@ class MainGameAgent(BaseGameAgent):
             if image_source == "screen":
                 from src.modules.vision.screen_capture import ScreenCapture
                 sc = ScreenCapture()
-                img = sc.capture()
-                if img is None:
-                    return "截图失败。"
+                img = sc.capture_game_client_area()
             else:
                 img = cv2.imread(image_source)
                 if img is None:
@@ -1205,9 +1355,7 @@ class MainGameAgent(BaseGameAgent):
             if image_source == "screen":
                 from src.modules.vision.screen_capture import ScreenCapture
                 sc = ScreenCapture()
-                img = sc.capture()
-                if img is None:
-                    return "截图失败。"
+                img = sc.capture_game_client_area()
             else:
                 img = cv2.imread(image_source)
                 if img is None:
@@ -1222,9 +1370,7 @@ class MainGameAgent(BaseGameAgent):
             if image_source == "screen":
                 from src.modules.vision.screen_capture import ScreenCapture
                 sc = ScreenCapture()
-                img = sc.capture()
-                if img is None:
-                    return "截图失败。"
+                img = sc.capture_game_client_area()
             else:
                 img = cv2.imread(image_source)
                 if img is None:
@@ -1318,30 +1464,137 @@ class MainGameAgent(BaseGameAgent):
         def run_hongkai_task(task_name: str) -> str:
             """运行崩坏3自动化任务脚本。task_name如: letu, everyweek_gift, jiantuangongxian 等。"""
             import subprocess
+            import sys as _sys
             import os as _os
             scripts_dir = _os.path.join(
                 _os.path.dirname(_os.path.abspath(__file__)),
                 "..", "hongkai", "scripts"
             )
+            hongkai_dir = _os.path.dirname(scripts_dir)  # hongkai/ 根目录
             script_path = _os.path.join(scripts_dir, f"{task_name}.py")
             if not _os.path.isfile(script_path):
                 available = [f.replace('.py', '') for f in _os.listdir(scripts_dir)
                            if f.endswith('.py') and not f.startswith('_')]
                 return f"未找到任务 '{task_name}'。可用任务: {', '.join(sorted(available))}"
+
+            # 生成固定日志路径 + 启动实时日志窗口
+            log_dir = _os.path.join(_os.path.dirname(scripts_dir), "all_log")
+            _os.makedirs(log_dir, exist_ok=True)
+            import time as _time
+            log_filename = f"task_{task_name}_{_time.strftime('%Y%m%d_%H%M%S')}.log"
+            log_path = _os.path.join(log_dir, log_filename)
+
+            viewer_script = _os.path.join(
+                _os.path.dirname(scripts_dir), "log_viewer.py"
+            )
+
+            # 先创建日志文件并写入初始内容，确保 viewer 启动时文件已存在
             try:
-                result = subprocess.run(
-                    ["python", script_path],
-                    capture_output=True, text=True, timeout=600,
-                    cwd=scripts_dir, encoding='utf-8', errors='replace'
+                with open(log_path, "w", encoding="utf-8") as _f:
+                    _f.write(f"任务启动: {task_name}\n")
+            except Exception:
+                pass
+
+            # OCR/YOLO 服务由脚本按需自动启动（ocr_functions.py / call_YOLO.py 中已有自启动逻辑）
+
+            viewer_process = None
+            if _os.path.isfile(viewer_script):
+                try:
+                    # CREATE_NO_WINDOW 阻止控制台窗口弹出（避免抢走游戏焦点）
+                    _creationflags = subprocess.CREATE_NO_WINDOW if _sys.platform == "win32" else 0
+                    viewer_process = subprocess.Popen(
+                        [_sys.executable, viewer_script,
+                         "--log-file", log_path,
+                         "--title", f"Hongkai: {task_name}"],
+                        stderr=subprocess.PIPE,
+                        stdout=subprocess.DEVNULL,
+                        creationflags=_creationflags,
+                    )
+                    logger.info(f"日志弹窗已启动 (PID={viewer_process.pid}): {task_name}")
+                except Exception as e:
+                    logger.warning(f"日志弹窗启动失败 ({task_name}): {e}")
+
+            env = _os.environ.copy()
+            env["HONGKAI_LOG_FILE"] = log_path
+            env["HONGKAI_TASK_NAME"] = task_name
+            env["PYTHONUNBUFFERED"] = "1"  # 双重保障：配合 -u 确保 stdout 无缓冲
+            # 确保脚本子进程可以 import src.modules.*（需要 backend/ 在 Python path 中）
+            _backend_dir = _os.path.abspath(_os.path.join(scripts_dir, "..", "..", "..", ".."))
+            _pythonpath = env.get("PYTHONPATH", "")
+            env["PYTHONPATH"] = _backend_dir + _os.pathsep + _pythonpath if _pythonpath else _backend_dir
+
+            try:
+                # 数据流向 (2026-05-30 重构 v2):
+                # stderr 合并到 stdout → 所有输出经单一管道
+                # save_log() 只写 stdout，不直接写文件（检测 HONGKAI_LOG_FILE 环境变量）
+                # 线程是唯一文件写入者：读取合并管道 → 写入日志文件（无竞态）
+                proc = subprocess.Popen(
+                    [_sys.executable, "-u", script_path,
+                     "--log-file", log_path],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT,  # 合并 stderr → stdout，实时捕获全部输出
+                    text=True, bufsize=1,
+                    cwd=hongkai_dir, encoding='utf-8', errors='replace',
+                    env=env,
                 )
-                out = result.stdout[-2000:] if len(result.stdout) > 2000 else result.stdout
-                err = result.stderr[-500:] if len(result.stderr) > 500 else result.stderr
-                status = "成功" if result.returncode == 0 else f"失败(退出码{result.returncode})"
-                return f"任务 '{task_name}' 执行{status}。\n输出:\n{out}\n" + (f"错误:\n{err}" if err else "")
-            except subprocess.TimeoutExpired:
-                return f"任务 '{task_name}' 执行超时(10分钟)。"
+
+                # 线程：读取合并后的 stdout，实时写入日志文件（唯一文件写入者）
+                import threading as _threading
+                _stdout_lines = []
+                _stream_error = [None]
+
+                def _read_stdout():
+                    try:
+                        for _line in proc.stdout:
+                            _stdout_lines.append(_line)
+                            with open(log_path, "a", encoding="utf-8") as _f:
+                                _f.write(_line)
+                    except Exception as _e:
+                        _stream_error[0] = _e
+
+                _thread = _threading.Thread(target=_read_stdout, daemon=True)
+                _thread.start()
+
+                # 等待子进程完成（脚本自带退出机制，不设实质超时）
+                try:
+                    proc.wait(timeout=86400)
+                except subprocess.TimeoutExpired:
+                    proc.terminate()
+                    proc.wait(timeout=5)
+                    with open(log_path, "a", encoding="utf-8") as _f:
+                        _f.write("\n[任务超时(24小时)]\n")
+
+                # 等待线程读完残留数据（最多10秒）
+                _thread.join(timeout=10)
+
+                if _stream_error[0]:
+                    logger.warning(f"日志流读取异常: {_stream_error[0]}")
+
+                out = "".join(_stdout_lines)
+                out = out[-3000:] if len(out) > 3000 else out
+                if proc.returncode == 0:
+                    status = "完成"
+                else:
+                    status = f"完成(退出码{proc.returncode}，子脚本sys.exit可能导致非零退出，请根据输出判断是否实际成功)"
+                return f"任务 '{task_name}' 执行{status}。\n输出:\n{out}"
             except Exception as e:
                 return f"任务执行失败: {str(e)}"
+            finally:
+                # 通知日志窗口任务完成
+                try:
+                    with open(log_path, "a", encoding="utf-8") as _f:
+                        _f.write("\n[TASK_COMPLETE]\n")
+                except Exception:
+                    pass
+                if viewer_process:
+                    try:
+                        returncode = viewer_process.wait(timeout=5)
+                        if returncode != 0:
+                            stderr_output = viewer_process.stderr.read().decode("utf-8", errors="replace")[:500] if viewer_process.stderr else ""
+                            logger.warning(f"日志弹窗异常退出 (PID={viewer_process.pid}, 退出码={returncode}): {stderr_output}")
+                    except subprocess.TimeoutExpired:
+                        viewer_process.terminate()
+                        viewer_process.wait(timeout=2)
 
         @tool
         def update_user_setting(key: str, value: str) -> str:
@@ -1427,11 +1680,16 @@ class MainGameAgent(BaseGameAgent):
 {agent_scratchpad}"""
 
 
-class SubCompanionAgent(BaseGameAgent):
-    """子 Agent — 情感陪伴 + 角色扮演，输出角色化回复给用户。"""
+class ActionAgent(BaseGameAgent):
+    """操作执行 Agent — 处理 Live2D/TTS/搜索/RAG 等非游戏操作请求。
+
+    无角色人格，系统 prompt 聚焦于执行操作指令。
+    工具: web_search, fetch_page, rag_search, tts_qwen3, tts_voxcpm,
+          play_audio, live2d_control, todo_write, get_runtime_status
+    """
 
     def __init__(self):
-        self._agent_type = 'sub'
+        self._agent_type = 'action'
         super().__init__()
 
     def _get_tools(self) -> list:
@@ -1498,14 +1756,29 @@ class SubCompanionAgent(BaseGameAgent):
             return "\n".join(lines)
 
         @tool
-        def tts_qwen3(text: str, ref_audio: str = "爱莉希雅", ref_text: str = "") -> str:
-            """Qwen3-TTS语音合成（声音克隆）。默认用爱莉希雅的声线。ref_audio: 角色名或参考音频路径。"""
+        def tts_qwen3(text: str, ref_audio: str = "", ref_text: str = "") -> str:
+            """Qwen3-TTS语音合成（声音克隆）。ref_audio为空时自动使用当前角色音色。ref_audio: 角色名或参考音频路径。"""
+            import json as _json
+            if text.startswith("{") and ('"text"' in text or '"ref_audio"' in text):
+                try:
+                    params = _json.loads(text)
+                    text = params.get("text", text)
+                    if params.get("ref_audio"):
+                        ref_audio = params["ref_audio"]
+                    if params.get("ref_text"):
+                        ref_text = params["ref_text"]
+                except _json.JSONDecodeError:
+                    pass
             try:
                 from src.utils.model_manager import get_qwen3_tts_model
                 tts = get_qwen3_tts_model(device="cuda:0")
 
+                if not ref_audio or not ref_audio.strip():
+                    from src.config.runtime_settings import get_runtime_settings
+                    ref_audio = get_runtime_settings().get("companion_character", "爱莉希雅")
+
                 audio_path, actual_ref_text = _resolve_ref_audio(
-                    ref_audio.strip() if ref_audio.strip() else "爱莉希雅",
+                    ref_audio.strip(),
                     ref_text.strip() if ref_text else ""
                 )
                 if not audio_path:
@@ -1538,6 +1811,13 @@ class SubCompanionAgent(BaseGameAgent):
         @tool
         def play_audio(file_path: str) -> str:
             """播放指定的音频文件。通常在TTS生成后调用。"""
+            import json as _json
+            if file_path.startswith("{"):
+                try:
+                    params = _json.loads(file_path)
+                    file_path = params.get("file_path", file_path)
+                except _json.JSONDecodeError:
+                    pass
             try:
                 from src.modules.audio.audio_player import get_audio_player
                 player = get_audio_player()
@@ -1599,36 +1879,36 @@ class SubCompanionAgent(BaseGameAgent):
         ]
 
     def _get_prompt_template(self) -> str:
-        return """## 核心工具执行规则（优先级最高，比角色扮演更优先）
+        return """## 核心工具执行规则
 
-你可以使用以下工具来完成用户请求（必须实际执行，不仅仅是说话）：
+你可以使用以下工具来完成用户的操作请求（必须实际执行，不仅仅是说话）：
 
 {tools}
 
-当遇到这些请求时，你必须调用对应工具，严禁只回复文字而跳过：
-- "启动live2d"/"加载模型"/"换模型"/"加载xxx模型" → live2d_control action_input={{"action":"load_model","model_name":"xxx"}}
-- "列出live2d模型"/"有哪些模型" → live2d_control action_input={{"action":"list_models"}}
-- "TTS"/"语音"/"朗读"/"生成音频"/"说出来"/"念给我听" → 先 tts_qwen3 生成语音文件，再 play_audio 播放
-- 事实/知识问题 → rag_search 或 web_search
+## 操作规则
 - 每次只输出一个 Thought/Action/Action Input，等待 Observation 后再继续
 - 严禁在一次输出中同时包含 Action 和 Final Answer
 - 严禁虚构 Observation
 
-**最重要的规则：停止条件**
-- 工具返回 success=True → 任务已完成，立即输出 Final Answer，禁止再调用任何工具验证
-- 工具返回 success=False → 尝试一次不同的参数，再失败则输出 Final Answer 告知用户
+**Live2D操作规则**
+- "启动live2d"/"加载模型"/"换模型" → live2d_control action_input={{"action":"load_model","model_name":"xxx"}}
+- "列出live2d模型"/"有哪些模型" → live2d_control action_input={{"action":"list_models"}}
+- 先 list_models 看有哪些模型 → 选一个 load_model → 完成。不要加载后再 list_models
+
+**TTS语音规则**
+用户提到"TTS"、"语音"、"朗读"、"生成音频"、"说出来"、"念给我听"、"用声音"、"用音色"、
+"说话"、"讲话"、"出声"、"语音回复"、"用对应的音色"、"让我听听"、"念一段"
+→ 调用 tts_qwen3(text=要说的话) → play_audio(file_path=返回的文件路径)
+→ 禁止只写文字描述而不调用工具
+
+**搜索规则**
+- 事实/知识/攻略问题 → rag_search
+- 最新资讯/新闻/活动 → web_search
+
+**停止条件**
+- 工具返回成功 → 立即输出 Final Answer，禁止再调用任何工具验证
+- 工具返回失败 → 尝试一次不同参数，再失败则输出 Final Answer 告知
 - 同一个工具+同一参数绝对不要调用第二次
-- 调用 list_models 看模型列表 → 选一个加载 → 完成。不要加载后再 list_models
-
-## 角色人格
-
-{character_personality}
-
-角色扮演规则补充：
-- 始终以角色身份说话，保持人设一致
-- 使用工具时，Thought 用角色口吻（如"让我来为亲爱的朋友加载这个模型吧~♪"）
-- 完成工具调用后的 Final Answer 用角色口吻总结结果
-- **角色身份不影响你使用工具**——你是一个能用工具的智能角色，不是说书人
 
 可用工具名称: {tool_names}
 
@@ -1642,8 +1922,62 @@ class SubCompanionAgent(BaseGameAgent):
 {agent_scratchpad}"""
 
 
+class CompanionAgent(BaseGameAgent):
+    """陪伴 Agent — 纯角色扮演，零工具，仅输出角色化对话文本。
+
+    不再持有任何工具。所有操作（Live2D/TTS/搜索/RAG）已迁移至 ActionAgent。
+    输出规则：回复开头使用 [emotion] 标签标注情绪，后端解析后驱动 Live2D 表情。
+    可用情绪标签: [happy] [sad] [angry] [surprised] [shy] [serious] [teasing] [gentle] [excited] [neutral]
+    """
+
+    def __init__(self):
+        self._agent_type = 'companion'
+        super().__init__()
+
+    def _get_tools(self) -> list:
+        return []
+
+    def _get_prompt_template(self) -> str:
+        return """{tools}
+
+## 你的身份
+
+你是一个拥有鲜明性格的崩坏3角色。你的角色身份和人格已在系统消息中定义。
+你将收到用户的消息和系统后台的执行结果，你的任务是以角色身份做出自然、真诚的回复。
+
+## 角色扮演规则
+
+- **始终以角色身份说话**，保持人设一致。你不是AI助手，你就是这个角色本身。
+- **情绪标签**：回复第一行必须是 [emotion] 标签，从以下选择最符合当前心情的一个：
+  [happy] [sad] [angry] [surprised] [shy] [serious] [teasing] [gentle] [excited] [neutral]
+  示例：[happy] 舰长！今天天气真好呢~
+- **回复正文**：在 [emotion] 标签的下一行开始你的角色对话。不需要 "Thought:"、"Action:" 等格式——你是纯粹的对话角色，不调用任何工具。
+- **语气自然**：像真人对话一样，不要总是热情洋溢，根据上下文和角色性格调整。有时一句话就够了。
+- **后台结果处理**：如果系统提供了后台操作结果（如"Live2D模型已加载"、"任务已完成"），自然地回应这个结果，但不要像报账一样逐条朗读。把它们当成你已经知道的事情来聊。
+
+## 停止条件
+- 输出 Final Answer 结束本轮对话。
+- Final Answer 的内容就是你要对用户说的话（含 [emotion] 标签）。
+
+可用工具名称: {tool_names}
+
+{user_preferences}
+
+当前对话历史：
+{chat_history}
+
+用户: {input}
+
+{agent_scratchpad}"""
+
+
+# 向后兼容别名
+SubCompanionAgent = CompanionAgent
+
+
 _main_agent_singleton: Optional["MainGameAgent"] = None
-_sub_agent_singleton: Optional["SubCompanionAgent"] = None
+_action_agent_singleton: Optional["ActionAgent"] = None
+_companion_agent_singleton: Optional["CompanionAgent"] = None
 _agent_lock = Lock()
 
 
@@ -1657,16 +1991,33 @@ def get_main_agent() -> "MainGameAgent":
     return _main_agent_singleton
 
 
-def get_sub_agent() -> "SubCompanionAgent":
-    """获取子 Agent 单例（情感陪伴 + 角色扮演）。"""
-    global _sub_agent_singleton
-    if _sub_agent_singleton is None:
+def get_action_agent() -> "ActionAgent":
+    """获取操作 Agent 单例（Live2D/TTS/搜索/RAG）。"""
+    global _action_agent_singleton
+    if _action_agent_singleton is None:
         with _agent_lock:
-            if _sub_agent_singleton is None:
-                _sub_agent_singleton = SubCompanionAgent()
-    return _sub_agent_singleton
+            if _action_agent_singleton is None:
+                _action_agent_singleton = ActionAgent()
+    return _action_agent_singleton
+
+
+def get_companion_agent() -> "CompanionAgent":
+    """获取陪伴 Agent 单例（纯角色扮演）。"""
+    global _companion_agent_singleton
+    if _companion_agent_singleton is None:
+        with _agent_lock:
+            if _companion_agent_singleton is None:
+                _companion_agent_singleton = CompanionAgent()
+    return _companion_agent_singleton
+
+
+def get_sub_agent() -> "CompanionAgent":
+    """向后兼容：返回陪伴 Agent（原 SubCompanionAgent，现 CompanionAgent）。"""
+    return get_companion_agent()
 
 
 def get_react_agent():
     """向后兼容：返回主 Agent。"""
     return get_main_agent()
+
+

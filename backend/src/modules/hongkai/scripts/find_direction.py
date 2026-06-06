@@ -43,7 +43,7 @@ def _get_manager():
 def _capture():
     from src.modules.vision.screen_capture import ScreenCapture
     sc = ScreenCapture()
-    img = sc.capture()
+    img = sc.capture_game_client_area()
     if img is None or img.size == 0:
         raise RuntimeError("屏幕捕获失败")
     return img

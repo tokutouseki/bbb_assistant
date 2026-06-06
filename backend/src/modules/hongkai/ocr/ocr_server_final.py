@@ -96,6 +96,15 @@ import pyautogui
 import cv2
 import numpy as np
 
+# 修复: 服务端作为子进程启动时 stdout/stderr 编码可能是 cp1252，中文会崩溃
+import sys as _sys_svr
+for _stream in (_sys_svr.stdout, _sys_svr.stderr):
+    try:
+        if hasattr(_stream, 'reconfigure'):
+            _stream.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
+
 # 配置
 HOST = '0.0.0.0'
 PORT = 5002

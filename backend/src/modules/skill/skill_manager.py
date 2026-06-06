@@ -37,7 +37,7 @@ class SkillManager:
         skill_file = os.path.join(self.skills_dir, skill_name, "SKILL.md")
         
         if not os.path.exists(skill_file):
-            logger.warning(f"技能文件不存在: {skill_file}")
+            logger.debug(f"跳过非技能目录: {skill_name}")
             return None
         
         try:

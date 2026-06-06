@@ -1,0 +1,8 @@
+# ASR Transcription Result
+# Generated: 2026-05-11 15:37:41
+# Language: zh
+# Confidence: 0.950
+# Processing Time: 0.228s
+# Source: D:\TokusCode\bbb_assistant\outputs\test_tts_asr\qwen3_tts_20260511_153733_爱莉希雅_7d356f.wav
+
+大家好呀，我是爱丽西亚，今天也要和我一起开开心心的度过每一刻哦。😊

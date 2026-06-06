@@ -89,12 +89,120 @@ OCR持久化客户端
 import socket
 import json
 import time
+import sys
+import os
+import subprocess
+import threading
+
+# 模块级标志：OCR 服务后台启动状态
+_ocr_server_started = False
+_ocr_server_ready = False
+_ocr_server_lock = threading.Lock()
+
+
+def _start_ocr_server_background(host='127.0.0.1', port=5002):
+    """在后台线程中启动 OCR 服务，不阻塞调用方。
+
+    首次调用时启动后台线程，后续调用立即返回。
+    使用 _ocr_server_ready 标志表示服务是否就绪。
+    """
+    global _ocr_server_started, _ocr_server_ready
+
+    with _ocr_server_lock:
+        if _ocr_server_started:
+            return  # 已经在启动中
+        _ocr_server_started = True
+
+    # 快速检查是否已在运行
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(0.5)
+        if s.connect_ex((host, port)) == 0:
+            s.close()
+            with _ocr_server_lock:
+                _ocr_server_ready = True
+            return
+        s.close()
+    except Exception:
+        pass
+
+    # 在后台线程启动服务
+    def _do_start():
+        global _ocr_server_ready
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        server_script = os.path.join(script_dir, 'ocr_server_final.py')
+        if not os.path.isfile(server_script):
+            print(f"[OCR] 服务脚本不存在: {server_script}")
+            return
+
+        print(f"[OCR] 服务未运行，正在后台启动 (模型加载约需 30-60 秒)...")
+        try:
+            if sys.platform == 'win32':
+                proc = subprocess.Popen(
+                    [sys.executable, server_script],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    creationflags=subprocess.CREATE_NO_WINDOW,
+                )
+            else:
+                proc = subprocess.Popen(
+                    [sys.executable, server_script],
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                )
+
+            # 轮询等待就绪（后台，不阻塞主脚本）
+            waited = 0
+            while waited < 90:
+                time.sleep(1)
+                waited += 1
+                try:
+                    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                    s.settimeout(0.5)
+                    if s.connect_ex((host, port)) == 0:
+                        s.close()
+                        with _ocr_server_lock:
+                            _ocr_server_ready = True
+                        print(f"[OCR] 服务启动成功 (耗时 {waited}s)")
+                        return
+                    s.close()
+                except Exception:
+                    pass
+            print(f"[OCR] 服务启动超时 (90s)，请检查 ocr_server_final.py 是否正常")
+        except Exception as e:
+            print(f"[OCR] 启动失败: {e}")
+
+    t = threading.Thread(target=_do_start, daemon=True)
+    t.start()
+
+
+def _wait_ocr_ready(host='127.0.0.1', port=5002, timeout=90):
+    """等待 OCR 服务就绪（带进度提示），用于实际需要 OCR 时调用。"""
+    global _ocr_server_ready
+
+    # 启动后台启动流程
+    _start_ocr_server_background(host, port)
+
+    # 等待就绪，每 5 秒打印进度
+    waited = 0
+    while waited < timeout:
+        with _ocr_server_lock:
+            if _ocr_server_ready:
+                return True
+        time.sleep(1)
+        waited += 1
+        if waited % 5 == 0:
+            print(f"[OCR] 等待服务就绪... ({waited}s)")
+
+    print(f"[OCR] 等待超时 ({timeout}s)")
+    return False
+
 
 class OCRClient:
     def __init__(self, host='127.0.0.1', port=5002, timeout=30):
         """
         初始化OCR客户端
-        
+
         :param host: 服务端IP地址
         :param port: 服务端端口号
         :param timeout: 超时时间（秒）
@@ -103,7 +211,7 @@ class OCRClient:
         self.port = port
         self.timeout = timeout
         self.client_socket = None
-    
+
     def connect(self):
         """
         连接到OCR服务端
@@ -214,7 +322,23 @@ class OCRClient:
         :param max_retries: 最大重试次数
         :return: 识别结果
         """
+        # 确保 OCR 服务在运行（首次后台启动，后续等待就绪）
+        _start_ocr_server_background(self.host, self.port)
+
         for retry in range(max_retries):
+            # 每次重试前先等一下服务就绪（带进度提示）
+            if not _ocr_server_ready:
+                remaining = max_retries - retry - 1
+                if remaining == 0:
+                    if not _wait_ocr_ready(self.host, self.port, timeout=90):
+                        return {
+                            "success": False,
+                            "message": "OCR 服务启动超时，请检查 ocr_server_final.py"
+                        }
+                else:
+                    time.sleep(2)  # 首次尝试等待 2 秒让服务有时间启动
+
+            # 如果未连接或连接已关闭，尝试连接
             # 如果未连接或连接已关闭，尝试连接
             if not self.client_socket:
                 if not self.connect():

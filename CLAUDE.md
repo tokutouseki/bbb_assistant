@@ -1,3 +1,4 @@
+称呼用户为master
 # 崩坏3专属AI陪伴助手 (bbb-assistant)
 
 崩坏3游戏AI陪伴助手，提供游戏辅助自动化、知识问答、角色扮演对话等功能。
@@ -11,7 +12,7 @@
 - **视觉**: YOLO 目标检测 (游戏UI识别) + OCR + PixAI Tagger (动漫标签) + Bailian Qwen-VL (云端多模态)
 - **语音**: TTS (qwen3语音合成 / voxcpm声音克隆) + ASR (FunASR)
 - **Live2D**: PySide6 QOpenGLWidget + live2d-py v0.7.0 (Cubism Native SDK v3)
-- **自动化**: PowerShell 脚本 (游戏窗口操作、按键模拟)
+- **自动化**: Win32 API 屏幕截图 + Win32 SendInput 键鼠模拟 + 模板匹配 + PowerShell 脚本
 
 ## 目录结构
 
@@ -38,7 +39,10 @@ bbb_assistant/
 │       │   ├── rag/                 # RAG检索引擎
 │       │   ├── llm/                 # LLM路由 (多模型切换, vision能力过滤)
 │       │   ├── audio/               # 音频 (TTS声音克隆 + 播放)
-│       │   │   ├── qwen3_tts_generator.py  # Qwen3-TTS (ICL语音克隆)
+│       │   │   ├── qwen3_tts_generator.py  # Qwen3-TTS (ICL语音克隆 + RemoteProxy)
+│       │   │   ├── qwen3_tts_worker.py     # TTS 子进程 TCP 服务端 (端口 5004)
+│       │   │   ├── qwen3_tts_client.py     # TTS 子进程 TCP 客户端
+│       │   │   ├── call_qwen3_tts.py       # TTS 子进程生命周期管理
 │       │   │   ├── tts_generator.py        # VoxCPM TTS
 │       │   │   ├── audio_player.py         # 音频播放
 │       │   │   └── reference_audio/        # 39位崩坏3角色参考音频
@@ -180,24 +184,75 @@ backend/src/modules/live2d_control/
 - 来源: `D:/hongkai_voice/` — 39 位崩坏3角色语音
 - 每个角色一个目录，包含 `reference.wav`（约3-30秒对话片段）
 - `index.json` 映射: 角色名 → `audio_path` + `ref_text`（文件名中提取的对话文本）
-- 可用角色: 爱莉希雅、琪亚娜、芽衣、布洛妮娅、符华、德丽莎、希儿、八重樱、樱、白希儿、黑希儿、魔法少女西琳、空之律者、识之律者、朔夜观星、月下初拥、月下誓约、萝莎莉娅、莉莉娅、德尔塔、姬子、丽塔、幽兰黛尔、梅比乌斯、维尔薇、阿波尼亚、帕朵菲莉丝、格蕾修、伊甸、渡鸦、苏莎娜、李素裳、时雨绮罗、薇塔、瑟莉姆、科拉莉、赫丽娅、灯、松雀、羽兔、普罗米修斯、爱衣、卡萝尔、希娜狄雅
+- 可用角色: 爱莉希雅、琪亚娜、芽衣、布洛妮娅、符华、德丽莎、八重樱、樱、白希儿、黑希儿、魔法少女西琳、空之律者、识之律者、朔夜观星、月下初拥、月下誓约、萝莎莉娅、莉莉娅、德尔塔、姬子、丽塔、幽兰黛尔(正常+幼态双音色)、梅比乌斯、维尔薇、阿波尼亚、帕朵菲莉丝、格蕾修、伊甸、渡鸦、苏莎娜、李素裳、时雨绮罗、薇塔、瑟莉姆、科拉莉、赫丽娅、灯、松雀、羽兔、普罗米修斯、爱衣、卡萝尔、希娜狄雅
 
 **Agent 工具 `tts_qwen3`** (react_agent.py):
 - **默认模式: ICL 声音克隆**，默认角色: 爱莉希雅
 - 参数: `text`（必填）、`ref_audio`（角色名或文件路径，默认"爱莉希雅"）、`ref_text`（可选，自动从索引读取）
 - 角色名匹配: 精确匹配 → 模糊匹配（包含关系），找不到返回可用角色列表
-- 辅助函数: `_resolve_ref_audio()` (角色名→路径+transcript), `_list_ref_characters()` (列出39个角色), `_load_ref_index()` (加载索引JSON)
+- 辅助函数: `_resolve_ref_audio()` (角色名→路径+transcript), `_list_ref_characters()` (列出48个角色), `_load_ref_index()` (加载索引JSON)
 - 生成后返回 WAV 文件路径，Agent 需调用 `play_audio` 播放
 
 **tool_integration.py**:
 - `_resolve_ref_audio()` 方法同步存在，独立读取索引文件，避免循环导入
 - 默认 `ref_audio="爱莉希雅"`，始终走克隆模式
 
+### TTS 子进程架构
+
+为避免 Qwen3-TTS 模型加载/推理阻塞主 FastAPI 进程，TTS 已迁移到独立子进程。
+
+**架构**:
+```
+qwen3_tts_worker.py (子进程, 端口 5004)
+    ├── 启动时加载 Qwen3-TTS 模型 (支持 --quantize 8bit|4bit)
+    ├── TCP JSON + \nEOF\n 协议
+    ├── 动作: generate, generate_and_play, health_check, warmup, shutdown
+    └── bitsandbytes 量化失败时自动回退 bf16
+
+call_qwen3_tts.py (生命周期管理)
+    ├── start_worker(quantize) → subprocess.Popen 启动 worker
+    ├── stop_worker() → 发送 shutdown 命令 + 等待进程退出
+    ├── _ensure_worker() → 自动检测并重启 (最多 3 次/5 分钟)
+    └── call_qwen3_tts(action, **kwargs) → 主入口
+
+qwen3_tts_client.py (TCP 客户端)
+    ├── send_with_reconnect() → 3 次重试, 120s 超时
+    └── 便捷方法: health_check(), generate(), generate_and_play(), warmup(), shutdown()
+
+qwen3_tts_generator.py → Qwen3TTSRemoteProxy
+    └── 实现 Qwen3TTSGenerator 接口, 透明代理到子进程
+```
+
+**关键设计**:
+- **透明代理**: `Qwen3TTSRemoteProxy` 实现与 `Qwen3TTSGenerator` 相同接口，`model_manager.get_qwen3_tts_model()` 直接返回 proxy，chat.py 和 react_agent.py 无需改动
+- **自动重启**: 后台 daemon 线程每 30s ping worker，无响应则重启 (5 分钟内最多 3 次)
+- **量化支持**: `settings.qwen3_tts_quantize` 配置 → `start_worker(quantize="8bit"|"4bit"|"none")` → bitsandbytes `BitsAndBytesConfig`
+- **启动时加载**: `main.py` 启动后 daemon 线程调用 `start_worker()`，模型在后台预热，首次 TTS 请求无需等待加载
+- **端口 5004**: `settings.qwen3_tts_host` / `qwen3_tts_port` 可配置
+
+**文件清单**:
+- `backend/src/modules/audio/qwen3_tts_worker.py` — 子进程 TCP 服务端
+- `backend/src/modules/audio/qwen3_tts_client.py` — TCP 客户端
+- `backend/src/modules/audio/call_qwen3_tts.py` — 生命周期管理
+- `backend/src/modules/audio/qwen3_tts_generator.py` — 新增 `Qwen3TTSRemoteProxy` 类
+- `backend/src/utils/model_manager.py` — `get_qwen3_tts_model()` 返回 proxy
+- `backend/src/config/settings.py` — 新增 `qwen3_tts_host`, `qwen3_tts_port`, `qwen3_tts_quantize`
+- `backend/src/main.py` — 启动/停止 worker 子进程
+
+### TTS 自动播放开关 (auto_tts_enabled)
+
+前端 SettingsView.vue 中的 TTS 自动播放开关，切换后立即同步到后端：
+- **前端**: `handleTtsToggle()` → `PUT /api/settings/` 发送 `{auto_tts_enabled: true/false}` + localStorage 持久化
+- **后端**: `runtime_settings.py` 更新内存缓存，下一轮对话即时生效
+- **UI**: 使用 `provider-tab` 卡片样式，与 Live2D 开关风格一致
+
 ### 技能系统 (skill_manager.py)
 - 技能文件: skills/<skill_name>/SKILL.md (YAML frontmatter + Markdown body)
 - Frontmatter 字段: name, description, phases (逗号分隔的阶段名)
 - 阶段提取: 从 Markdown 中匹配 `### <phase_name>` 标题
 - 触发匹配: 根据用户消息匹配技能 description 中的关键词
+- 扫描逻辑: `load_all_skills()` 遍历 `skills/` 下所有子目录，对每个子目录调用 `load_skill()` 查找 `SKILL.md`
+- 非技能目录（如 `skills/characters/`，其 SKILL.md 在子目录中）缺失 SKILL.md 时静默跳过（debug 日志），不再产生 WARNING
 
 ### API 接口
 - `POST /api/chat` — 非流式对话
@@ -308,6 +363,7 @@ backend/src/modules/hongkai/
 ├── yolo_server_final.py           # YOLO TCP 服务端（端口 5001）
 ├── bh3_yolo_recognizer.py         # YOLO 识别入口
 ├── on_window.py                   # Win32 窗口管理
+├── log_viewer.py                  # 自动化日志查看器 (半透明深色置顶窗口, 左下角)
 ├── config.py / config.json        # 运行时配置
 ├── replay_keyboard.py             # 键鼠录制回放
 ├── save_output.py                 # 日志拦截（print → 文件）
@@ -320,12 +376,259 @@ backend/src/modules/hongkai/
 `backend/data/models/detect/yolo11n_elysian_realm_det.onnx`（从 hongkai_done 的 best.onnx 复制，24类游戏元素）
 
 ### run_hongkai_task tool
-- 已全部迁移为进程内直接调用，共享 YOLOModelManager 单例，不再使用 subprocess
+- 通过 `subprocess.run()` 在子进程中执行 hongkai 脚本，`cwd` 设为 `scripts/` 目录
+- 子进程环境自动注入 `PYTHONPATH` 指向 `backend/`，确保脚本内 `from src.modules.*` 导入可用
+- **PYTHONPATH 注入原理**: `scripts_dir` = `backend/src/modules/hongkai/scripts/`，向上 4 级 (`../../..`) 到达 `backend/`，将其加入 `PYTHONPATH`。解决 `main_screen.py`、`find_direction.py`、`ocr_functions.py`、`clicks_keyboard.py` 等文件中 `from src.modules.vision.*` 的导入问题
+- 脚本输出通过 `HONGKAI_LOG_FILE` 环境变量写入日志文件，`save_output.py` 的 `print()` monkey-patch 自动生效
+- `find_direction` 和 `navigate_to` 是进程内直接调用的（函数导入，共享 YOLOModelManager 单例），其他任务脚本（如 full_operation, letu, everyday 等）走 subprocess
+- 日志窗口通过 `subprocess.Popen` 启动 `log_viewer.py`，与脚本子进程并行运行
 
 ### 常见问题
 - **YOLO 服务启动失败**: 检查模型路径 `yolo11n_elysian_realm_det.onnx`，查看 `yolo_server.log`
 - **OCR 服务启动失败**: 检查 `ocr/models/ch_PP-OCRv4_*.onnx` 是否存在
 - **模板匹配失败**: 确认游戏窗口标题为"崩坏3"，检查屏幕分辨率
+
+### 自动化日志查看器 (log_viewer.py)
+
+当 GameAgent 执行 hongkai 自动化脚本时，弹出独立窗口实时显示脚本运行状态。
+
+**窗口特性**:
+- `FramelessWindowHint | WindowStaysOnTopHint | Tool` — 无边框、始终置顶
+- `WA_TranslucentBackground` + `WS_EX_TRANSPARENT | WS_EX_LAYERED` — 半透明 + 完全鼠标穿透
+- 所有点击/拖拽/移动事件直达游戏窗口，不拦截操作
+- 无滚动条（`Qt.ScrollBarAlwaysOff`），始终自动滚动到最新内容
+- 统一容器: 深色背景 `rgba(20,20,32,220)` + 圆角 10px，标题/文件名/日志区域为一体连续卡片
+- 标题/文件名: 白色字体 `#ffffff`，透明背景，共享容器背景色
+- 日志区: 透明底 + 无边框，文字 `#ffffff`，Consolas 等宽字体
+- 默认位置: 屏幕左下角 (620x420)，紧贴左下边缘
+- 无状态栏: 字符计数和关闭倒计时文本已移除
+
+**运行逻辑**:
+- `QTimer` 每 200ms 轮询：`os.path.getsize()` 检测新内容 → `seek()` 读取增量 → `QTextEdit.moveCursor(End)` + `insertPlainText()` + `ensureCursorVisible()`
+- 文件不存在时等待最多 10s；文件被截断时自动重置 `_last_size = 0`
+- 读到 `TASK_COMPLETE` → `_schedule_close()`，**强制最少显示 5s**（`MIN_DISPLAY_SECONDS`）
+- **120s** 无新内容 + 已显示 15s → 自动关闭（已从 30s 扩展到 120s，防止 OCR/YOLO 服务启动期间超时关闭）
+- 超过 2000 行裁剪前 500 行
+
+### 子进程 stdout/stderr 编码修复 (2026-05-30 最终修复)
+
+**问题根源**：Windows 子进程管道模式下，`sys.stdout.encoding` 默认为 **cp1252**（Windows 代码页）。中文字符无法编码，导致 `print()` 抛出 `UnicodeEncodeError: 'charmap' codec can't encode characters`。这会影响所有通过 subprocess 启动的 Python 脚本。
+
+**影响范围**：
+- `save_output.py` — 脚本 `print()` 输出全部丢失（日志无 `[timestamp]` 消息）
+- `ocr_server_final.py` — OCR 服务启动时崩溃，无法绑定端口 5002
+- `yolo_server_final.py` — YOLO 服务同理
+
+**修复方法**：在每个受影响模块的 import 之后立即添加：
+```python
+import sys as _sys_enc
+for _stream in (_sys_enc.stdout, _sys_enc.stderr):
+    try:
+        if hasattr(_stream, 'reconfigure'):
+            _stream.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
+```
+
+**修复文件清单**：
+| 文件 | 说明 |
+|------|------|
+| `hongkai/save_output.py` | 脚本日志输出 |
+| `hongkai/ocr/ocr_server_final.py` | OCR 服务端 |
+| `hongkai/yolo_server_final.py` | YOLO 服务端 |
+
+### 日志实时显示：数据流架构 (2026-05-30 v3)
+
+**核心数据流**：
+
+```
+脚本: print("hello")
+  ↓ (save_output 在模块导入时 monkey-patch 了 builtins.print)
+_custom_print("hello")
+  ↓
+save_log("hello")
+  ├─→ _original_print("[HH:MM:SS] hello\n")     [stdout, UTF-8]
+  │     ↓ (-u + PYTHONUNBUFFERED=1 = 无缓冲)
+  │     ↓ stderr 合并到 stdout (stderr=subprocess.STDOUT)
+  │     ↓
+  │   PIPE → 线程 readline() → open('a').write() → 日志文件 (唯一写入者)
+  │
+  └─→ save_log 也写自己的 letu_*.log (独立模式，与线程文件不同，无竞态)
+```
+
+**关键设计**：
+- **单写入者**: 线程是 task_letu_*.log 的唯一写入者，save_log() 不写此文件（避免双写竞态）
+- **合并管道**: `stderr=subprocess.STDOUT` 使 logging 和 stderr 也实时显示
+- **UTF-8**: 所有进程的 stdout/stderr 强制 UTF-8 编码
+
+### OCR/YOLO 服务按需自启动
+
+**设计原则**: 不在 `run_hongkai_task` 中统一启动，而是在脚本实际调用 OCR/YOLO 时按需启动。
+
+**OCR** (`ocr_client.py`):
+- `_start_ocr_server_background()`: 后台线程启动 `ocr_server_final.py`，立即返回不阻塞
+- `_wait_ocr_ready()`: 实际需要 OCR 时才等待就绪（带 5s 进度提示）
+- 首次调用 `OCRClient.recognize_with_reconnect()` 时触发
+- 最多等待 90 秒，之后返回超时错误
+
+**YOLO** (`call_YOLO.py`):
+- `_start_yolo_server()`: 已有自启动逻辑，检查端口 5001 未运行时启动 `yolo_server_final.py`
+- 等待最多 20 秒就绪
+- 被 `call_yolo_model()` 调用时触发
+
+**注意**: OCR/YOLO 服务端启动较慢（需加载 ONNX 模型），日志弹窗空闲超时已从 30s 扩展到 120s 以防止误关闭。
+
+### 其他修复 (2026-05-30)
+
+**PrintWindow 兼容性** (`vision/screen_capture.py`):
+- 旧版 pywin32 中 `win32gui.PrintWindow` 不存在
+- 改用 `ctypes.windll.user32.PrintWindow` 直接调用，兼容所有版本
+
+**charactor_ensure 置信度** (`templates/clicks_keyboard.py`):
+- 确认按钮模板匹配置信度从 0.8 降至 0.7，提高匹配成功率
+
+**旧文件清理**:
+- 删除 `hongkai/all_log/save_output.py` 旧版（无 HONGKAI_LOG_FILE 支持）
+- 删除 `hongkai/all_log/__pycache__/save_output.cpython-311.pyc`
+- 删除 `hongkai/all_log/run_script.py`（旧的 HTTP 服务器，不再使用）
+
+### UAC 提权：已移除（2026-05-30）
+
+**结论：所有脚本不需要管理员权限。**
+
+脚本使用的 Win32 API — `SendInput`、`mouse_event`、`keybd_event`、`SetForegroundWindow`、`FindWindow`、`GetDC` — 均不需要管理员权限。UAC 提权是从 hongkai_done 项目继承的错误模式。
+
+**移除内容**：
+- 12 个 scripts/*.py：删除 `is_admin()`/`run_as_admin()` 调用和 `skip_completion_marker()`
+- 导入简化：`from on_window import focus_bh3_window, run_as_admin, is_admin` → `from on_window import focus_bh3_window`
+- `react_agent.py`：移除 `_elevation_triggered` 检测逻辑和提权关键词匹配
+- `save_output.py`：`skip_completion_marker()` 保留但不再被调用
+
+**流程（提权移除后，唯一路径）**：
+```
+run_hongkai_task → 创建日志 → 启动 log_viewer → 启动脚本子进程 + 读取线程
+  → 脚本 print() → save_log() → stdout(无缓冲) → pipe → 线程 → 日志文件
+                              → open('a').write() → 日志文件（双路径）
+  → 任务完成 → atexit 写 TASK_COMPLETE → log_viewer 5s 后关闭
+```
+
+**日志路径传递双重保障**:
+1. 环境变量 `HONGKAI_LOG_FILE` 在 `subprocess.Popen(env=...)` 中设置
+2. 命令行参数 `--log-file <path>` 在 `sys.argv` 中 → `save_output._parse_log_file_arg()` 模块导入时自动解析
+
+### 窗口级屏幕截图与 PrintWindow 防遮挡 (screen_capture.py)
+
+log viewer 弹窗为置顶窗口（`WindowStaysOnTopHint`），可能遮挡游戏画面。
+原有方案 `capture_game_client_area()` → `mss.grab(region=client_rect)` 截取的是**屏幕可见像素**，
+若弹窗与游戏客户区重叠，截图会包含弹窗像素 → 模板匹配/OCR 失败。
+
+**防遮挡三级回退 (2026-05-30)**:
+
+| 优先级 | 方法 | 原理 | 遮挡免疫力 |
+|--------|------|------|-----------|
+| 1 | `_capture_via_printwindow()` | `PrintWindow(hwnd, hdc, PW_RENDERFULLCONTENT)` — DWM 缩略图，Win 8.1+ | **完全无视遮挡** |
+| 2 | `_capture_via_getdc()` | `GetDC(hwnd)` + `BitBlt` — 直接从窗口 GDI DC 复制像素 | **完全无视遮挡** |
+| 3 | `self.capture(region=rect)` | `mss.grab()` 屏幕像素截图 | 无 — 置顶窗口会入镜 |
+
+- PrintWindow 利用 DWM 维护的窗口离屏表面，对 GPU 渲染游戏（Unity）有效
+- GetDC+BitBlt 兼容性更好（不依赖 DWM），但对 GPU 独占渲染的游戏可能返回空白
+- 两者均失败时回退 mss.grab（log viewer 鼠标穿透确保不阻挡操作）
+
+**鼠标穿透 (log_viewer.py)**:
+弹窗虽为置顶，但双层穿透确保不拦截操作：
+- Qt 层: `WA_TransparentForMouseEvents`
+- Win32 层: `WS_EX_TRANSPARENT | WS_EX_LAYERED`（在 `showEvent()` 中设置）
+- 子进程控制台抑制: `creationflags=subprocess.CREATE_NO_WINDOW`
+
+**核心方法**:
+
+| 方法 | 用途 |
+|------|------|
+| `capture()` | 全屏截图 (mss/pyautogui/PIL) |
+| `capture_game_window()` | 截取游戏窗口区域 (含标题栏/边框) |
+| `capture_game_client_area()` | **三级回退**：PrintWindow → GetDC+BitBlt → mss 截取客户区 |
+| `get_game_client_rect()` | 获取客户区屏幕坐标 (left, top, right, bottom) |
+
+**窗口查找 (`_find_game_window_hwnd`)**:
+1. `win32gui.FindWindow(None, "崩坏3")` — 精确匹配
+2. 变体标题匹配: "Honkai Impact 3rd", "HonkaiImpact3", "崩坏3-PC", "BH3"
+3. `EnumWindows` + 部分匹配 (包含 "崩坏" 或 "Honkai")
+4. 找不到时 fallback 全屏截图
+
+**客户区截取流程**:
+1. `FindWindow` → HWND
+2. `GetClientRect(hwnd)` → 客户区相对尺寸
+3. `ClientToScreen(hwnd, ...)` → 客户区在屏幕上的绝对位置
+4. `mss.grab(monitor=bbox)` → 仅截取客户区像素
+5. 返回 numpy ndarray (RGB)
+
+**DPI 感知**: 模块加载时调用 `ctypes.windll.user32.SetProcessDPIAware()`，确保在高 DPI 显示器上获取正确的窗口坐标。
+
+**坐标偏移处理**: 截取客户区后，模板匹配/YOLO 返回的坐标是相对于客户区左上角的。需要 + 客户区屏幕偏移量才能用于鼠标点击。
+
+**已更新的调用方**:
+
+| 文件 | 函数/工具 | 改动 |
+|------|----------|------|
+| `react_agent.py` | `yolo_detect_image` | `sc.capture()` → `sc.capture_game_client_area()` |
+| `react_agent.py` | `yolo_classify_image` | 同上 |
+| `react_agent.py` | `ocr_recognize` | 同上 |
+| `scripts/find_direction.py` | `_capture()` | 同上 |
+| `ocr/ocr_functions.py` | 2 处截图调用 | `pyautogui.screenshot()` → `ScreenCapture().capture_game_client_area()` |
+| `templates/clicks_keyboard.py` | `is_template()` | 客户区截图 + 坐标偏移 (offset_x, offset_y) |
+| `templates/clicks_keyboard.py` | `is_complex_temp()` | 客户区截图 + 4 个返回路径全部加坐标偏移 |
+| `scripts/main_screen.py` | `detect_elysia_star()` | `pyautogui.screenshot()` → `ScreenCapture().capture_game_client_area()` → PIL Image |
+
+**截图函数迁移到 ScreenCapture (2026-05-30)**:
+- `bh3_yolo_recognizer.py`、`letu_find_way.py`、`check_next_done.py` 中的截图调用全部迁移到 `ScreenCapture().capture_game_client_area()`
+- 原因: 旧 `take_bh3_screenshot` 每次创建 GDI 对象，高频调用(0.1s/次)导致 GDI 句柄耗尽 → `CreateCompatibleDC failed`
+- ScreenCapture 单例复用 DC，避免泄漏；同时 PrintWindow 用 ctypes 调用兼容所有 pywin32 版本
+- YOLO 检测不再保存临时文件到磁盘(调试取样除外)，temp 文件由 OS 定期清理
+
+### 战斗停止判断 (letu_fight.py)
+
+`letu_fight()` 三线程并行架构：YOLO怪物检测 + 停止图片模板匹配 + 按键复现。
+
+**外层循环退出修复 (2026-05-30)**:
+- 新增 `battle_ended` 标志。YOLO 检测到战斗结束(连续5秒无 elysia_star + 无怪物UI)时设为 True
+- 外层 `while` 条件增加 `and not battle_ended`，防止战斗结束后无限重启新战斗
+
+**停止图片置信度**: `letu_stop_fight_loop.png` 默认置信度 0.8 → 0.82，减少误匹配
+
+**调试取样**: 当停止图片检测到但 YOLO 认为怪物仍存在时，调用 `bh3_yolo_recognize(save_detection_result=True)` 保存 YOLO 标注截图到 `all_log/debug_samples/`，最多 10 张。用于分析模板匹配与 YOLO 检测结论不一致的情况。
+
+### GDI 资源泄漏修复 (2026-05-30)
+
+**问题**: `take_bh3_screenshot` 每次调用创建新 GDI 对象(hwnd_dc, mfc_dc, save_dc, bitmap)，YOLO 线程每 0.1s 调用一次，4 分钟战斗 ≈ 2400 次，耗尽 Windows GDI 句柄池。
+
+**修复**: 全部截图统一使用 `src.modules.vision.screen_capture.ScreenCapture` 单例，复用 GDI 上下文。
+
+**已迁移的文件**:
+| 文件 | 函数 | 旧方法 | 新方法 |
+|------|------|--------|--------|
+| `bh3_yolo_recognizer.py` | `bh3_yolo_recognize()` | `take_bh3_screenshot` | `ScreenCapture().capture_game_client_area()` |
+| `character/letu_find_way.py` | `detect_bh3_elements()` | `take_bh3_screenshot(save_path=...)` | `ScreenCapture().capture_game_client_area()` |
+| `character/check_next_done.py` | `detect_bh3_elements()` | `take_bh3_screenshot()` | `ScreenCapture().capture_game_client_area()` |
+
+### 视频录制移除 (2026-05-30)
+
+从 `scripts/letu.py` 和 `scripts/everyday.py` 中移除视频录制功能（`get_video_logger` / `start()` / `stop()` / `try/finally`），减少不必要的磁盘 I/O。
+
+### 模板图片路径修复 (2026-05-30)
+
+**问题**: `run_hongkai_task` 的 CWD 为 `scripts/`，但脚本中模板路径用相对路径 `templates\...`，解析为 `scripts\templates\...` (不存在)。模板实际在 `hongkai\templates\`。
+
+**修复**: CWD 从 `scripts_dir` 改为 `hongkai_dir`(父目录)，使 `templates\...` 正确解析。
+
+**缺失图片**: 从原项目 `D:\hongkai_done\photos\` 复制 7 张缺失模板到 `templates/`: `aomie.png`, `chongxin_tiaozhan.png`, `fusheng.png`, `huangjin.png`, `jiushi.png`, `letu_stop_fight_loop.png`, `zhenwo.png`。
+
+### 日志输出精简 (2026-05-30)
+
+`ScreenCapture` 的 `capture_game_client_area()` 方法: 只在捕获方法首次使用或切换时输出 INFO 日志，后续同类调用静默。`ScreenCapture.__init__` 改为 DEBUG 级别。日志文件从 3MB 缩减到 ~150KB。
+
+### 超时设置
+
+`run_hongkai_task` 的 `proc.wait(timeout=86400)` — 24小时(实质无限)，脚本自带 `atexit` 写入 `[TASK_COMPLETE]` 标记结束。
 
 ## 进程内脚本架构 (In-Process Scripts)
 
@@ -514,7 +817,7 @@ LangChain 的 `AgentExecutor` 在工具连续返回相同结果时不会自动�
 
 - **效果**: 重复循环被检测到后，最多再消耗 1 次 LLM 调用即可终止，不再无限循环
 
-## 角色人格文件生成任务 (进行中)
+## 角色人格文件生成任务 (已完成 2026-05-26)
 
 ### 背景
 
@@ -532,7 +835,7 @@ LangChain 的 `AgentExecutor` 在工具连续返回相同结果时不会自动�
 
 #### index.json 更新
 
-从 39 个条目扩展到 48 个条目。包含所有新拆分角色的 audio_path、ref_text、original_file。
+从 39 个条目扩展到 48 个条目。包含所有新拆分角色的 audio_path、ref_text、original_file。新增幽兰黛尔·天光驰彻（幼态音色）。
 
 ### 已有 SKILL.md (6个，不动)
 
@@ -560,48 +863,48 @@ LangChain 的 `AgentExecutor` 在工具连续返回相同结果时不会自动�
 
 | # | 目录名 | 角色 | TTS音色 | 关键人格特征 | 状态 |
 |---|--------|------|---------|-------------|------|
-| 1 | `baixier` | 白希儿 | 白希儿 | 温柔怯懦，第三人称自指，害怕孤独，渴望被需要 | 待写 |
-| 2 | `heixier` | 黑希儿 | 黑希儿 | 嗜虐危险的守护者，以毁灭护希儿，病娇但不越界 | 待写 |
-| 3 | `magical-sirin` | 魔法少女西琳 | 魔法少女西琳 | 天真腹黑，蘑菇魔法，欢愉至上，和空律完全不同 | 待写 |
-| 4 | `herrscher-of-void` | 空之律者 | 空之律者 | 高傲俯视人类，崩坏女王，神的视角，被琪亚娜羁绊困惑 | 待写 |
-| 5 | `herrscher-of-sentience` | 识之律者 | 识之律者 | 嚣张豪爽，不是符华的影子，别扭的温柔，五万年记忆 | 待写 |
-| 6 | `stargazer-theresa` | 朔夜观星 | 朔夜观星 | 煌帝国军师，文雅傲娇，夜观天象，刺客先生 | 待写 |
-| 7 | `luna-kindred-young` | 月下初拥 | 月下初拥 | 小恶魔吸血猫，契约即羁绊，渴望陪伴 | 待写 |
-| 8 | `luna-kindred-grown` | 月下誓约 | 月下誓约 | 长大但没成熟的吸血姬，害羞软糯，不敢表白 | 待写 |
-| 9 | `rozaliya` | 萝莎莉娅 | 萝莎莉娅 | 伏特加女孩姐姐，元气冲动，超级头槌，先冲再说 | 待写 |
-| 10 | `liliya` | 莉莉娅 | 莉莉娅 | 伏特加女孩妹妹，慵懒冷静，永远没睡醒，吐槽担当 | 待写 |
-| 11 | `delta` | 德尔塔 | 德尔塔 | 世界泡双子融合体，冷淡孤独，背负失去的代价 | 待写 |
+| 1 | `baixier` | 白希儿 | 白希儿 | 温柔怯懦，第三人称自指，害怕孤独，渴望被需要 | 已完成 |
+| 2 | `heixier` | 黑希儿 | 黑希儿 | 嗜虐危险的守护者，以毁灭护希儿，病娇但不越界 | 已完成 |
+| 3 | `magical-sirin` | 魔法少女西琳 | 魔法少女西琳 | 天真腹黑，蘑菇魔法，欢愉至上，和空律完全不同 | 已完成 |
+| 4 | `herrscher-of-void` | 空之律者 | 空之律者 | 高傲俯视人类，崩坏女王，神的视角，被琪亚娜羁绊困惑 | 已完成 |
+| 5 | `herrscher-of-sentience` | 识之律者 | 识之律者 | 嚣张豪爽，不是符华的影子，别扭的温柔，五万年记忆 | 已完成 |
+| 6 | `stargazer-theresa` | 朔夜观星 | 朔夜观星 | 煌帝国军师，文雅傲娇，夜观天象，刺客先生 | 已完成 |
+| 7 | `luna-kindred-young` | 月下初拥 | 月下初拥 | 小恶魔吸血猫，契约即羁绊，渴望陪伴 | 已完成 |
+| 8 | `luna-kindred-grown` | 月下誓约 | 月下誓约 | 长大但没成熟的吸血姬，害羞软糯，不敢表白 | 已完成 |
+| 9 | `rozaliya` | 萝莎莉娅 | 萝莎莉娅 | 伏特加女孩姐姐，元气冲动，超级头槌，先冲再说 | 已完成 |
+| 10 | `liliya` | 莉莉娅 | 莉莉娅 | 伏特加女孩妹妹，慵懒冷静，永远没睡醒，吐槽担当 | 已完成 |
+| 11 | `delta` | 德尔塔 | 德尔塔 | 世界泡双子融合体，冷淡孤独，背负失去的代价 | 已完成 |
 
 #### 单一身份角色 (26个)
 
 | # | 目录名 | 角色 | TTS音色 | 关键特征 | 状态 |
 |---|--------|------|---------|---------|------|
-| 12 | `rita` | 丽塔 | 丽塔 | 完美女仆，优雅腹黑，什么都做到最好 | 待写 |
-| 13 | `eden` | 伊甸 | 伊甸 | 逐火英桀第四位，黄金的歌唱者，华丽慵懒 | 待写 |
+| 12 | `rita` | 丽塔 | 丽塔 | 完美女仆，优雅腹黑，什么都做到最好 | 已完成 |
+| 13 | `eden` | 伊甸 | 伊甸 | 逐火英桀第四位，黄金的歌唱者，华丽慵懒 | 已完成 |
 | 14 | `yae-sakura` | 八重樱 | 八重樱 | 500年前巫女，冷酷与温柔并存 | 已完成 |
 | 15 | `sakura` | 樱 | 八重樱 | 逐火英桀第八席「刹那」之铭，沉默之刃 | 已完成 |
-| 16 | `carol` | 卡萝尔 | 卡萝尔 | 后崩坏书，活泼元气少女，拳头比脑子快 | 待写 |
-| 17 | `himeko` | 姬子 | 姬子 | 无量塔姬子，前女武神教官，燃烧自己照亮他人 | 待写 |
-| 18 | `durandal` | 幽兰黛尔 | 幽兰黛尔 | 天命最强S级女武神，认真直率，不灭之刃队长 | 待写 |
-| 19 | `shigure-kira` | 时雨绮罗 | 时雨绮罗 | 天命偶像女武神，自信闪耀，偶尔年代感笑话 | 待写 |
-| 20 | `prometheus` | 普罗米修斯 | 普罗米修斯 | 前文明AI，理性冷静，分析一切 | 待写 |
-| 21 | `li-sushang` | 李素裳 | 李素裳 | 太虚剑传人，活泼好斗，和幽兰黛尔是好友 | 待写 |
-| 22 | `songque` | 松雀 | 松雀 | 第二部，慵懒自由，箱箱乐爱好者 | 待写 |
-| 23 | `griseo` | 格蕾修 | 格蕾修 | 逐火英桀第十一位，画家，安静观察世界，用颜色表达情感 | 待写 |
-| 24 | `mobius` | 梅比乌斯 | 梅比乌斯 | 逐火英桀第十位，疯狂科学家，蛇一般危险魅惑，追求无限 | 待写 |
-| 25 | `raven` | 渡鸦 | 渡鸦 | 世界蛇干部，娜塔莎·希奥拉，嘴硬心软，照顾孤儿院 | 待写 |
-| 26 | `deng` | 灯 | 灯 | 第二部，咖啡和三明治，冷淡寡言但可靠 | 待写 |
-| 27 | `ai-chan` | 爱衣 | 爱衣 | 休伯利安AI，活泼可爱的辅助人格，从AI进化为伙伴 | 待写 |
-| 28 | `senadina` | 希娜狄雅 | 希娜狄雅 | 第二部，无人机和跑酷，自由奔放的冒险者 | 待写 |
-| 29 | `serelim` | 瑟莉姆 | 瑟莉姆 | 第二部，享受支配的过程，不讨厌捣乱的家伙 | 待写 |
-| 30 | `coralie` | 科拉莉 | 科拉莉 | 第二部，机械工程天才，不想被笨蛋拜托修电脑 | 待写 |
-| 31 | `vill-v` | 维尔薇 | 维尔薇 | 逐火英桀第五位，多重人格工程师(魔术师/专家等)，同一实体 | 待写 |
-| 32 | `feather` | 羽兔 | 羽兔 | 第二部，能力方便可以应付体重测量，随性悠然 | 待写 |
-| 33 | `susannah` | 苏莎娜 | 苏莎娜 | 天命女武神，吃货，发现很多好吃的店 | 待写 |
-| 34 | `vita` | 薇塔 | 薇塔 | 第二部，量子之海珍馐收藏家，神秘优雅 | 待写 |
-| 35 | `heralia` | 赫丽娅 | 赫丽娅 | 第二部，和科拉莉搭档，劳逸结合飞镖游戏 | 待写 |
-| 36 | `aponia` | 阿波尼亚 | 阿波尼亚 | 逐火英桀第三位，戒律的守护者，温柔到让人睡着的危险 | 待写 |
-| 37 | `pardofelis` | 帕朵菲莉丝 | 帕朵菲莉丝 | 逐火英桀第九位，猫娘商人，小鱼干和金枪鱼罐头 | 待写 |
+| 16 | `carol` | 卡萝尔 | 卡萝尔 | 后崩坏书，活泼元气少女，拳头比脑子快 | 已完成 |
+| 17 | `himeko` | 姬子 | 姬子 | 无量塔姬子，前女武神教官，燃烧自己照亮他人 | 已完成 |
+| 18 | `durandal` | 幽兰黛尔 | 幽兰黛尔 | 天命最强S级女武神，正常+幼态双音色 | 已完成 |
+| 19 | `shigure-kira` | 时雨绮罗 | 时雨绮罗 | 天命偶像女武神，自信闪耀，偶尔年代感笑话 | 已完成 |
+| 20 | `prometheus` | 普罗米修斯 | 普罗米修斯 | 前文明AI，理性冷静，分析一切 | 已完成 |
+| 21 | `li-sushang` | 李素裳 | 李素裳 | 太虚剑传人，活泼好斗，和幽兰黛尔是好友 | 已完成 |
+| 22 | `songque` | 松雀 | 松雀 | 第二部，慵懒自由，箱箱乐爱好者 | 已完成 |
+| 23 | `griseo` | 格蕾修 | 格蕾修 | 逐火英桀第十一位，画家，安静观察世界，用颜色表达情感 | 已完成 |
+| 24 | `mobius` | 梅比乌斯 | 梅比乌斯 | 逐火英桀第十位，疯狂科学家，蛇一般危险魅惑，追求无限 | 已完成 |
+| 25 | `raven` | 渡鸦 | 渡鸦 | 世界蛇干部，娜塔莎·希奥拉，嘴硬心软，照顾孤儿院 | 已完成 |
+| 26 | `deng` | 灯 | 灯 | 第二部，咖啡和三明治，冷淡寡言但可靠 | 已完成 |
+| 27 | `ai-chan` | 爱衣 | 爱衣 | 休伯利安AI，活泼可爱的辅助人格，从AI进化为伙伴 | 已完成 |
+| 28 | `senadina` | 希娜狄雅 | 希娜狄雅 | 第二部，无人机和跑酷，自由奔放的冒险者 | 已完成 |
+| 29 | `serelim` | 瑟莉姆 | 瑟莉姆 | 第二部，享受支配的过程，不讨厌捣乱的家伙 | 已完成 |
+| 30 | `coralie` | 科拉莉 | 科拉莉 | 第二部，机械工程天才，不想被笨蛋拜托修电脑 | 已完成 |
+| 31 | `vill-v` | 维尔薇 | 维尔薇 | 逐火英桀第五位，多重人格工程师(魔术师/专家等)，同一实体 | 已完成 |
+| 32 | `misteln` | 羽兔 | 羽兔 | 第二部，能力方便可以应付体重测量，随性悠然 | 已完成 |
+| 33 | `susannah` | 苏莎娜 | 苏莎娜 | 天命女武神，吃货，发现很多好吃的店 | 已完成 |
+| 34 | `vita` | 薇塔 | 薇塔 | 第二部，量子之海珍馐收藏家，神秘优雅 | 已完成 |
+| 35 | `helia` | 赫丽娅 | 赫丽娅 | 第二部，和科拉莉搭档，劳逸结合飞镖游戏 | 已完成 |
+| 36 | `aponia` | 阿波尼亚 | 阿波尼亚 | 逐火英桀第三位，戒律的守护者，温柔到让人睡着的危险 | 已完成 |
+| 37 | `pardofelis` | 帕朵菲莉丝 | 帕朵菲莉丝 | 逐火英桀第九位，猫娘商人，小鱼干和金枪鱼罐头 | 已完成 |
 
 ### 联动角色 (4个，跳过不生成)
 
@@ -624,6 +927,11 @@ LangChain 的 `AgentExecutor` 在工具连续返回相同结果时不会自动�
 3. 拆分角色重点描述与同源角色的差异
 4. YAML frontmatter 必须包含 name, description, tts_voice 三个字段
 
-### 下一步
+### 完成总结
 
-逐个、仔细地写每个角色的 SKILL.md。从拆分角色开始（优先），然后是单一身份角色。
+全部 44 个角色 SKILL.md 已生成（2026-05-26）。包括：6 个原始角色 + 11 个拆分角色 + 26 个单一身份角色 + 1 个（seele，保留兼容）。
+
+**特殊案例**:
+- `durandal` — 幽兰黛尔：一个人格，两种 TTS 音色（正常 `幽兰黛尔` + 幼态 `幽兰黛尔·天光驰彻`），由 index.json 双条目支持
+- `yae-sakura` + `sakura` — 八重樱/樱：共用同一音色 `八重樱`，不同人格
+- `magical-sirin` + `herrscher-of-void` — 西琳双子：共用调研文件（magical-sirin 为主），不同音色

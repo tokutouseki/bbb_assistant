@@ -360,8 +360,8 @@ def is_ocr_text(text, description=None, region=(748, 267, 1864, 933), confidence
         time.sleep(time_sleep)
     
     try:
-        screenshot = pyautogui.screenshot()
-        screenshot_np = np.array(screenshot)
+        from src.modules.vision.screen_capture import ScreenCapture
+        screenshot_np = ScreenCapture().capture_game_client_area()
         
         if region is not None:
             x1, y1, x2, y2 = region
@@ -473,8 +473,8 @@ def get_all_recognized_text(region=(748, 267, 1864, 933), preprocess=False, targ
     :return: 识别结果列表，每个元素为 (文本, 标准化文本, 置信度, 中心坐标, 相似度) 元组
     """
     try:
-        screenshot = pyautogui.screenshot()
-        screenshot_np = np.array(screenshot)
+        from src.modules.vision.screen_capture import ScreenCapture
+        screenshot_np = ScreenCapture().capture_game_client_area()
         
         if region is not None:
             x1, y1, x2, y2 = region

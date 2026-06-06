@@ -186,19 +186,26 @@ def is_template(image_name, description=None, template_path=None, confidence=0.8
         template_height, template_width = template_gray.shape[:2]
         print(f"[{time.strftime('%H:%M:%S')}] 模板图片加载成功: {template_path}")
         
-        screenshot = pyautogui.screenshot()
-        screenshot_np = np.array(screenshot)
+        from src.modules.vision.screen_capture import ScreenCapture
+        sc = ScreenCapture()
+        client_rect = sc.get_game_client_rect()
+        if client_rect is not None:
+            screenshot_np = sc.capture_game_client_area()
+            offset_x, offset_y = client_rect[0], client_rect[1]
+        else:
+            screenshot_np = sc.capture()
+            offset_x, offset_y = 0, 0
         screenshot_gray = cv2.cvtColor(screenshot_np, cv2.COLOR_BGR2GRAY)
-        
+
         result = cv2.matchTemplate(screenshot_gray, template_gray, cv2.TM_CCOEFF_NORMED)
         locations = np.where(result >= confidence)
         locations = list(zip(*locations[::-1]))
-        
+
         if locations:
             x, y = locations[0]
-            center_x = x + template_width // 2
-            center_y = y + template_height // 2
-            
+            center_x = x + template_width // 2 + offset_x
+            center_y = y + template_height // 2 + offset_y
+
             screen_width, screen_height = pyautogui.size()
             if 0 <= center_x < screen_width and 0 <= center_y < screen_height:
                 match_region = screenshot_np[y:y+template_height, x:x+template_width]
@@ -299,8 +306,15 @@ def is_complex_temp(image_name, description=None, template_path=None, confidence
     
     try:
         template = cv2.imread(template_path, cv2.IMREAD_COLOR)
-        screenshot = pyautogui.screenshot()
-        screenshot_np = np.array(screenshot)
+        from src.modules.vision.screen_capture import ScreenCapture
+        sc = ScreenCapture()
+        client_rect = sc.get_game_client_rect()
+        if client_rect is not None:
+            screenshot_np = sc.capture_game_client_area()
+            offset_x, offset_y = client_rect[0], client_rect[1]
+        else:
+            screenshot_np = sc.capture()
+            offset_x, offset_y = 0, 0
         
         if region is not None:
             x1, y1, x2, y2 = region
@@ -443,8 +457,8 @@ def is_complex_temp(image_name, description=None, template_path=None, confidence
                     if debug:
                         print(f"[{time.strftime('%H:%M:%S')}] 使用边缘检测成功识别到{image_desc}{image_name}图片（亮度和形状符合要求）")
                     actual_loc = (max_loc[0] + region[0], max_loc[1] + region[1]) if region is not None else max_loc
-                    center_x = actual_loc[0] + w // 2
-                    center_y = actual_loc[1] + h // 2
+                    center_x = actual_loc[0] + w // 2 + offset_x
+                    center_y = actual_loc[1] + h // 2 + offset_y
                     save_recognition_result("is_complex_temp", "edge_detection", image_name, actual_loc, match_region, save_screenshot)
                     return True, center_x, center_y, match_region
             else:
@@ -475,8 +489,8 @@ def is_complex_temp(image_name, description=None, template_path=None, confidence
                     image_desc = f"{description} " if description else ""
                     if debug:
                         print(f"[{time.strftime('%H:%M:%S')}] 使用轮廓匹配成功识别到{image_desc}{image_name}图片（亮度和形状符合要求）")
-                    center_x = pt[0] + w // 2
-                    center_y = pt[1] + h // 2
+                    center_x = pt[0] + w // 2 + offset_x
+                    center_y = pt[1] + h // 2 + offset_y
                     save_recognition_result("is_complex_temp", "contour_matching", image_name, pt, match_region, save_screenshot)
                     return True, center_x, center_y, match_region
         else:
@@ -506,8 +520,8 @@ def is_complex_temp(image_name, description=None, template_path=None, confidence
                         image_desc = f"{description} " if description else ""
                         if debug:
                             print(f"[{time.strftime('%H:%M:%S')}] 使用{method_name}方法成功识别到{image_desc}{image_name}图片（亮度和形状符合要求）")
-                        center_x = min_loc[0] + w // 2
-                        center_y = min_loc[1] + h // 2
+                        center_x = min_loc[0] + w // 2 + offset_x
+                        center_y = min_loc[1] + h // 2 + offset_y
                         save_recognition_result("is_complex_temp", f"template_match_{method_name}", image_name, min_loc, match_region, save_screenshot)
                         return True, center_x, center_y, match_region
                 else:
@@ -529,8 +543,8 @@ def is_complex_temp(image_name, description=None, template_path=None, confidence
                         if debug:
                             print(f"[{time.strftime('%H:%M:%S')}] 使用{method_name}方法成功识别到{image_desc}{image_name}图片（亮度和形状符合要求）")
                         actual_max_loc = (max_loc[0] + region[0], max_loc[1] + region[1]) if region is not None else max_loc
-                        center_x = actual_max_loc[0] + w // 2
-                        center_y = actual_max_loc[1] + h // 2
+                        center_x = actual_max_loc[0] + w // 2 + offset_x
+                        center_y = actual_max_loc[1] + h // 2 + offset_y
                         save_recognition_result("is_complex_temp", f"template_match_{method_name}", image_name, actual_max_loc, match_region, save_screenshot)
                         return True, center_x, center_y, match_region
                 else:
@@ -1576,7 +1590,7 @@ def click_shaixuan(template_path=None, confidence=0.8):
     """
     return click_template("shaixuan.png", "筛选", template_path=template_path, confidence=confidence)
 
-def click_charactor_ensure(template_path=None, confidence=0.8):
+def click_charactor_ensure(template_path=None, confidence=0.7):
     """
     在屏幕上查找并点击charactor_ensure.png图片（确认），只点击一次
     :param template_path: 图片路径，如果不提供则使用默认路径

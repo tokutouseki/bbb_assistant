@@ -37,6 +37,7 @@ DEFAULT_SETTINGS = {
     "companion_character": "爱莉希雅",
     "companion_tts_voice": "爱莉希雅",
     "companion_personality": "",
+    "auto_tts_enabled": False,
 }
 
 _lock = Lock()

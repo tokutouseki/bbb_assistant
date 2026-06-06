@@ -23,6 +23,7 @@ export const useSettingsStore = defineStore('settings', () => {
   const live2dWindowX = ref(100)
   const live2dWindowY = ref(100)
   const companionCharacter = ref('爱莉希雅')
+  const autoTtsEnabled = ref(false)
   const characterList = ref([])
   const characterListLoading = ref(false)
 
@@ -188,6 +189,7 @@ export const useSettingsStore = defineStore('settings', () => {
         live2dWindowX.value = parsed.live2dWindowX ?? 100
         live2dWindowY.value = parsed.live2dWindowY ?? 100
         companionCharacter.value = parsed.companionCharacter || '爱莉希雅'
+        autoTtsEnabled.value = parsed.autoTtsEnabled ?? false
       }
     } catch (e) {
       console.warn('加载设置失败:', e)
@@ -216,7 +218,8 @@ export const useSettingsStore = defineStore('settings', () => {
       live2dWindowHeight: live2dWindowHeight.value,
       live2dWindowX: live2dWindowX.value,
       live2dWindowY: live2dWindowY.value,
-      companionCharacter: companionCharacter.value
+      companionCharacter: companionCharacter.value,
+      autoTtsEnabled: autoTtsEnabled.value
     }
     localStorage.setItem('bbb-assistant-settings-llm', JSON.stringify(settings))
   }
@@ -250,6 +253,7 @@ export const useSettingsStore = defineStore('settings', () => {
     activeModel,
     activeApiUrl,
     companionCharacter,
+    autoTtsEnabled,
     characterList,
     characterListLoading,
     fetchCharacters,

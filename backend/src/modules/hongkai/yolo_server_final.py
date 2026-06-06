@@ -23,6 +23,15 @@ import cv2
 import numpy as np
 import onnxruntime as ort
 
+# 修复: 服务端作为子进程启动时 stdout/stderr 编码可能是 cp1252，中文会崩溃
+import sys as _sys_svr2
+for _stream in (_sys_svr2.stdout, _sys_svr2.stderr):
+    try:
+        if hasattr(_stream, 'reconfigure'):
+            _stream.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
+
 # 获取脚本所在目录的绝对路径
 script_dir = os.path.dirname(os.path.abspath(__file__))
 # 默认模型文件路径 — 查找 bbb_assistant 项目 data/models/detect 目录

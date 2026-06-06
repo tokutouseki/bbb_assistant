@@ -17,12 +17,14 @@ def detect_elysia_star():
     Returns:
         bool: 如果检测到elysia_star返回True，否则返回False
     """
-    import pyautogui
     import tempfile
-    
-    # 截取当前屏幕
-    screenshot = pyautogui.screenshot()
-    
+    from PIL import Image
+    from src.modules.vision.screen_capture import ScreenCapture
+
+    # 截取游戏客户区
+    screenshot_np = ScreenCapture().capture_game_client_area()
+    screenshot = Image.fromarray(screenshot_np)
+
     # 保存到临时文件
     with tempfile.NamedTemporaryFile(suffix='.png', delete=False) as tmp_file:
         temp_image_path = tmp_file.name

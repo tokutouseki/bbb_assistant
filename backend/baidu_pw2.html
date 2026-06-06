@@ -1,0 +1,388 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+    <meta charset="utf-8">
+    <title>百度安全验证</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <link rel="shortcut icon" href="https://www.baidu.com/favicon.ico" type="image/x-icon">
+    <link rel="icon" sizes="any" mask="" href="https://www.baidu.com/img/baidu.svg">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="stylesheet" href="https://ppui-static-wap.cdn.bcebos.com/static/touch/css/api/mkdjump_aac6df1.css">
+<script type="text/javascript" charset="utf-8" src="https://ppui-static-wap.cdn.bcebos.com/static/sdk-machine/js/mkd_v2.js?_=1778838830561"></script><style>.passMod_puzzle-wrapper {
+  position: relative;
+  width: 290px;
+}
+.passMod_puzzle-tip {
+  height: 28px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1F1F1F;
+}.darkmode .passMod_puzzle-tip{ color: rgba(255, 255, 255, .8)}
+.passMod_puzzle-msg {
+  font-size: 14px;
+  color: red;
+}
+.passMod_puzzle-context {
+  position: relative;
+  margin-top: 16px;
+  height: 160px;
+}
+.passMod_puzzle-background {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+.passMod_puzzle-block {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-height: 100%;
+}
+.passMod_puzzle-blockv2 {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 160px;
+  width: 52px;
+  background-size: 342px 160px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+.passMod_puzzle-backgroundv2 {
+  display: block;
+  width: 290px;
+  height: 160px;
+  background-size: 342px 160px;
+  background-position: -52px 0;
+  background-repeat: no-repeat;
+}
+.passMod_puzzle-footer {
+  padding-top: 18px;
+  height: 72px;
+  box-sizing: border-box;
+}
+.passMod_puzzle .show {
+  opacity: 1;
+}</style><style>.passMod_select-wrapper {
+  position: relative;
+  width: 290px;
+}
+.passMod_select-tip {
+  display: inline-block;
+  margin-top: 4px;
+  height: 34px;
+  font-size: 18px;
+  font-weight: bold;
+  vertical-align: text-bottom;
+}
+.passMod_select-tip p {
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+.passMod_select-tip-bg {
+  height: 24px;
+  font-size: 18px;
+  font-weight: bold;
+  vertical-align: text-bottom;
+}
+.passMod_select-tip-bgv2 {
+  display: inline-block;
+  width: 104px;
+  height: 24px;
+  vertical-align: text-bottom;
+  background-size: 234px 154px;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+}
+.passMod_select-msg {
+  font-size: 14px;
+  color: red;
+}
+.passMod_select-context {
+  position: relative;
+  height: 160px;
+  margin-top: 16px;
+  overflow: hidden;
+}
+.passMod_select-background {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+.passMod_select-backgroundv2 {
+  display: block;
+  width: 290px;
+  height: 160px;
+  background-size: 290px 191px;
+  background-position: 0 -30px;
+  background-repeat: no-repeat;
+}
+.passMod_select-block {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: black 1px solid;
+}
+.passMod_select-interactive {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+.passMod_select-footer {
+  padding-top: 18px;
+  height: 72px;
+  box-sizing: border-box;
+}
+.passMod_select .show {
+  opacity: 1;
+}
+.passMod_interactive-dot {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  color: #fff;
+  line-height: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  background-color: rgba(78, 110, 242, 0.7);
+  border: rgba(255, 255, 255, 0.8) 4px solid;
+}
+</style><style>.passMod_qrcode-wrapper {
+  position: relative;
+  width: 290px;
+}
+.passMod_qrcode-tip {
+  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  vertical-align: text-bottom;
+}
+.passMod_qrcode-tip p {
+  display: inline-block;
+  vertical-align: text-bottom;
+}
+.passMod_qrcode-tip-bg {
+  max-height: 24px;
+  font-size: 18px;
+  font-weight: bold;
+  vertical-align: text-bottom;
+}
+.passMod_qrcode-context-wrap {
+  position: relative;
+  margin-top: 40px;
+}
+.passMod_qrcode-context {
+  position: relative;
+  width: 188px;
+  height: 188px;
+  margin: 0 auto;
+  padding: 13px;
+  box-sizing: border-box;
+  border: rgba(133, 133, 133, 0.3) 1px solid;
+  overflow: hidden;
+}
+.passMod_qrcode-background {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.passMod_qrcode-errorMessage {
+  padding-top: 10px;
+  height: 16px;
+  color: red;
+  font-size: 16px;
+  text-align: center;
+}
+.passMod_qrcode-footer {
+  padding-top: 18px;
+  height: 72px;
+  box-sizing: border-box;
+}
+.passMod_qrcode .show {
+  opacity: 1;
+}
+</style><style>.passMod_spin-wrapper {
+  position: relative;
+  width: 290px;
+}
+.passMod_spin-tip {
+  height: 28px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #1F1F1F;
+}.darkmode .passMod_spin-tip{ color: rgba(255, 255, 255, .8)}
+.passMod_spin-msg {
+  font-size: 14px;
+  color: red;
+}
+.passMod_spin-context-wrap {
+  position: relative;
+  margin-top: 16px;
+}
+.passMod_spin-context {
+  position: relative;
+  width: 152px;
+  height: 152px;
+  border-radius: 76px;
+  margin: auto;
+  overflow: hidden;
+}
+.passMod_spin-background {
+  display: block;
+  width: 152px;
+  height: 152px;
+}
+.passMod_spin-coordinate {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: block;
+  width: 152px;
+  height: 152px;
+  z-index: -1;
+}
+.passMod_spin-AI {
+  position: absolute;
+  bottom: 11px;
+  left: 50%;
+  transform: translate(-50%);
+  font-size: 11px;
+  line-height: 11px;
+  color: white;
+  opacity: 0.5;
+}
+.passMod_spin-footer {
+  padding-top: 30px;
+  height: 84px;
+  box-sizing: border-box;
+}
+.passMod_spin .show {
+  opacity: 1;
+}</style><style>.passMod_dialog-wrapper {
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  font-family: PingFang SC, Microsoft Yahei, Helvetica, sans-serif;
+}
+.passMod_dialog-wrapper p {
+  margin: 0;
+  border: 0;
+}
+.transition {
+  transition: 0.5s;
+}
+.passMod_verify-item + .passMod_verify-item {
+  margin-top: 30px;
+}
+.refresh-pos {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+}
+.machine-show {
+  display: block!important;
+}
+.machine-hide {
+  display: none!important;
+}
+.message-error {
+  color: red!important;
+}
+</style><script type="text/javascript" charset="utf-8" src="https://wappass.baidu.com/static/touch/js/lib/fingerprint.js"></script><script type="text/javascript" charset="utf-8" src="https://hercules.cdn.bcebos.com/pass/bundle.js"></script><style>.passMod_dialog-wrapper {
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  opacity: 0;
+}
+.passMod_dialog-mask {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.passMod_dialog-close-btn {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+  width: 22px;
+  height: 22px;
+  z-index: 99999;
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEIAAABCBAMAAAAReh3bAAAAJ1BMVEUAAABVVVVTU1NSUlJVVVVSUlJSUlJTU1NTU1NSUlJTU1NSUlJSUlKGKbhPAAAADHRSTlMAJOToKh/feWvjcmMWiOGbAAAA5klEQVRIx+3UoY0CYRCA0bnkkrugCNAAHkOwOBqAIvAUgKAAHKELBDUggIQpig1iR7zdDvjU/uaZmdn4FjYYhv0eotpPw1aP+v7L21Bimbv2ccmcSmQ+28coG0Qit+3rZ9YgEvd1gECAQIBAgECAQIBAgECAQIhAgECIQIBAiECAQIBMiuhBFkX0IAkBUkRn48w8R2c1kZxHVzVUNlaiRtxDnPqQdqgb1p4F53ZYcG6HGwHhRkAgQCBAIEAgQCBAIEAgQCBAIEAgQCREJESOH0LkVX/+DyFyqNe+IUSeUf03hMg1vtkb0A/Xcjy7PGYAAAAASUVORK5CYII=) center / cover no-repeat;
+  cursor: pointer;
+}
+.passMod_dialog-container {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 330px;
+  padding: 0 20px;
+  background-color: #ffffff;
+  border-radius: 21px;
+  box-sizing: border-box;
+}
+.passMod_dialog-header {
+  position: relative;
+  height: 25px;
+  padding-top: 21px;
+  box-sizing: content-box;
+}
+.passMod_dialog-header p {
+  font-size: 15px;
+  color: #525252;
+}
+.passMod_dialog-footer {
+  text-align: center;
+  font-size: 0;
+  color: #858585;
+  padding-bottom: 8px;
+}
+.passMod_dialog-footer-feedback {
+  display: inline-block;
+  font-size: 14px;
+  padding: 22px 0 22px;
+  text-decoration: none;
+  cursor: pointer;
+  color: #858585;
+}
+.passMod_dialog-footer-feedback:visited {
+  color: #858585;
+}
+.passMod_dialog-footer-feedback:hover {
+  color: #858585;
+}.darkmode .passMod_dialog-close-btn{ background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEMAAABCBAMAAAD+uHblAAAAJ1BMVEUAAAD///////////////////////////////////////////////+uPUo5AAAADXRSTlMAmVJNWBCDCYeARBR4lRSKLAAAANhJREFUSMft1bEJwgAQBdAgWlmdghBIoRvYOIAbpLK3sLcSW4ewt3EHx7MQvIMXMkF+90N41f2kmTKS5Wvo6aGWz6ox801fkEdsfeUYlyz3iJVIxOb6b7OIZBKJdam7ZAoS+6wwIDAgMCAwIDAgMCAwIDAgMiAyIjIgMiIyIDIiMiAwHYgMCAyIjIgX6xi4WMcAAgPSwXj2jIHtMAYRxiDipkRgQGBEYEBgRGBAZERkRGREZERkRGREZERkbj8Eps0P/OKcSGWepZ0SKUzbl7YY/GW9mykj+QI8LyfwyItn0gAAAABJRU5ErkJggg==) center / cover no-repeat}.darkmode .passMod_dialog-container{ background-color: #222222}.darkmode .passMod_dialog-header p{ color: rgba(255, 255, 255, .6)}.darkmode .passMod_dialog-footer{ color: rgba(255, 255, 255, .5)}.darkmode .passMod_dialog-footer-feedback{ color: rgba(255, 255, 255, .5)}.darkmode .passMod_dialog-footer-feedback:visited{ color: rgba(255, 255, 255, .5)}.darkmode .passMod_dialog-footer-feedback:hover{ color: rgba(255, 255, 255, .5)}
+.passMod_dialog-footer-line {
+  color: #b8b8b8;
+  padding: 0 12px;
+}
+.passMod_dialog-footer-qrcode {
+  display: inline-block;
+  font-size: 14px;
+  padding: 22px 0;
+  cursor: pointer;
+}
+.passMod_dialog-footer-refresh {
+  display: inline-block;
+  font-size: 14px;
+  margin: 30px 0;
+  cursor: pointer;
+  background-position: 25px center;
+  background-size: 14px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC0AAAAtCAM

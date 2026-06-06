@@ -1,0 +1,8 @@
+# ASR Transcription Result
+# Generated: 2026-05-11 15:41:34
+# Language: zh
+# Confidence: 0.950
+# Processing Time: 0.113s
+# Source: D:\TokusCode\bbb_assistant\outputs\test_tts_asr_voxcpm\tts_20260511_154131_elysia_7d356f.wav
+
+大家好呀，我是爱丽西呀。走，今天也要和我一起开开心心的度过每一刻哦。😊

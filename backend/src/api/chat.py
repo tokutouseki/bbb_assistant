@@ -3,6 +3,7 @@ import json
 import os
 import queue
 import importlib.util
+import re as _re
 from typing import List, Optional, Dict, Any
 
 from fastapi import APIRouter, HTTPException
@@ -14,7 +15,10 @@ import requests
 from ..config.settings import get_settings
 from ..config.runtime_settings import update_runtime_settings
 from ..config.cancel_signal import register_request, clear_request, cancel_request
-from ..modules.agent.react_agent import get_main_agent, get_sub_agent, get_react_agent
+from ..modules.agent.react_agent import (
+    get_main_agent, get_sub_agent, get_react_agent,
+    get_action_agent, get_companion_agent, AgentRouter,
+)
 
 router = APIRouter()
 
@@ -62,6 +66,77 @@ def _transcribe_audios(audios: List[str]) -> str:
     if transcriptions:
         return "\n".join(transcriptions) + "\n\n"
     return ""
+
+
+_EMOTION_RE = _re.compile(r'^\s*\[(happy|sad|angry|surprised|shy|serious|teasing|gentle|excited|neutral)\]\s*', _re.IGNORECASE)
+
+
+def _parse_emotion_tag(text: str) -> tuple:
+    """解析文本开头的 [emotion] 标签，返回 (emotion, clean_text)。"""
+    match = _EMOTION_RE.match(text)
+    if match:
+        emotion = match.group(1).lower()
+        clean = text[match.end():].strip()
+        return emotion, clean
+    return None, text
+
+
+def _trigger_live2d_emotion(emotion: str):
+    """异步触发 Live2D 表情切换（fire-and-forget）。"""
+    try:
+        from ..modules.live2d_control.call_live2d import call_live2d
+        call_live2d("set_emotion", emotion=emotion)
+    except Exception as e:
+        logger.warning(f"Live2D 表情切换失败 [{emotion}]: {e}")
+
+
+def _generate_tts_background(text: str):
+    """在后台线程中生成 TTS 语音并播放（fire-and-forget，不阻塞主流程）。
+    仅在用户开启 auto_tts_enabled 设置时才执行。
+    """
+    try:
+        from ..config.runtime_settings import get_runtime_settings
+        if not get_runtime_settings().get("auto_tts_enabled", False):
+            logger.info("TTS: auto_tts_enabled 未开启，跳过")
+            return
+    except Exception:
+        return
+
+    import threading
+
+    def _run():
+        try:
+            from ..modules.agent.react_agent import _resolve_ref_audio
+            from ..config.runtime_settings import get_runtime_settings
+            from ..utils.model_manager import get_qwen3_tts_model
+            from ..modules.audio.audio_player import get_audio_player
+
+            runtime = get_runtime_settings()
+            char_name = runtime.get("companion_character", "爱莉希雅")
+
+            audio_path, ref_text = _resolve_ref_audio(char_name, "")
+            if not audio_path:
+                logger.warning(f"TTS: 找不到角色 '{char_name}' 的参考音频，跳过")
+                return
+
+            tts = get_qwen3_tts_model(device="cuda:0")
+            result = tts.generate_with_reference(
+                text=text,
+                reference_audio=audio_path,
+                language="Chinese",
+                ref_text=ref_text if ref_text else None,
+            )
+            filepath = tts.save_to_file(result)
+            logger.info(f"TTS 已生成: {filepath}")
+
+            player = get_audio_player()
+            player.play_audio(filepath)
+            logger.info(f"TTS 播放完成")
+        except Exception as e:
+            logger.warning(f"TTS 后台生成失败: {e}")
+
+    t = threading.Thread(target=_run, daemon=True)
+    t.start()
 
 
 class ChatMessage(BaseModel):
@@ -158,51 +233,72 @@ async def chat_completion(request: ChatRequest):
         if audio_text:
             last_user_message = audio_text + last_user_message
 
-    # 双 Agent 编排: 主 Agent (游戏任务) → 子 Agent (角色化回复)
-    from ..modules.skill.skill_manager import get_skill_manager as _get_sm
-    _sm = _get_sm()
-    _matched = _sm.find_matching_skill(last_user_message)
-    _has_phases = _matched and len(_sm.get_skill_phases(_matched["name"])) > 0
-
+    # Router + 3-Agent 编排
     request_id = request.request_id or str(time.time())
     register_request(request_id)
     try:
         images = request.images or None
 
-        # 阶段 1: 主 Agent 执行游戏任务，输出 JSON 报告
-        main_agent = get_main_agent()
-        if _has_phases:
-            main_result = await asyncio.to_thread(
-                main_agent.run_phased, _matched["name"], last_user_message, request_id, 2, images
-            )
-        else:
-            main_result = await asyncio.to_thread(
-                main_agent.run, last_user_message, 2, request_id, images
-            )
-        main_output = main_result.get("output", "")
-        logger.info(f"[MainAgent] 任务报告: {main_output[:500]}")
+        # 阶段 0: Router 意图分类
+        router = AgentRouter()
+        intent_result = await asyncio.to_thread(router.classify, last_user_message)
+        intent = intent_result["intent"]
+        skill_name = intent_result.get("skill_name")
+        logger.info(f"[Router] 意图分类: intent={intent}, skill={skill_name}")
 
-        # 阶段 2: 子 Agent 角色化回复
-        sub_input = (
-            f"[用户消息] {last_user_message}\n\n"
-            f"[后台任务报告] {main_output}\n\n"
-            f"请以当前角色身份回复用户。"
-        )
-        sub_agent = get_sub_agent()
-        sub_result = await asyncio.to_thread(
-            sub_agent.run, sub_input, 1, request_id, None
+        business_output = ""
+
+        # 阶段 1: 业务 Agent
+        if intent == "game":
+            from ..modules.skill.skill_manager import get_skill_manager as _get_sm
+            _sm = _get_sm()
+            _matched = _sm.find_matching_skill(last_user_message)
+            _has_phases = _matched and len(_sm.get_skill_phases(_matched["name"])) > 0
+
+            main_agent = get_main_agent()
+            if _has_phases:
+                main_result = await asyncio.to_thread(
+                    main_agent.run_phased, _matched["name"], last_user_message, request_id, 2, images
+                )
+            else:
+                main_result = await asyncio.to_thread(
+                    main_agent.run, last_user_message, 2, request_id, images
+                )
+            business_output = main_result.get("output", "")
+            logger.info(f"[MainAgent] 任务报告: {business_output[:500]}")
+
+        elif intent == "action":
+            action_agent = get_action_agent()
+            action_result = await asyncio.to_thread(
+                action_agent.run, last_user_message, 2, request_id, images
+            )
+            business_output = action_result.get("output", "")
+            logger.info(f"[ActionAgent] 操作结果: {business_output[:500]}")
+
+        # 阶段 2: CompanionAgent 角色化回复
+        comp_input = f"[用户消息] {last_user_message}\n\n"
+        if business_output:
+            comp_input += f"[后台操作结果] {business_output}\n\n"
+        comp_input += "请以当前角色身份回复用户。"
+
+        comp_agent = get_companion_agent()
+        comp_result = await asyncio.to_thread(
+            comp_agent.run, comp_input, 1, request_id, None
         )
 
-        # 构建响应 (使用子 Agent 的输出)
-        final_output = sub_result.get("output", main_output)
-        
-        # 合并主 Agent 和子 Agent 的步骤（子 Agent 步骤在前端展示）
+        raw_output = comp_result.get("output", business_output)
+        emotion, clean_output = _parse_emotion_tag(raw_output)
+        if emotion:
+            _trigger_live2d_emotion(emotion)
+        final_output = clean_output
+        _generate_tts_background(clean_output)
+
         tool_steps = []
         thinking_steps = []
-        for step in sub_result.get("steps", []):
+        for step in comp_result.get("steps", []):
             tool_steps.append({
                 "tool": step.get("action", ""),
-                "input": sub_input,
+                "input": comp_input,
                 "start_time": "",
                 "end_time": "",
                 "result": bool(step.get("observation", "")),
@@ -298,56 +394,81 @@ async def chat_stream(request: ChatRequest):
     register_request(request_id)
     event_queue = queue.Queue()
 
-    # 预检测技能是否定义了阶段
-    from ..modules.skill.skill_manager import get_skill_manager
-    skill_manager_s = get_skill_manager()
-    matched = skill_manager_s.find_matching_skill(last_user_message)
-    use_phased = (
-        matched is not None
-        and len(skill_manager_s.get_skill_phases(matched["name"])) > 0
-    )
-    phased_skill_name = matched["name"] if use_phased else None
-
     async def generate():
         loop = asyncio.get_event_loop()
         images = request.images or None
 
-        # 阶段 1: 主 Agent 执行游戏任务（后台，不推前端）
-        def run_main_agent():
-            main_agent = get_main_agent()
-            if phased_skill_name:
-                return main_agent.run_phased(
-                    phased_skill_name, last_user_message, request_id, 2, images
-                )
-            else:
-                return main_agent.run(last_user_message, 2, request_id, images)
+        # ====== 阶段 0: Router 意图分类 ======
+        router = AgentRouter()
+        intent_result = await loop.run_in_executor(None, router.classify, last_user_message)
+        intent = intent_result["intent"]
+        skill_name = intent_result.get("skill_name")
+        logger.info(f"[Router] 意图分类: intent={intent}, skill={skill_name}")
 
-        try:
-            main_result = await loop.run_in_executor(None, run_main_agent)
-            main_output = main_result.get("output", "")
-            logger.info(f"[MainAgent] 任务报告: {main_output[:500]}")
-        except Exception as e:
-            error_msg = str(e)
-            if "CancelledError" in error_msg:
-                event_queue.put({"type": "cancelled"})
-            else:
-                event_queue.put({"type": "error", "message": f"主Agent执行失败: {error_msg}"})
-            clear_request(request_id)
-            yield f"data: {json.dumps({'type': 'error', 'message': f'主Agent执行失败: {error_msg}'}, ensure_ascii=False)}\n\n"
-            return
+        business_output = ""
 
-        # 阶段 2: 子 Agent 角色化回复（流式推前端）
-        sub_input = (
-            f"[用户消息] {last_user_message}\n\n"
-            f"[后台任务报告] {main_output}\n\n"
-            f"请以当前角色身份回复用户。"
-        )
+        # ====== 阶段 1: 业务 Agent（game / action / chat 跳过） ======
+        if intent == "game":
+            from ..modules.skill.skill_manager import get_skill_manager
+            skill_mgr = get_skill_manager()
+            matched = skill_mgr.find_matching_skill(last_user_message)
+            has_phases = matched and len(skill_mgr.get_skill_phases(matched["name"])) > 0
+            phased_name = matched["name"] if has_phases else None
 
-        def run_sub_agent():
-            sub_agent = get_sub_agent()
-            return sub_agent.run_streaming(sub_input, request_id, event_queue, 1, None)
+            def run_main():
+                agent = get_main_agent()
+                if phased_name:
+                    return agent.run_phased(phased_name, last_user_message, request_id, 2, images)
+                return agent.run(last_user_message, 2, request_id, images)
 
-        future = loop.run_in_executor(None, run_sub_agent)
+            try:
+                main_result = await loop.run_in_executor(None, run_main)
+                business_output = main_result.get("output", "")
+                logger.info(f"[MainAgent] 任务报告: {business_output[:500]}")
+            except Exception as e:
+                error_msg = str(e)
+                logger.error(f"[MainAgent] 执行失败: {error_msg}")
+                if "CancelledError" in error_msg:
+                    event_queue.put({"type": "cancelled"})
+                else:
+                    event_queue.put({"type": "error", "message": f"主Agent执行失败: {error_msg}"})
+                clear_request(request_id)
+                yield f"data: {json.dumps({'type': 'error', 'message': f'主Agent执行失败: {error_msg}'}, ensure_ascii=False)}\n\n"
+                return
+
+        elif intent == "action":
+            def run_action():
+                agent = get_action_agent()
+                return agent.run(last_user_message, 2, request_id, images)
+
+            try:
+                action_result = await loop.run_in_executor(None, run_action)
+                business_output = action_result.get("output", "")
+                logger.info(f"[ActionAgent] 操作结果: {business_output[:500]}")
+            except Exception as e:
+                error_msg = str(e)
+                logger.error(f"[ActionAgent] 执行失败: {error_msg}")
+                if "CancelledError" in error_msg:
+                    event_queue.put({"type": "cancelled"})
+                else:
+                    event_queue.put({"type": "error", "message": f"操作Agent执行失败: {error_msg}"})
+                clear_request(request_id)
+                yield f"data: {json.dumps({'type': 'error', 'message': f'操作Agent执行失败: {error_msg}'}, ensure_ascii=False)}\n\n"
+                return
+
+        # else intent == "chat": 无需业务 Agent，business_output 保持为空
+
+        # ====== 阶段 2: CompanionAgent 角色化回复（流式推前端） ======
+        comp_input = f"[用户消息] {last_user_message}\n\n"
+        if business_output:
+            comp_input += f"[后台操作结果] {business_output}\n\n"
+        comp_input += "请以当前角色身份回复用户。"
+
+        def run_companion():
+            agent = get_companion_agent()
+            return agent.run_streaming(comp_input, request_id, event_queue, 1, None)
+
+        future = loop.run_in_executor(None, run_companion)
 
         while True:
             try:
@@ -358,6 +479,18 @@ async def chat_stream(request: ChatRequest):
                 continue
 
             event_type = event.get("type", "")
+
+            # 解析 [emotion] 标签 → Live2D 表情
+            if event_type == "finish":
+                raw_output = event.get("output", "")
+                emotion, clean_output = _parse_emotion_tag(raw_output)
+                if emotion:
+                    logger.info(f"[Companion] 情绪标签: {emotion}")
+                    _trigger_live2d_emotion(emotion)
+                event["output"] = clean_output
+                if clean_output.strip():
+                    _generate_tts_background(clean_output)
+
             if event_type in ("finish", "cancelled", "error"):
                 yield f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
                 break
@@ -406,15 +539,21 @@ async def cancel_chat(req: CancelRequest):
 
 @router.post("/clear", response_model=ClearContextResponse)
 async def clear_chat_context():
-    """清除对话上下文：重置 LLM 记忆、删除任务检查点、重建双 Agent"""
-    main_result = get_main_agent().clear_context()
-    sub_result = get_sub_agent().clear_context()
+    """清除对话上下文：重置 LLM 记忆、删除任务检查点、重建所有 Agent"""
+    results = {
+        "main": get_main_agent().clear_context(),
+        "action": get_action_agent().clear_context(),
+        "companion": get_companion_agent().clear_context(),
+    }
+    all_ok = all(r["success"] for r in results.values())
+    all_mem = all(r["memory_cleared"] for r in results.values())
+    all_rebuilt = all(r["agent_rebuilt"] for r in results.values())
     return ClearContextResponse(
-        success=main_result["success"] and sub_result["success"],
-        memory_cleared=main_result["memory_cleared"] and sub_result["memory_cleared"],
-        checkpoint_deleted=main_result["checkpoint_deleted"],
-        agent_rebuilt=main_result["agent_rebuilt"] and sub_result["agent_rebuilt"],
-        message="对话上下文、任务检查点已清除，双 Agent 已重建"
+        success=all_ok,
+        memory_cleared=all_mem,
+        checkpoint_deleted=results["main"]["checkpoint_deleted"],
+        agent_rebuilt=all_rebuilt,
+        message="对话上下文、任务检查点已清除，所有 Agent 已重建"
     )
 
 @router.get("/history/{user_id}")

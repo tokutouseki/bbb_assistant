@@ -31,8 +31,9 @@ TTS语音合成:
 
 from .asr_processor import ASRProcessor
 from .tts_generator import TTSGenerator
-from .qwen3_tts_generator import Qwen3TTSGenerator
+from .qwen3_tts_generator import Qwen3TTSGenerator, Qwen3TTSRemoteProxy
 from .voice_clone import VoiceClone
+from .call_qwen3_tts import call_qwen3_tts, start_worker, stop_worker
 from .full_duplex_asr_processor import (
     FullDuplexASRProcessor,
     ASRMode,
@@ -44,9 +45,13 @@ from .full_duplex_asr_processor import (
 
 __all__ = [
     "ASRProcessor",
-    "TTSGenerator", 
-    "Qwen3TTSGenerator", 
+    "TTSGenerator",
+    "Qwen3TTSGenerator",
+    "Qwen3TTSRemoteProxy",
     "VoiceClone",
+    "call_qwen3_tts",
+    "start_worker",
+    "stop_worker",
     "FullDuplexASRProcessor",
     "ASRMode",
     "ASRState",

@@ -1,4 +1,5 @@
 import ctypes
+import os
 import time
 import sys
 from ctypes import wintypes
@@ -67,17 +68,31 @@ def is_admin():
     except:
         return False
 
-def run_as_admin():
+def run_as_admin(log_file: str = None):
     """
-    以管理员身份重新启动当前程序
+    以管理员身份重新启动当前程序。
+
+    :param log_file: 可选，提权后进程的日志文件路径。
+                     如果为 None，自动从环境变量 HONGKAI_LOG_FILE 读取。
+                     该路径会作为 --log-file 参数传递给提权进程。
     """
     try:
         # 获取当前程序的路径
         script = sys.argv[0]
-        
-        # 使用ShellExecuteEx以管理员身份重新启动
+
+        # 确定日志文件路径
+        if log_file is None:
+            log_file = os.environ.get("HONGKAI_LOG_FILE", "")
+
+        # 构建 lpParameters：脚本路径 + --log-file 参数
+        if log_file:
+            lpParameters = f'"{script}" --log-file "{log_file}"'
+        else:
+            lpParameters = f'"{script}"'
+
+        # ShellExecuteW(hwnd, lpOperation, lpFile, lpParameters, lpDirectory, nShowCmd)
         ctypes.windll.shell32.ShellExecuteW(
-            None, "runas", sys.executable, script, None, 1
+            None, "runas", sys.executable, lpParameters, None, 1
         )
         return True
     except Exception as e:

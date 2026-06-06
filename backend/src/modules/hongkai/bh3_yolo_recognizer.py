@@ -108,65 +108,69 @@ import json
 
 # 添加当前目录到Python路径
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+_hongkai_dir = os.path.dirname(os.path.abspath(__file__))
+_backend_dir = os.path.dirname(os.path.dirname(_hongkai_dir))
+if _backend_dir not in sys.path:
+    sys.path.insert(0, _backend_dir)
 
 # 导入所需模块
-from character.letu_find_way import take_bh3_screenshot
 from call_YOLO import call_yolo_model, filter_guaiwu_ui_upper_half
+from src.modules.vision.screen_capture import ScreenCapture
+
+# 复用 ScreenCapture 单例，避免每次创建 GDI 对象耗尽句柄
+_sc = ScreenCapture()
 
 
 def bh3_yolo_recognize(save_screenshot=False, save_detection_result=False):
     """
     截取BH3窗口内容，使用YOLO模型识别，保存结果并输出识别元素的标签和坐标
-    
+
     Args:
         save_screenshot (bool): 是否保存原始截图
         save_detection_result (bool): 是否保存检测结果图片
-        
+
     Returns:
         dict: 识别结果，包含成功状态、识别元素列表等
     """
-    print("=" * 50)
-    print("BH3窗口YOLO识别工具")
-    print("=" * 50)
-    
-    # 1. 截取BH3窗口
-    print("\n1. 正在截取BH3窗口...")
-    screenshot_path = take_bh3_screenshot()
-    
-    if not screenshot_path:
-        print("❌ 截取BH3窗口失败")
+    # 1. 使用 ScreenCapture 截取游戏客户区（复用 GDI 对象，避免泄漏）
+    import tempfile, cv2
+    img = _sc.capture_game_client_area("崩坏3")
+    if img is None:
+        print("截取BH3窗口失败")
         return {
             "success": False,
             "message": "截取BH3窗口失败"
         }
-    
-    print(f"✅ 截图成功，保存路径: {screenshot_path}")
+
+    # 保存为临时文件供 YOLO 服务端使用
+    temp_file = tempfile.NamedTemporaryFile(suffix='.jpg', delete=False)
+    temp_path = temp_file.name
+    temp_file.close()
+    cv2.imwrite(temp_path, cv2.cvtColor(img, cv2.COLOR_RGB2BGR))
     
     # 2. 设置输出目录
     output_dir = None
     if save_detection_result:
-        output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "photos", "bh3_YOLO_checked")
+        output_dir = os.path.join(_hongkai_dir, "photos", "bh3_YOLO_checked")
         os.makedirs(output_dir, exist_ok=True)
-        print(f"📁 检测结果将保存到: {output_dir}")
-    
+
     # 3. 使用YOLO模型进行识别
-    print("\n2. 正在使用YOLO模型识别...")
     start_time = time.time()
-    
     result = call_yolo_model(
-        image_path=screenshot_path,
+        image_path=temp_path,
         conf_threshold=0.5,
         output_dir=output_dir
     )
-    
-    end_time = time.time()
-    print(f"✅ 识别完成，耗时: {end_time - start_time:.2f}秒")
-    
+    elapsed = time.time() - start_time
+
+    # 注意: 不删除 temp_path — YOLO 服务端是独立进程，可能异步读取文件
+    # 临时文件由操作系统定期清理
+
     # 4. 输出识别结果
     print("\n3. 识别结果：")
     if result.get("success", False):
         predictions = result.get("predictions", [])
-        predictions = filter_guaiwu_ui_upper_half(screenshot_path, predictions)
+        predictions = filter_guaiwu_ui_upper_half(temp_path, predictions)
         result["predictions"] = predictions
         total_objects = len(predictions)
         print(f"📊 共识别到 {total_objects} 个元素")
@@ -191,7 +195,6 @@ def bh3_yolo_recognize(save_screenshot=False, save_detection_result=False):
             "message": "识别成功",
             "total_objects": total_objects,
             "elements": predictions,
-            "screenshot_path": screenshot_path
         }
     else:
         print(f"❌ 识别失败: {result.get('message', '未知错误')}")

@@ -36,6 +36,7 @@ class LLMSettings(BaseModel):
     companion_character: Optional[str] = Field(None, description="当前角色(中文名)")
     companion_tts_voice: Optional[str] = Field(None, description="TTS音色")
     companion_personality: Optional[str] = Field(None, description="性格微调描述")
+    auto_tts_enabled: Optional[bool] = Field(None, description="自动TTS语音播报开关")
 
 
 class SettingsResponse(BaseModel):

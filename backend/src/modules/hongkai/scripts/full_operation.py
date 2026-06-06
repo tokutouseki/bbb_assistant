@@ -12,23 +12,12 @@ import meizhou_jianfu
 import zhanchang
 import simulation_combat_room
 import save_output
-from on_window import focus_bh3_window, run_as_admin, is_admin
+from on_window import focus_bh3_window
 from custom_datetime import save_datetime_data, get_datetime
 from main_screen import make_on_main
 
 if __name__ == "__main__":
-    # 检查是否以管理员身份运行
-    if not is_admin():
-        print("程序需要以管理员身份运行才能正常工作！")
-        print("正在尝试自动提权...")
-        
-        if run_as_admin():
-            print("请在弹出的UAC提示中选择'是'以继续...")
-            sys.exit(0)  # 退出当前进程，等待管理员权限进程启动
-        else:
-            print("自动提权失败，请手动右键点击程序并选择'以管理员身份运行'")
-            input("按回车键退出...")
-            sys.exit(1)
+
     
     # 保存日期和时间数据
     print("\n0. 执行save_datetime_data函数：")
@@ -98,6 +87,13 @@ if __name__ == "__main__":
             # 动态执行任务函数
             exec(task)
             print(f"任务 {task} 执行完成！")
+        except SystemExit as e:
+            code = e.code if e.code is not None else 1
+            if code == 0:
+                print(f"任务 {task} 提前退出(exit 0)")
+            else:
+                print(f"任务 {task} sys.exit({code}), 继续执行下一个任务")
+            continue
         except Exception as e:
             print(f"任务 {task} 执行失败：{e}")
             # 继续执行下一个任务

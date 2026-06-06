@@ -54,6 +54,11 @@
     "ref_text": "我喜欢那个世界里的很多人，珍惜和他们的每一份回忆，有机会真想再去看看。",
     "original_file": "不灭星锚-我喜欢那个世界里的很多人，珍惜和他们的每一份回忆，有机会真想再去看看。.wav"
   },
+  "幽兰黛尔·天光驰彻": {
+    "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/幽兰黛尔·天光驰彻/reference.wav",
+    "ref_text": "变强并非结果，而是守护的过程，用这副模样认真你会不习惯吗？",
+    "original_file": "天光驰彻-变强并非结果，而是守护的过程，用这副模样认真你会不习惯吗？.wav"
+  },
   "德丽莎": {
     "audio_path": "D:/TokusCode/bbb_assistant/backend/src/modules/audio/reference_audio/德丽莎/reference.wav",
     "ref_text": "下班不积极，思想有问题...啊，难道你...是在等我？",

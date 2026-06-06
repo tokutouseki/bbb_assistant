@@ -34,7 +34,7 @@ description: 全量日常调度 — 根据当前星期几自动执行当日全�
 
 **步骤 1** — 调用 `run_hongkai_task` 执行全量调度
 
-调用 `run_hongkai_task task="full"` 启动全量日常调度脚本。该脚本会：
+调用 `run_hongkai_task task="full_operation"` 启动全量日常调度脚本。该脚本会：
 1. 请求管理员权限（如未提权）
 2. 保存当前日期时间
 3. 根据星期几确定任务列表

@@ -150,6 +150,11 @@ class Settings(BaseSettings):
     enable_audio: bool = Field(default=True, description="启用音频处理功能（ASR/TTS）")
     enable_asr: bool = Field(default=True, description="启用语音识别（SenseVoiceSmall）")
     enable_tts: bool = Field(default=False, description="启用文本转语音（Qwen3-TTS/VoxCPM）")
+
+    # Qwen3-TTS Worker 配置
+    qwen3_tts_host: str = Field(default="127.0.0.1", description="Qwen3-TTS worker host")
+    qwen3_tts_port: int = Field(default=5004, description="Qwen3-TTS worker TCP端口")
+    qwen3_tts_quantize: str = Field(default="none", description="Qwen3-TTS量化: none / 8bit / 4bit")
     
     # 记忆配置
     memory_enabled: bool = Field(default=True, description="启用对话记忆")

@@ -71,7 +71,23 @@ async def lifespan(app: FastAPI):
         logger.info("初始化聊天服务...")
         chat_service = ChatService()
         app.state.chat_service = chat_service
-    
+
+    # 启动 Qwen3-TTS worker 子进程（后台，不阻塞启动）
+    if settings.enable_audio:
+        import threading
+        def _start_tts_worker():
+            try:
+                from src.modules.audio.call_qwen3_tts import start_worker
+                logger.info("正在启动 TTS worker 子进程（后台）...")
+                ok = start_worker(quantize=settings.qwen3_tts_quantize)
+                if ok:
+                    logger.info("TTS worker 子进程启动成功")
+                else:
+                    logger.warning("TTS worker 子进程启动失败，TTS功能可能不可用")
+            except Exception as e:
+                logger.warning(f"TTS worker 子进程启动异常: {e}")
+        threading.Thread(target=_start_tts_worker, daemon=True).start()
+
     yield
     
     # 关闭时清理
@@ -82,6 +98,13 @@ async def lifespan(app: FastAPI):
     
     if hasattr(app.state, 'chat_service'):
         logger.info("聊天服务已清理")
+
+    # 关闭 TTS worker 子进程
+    try:
+        from src.modules.audio.call_qwen3_tts import stop_worker
+        stop_worker()
+    except Exception:
+        pass
     
     logger.info("服务已安全关闭")
 

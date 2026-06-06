@@ -5,11 +5,11 @@ import time
 # 将父目录添加到sys.path中，以便能够导入上层目录的模块
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import save_output
-from on_window import focus_bh3_window, run_as_admin, is_admin
+from on_window import focus_bh3_window
 import templates.clicks_keyboard as ck
 from custom_datetime import save_datetime_data
 from main_screen import make_on_main
-from vedio_log import get_video_logger
+
 
 # 登录领取函数
 def login_claim():
@@ -512,13 +512,7 @@ def task_rewards():
             print(f"第{i+1}次按下并释放'ESC'键失败！")
 
 def daily_operations():
-    # 初始化并启动视频记录
-    video_logger = get_video_logger(enabled=True, fps=30, resolution=(640, 360))
-    print("\n开始视频记录...")
-    video_logger.start()
-    
-    try:
-        # 执行登录领取函数
+    # 执行登录领取函数
         print("\n执行登录领取函数：")
         login_claim()
 
@@ -549,8 +543,6 @@ def daily_operations():
             done_count = fleet_functions.submit_delegation(done_count)
             fleet_functions.return_to_main()
             try_count += 1
-
-
         # 执行家园函数
         print("\n执行家园函数：")
         home_functions()
@@ -561,24 +553,9 @@ def daily_operations():
 
         make_on_main()
     
-    finally:
-        # 停止视频记录
-        print("\n停止视频记录...")
-        video_logger.stop()
 
 if __name__ == "__main__":
-    # 检查是否以管理员身份运行
-    if not is_admin():
-        print("程序需要以管理员身份运行才能正常工作！")
-        print("正在尝试自动提权...")
-        
-        if run_as_admin():
-            print("请在弹出的UAC提示中选择'是'以继续...")
-            sys.exit(0)  # 退出当前进程，等待管理员权限进程启动
-        else:
-            print("自动提权失败，请手动右键点击程序并选择'以管理员身份运行'")
-            input("按回车键退出...")
-            sys.exit(1)
+
     
     # 保存日期和时间数据
     print("\n0. 执行save_datetime_data函数：")

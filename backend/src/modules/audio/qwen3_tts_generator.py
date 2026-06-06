@@ -46,6 +46,7 @@ class Qwen3TTSResult:
     voice_style: str
     processing_time: float
     language: str = "Chinese"
+    filepath: str = ""
 
 
 class Qwen3TTSGenerator:
@@ -320,3 +321,92 @@ if __name__ == "__main__":
 
     output_path = tts.save_to_file(result)
     print(f"Saved: {output_path}")
+
+
+class Qwen3TTSRemoteProxy:
+    """Remote proxy for Qwen3TTSGenerator — delegates to TTS worker subprocess via TCP.
+
+    Implements the same interface so all existing callers (chat.py, react_agent.py,
+    tool_integration.py) work without changes.
+    """
+
+    def __init__(self):
+        self.output_dir = os.path.join(os.getcwd(), "outputs", "qwen3_tts")
+        os.makedirs(self.output_dir, exist_ok=True)
+
+    def generate(self, text: str, voice_style: str = "爱莉希雅",
+                 language: str = "Chinese", speed: float = None,
+                 custom_description: str = None) -> Qwen3TTSResult:
+        ref_audio, ref_text = self._resolve_character_ref(voice_style)
+        return self.generate_with_reference(
+            text=text, reference_audio=ref_audio,
+            language=language, ref_text=ref_text,
+        )
+
+    def generate_with_reference(self, text: str, reference_audio: str,
+                                language: str = "Chinese", ref_text: str = None) -> Qwen3TTSResult:
+        from .call_qwen3_tts import call_qwen3_tts
+
+        result = call_qwen3_tts("generate",
+            text=text, ref_audio=reference_audio,
+            language=language, ref_text=ref_text or "",
+        )
+
+        if not result.get("success"):
+            raise RuntimeError(f"TTS worker error: {result.get('error', 'unknown')}")
+
+        return Qwen3TTSResult(
+            audio_data=np.array([]),
+            sample_rate=result.get("sample_rate", 24000),
+            text=text,
+            voice_style="cloned",
+            processing_time=result.get("processing_time", 0),
+            language=language,
+            filepath=result.get("filepath", ""),
+        )
+
+    def save_to_file(self, result: Qwen3TTSResult, filepath: str = None) -> str:
+        if result.filepath:
+            return result.filepath
+        if filepath:
+            return filepath
+        return ""
+
+    def _resolve_character_ref(self, character_name: str) -> Tuple[str, str]:
+        try:
+            index_path = os.path.join(
+                os.path.dirname(__file__), "reference_audio", "index.json"
+            )
+            with open(index_path, "r", encoding="utf-8") as f:
+                index = _json.load(f)
+
+            if character_name in index:
+                entry = index[character_name]
+                return entry["audio_path"], entry.get("ref_text", "")
+
+            for name, entry in index.items():
+                if character_name in name or name in character_name:
+                    return entry["audio_path"], entry.get("ref_text", "")
+
+            first = next(iter(index.values()))
+            return first["audio_path"], first.get("ref_text", "")
+        except Exception:
+            raise RuntimeError(f"找不到角色 '{character_name}' 的参考音频")
+
+    def get_supported_languages(self) -> list:
+        return Qwen3TTSGenerator.SUPPORTED_LANGUAGES.copy()
+
+    def get_voice_styles(self) -> dict:
+        try:
+            index_path = os.path.join(
+                os.path.dirname(__file__), "reference_audio", "index.json"
+            )
+            with open(index_path, "r", encoding="utf-8") as f:
+                index = _json.load(f)
+            styles = {}
+            for name in index:
+                desc = CHARACTER_VOICE_STYLES.get(name, f"{name}的声音")
+                styles[name] = desc
+            return styles
+        except Exception:
+            return CHARACTER_VOICE_STYLES.copy()

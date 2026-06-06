@@ -102,25 +102,25 @@ def save_log(message):
     try:
         # 输出到控制台
         _original_print(log_entry)
-        
+
         # 写入到日志文件
         with open(_log_file_path, 'a', encoding='utf-8') as f:
             f.write(log_entry + '\n')
     except UnicodeEncodeError:
-        # 处理编码错误
         try:
-            # 尝试使用utf-8编码输出
             log_entry_encoded = log_entry.encode('utf-8', 'replace').decode('utf-8')
             _original_print(log_entry_encoded)
             with open(_log_file_path, 'a', encoding='utf-8') as f:
                 f.write(log_entry_encoded + '\n')
-        except Exception as e:
+        except Exception:
             pass
+    except Exception:
+        pass
 
 def _custom_print(*args, **kwargs):
     """
     自定义的print函数，会将输出同时记录到日志文件
-    
+
     :param args: print函数的位置参数
     :param kwargs: print函数的关键字参数
     :return: 无
@@ -128,7 +128,7 @@ def _custom_print(*args, **kwargs):
     try:
         # 将print的参数转换为字符串
         output_str = ' '.join(map(str, args))
-        
+
         # 调用save_log函数记录日志
         save_log(output_str)
     except Exception as e:
@@ -148,6 +148,17 @@ def _override_print():
 
 # 模块导入时自动替换print函数
 _override_print()
+
+# 修复: 将 stdout/stderr 编码从 cp1252 改为 utf-8
+# 否则中文 print() 会抛出 UnicodeEncodeError (charmap can't encode)
+# 这是 Windows 子进程管道模式的已知问题
+import sys as _sys_enc
+for _stream in (_sys_enc.stdout, _sys_enc.stderr):
+    try:
+        if hasattr(_stream, 'reconfigure'):
+            _stream.reconfigure(encoding='utf-8', errors='replace')
+    except Exception:
+        pass
 
 
 # 示例用法

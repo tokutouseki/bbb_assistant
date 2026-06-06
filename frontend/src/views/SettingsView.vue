@@ -336,6 +336,28 @@
             </div>
           </div>
         </section>
+
+        <section class="setting-section">
+          <h3 class="section-title">语音播报 (TTS)</h3>
+          <p class="form-hint" style="margin: 4px 0 12px;">
+            AI 回复后自动用当前角色音色朗读。生成需要几秒，开启后朗读会在文字显示后自动开始。
+          </p>
+          <div class="provider-tabs">
+            <button
+              class="provider-tab"
+              :class="{ active: settingsStore.autoTtsEnabled }"
+              @click="handleTtsToggle"
+            >
+              <span class="provider-radio">
+                <span v-if="settingsStore.autoTtsEnabled" class="radio-dot"></span>
+              </span>
+              <div class="provider-info">
+                <span class="provider-name">自动语音播报</span>
+                <span class="provider-desc">开启后AI回复将自动转换为语音朗读，使用当前角色的音色</span>
+              </div>
+            </button>
+          </div>
+        </section>
       </div>
 
       <!-- Save button -->
@@ -502,6 +524,20 @@ async function handleDeleteModel(name) {
   setTimeout(() => { importMessage.value = '' }, 5000)
 }
 
+async function handleTtsToggle() {
+  settingsStore.autoTtsEnabled = !settingsStore.autoTtsEnabled
+  settingsStore.saveSettings()
+  try {
+    await fetch('/api/settings/', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ auto_tts_enabled: settingsStore.autoTtsEnabled })
+    })
+  } catch (e) {
+    console.warn('同步TTS设置失败:', e)
+  }
+}
+
 async function handleSave() {
   settingsStore.saveSettings()
   savedToast.value = true
@@ -526,7 +562,8 @@ async function handleSave() {
         live2d_window_height: settingsStore.live2dWindowHeight,
         live2d_window_x: settingsStore.live2dWindowX,
         live2d_window_y: settingsStore.live2dWindowY,
-        companion_character: settingsStore.companionCharacter || null
+        companion_character: settingsStore.companionCharacter || null,
+        auto_tts_enabled: settingsStore.autoTtsEnabled
       })
     })
   } catch (e) {

@@ -137,28 +137,12 @@ class ModelManager:
             logger.error(f"加载TTS模型失败: {e}")
             raise
     
-    @lru_cache(maxsize=2)
+    @lru_cache(maxsize=1)
     def get_qwen3_tts_model(self, device: str = "cuda:0"):
-        """获取Qwen3-TTS模型实例"""
-        logger.info(f"获取Qwen3-TTS模型 (设备: {device})")
-        
-        try:
-            from src.modules.audio.qwen3_tts_generator import Qwen3TTSGenerator
-            settings = get_settings()
-            
-            model = Qwen3TTSGenerator(model_path=settings.qwen3_tts_model_path, device=device)
-            self.stats["qwen3_tts_load_count"] += 1
-            self._warmup_qwen3_tts_model(model, device)
-            
-            logger.info(f"Qwen3-TTS模型加载完成 (设备: {device})")
-            return model
-            
-        except ImportError as e:
-            logger.error(f"无法导入Qwen3TTSGenerator: {e}")
-            raise
-        except Exception as e:
-            logger.error(f"加载Qwen3-TTS模型失败: {e}")
-            raise
+        """获取Qwen3-TTS模型代理（远程worker子进程）"""
+        logger.info(f"获取Qwen3-TTS远程代理 (worker子进程模式)")
+        from src.modules.audio.qwen3_tts_generator import Qwen3TTSRemoteProxy
+        return Qwen3TTSRemoteProxy()
     
     @lru_cache(maxsize=2)
     def get_asr_model(self, device: str = "cuda:0"):
@@ -298,7 +282,7 @@ def get_tts_model(device: str = "cuda:0"):
 
 
 def get_qwen3_tts_model(device: str = "cuda:0"):
-    """便捷函数：获取Qwen3-TTS模型"""
+    """便捷函数：获取Qwen3-TTS模型代理（远程worker子进程）"""
     manager = ModelManager.get_instance()
     return manager.get_qwen3_tts_model(device)
 
