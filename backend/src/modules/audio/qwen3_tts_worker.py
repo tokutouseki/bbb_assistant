@@ -87,8 +87,19 @@ def _load_model(model_path: str, device: str, quantize: str):
     from qwen_tts import Qwen3TTSModel
 
     kwargs = {"device_map": device}
+    use_quantize = quantize in ("8bit", "4bit")
 
-    if quantize in ("8bit", "4bit"):
+    # 检查 bitsandbytes 是否真正可用（不仅仅是 BitsAndBytesConfig 存在）
+    if use_quantize:
+        try:
+            import bitsandbytes as _bnb  # noqa: F401
+        except ImportError:
+            logger.warning(f"bitsandbytes 未安装，无法使用 {quantize} 量化，回退到 bf16")
+            logger.warning("安装方法: pip install bitsandbytes")
+            use_quantize = False
+            kwargs["dtype"] = torch.bfloat16
+
+    if use_quantize:
         try:
             from transformers import BitsAndBytesConfig
             if quantize == "8bit":
@@ -101,17 +112,66 @@ def _load_model(model_path: str, device: str, quantize: str):
                     bnb_4bit_use_double_quant=True,
                 )
                 logger.info("启用 4-bit 量化 (bitsandbytes NF4)")
-        except ImportError:
-            logger.warning("bitsandbytes 未安装，回退到 bf16。安装: pip install bitsandbytes")
-            kwargs["dtype"] = torch.bfloat16
         except Exception as e:
             logger.warning(f"量化配置失败: {e}，回退到 bf16")
             kwargs["dtype"] = torch.bfloat16
+            use_quantize = False
     else:
         kwargs["dtype"] = torch.bfloat16
 
     logger.info(f"加载模型: {model_path}")
-    model = Qwen3TTSModel.from_pretrained(model_path, **kwargs)
+
+    # Monkey-patch: 选择性量化 — 仅量化 LLM 骨干，音频关键模块保持 bf16
+    # Qwen3-TTS 模型内部含 dict_keys 对象，transformers 的 get_keys_to_not_convert()
+    # 对其做 deepcopy 时会触发 TypeError。patch 后：
+    #   1. 先尝试原始 tied-weight 检测
+    #   2. 失败则返回音频关键模块列表，确保它们不被量化
+    # 返回列表中的模块保持 bf16 全精度，其余模块（Transformer层）量化为 8-bit。
+    #
+    # 参考: HaujetZhao/Qwen3-TTS-GGUF — Talker Q5_K + Predictor Q8_0 + Decoder FP16
+    #       MOSS-TTS-GGUF — 量化后 WER 仅升 ~1%, 说话人相似度仅降 ~3pt
+    #       VibeVoice — "全模型 8-bit 量化 TTS 产生静电/噪声"
+    _AUDIO_CRITICAL_MODULES = [
+        "code_predictor",    # 声学细节预测 (187.5步/秒音频，自回归瓶颈)
+        "speaker_encoder",   # 声音特征编码 (声音克隆保真度靠它)
+        "codec_head",        # 输出投影到音频码本 (最后一级，直接影响波形)
+    ]
+    _bnb_patch_applied = False
+    if use_quantize:
+        try:
+            import transformers.integrations.bitsandbytes as _bnb_mod
+            _orig_get_keys = _bnb_mod.get_keys_to_not_convert
+
+            def _patched_get_keys(model):
+                try:
+                    return _orig_get_keys(model)
+                except TypeError:
+                    logger.info(
+                        "bitsandbytes tied-weight 检测不兼容此模型，"
+                        f"启用选择性量化: {', '.join(_AUDIO_CRITICAL_MODULES)} 保持 bf16"
+                    )
+                    return _AUDIO_CRITICAL_MODULES
+
+            _bnb_mod.get_keys_to_not_convert = _patched_get_keys
+            _bnb_patch_applied = True
+        except Exception:
+            pass
+
+    try:
+        try:
+            model = Qwen3TTSModel.from_pretrained(model_path, **kwargs)
+        except Exception as e:
+            if use_quantize:
+                logger.warning(f"量化加载失败，回退到 bf16: {e}")
+                kwargs.pop("quantization_config", None)
+                kwargs["dtype"] = torch.bfloat16
+                model = Qwen3TTSModel.from_pretrained(model_path, **kwargs)
+            else:
+                raise
+    finally:
+        if _bnb_patch_applied:
+            _bnb_mod.get_keys_to_not_convert = _orig_get_keys
+
     logger.info("模型加载完成")
     return model
 
@@ -121,15 +181,14 @@ def _load_model(model_path: str, device: str, quantize: str):
 def _play_audio(filepath: str):
     import subprocess
     if sys.platform == "win32":
-        subprocess.run(
+        subprocess.Popen(
             ["powershell", "-c",
              f"(New-Object Media.SoundPlayer '{filepath}').PlaySync()"],
-            capture_output=True,
         )
     elif sys.platform == "darwin":
-        subprocess.run(["afplay", filepath], capture_output=True)
+        subprocess.Popen(["afplay", filepath])
     else:
-        subprocess.run(["aplay", filepath], capture_output=True)
+        subprocess.Popen(["aplay", filepath])
 
 
 # ---- TCP Server ----

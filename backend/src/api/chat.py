@@ -13,12 +13,13 @@ from pydantic import BaseModel, Field
 import requests
 
 from ..config.settings import get_settings
-from ..config.runtime_settings import update_runtime_settings
+from ..config.runtime_settings import update_runtime_settings, get_runtime_settings
 from ..config.cancel_signal import register_request, clear_request, cancel_request
 from ..modules.agent.react_agent import (
     get_main_agent, get_sub_agent, get_react_agent,
     get_action_agent, get_companion_agent, AgentRouter,
 )
+from ..modules.conversation_logger import get_conversation_logger
 
 router = APIRouter()
 
@@ -233,6 +234,27 @@ async def chat_completion(request: ChatRequest):
         if audio_text:
             last_user_message = audio_text + last_user_message
 
+    # ==== 对话记录：开始 ====
+    _rt = get_runtime_settings()
+    _char_name = _rt.get("companion_character", "爱莉希雅")
+    _char_personality = ""
+    try:
+        from ..modules.character.character_manager import get_character_manager
+        _cm = get_character_manager()
+        _char_personality = _cm.get_personality(_char_name)
+    except Exception:
+        pass
+    _conv_logger = get_conversation_logger()
+    _conv_id = _conv_logger.start_conversation(
+        user_message=last_user_message,
+        character_name=_char_name,
+        character_personality=_char_personality,
+        images_count=len(request.images) if request.images else 0,
+        audios_count=len(request.audios) if request.audios else 0,
+        llm_provider=_rt.get("llm_provider", ""),
+        llm_model=_rt.get("llm_model", ""),
+    )
+
     # Router + 3-Agent 编排
     request_id = request.request_id or str(time.time())
     register_request(request_id)
@@ -245,8 +267,12 @@ async def chat_completion(request: ChatRequest):
         intent = intent_result["intent"]
         skill_name = intent_result.get("skill_name")
         logger.info(f"[Router] 意图分类: intent={intent}, skill={skill_name}")
+        _conv_logger.record_router(_conv_id, intent, skill_name, raw_response=intent_result)
 
         business_output = ""
+        _business_steps = None
+        _business_tools = None
+        _business_skills = []
 
         # 阶段 1: 业务 Agent
         if intent == "game":
@@ -254,6 +280,8 @@ async def chat_completion(request: ChatRequest):
             _sm = _get_sm()
             _matched = _sm.find_matching_skill(last_user_message)
             _has_phases = _matched and len(_sm.get_skill_phases(_matched["name"])) > 0
+            if _matched:
+                _business_skills = [_matched["name"]]
 
             main_agent = get_main_agent()
             if _has_phases:
@@ -265,7 +293,15 @@ async def chat_completion(request: ChatRequest):
                     main_agent.run, last_user_message, 2, request_id, images
                 )
             business_output = main_result.get("output", "")
+            _business_steps = main_result.get("steps", [])
+            _business_tools = list({s.get("action", "") for s in _business_steps if s.get("action")})
             logger.info(f"[MainAgent] 任务报告: {business_output[:500]}")
+            _conv_logger.record_business_agent(
+                _conv_id, "main", business_output,
+                steps=_business_steps, tools_called=_business_tools,
+                skills_matched=_business_skills,
+                processing_time_ms=main_result.get("processing_time", 0) * 1000,
+            )
 
         elif intent == "action":
             action_agent = get_action_agent()
@@ -273,7 +309,14 @@ async def chat_completion(request: ChatRequest):
                 action_agent.run, last_user_message, 2, request_id, images
             )
             business_output = action_result.get("output", "")
+            _business_steps = action_result.get("steps", [])
+            _business_tools = list({s.get("action", "") for s in _business_steps if s.get("action")})
             logger.info(f"[ActionAgent] 操作结果: {business_output[:500]}")
+            _conv_logger.record_business_agent(
+                _conv_id, "action", business_output,
+                steps=_business_steps, tools_called=_business_tools,
+                processing_time_ms=action_result.get("processing_time", 0) * 1000,
+            )
 
         # 阶段 2: CompanionAgent 角色化回复
         comp_input = f"[用户消息] {last_user_message}\n\n"
@@ -288,10 +331,23 @@ async def chat_completion(request: ChatRequest):
 
         raw_output = comp_result.get("output", business_output)
         emotion, clean_output = _parse_emotion_tag(raw_output)
+        _triggered_live2d = bool(emotion)
         if emotion:
             _trigger_live2d_emotion(emotion)
         final_output = clean_output
+        _triggered_tts = get_runtime_settings().get("auto_tts_enabled", False)
         _generate_tts_background(clean_output)
+
+        # ==== 对话记录：CompanionAgent 结果 ====
+        _conv_logger.record_companion(
+            _conv_id,
+            raw_output=raw_output,
+            emotion=emotion,
+            clean_output=clean_output,
+            triggered_live2d=_triggered_live2d,
+            triggered_tts=_triggered_tts,
+        )
+        _conv_logger.finalize_conversation(_conv_id)
 
         tool_steps = []
         thinking_steps = []
@@ -326,28 +382,23 @@ async def chat_completion(request: ChatRequest):
         )
         return response
         
+    except asyncio.CancelledError:
+        _conv_logger.finalize_conversation(_conv_id)
+        return ChatResponse(
+            message=ChatMessage(role="assistant", content="请求已被取消", timestamp=time.time()),
+            processing_time=time.time() - start_time, tool_steps=[], thinking_steps=[]
+        )
     except Exception as e:
         error_msg = str(e)
+        _conv_logger.finalize_conversation(_conv_id)
         if "CancelledError" in error_msg or "cancelled" in error_msg.lower():
             return ChatResponse(
-                message=ChatMessage(
-                    role="assistant",
-                    content="请求已被取消",
-                    timestamp=time.time()
-                ),
-                processing_time=time.time() - start_time,
-                tool_steps=[],
-                thinking_steps=[]
+                message=ChatMessage(role="assistant", content="请求已被取消", timestamp=time.time()),
+                processing_time=time.time() - start_time, tool_steps=[], thinking_steps=[]
             )
         return ChatResponse(
-            message=ChatMessage(
-                role="assistant",
-                content=f"ReAct Agent执行失败: {error_msg}",
-                timestamp=time.time()
-            ),
-            processing_time=time.time() - start_time,
-            tool_steps=[],
-            thinking_steps=[]
+            message=ChatMessage(role="assistant", content=f"ReAct Agent执行失败: {error_msg}", timestamp=time.time()),
+            processing_time=time.time() - start_time, tool_steps=[], thinking_steps=[]
         )
     finally:
         clear_request(request_id)
@@ -394,6 +445,27 @@ async def chat_stream(request: ChatRequest):
     register_request(request_id)
     event_queue = queue.Queue()
 
+    # ==== 对话记录：开始 ====
+    _rt2 = get_runtime_settings()
+    _char_name2 = _rt2.get("companion_character", "爱莉希雅")
+    _char_personality2 = ""
+    try:
+        from ..modules.character.character_manager import get_character_manager
+        _cm2 = get_character_manager()
+        _char_personality2 = _cm2.get_personality(_char_name2)
+    except Exception:
+        pass
+    _conv_logger2 = get_conversation_logger()
+    _conv_id2 = _conv_logger2.start_conversation(
+        user_message=last_user_message,
+        character_name=_char_name2,
+        character_personality=_char_personality2,
+        images_count=len(request.images) if request.images else 0,
+        audios_count=len(request.audios) if request.audios else 0,
+        llm_provider=_rt2.get("llm_provider", ""),
+        llm_model=_rt2.get("llm_model", ""),
+    )
+
     async def generate():
         loop = asyncio.get_event_loop()
         images = request.images or None
@@ -404,8 +476,12 @@ async def chat_stream(request: ChatRequest):
         intent = intent_result["intent"]
         skill_name = intent_result.get("skill_name")
         logger.info(f"[Router] 意图分类: intent={intent}, skill={skill_name}")
+        _conv_logger2.record_router(_conv_id2, intent, skill_name, raw_response=intent_result)
 
         business_output = ""
+        _business_steps2 = None
+        _business_tools2 = None
+        _business_skills2 = []
 
         # ====== 阶段 1: 业务 Agent（game / action / chat 跳过） ======
         if intent == "game":
@@ -424,10 +500,28 @@ async def chat_stream(request: ChatRequest):
             try:
                 main_result = await loop.run_in_executor(None, run_main)
                 business_output = main_result.get("output", "")
+                _business_steps2 = main_result.get("steps", [])
+                _business_tools2 = list({s.get("action", "") for s in _business_steps2 if s.get("action")})
+                if matched:
+                    _business_skills2 = [matched["name"]]
                 logger.info(f"[MainAgent] 任务报告: {business_output[:500]}")
+                _conv_logger2.record_business_agent(
+                    _conv_id2, "main", business_output,
+                    steps=_business_steps2, tools_called=_business_tools2,
+                    skills_matched=_business_skills2,
+                    processing_time_ms=main_result.get("processing_time", 0) * 1000,
+                )
+            except asyncio.CancelledError:
+                logger.info("[MainAgent] 请求被取消")
+                _conv_logger2.finalize_conversation(_conv_id2)
+                event_queue.put({"type": "cancelled"})
+                clear_request(request_id)
+                yield f"data: {json.dumps({'type': 'cancelled'}, ensure_ascii=False)}\n\n"
+                return
             except Exception as e:
                 error_msg = str(e)
                 logger.error(f"[MainAgent] 执行失败: {error_msg}")
+                _conv_logger2.finalize_conversation(_conv_id2)
                 if "CancelledError" in error_msg:
                     event_queue.put({"type": "cancelled"})
                 else:
@@ -444,10 +538,25 @@ async def chat_stream(request: ChatRequest):
             try:
                 action_result = await loop.run_in_executor(None, run_action)
                 business_output = action_result.get("output", "")
+                _business_steps2 = action_result.get("steps", [])
+                _business_tools2 = list({s.get("action", "") for s in _business_steps2 if s.get("action")})
                 logger.info(f"[ActionAgent] 操作结果: {business_output[:500]}")
+                _conv_logger2.record_business_agent(
+                    _conv_id2, "action", business_output,
+                    steps=_business_steps2, tools_called=_business_tools2,
+                    processing_time_ms=action_result.get("processing_time", 0) * 1000,
+                )
+            except asyncio.CancelledError:
+                logger.info("[ActionAgent] 请求被取消")
+                _conv_logger2.finalize_conversation(_conv_id2)
+                event_queue.put({"type": "cancelled"})
+                clear_request(request_id)
+                yield f"data: {json.dumps({'type': 'cancelled'}, ensure_ascii=False)}\n\n"
+                return
             except Exception as e:
                 error_msg = str(e)
                 logger.error(f"[ActionAgent] 执行失败: {error_msg}")
+                _conv_logger2.finalize_conversation(_conv_id2)
                 if "CancelledError" in error_msg:
                     event_queue.put({"type": "cancelled"})
                 else:
@@ -490,6 +599,22 @@ async def chat_stream(request: ChatRequest):
                 event["output"] = clean_output
                 if clean_output.strip():
                     _generate_tts_background(clean_output)
+            else:
+                # 提前获取 raw_output（cancelled/error 事件可能也有）
+                raw_output = event.get("output", "")
+                emotion, clean_output = _parse_emotion_tag(raw_output) if raw_output else (None, "")
+
+            # ==== 对话记录：CompanionAgent 结果（所有终止事件都记录） ====
+            if event_type in ("finish", "cancelled", "error"):
+                _conv_logger2.record_companion(
+                    _conv_id2,
+                    raw_output=raw_output if raw_output else event.get("message", ""),
+                    emotion=emotion,
+                    clean_output=clean_output if clean_output else event.get("message", ""),
+                    triggered_live2d=bool(emotion),
+                    triggered_tts=bool(emotion and clean_output.strip()),
+                )
+                _conv_logger2.finalize_conversation(_conv_id2)
 
             if event_type in ("finish", "cancelled", "error"):
                 yield f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
@@ -497,13 +622,14 @@ async def chat_stream(request: ChatRequest):
 
             yield f"data: {json.dumps(event, ensure_ascii=False)}\n\n"
 
+        # 如果 companion 崩溃未发送任何事件 → future.done() 但事件循环超时退出
         if future.done():
             try:
                 await future
             except Exception:
                 pass
-        else:
-            future.cancel()
+            # 确保对话已归档（如果尚未）
+            _conv_logger2.finalize_conversation(_conv_id2)
 
         clear_request(request_id)
 
@@ -673,3 +799,76 @@ def run_react_agent(request: ReActAgentRequest):
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"ReAct Agent执行失败: {e}") from e
+
+
+# ================================================================
+# 对话导出 API — 打包对话记录供 MP（数字海马体）消费
+# ================================================================
+
+@router.get("/conversations")
+async def list_conversations():
+    """
+    列出所有已记录的对话（摘要信息）。
+    返回对话ID、时间、角色、意图、用户消息预览、回复预览。
+    """
+    logger = get_conversation_logger()
+    conversations = logger.list_conversations()
+    return {
+        "total": len(conversations),
+        "conversations": conversations,
+    }
+
+
+@router.get("/conversations/export")
+async def export_all_conversations(include_personalities: bool = True):
+    """
+    导出全部对话为一个 JSON 包，适合 MP 项目消费。
+
+    包含：
+    - export_metadata: 导出元信息
+    - personalities: 使用到的所有角色人格文件 (SKILL.md 完整内容)
+    - conversations: 对话记录列表
+      - user_message: 用户原始输入
+      - router: AgentRouter 意图分类 (intent, skill_name)
+      - business_agent: 业务Agent执行过程
+        - agent_type: "main" / "action"
+        - output: 执行结果
+        - steps: ReAct 思考链 (thought → action → action_input → observation)
+        - tools_called: 调用的工具列表
+        - skills_matched: 匹配的技能列表
+      - companion: 陪伴Agent角色化回复
+        - emotion: 情绪标签 [happy/sad/angry/...]
+        - clean_output: 去除标签后的纯文本回复
+        - raw_output: 含标签的原始输出
+      - character: 使用的角色人格 (名称 + SKILL.md 完整内容)
+    """
+    logger = get_conversation_logger()
+    data = logger.export_all(include_personalities=include_personalities)
+    return data
+
+
+@router.get("/conversations/export/{conv_id}")
+async def export_single_conversation(conv_id: str):
+    """
+    导出单条对话的完整 JSON（含人格文件）。
+
+    路径参数:
+    - conv_id: 对话ID（从 GET /conversations 获取）
+
+    返回结构与 export_all 中单条 conversation 一致。
+    """
+    logger = get_conversation_logger()
+    data = logger.export_conversation(conv_id)
+    if data is None:
+        raise HTTPException(status_code=404, detail=f"对话 {conv_id} 不存在")
+    return data
+
+
+@router.delete("/conversations")
+async def clear_conversations():
+    """
+    清空内存中的对话记录（不删除磁盘文件）。
+    """
+    logger = get_conversation_logger()
+    logger.clear()
+    return {"message": "内存中的对话记录已清空", "disk_files": logger.get_disk_count()}

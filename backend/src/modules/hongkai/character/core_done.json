@@ -1,14 +1,14 @@
 {
-    "jiushi_done": false,
+    "jiushi_done": true,
     "jielv_done": false,
-    "huangjin_done": true,
+    "huangjin_done": false,
     "luoxuan_done": false,
-    "aomie_done": true,
+    "aomie_done": false,
     "tianhui_done": false,
     "chana_done": false,
     "xvguang_done": false,
     "wuxian_done": false,
     "fanxing_done": false,
-    "fusheng_done": true,
+    "fusheng_done": false,
     "kongmeng_done": false
 }

@@ -33,18 +33,16 @@ class AudioPlayer:
             system = platform.system()
             
             if system == "Windows":
-                # 使用 Windows 内置命令播放
-                subprocess.run(
+                # 使用 Windows 内置命令异步播放（不阻塞Agent后续步骤）
+                subprocess.Popen(
                     ["powershell", "-c", f"(New-Object Media.SoundPlayer '{audio_path}').PlaySync()"],
-                    check=True,
-                    capture_output=True
                 )
             elif system == "Linux":
-                # 使用 alsa 播放
-                subprocess.run(["aplay", audio_path], check=True, capture_output=True)
+                # 使用 alsa 异步播放
+                subprocess.Popen(["aplay", audio_path])
             elif system == "Darwin":
-                # macOS 使用 afplay
-                subprocess.run(["afplay", audio_path], check=True, capture_output=True)
+                # macOS 使用 afplay 异步播放
+                subprocess.Popen(["afplay", audio_path])
             else:
                 logger.warning(f"不支持的操作系统: {system}")
                 return False

@@ -154,7 +154,7 @@ class Settings(BaseSettings):
     # Qwen3-TTS Worker 配置
     qwen3_tts_host: str = Field(default="127.0.0.1", description="Qwen3-TTS worker host")
     qwen3_tts_port: int = Field(default=5004, description="Qwen3-TTS worker TCP端口")
-    qwen3_tts_quantize: str = Field(default="none", description="Qwen3-TTS量化: none / 8bit / 4bit")
+    qwen3_tts_quantize: str = Field(default="none", description="Qwen3-TTS量化: none / 8bit / 4bit / gguf (GGUF方案已就绪，待llama.cpp兼容)")
     
     # 记忆配置
     memory_enabled: bool = Field(default=True, description="启用对话记忆")

@@ -81,6 +81,711 @@ def _clean_llm_output(text: str) -> str:
     return stripped
 
 
+# ---- RAG 结果格式化（共享，供 rag_search 和 parallel_search 使用） ----
+
+def _extract_relevant_snippet(content: str, query: str, max_chars: int = 500) -> str:
+    """从文档内容中提取与查询最相关的片段，而非简单截取前 N 字符。
+
+    算法：在内容中查找查询词出现位置，以该位置为中心截取上下文窗口。
+    优先匹配完整查询短语，其次匹配单个关键词。
+    """
+    if len(content) <= max_chars:
+        return content
+
+    query_lower = query.lower().strip()
+    content_lower = content.lower()
+
+    best_pos = 0
+
+    # 优先: 完整查询短语匹配
+    pos = content_lower.find(query_lower)
+    if pos >= 0:
+        best_pos = pos
+    else:
+        # 其次: 对查询做简单分词，找第一个匹配项
+        try:
+            import jieba as _jieba
+            query_terms = [t for t in _jieba.cut(query_lower) if len(t.strip()) > 1]
+        except Exception:
+            query_terms = [t for t in query_lower.split() if len(t) > 1]
+
+        best_score = 0
+        for term in query_terms:
+            pos = content_lower.find(term)
+            if pos >= 0:
+                score = len(term) / (pos + 1)
+                if score > best_score:
+                    best_score = score
+                    best_pos = pos
+
+    # 以匹配位置为中心截取窗口
+    half = max_chars // 2
+    start = max(0, best_pos - half // 2)  # 偏向匹配位置之前少一点，之后多一点
+    end = min(len(content), start + max_chars)
+
+    # 尽量在句号处开始
+    if start > 0 and best_pos - start > 30:
+        for sep in ['。', '！', '？', '\n', '，', '.']:
+            sep_pos = content.rfind(sep, start, best_pos)
+            if sep_pos > start:
+                start = sep_pos + 1
+                break
+
+    snippet = content[start:end].strip()
+    if start > 0:
+        snippet = "…" + snippet
+    if end < len(content):
+        snippet = snippet + "…"
+
+    return snippet
+
+
+def _expand_query(query: str, rag_engine=None) -> str:
+    """查询扩展：用 RAG 索引中的完整名称/别名丰富短查询。
+
+    策略（纯软件，无需额外模型）：
+    1. 查询词本身已是完整名称 → 直接返回
+    2. 短词匹配到别名 → 扩展为完整名称
+    3. 短词匹配到部分名称 → 附加匹配到的名称
+
+    例: "德丽莎" → "德丽莎 德丽莎·阿波卡利斯"
+    例: "芽衣" → "芽衣 雷电芽衣"
+    """
+    if not rag_engine or not query or not query.strip():
+        return query
+
+    query_stripped = query.strip()
+    # 查询已经足够长（>8字），不需要扩展
+    if len(query_stripped) > 8:
+        return query_stripped
+
+    try:
+        import asyncio as _asyncio
+
+        # 同步调用异步 search_by_name
+        def _lookup():
+            return _asyncio.run(
+                rag_engine.search_by_name(query_stripped, exact=False)
+            )
+
+        import concurrent.futures as _cf
+        with _cf.ThreadPoolExecutor() as _ex:
+            name_results = _ex.submit(_lookup).result(timeout=5)
+
+        if not name_results:
+            return query_stripped
+
+        # 收集匹配到的名称（去重，限制 3 个）
+        expanded_terms = [query_stripped]
+        seen = {query_stripped.lower()}
+        for r in name_results[:5]:
+            name = r.name.strip()
+            if name.lower() not in seen and len(name) > 1:
+                expanded_terms.append(name)
+                seen.add(name.lower())
+                if len(expanded_terms) >= 3:
+                    break
+
+        if len(expanded_terms) > 1:
+            expanded = " ".join(expanded_terms)
+            logger.info(f"查询扩展: '{query_stripped}' → '{expanded}'")
+            return expanded
+    except Exception as e:
+        logger.debug(f"查询扩展跳过: {e}")
+
+    return query_stripped
+
+
+def _should_include_moegirl(query: str) -> bool:
+    """判断查询是否应激活萌娘百科搜索源。
+
+    三种激活条件（满足任一即可）:
+    1. 查询包含角色/剧情/情感关键词
+    2. 查询能匹配到米游社字典中的女武神/角色条目
+    3. 查询是纯名字查询（不含问句特征），可能是角色/事物查询
+
+    萌娘百科提供玩家社区视角的角色情感/关系/剧情，与米游社官方数据互补。
+    """
+    # 条件1: 角色/剧情/情感关键词
+    _lore_keywords = ["角色", "关系", "剧情", "背景", "故事", "情感", "经历",
+                      "性格", "身世", "羁绊", "回忆", "过往", "设定", "世界观"]
+    if any(kw in query for kw in _lore_keywords):
+        return True
+
+    # 条件2: 匹配米游社字典中的女武神/角色条目
+    try:
+        from src.modules.web_search.miyoushe_explorer import get_id_dict
+        d = get_id_dict()
+        # 先精确查找
+        entry = d.lookup_best(query)
+        if entry is None:
+            # 再模糊搜索（处理简称如"爱莉"→"爱莉希雅"）
+            results = d.search(query, top_k=1)
+            if results:
+                entry = results[0]
+        if entry is not None:
+            cat = entry.category
+            if "女武神" in cat or "角色" in cat:
+                return True
+    except Exception:
+        pass
+
+    # 条件3: 纯名字查询（短查询 + 无问句特征 + 无URL）
+    _question_words = ["什么", "怎么", "如何", "为什么", "哪里", "哪个", "是否",
+                       "有没有", "能不能", "可以", "请", "帮我", "告诉我", "?"]
+    if (len(query) <= 12
+            and not any(w in query for w in _question_words)
+            and not query.startswith("http")):
+        return True
+
+    return False
+
+
+def _llm_rerank(query: str, results: list, top_k: int = 5) -> list:
+    """LLM 重排序：用现有 LLM API 对候选文档打分（无需额外模型）。
+
+    当 Cross-Encoder Reranker 不可用时的纯软件替代方案。
+    发送 top-N 文档给 LLM，让 LLM 为每个文档评估与查询的相关度。
+    """
+    if not results or len(results) <= top_k:
+        return results
+
+    try:
+        from src.modules.llm.llm_router import get_llm_router, TaskType
+
+        # 构建评分 prompt
+        docs_text = []
+        for i, r in enumerate(results[:min(len(results), 12)]):
+            docs_text.append(f"[{i}] {r.name}: {r.content[:300]}")
+
+        prompt = f"""评估以下文档与查询的相关度。为每个文档打分(0-10)，仅输出JSON数组。
+
+查询: {query}
+
+文档列表:
+{chr(10).join(docs_text)}
+
+输出格式（仅JSON，不要其他文字）:
+[{{"id": 0, "score": 8.5, "reason": "简短理由"}}, ...]
+
+按相关度从高到低排列。"""
+        router = get_llm_router()
+        result = router.route_request(
+            messages=[{"role": "user", "content": prompt}],
+            task_type=TaskType.GAME_GUIDE.value,
+            stream=False,
+        )
+
+        content = ""
+        if isinstance(result, dict):
+            content = result.get("content", "") or ""
+        else:
+            content = str(result)
+
+        # 解析 LLM 返回的 JSON
+        import json as _json
+        content = content.strip()
+        if content.startswith("```"):
+            lines = content.split("\n")
+            content = "\n".join(lines[1:]) if len(lines) > 1 else content
+            if content.endswith("```"):
+                content = content[:-3].strip()
+
+        scores = _json.loads(content)
+        if not isinstance(scores, list):
+            return results[:top_k]
+
+        # 按 LLM 分数重排
+        score_map = {item.get("id", -1): item.get("score", 0) for item in scores}
+        for i, r in enumerate(results):
+            r._llm_score = score_map.get(i, 0)
+
+        results.sort(key=lambda r: getattr(r, "_llm_score", 0), reverse=True)
+        logger.info(f"LLM 重排序完成: {len(results)} 条 → top {top_k}")
+        return results[:top_k]
+
+    except Exception as e:
+        logger.warning(f"LLM 重排序失败，保持原序: {e}")
+        return results[:top_k]
+
+
+def _format_rag_results(
+    results: list,
+    query: str,
+    top_k: int = 5,
+    min_score: float = 0.012,
+    snippet_chars: int = 400,
+    reranker=None,
+) -> str:
+    """将 RAG 搜索结果格式化为可读文本，含智能片段提取和分档评分。
+
+    分层过滤策略（保证相关度优先）：
+    0. 若有 Reranker → 先对 top-20 结果重排序
+    1. 名称精确匹配 → 无条件保留，最多 3 条
+    2. 名称包含查询词 → score >= 0.02 才保留，最多 3 条
+    3. 仅内容匹配 → 有名称匹配时 >= 0.022，否则 >= 0.018
+    4. 总数不超过 top_k，名称为主的内容匹配为辅
+    """
+    if not results:
+        return "未检索到相关知识。"
+
+    query_lower = query.lower().strip()
+
+    # ── 第 0 步: 重排序（Cross-Encoder > LLM > 原序） ──
+    rerank_applied = False
+    if len(results) > top_k:
+        if reranker is not None:
+            # 优先：Cross-Encoder Reranker（需下载模型，默认不启用）
+            try:
+                results = reranker.rerank_results(query, results, top_k=max(top_k * 4, 20))
+                rerank_applied = True
+                logger.info(f"Cross-Encoder Reranker 已重排 {len(results)} 条候选")
+            except Exception as e:
+                logger.warning(f"Reranker 重排序失败: {e}")
+        else:
+            # 备选：LLM 重排序（无需额外模型，用已有 DeepSeek API）
+            try:
+                results = _llm_rerank(query, results, top_k=max(top_k * 3, 15))
+                rerank_applied = True
+                logger.info(f"LLM 重排序完成: {len(results)} 条")
+            except Exception as e:
+                logger.debug(f"LLM 重排序跳过: {e}")
+    # 对多词查询拆分，用于名称部分匹配
+    query_terms = [t.strip() for t in query_lower.split() if len(t.strip()) > 1]
+    if not query_terms:
+        query_terms = [query_lower]
+
+    # ── 分层分类 ──
+    exact_name_matches = []    # 文档名 == 查询词（或查询词的任一term完全等于文档名）
+    partial_name_matches = []  # 文档名包含查询词
+    content_only_matches = []  # 文档名不包含查询词，仅内容匹配
+
+    # 内容匹配阈值：有名称匹配时更严格，没有时更宽松
+    _has_name_match = False  # 先设为 False，遍历后更新
+
+    for r in results:
+        name_lower = r.name.lower()
+        # 精确匹配：全查询完全等于文档名，或查询中的任一term等于文档名
+        is_exact = (query_lower == name_lower) or any(
+            term == name_lower for term in query_terms
+        )
+        # 部分匹配：文档名包含查询词（但不完全相等）
+        is_partial = not is_exact and (
+            query_lower in name_lower or
+            any(term in name_lower for term in query_terms)
+        )
+
+        if is_exact:
+            exact_name_matches.append(r)
+            _has_name_match = True
+        elif is_partial and r.score >= 0.02:
+            partial_name_matches.append(r)
+            _has_name_match = True
+
+    # 确定内容匹配阈值
+    content_threshold = 0.022 if _has_name_match else 0.018
+
+    for r in results:
+        if r not in exact_name_matches and r not in partial_name_matches:
+            if r.score >= content_threshold:
+                content_only_matches.append(r)
+
+    # ── 按分数排序各组 ──
+    exact_name_matches.sort(key=lambda r: r.score, reverse=True)
+    partial_name_matches.sort(key=lambda r: r.score, reverse=True)
+    content_only_matches.sort(key=lambda r: r.score, reverse=True)
+
+    # ── 组装结果 ──
+    selected = []
+    selected.extend(exact_name_matches[:3])
+    selected.extend(partial_name_matches[:3])
+    # 补充填充结果
+    remaining = top_k - len(selected)
+
+    if remaining > 0:
+        # 优先用已筛选的内容匹配补充
+        for r in content_only_matches:
+            if len(selected) >= top_k:
+                break
+            if r not in selected:
+                selected.append(r)
+
+        # 如果还不够且有名称匹配 → 不再放宽（保证相关度）
+        # 如果没有名称匹配 → 用最低阈值兜底
+        if len(selected) < top_k and not _has_name_match:
+            low_score = [r for r in results if r.score >= min_score and r not in selected]
+            low_score.sort(key=lambda r: r.score, reverse=True)
+            for r in low_score:
+                if r not in selected:
+                    selected.append(r)
+                if len(selected) >= top_k:
+                    break
+
+    if not selected:
+        # 完全没有任何匹配 — 返回最好的一个
+        best = results[0]
+        snippet = _extract_relevant_snippet(best.content, query, snippet_chars)
+        return (
+            f"[低相关性] {best.name} ({best.category}): {snippet}\n"
+            f"(知识库中未找到与'{query}'直接匹配的内容，可尝试换用其他关键词或使用 web_search)"
+        )
+
+    # ── 格式化输出 ──
+    lines = []
+    for r in selected[:top_k]:
+        snippet = _extract_relevant_snippet(r.content, query, snippet_chars)
+        name_lower = r.name.lower()
+
+        # 评分档位标记
+        if query_lower == name_lower or any(term == name_lower for term in query_terms):
+            tag = "[直接匹配]"
+        elif r.score >= 0.03:
+            tag = "[★★]"
+        elif r.score >= 0.015:
+            tag = "[★]"
+        else:
+            tag = "[低相关]"
+
+        cat_info = f"({r.category}" + (f"/{r.subcategory})" if getattr(r, 'subcategory', None) else ")")
+        lines.append(f"{tag} {r.name} {cat_info}: {snippet}")
+
+    return "\n\n".join(lines)
+
+
+# ---- 固定网址域名（parallel_search 使用的可信来源） ----
+# 每个条目: (显示名称, 搜索URL模板, {query}会被替换为搜索词)
+_FIXED_SEARCH_URLS = [
+    ("米游社", "https://www.miyoushe.com/bh3/search?keyword={query}"),
+    ("B站wiki", "https://wiki.biligame.com/bh3/index.php?search={query}"),
+    ("萌娘百科", "https://mzh.moegirl.org.cn/index.php?search={query}"),
+]
+# 各站点角色页面URL格式（供精确跳转参考）:
+#   B站wiki:   https://wiki.biligame.com/bh3/{角色全名}     (例: 雷电芽衣)
+#   萌娘百科:   https://mzh.moegirl.org.cn/{角色全名}(崩坏3)#  (例: 琪亚娜·卡斯兰娜(崩坏3))
+#   baike.mihoyo.com — 米游社百科，数据已在RAG知识库中，待优化为按content精确查询
+
+
+def _detect_character_names(query: str) -> list:
+    """检测查询中是否包含已知崩坏3角色名，返回角色目录名列表（去重）。
+
+    利用 CharacterManager 的 name_map（name + tts_voice 字段）进行子串匹配。
+    按名称长度降序匹配，优先匹配完整名称。
+    最多返回 3 个角色的目录名。
+    """
+    if not query or not query.strip():
+        return []
+
+    try:
+        from src.modules.character.character_manager import get_character_manager
+        cm = get_character_manager()
+        name_map = cm._build_name_map()
+    except Exception:
+        return []
+
+    query_lower = query.strip().lower()
+    matched_dirs = []
+    seen = set()
+
+    # 按名称长度降序排列，优先匹配长名称（如"琪亚娜·卡斯兰娜"优先于"琪亚娜"）
+    sorted_names = sorted(name_map.keys(), key=len, reverse=True)
+
+    for name in sorted_names:
+        if name.lower() in query_lower:
+            dir_name = name_map[name]
+            if dir_name not in seen:
+                matched_dirs.append(dir_name)
+                seen.add(dir_name)
+                if len(matched_dirs) >= 3:
+                    break
+
+    return matched_dirs
+
+
+def _get_full_chinese_name(dir_name: str) -> str:
+    """从 SKILL.md 的 description 字段提取角色中文全名。
+
+    description 格式: "琪亚娜·卡斯兰娜（Kiana Kaslana）— ..."
+    取第一个（ 或 ( 之前的部分作为全名。
+    若提取失败则返回空字符串。
+    """
+    try:
+        from src.modules.character.character_manager import get_character_manager
+        cm = get_character_manager()
+        skill_path = cm.skills_dir / dir_name / "SKILL.md"
+        if not skill_path.exists():
+            return ""
+        with open(skill_path, "r", encoding="utf-8") as f:
+            for line in f:
+                line = line.strip()
+                if line.startswith("description:"):
+                    raw = line.split("description:", 1)[1].strip().strip('"').strip("'")
+                    # 取第一个中文/英文括号之前的部分作为全名
+                    for sep in ("（", "("):
+                        idx = raw.find(sep)
+                        if idx > 0:
+                            return raw[:idx].strip()
+                    return raw
+                if line == "---" and not line.startswith("description:"):
+                    # 跳过第一行 --- 后继续
+                    pass
+            return ""
+    except Exception:
+        return ""
+
+
+def _make_character_page_urls(dir_names: list) -> list:
+    """根据角色目录名列表生成直连页面 URL。
+
+    返回 [(label, url), ...] 格式。
+    优先使用 SKILL.md description 中的角色全名（如"琪亚娜·卡斯兰娜"），
+    回退到 tts_voice 短名（如"琪亚娜"）。
+    同时生成全名和短名两个 URL 变体以提高命中率。
+    URL 已经过 URL 编码，萌娘百科末尾加 #。
+    """
+    if not dir_names:
+        return []
+
+    try:
+        from src.modules.character.character_manager import get_character_manager
+        cm = get_character_manager()
+    except Exception:
+        return []
+
+    import urllib.parse as _up
+
+    urls = []
+    for dir_name in dir_names:
+        # 获取短名（tts_voice）
+        try:
+            short_name = cm.get_tts_voice(dir_name)
+        except Exception:
+            short_name = ""
+        if not short_name:
+            short_name = dir_name
+
+        # 获取全名（从 description 提取），优先全名做 URL
+        full_name = _get_full_chinese_name(dir_name)
+        url_name = full_name if full_name else short_name
+
+        encoded = _up.quote(url_name)
+
+        urls.append((
+            f"B站wiki [角色页] {url_name}",
+            f"https://wiki.biligame.com/bh3/{encoded}",
+        ))
+        # 萌娘百科: 括号和 # 需 URL 编码，否则被 WAF 拦截
+        encoded_suffix = _up.quote("(崩坏3)#")
+        urls.append((
+            f"萌娘百科 [角色页] {url_name}",
+            f"https://zh.moegirl.org.cn/{encoded}{encoded_suffix}",
+        ))
+
+    return urls
+
+
+def _execute_parallel_search(query: str, rag_engine=None) -> str:
+    """并行执行 RAG + 百度搜索 + 固定网址搜索，合并返回结果。
+
+    三个搜索在独立线程中并发执行，总耗时 ≈ max(单路耗时) 而非 sum。
+    """
+    import concurrent.futures
+
+    results: dict = {}
+    max_workers = 0
+
+    if rag_engine is not None:
+        max_workers += 1
+    max_workers += 2  # web + fixed_urls
+
+    if max_workers == 0:
+        return "未配置任何搜索源。"
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+        futures: dict = {}
+
+        # ── RAG 搜索 ──
+        if rag_engine is not None:
+
+            def _do_rag():
+                import asyncio as _asyncio
+
+                # 查询扩展：短词自动补全为完整名称
+                expanded_query = _expand_query(query, rag_engine)
+
+                def _run():
+                    return _asyncio.run(
+                        rag_engine.search(query=expanded_query, mode=SearchMode.HYBRID, top_k=20)
+                    )
+
+                with concurrent.futures.ThreadPoolExecutor() as _ex:
+                    _f = _ex.submit(_run)
+                    _results = _f.result(timeout=30)
+
+                reranker = _get_shared_reranker()
+                return _format_rag_results(
+                    _results, expanded_query, top_k=5, min_score=0.012, reranker=reranker
+                )
+
+            futures["rag"] = executor.submit(_do_rag)
+
+        # ── 百度搜索 ──
+        def _do_web():
+            from src.modules.web_search.web_searcher import WebSearcher, SearchEngine, SearchResult
+
+            searcher = WebSearcher(engine=SearchEngine.BAIDU)
+            resp = searcher.search_with_context(query, "")
+            search_results = resp.get("results", [])
+            if not search_results:
+                return "未找到相关搜索结果。"
+            sr = [
+                SearchResult(
+                    title=r["title"], url=r["url"], snippet=r["snippet"],
+                    source=r["source"], relevance=r["relevance"],
+                )
+                for r in search_results
+            ]
+            return searcher.extract_answers(query, sr)
+
+        futures["web"] = executor.submit(_do_web)
+
+        # ── 固定网址搜索（通用搜索 URL + 角色直连页面 URL） ──
+        def _do_fixed_urls():
+            import urllib.parse
+            import requests as _requests
+
+            # 构建 URL 列表：通用搜索 URL + 角色直连页面 URL
+            url_entries = list(_FIXED_SEARCH_URLS)  # [(label, url_template), ...]
+
+            # 检测查询中的角色名，添加直连页面 URL
+            char_dirs = _detect_character_names(query)
+            if char_dirs:
+                char_urls = _make_character_page_urls(char_dirs)
+                url_entries.extend(char_urls)
+
+            parts = []
+            for label, url_template in url_entries:
+                try:
+                    if "{query}" in url_template:
+                        url = url_template.replace("{query}", urllib.parse.quote(query))
+                    else:
+                        url = url_template
+
+                    headers = {
+                        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+                        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+                        "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.5",
+                        "Accept-Encoding": "gzip, deflate",
+                        "Referer": "https://www.google.com/",
+                        "Cache-Control": "no-cache",
+                        "DNT": "1",
+                        "Upgrade-Insecure-Requests": "1",
+                    }
+                    resp = _requests.get(url, headers=headers, timeout=15)
+                    resp.raise_for_status()
+
+                    # 提取页面内容：标题 + 正文前 1200 字符
+                    title = ""
+                    content_snippet = ""
+                    try:
+                        from bs4 import BeautifulSoup as _BS
+                        soup = _BS(resp.text, "html.parser")
+                        if soup.title:
+                            title = soup.title.get_text(strip=True)
+                        # 移除噪音标签
+                        for tag in soup(["script", "style", "nav", "footer", "header", "noscript"]):
+                            tag.decompose()
+                        # 优先提取主内容区（MediaWiki / 搜索 / 通用选择器）
+                        content_selectors = [
+                            ".mw-parser-output", "#bodyContent", "#mw-content-text",
+                            ".mw-search-results", ".searchresults", ".search-result",
+                            "main", "article", ".main-content", ".content", "#content",
+                        ]
+                        content_elem = None
+                        for sel in content_selectors:
+                            content_elem = soup.select_one(sel)
+                            if content_elem:
+                                break
+                        if content_elem:
+                            body_text = content_elem.get_text(separator="\n", strip=True)
+                        elif soup.body:
+                            body_text = soup.body.get_text(separator="\n", strip=True)
+                        else:
+                            body_text = soup.get_text(separator="\n", strip=True)
+                        lines = [ln.strip() for ln in body_text.splitlines() if ln.strip() and len(ln.strip()) > 2]
+                        content_snippet = "\n".join(lines)[:1200]
+                        # 检测空结果页面，静默处理
+                        no_result_markers = ["找不到和查询相匹配的结果", "没有找到任何结果", "无搜索结果",
+                                             "No results found", "No matching results"]
+                        if content_snippet and any(m in content_snippet for m in no_result_markers):
+                            content_snippet = ""  # 抑制空结果噪声
+                    except ImportError:
+                        # BeautifulSoup 不可用，回退到 HTMLParser 提取标题
+                        from html.parser import HTMLParser as _HTMLParser
+
+                        class _TitleParser(_HTMLParser):
+                            def __init__(self):
+                                super().__init__()
+                                self.in_title = False
+                                self.title = ""
+
+                            def handle_starttag(self, tag, attrs):
+                                if tag == "title":
+                                    self.in_title = True
+
+                            def handle_data(self, data):
+                                if self.in_title:
+                                    self.title += data
+
+                            def handle_endtag(self, tag):
+                                if tag == "title":
+                                    self.in_title = False
+
+                        parser = _TitleParser()
+                        parser.feed(resp.text[:8192])
+                        title = parser.title.strip() if parser.title else ""
+
+                    if content_snippet:
+                        parts.append(f"[{label}] {title}\n  {url}\n---\n{content_snippet}")
+                    elif title:
+                        parts.append(f"[{label}] {title}\n  {url}")
+                    else:
+                        parts.append(f"[{label}] 页面已获取，但无法解析内容\n  {url}")
+                except Exception as e:
+                    err_str = str(e)
+                    # 萌娘百科 文章页受 Cloudflare 保护，requests 无法绕过，静默降级
+                    if "403" in err_str and "萌娘百科" in label and "[角色页]" in label:
+                        parts.append(f"[{label}] 需要浏览器访问，已跳过（Cloudflare 保护）\n  {url}")
+                    elif "403" in err_str or "404" in err_str:
+                        # 页面不存在或无权访问，仅显示 URL 不暴露错误详情
+                        parts.append(f"[{label}] {url}")
+                    else:
+                        parts.append(f"[{label}] 获取失败: {e}\n  {url}")
+            return "\n\n".join(parts) if parts else "固定网址搜索未获取到结果。"
+
+        futures["fixed"] = executor.submit(_do_fixed_urls)
+
+        # ── 收集结果 ──
+        for future in concurrent.futures.as_completed(list(futures.values())):
+            for key, f in list(futures.items()):
+                if f == future:
+                    try:
+                        results[key] = f.result(timeout=60)
+                    except Exception as e:
+                        results[key] = f"[{key}搜索失败: {e}]"
+                    break
+
+    # ── 组装输出 ──
+    parts = []
+    if "rag" in results:
+        parts.append(f"=== RAG 知识库 ===\n{results['rag']}")
+    if "web" in results:
+        parts.append(f"=== 网络搜索 ===\n{results['web']}")
+    if "fixed" in results:
+        parts.append(f"=== 固定网址 ===\n{results['fixed']}")
+
+    return "\n\n".join(parts) if parts else "未获取到任何搜索结果。"
+
+
 class AgentRouter:
     """意图分类器 — 单次 LLM 调用判断用户意图，不参与 ReAct 循环。
 
@@ -227,52 +932,9 @@ from .react_formatter import ReActFormatter
 logger = logging.getLogger(__name__)
 
 
-# ---- 参考音频索引 (Qwen3-TTS 声音克隆) ----
-_REF_INDEX_PATH = os.path.join(
-    os.path.dirname(__file__), "..", "audio", "reference_audio", "index.json"
-)
-_REF_INDEX_CACHE: Optional[Dict[str, dict]] = None
-
-
-def _load_ref_index() -> Dict[str, dict]:
-    global _REF_INDEX_CACHE
-    if _REF_INDEX_CACHE is not None:
-        return _REF_INDEX_CACHE
-    import json as _json
-    try:
-        with open(_REF_INDEX_PATH, "r", encoding="utf-8") as _f:
-            _REF_INDEX_CACHE = _json.load(_f)
-    except Exception:
-        _REF_INDEX_CACHE = {}
-    return _REF_INDEX_CACHE
-
-
-def _resolve_ref_audio(ref_audio: str, ref_text: str) -> tuple:
-    """将角色名或文件路径解析为 (audio_path, ref_text).
-    支持中文名（如"八重樱"）、目录名（如"yae-sakura"）、文件路径。"""
-    index = _load_ref_index()
-    if os.path.isfile(ref_audio):
-        return (ref_audio, ref_text)
-    if ref_audio in index:
-        entry = index[ref_audio]
-        return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
-    for name, entry in index.items():
-        if ref_audio in name or name in ref_audio:
-            return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
-    # Directory name → Chinese name via CharacterManager SKILL.md tts_voice field
-    try:
-        from src.modules.character.character_manager import get_character_manager
-        voice = get_character_manager().get_tts_voice(ref_audio)
-        if voice and voice != ref_audio and voice in index:
-            entry = index[voice]
-            return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
-    except Exception:
-        pass
-    return ("", "")
-
-
-def _list_ref_characters() -> str:
-    return "、".join(sorted(_load_ref_index().keys()))
+# ---- 参考音频索引 (Qwen3-TTS 声音克隆，统一由 qwen3_tts_generator 提供) ----
+from src.modules.audio.qwen3_tts_generator import resolve_character_ref as _resolve_ref_audio
+from src.modules.audio.qwen3_tts_generator import list_ref_characters as _list_ref_characters
 
 
 class RouterLLM(LLM):
@@ -512,6 +1174,37 @@ class QueueStreamingHandler(BaseCallbackHandler):
 # 共享 RAGEngine 单例，避免 MainGameAgent 和 SubCompanionAgent 各加载一份
 _shared_rag_engine: Optional[RAGEngine] = None
 _shared_rag_lock = Lock()
+
+# 共享 RerankerService 单例（延迟加载，首次 RAG 查询时触发）
+# 注：模型下载需 ~1GB + 科学上网/镜像，默认不启用。
+# 设置环境变量 ENABLE_RERANKER=1 或在运行时设置中开启。
+_shared_reranker = None
+_shared_reranker_lock = Lock()
+_reranker_attempted = False  # 避免反复尝试加载
+
+
+def _get_shared_reranker():
+    """获取 Reranker 单例 — 默认启用，加载失败时回退 LLM 重排序。"""
+    global _shared_reranker, _reranker_attempted
+    if _shared_reranker is None and not _reranker_attempted:
+        with _shared_reranker_lock:
+            if _shared_reranker is None and not _reranker_attempted:
+                _reranker_attempted = True
+                try:
+                    from src.modules.rag.reranker import get_reranker as _get_rr
+                    _shared_reranker = _get_rr(device="cuda:0")
+                    # 显式触发延迟加载
+                    if not _shared_reranker.is_loaded:
+                        _shared_reranker._ensure_loaded()
+                    if _shared_reranker.is_loaded:
+                        logger.info("Reranker 已就绪 (bce-reranker-base_v1)")
+                    else:
+                        logger.warning("Reranker 加载失败，使用 LLM 重排序替代")
+                        _shared_reranker = None
+                except Exception as e:
+                    logger.warning(f"Reranker 不可用: {e}")
+                    _shared_reranker = None
+    return _shared_reranker if (_shared_reranker and _shared_reranker.is_loaded) else None
 
 
 def _get_shared_rag_engine() -> RAGEngine:
@@ -1216,13 +1909,16 @@ class MainGameAgent(BaseGameAgent):
     def _get_tools(self) -> list:
         @tool
         def rag_search(query: str) -> str:
-            """查询本地 RAG 知识库，返回崩坏3游戏相关知识摘要。结果按相关性排列，名称精确匹配带[直接匹配]标记。"""
+            """查询本地 RAG 知识库，返回崩坏3游戏相关知识摘要。结果按相关性排列，智能提取与查询相关的片段。"""
             self._ensure_rag_initialized()
             import concurrent.futures
             import asyncio
 
+            # 查询扩展：短词自动补全为完整名称
+            expanded_query = _expand_query(query, self.rag_engine)
+
             def _run():
-                return asyncio.run(self.rag_engine.search(query=query, mode=SearchMode.HYBRID, top_k=8))
+                return asyncio.run(self.rag_engine.search(query=expanded_query, mode=SearchMode.HYBRID, top_k=20))
 
             try:
                 with concurrent.futures.ThreadPoolExecutor() as ex:
@@ -1231,20 +1927,8 @@ class MainGameAgent(BaseGameAgent):
             except Exception as e:
                 return f"RAG搜索失败: {str(e)}"
 
-            if not results:
-                return "未检索到相关知识。"
-
-            min_score = 0.015
-            relevant = [r for r in results if r.score >= min_score]
-            if not relevant:
-                best = results[0]
-                return f"[低相关性] {best.name}: {best.content[:200]}\n(知识库中未找到与'{query}'直接匹配的内容)"
-
-            lines = []
-            for r in relevant[:5]:
-                tag = "[直接匹配]" if query.lower().strip() == r.name.lower() else ""
-                lines.append(f"{tag}{r.name}: {r.content[:200]}")
-            return "\n".join(lines)
+            reranker = _get_shared_reranker()
+            return _format_rag_results(results, expanded_query, top_k=5, min_score=0.012, reranker=reranker)
 
         @tool
         def web_search(query: str) -> str:
@@ -1275,6 +1959,73 @@ class MainGameAgent(BaseGameAgent):
                 return content[:4000] if len(content) > 4000 else content
             except Exception as e:
                 return f"获取页面失败: {str(e)}"
+
+        @tool
+        def parallel_search(query: str) -> str:
+            """并行搜索：同时查询RAG知识库、百度搜索、固定网址(米游社/B站wiki/官网)，一次性返回合并结果。比单独调用rag_search+web_search+fetch_page快3倍以上。输入为纯文本查询词，不要用JSON格式。"""
+            import json as _json
+            if query.startswith("{") and '"query"' in query:
+                try:
+                    params = _json.loads(query)
+                    query = params.get("query", query)
+                except _json.JSONDecodeError:
+                    pass
+            self._ensure_rag_initialized()
+            return _execute_parallel_search(query, rag_engine=self.rag_engine)
+
+        @tool
+        def bilibili_explore(query: str) -> str:
+            """B站wiki 深度探索工具。从一个名字出发，自动链条式深挖相关页面（2-3层深度）。
+            利用B站wiki"名字即编号"的特性：wiki.biligame.com/bh3/{名字} 直接定位页面，
+            然后顺着页面内的内链自动发现并深入相关名字，形成知识网。
+
+            适用场景：
+            - 查询角色/武器/圣痕/剧情等具体事物 → 直接传入名字
+            - 需要了解事物之间的关联 → 自动链条式深挖
+            - 需要一次性获取多维度信息 → 返回结构化的多页面内容
+
+            示例: bilibili_explore("薇塔") → 自动探索薇塔页面→发现娑/盐雪圣城→深入→返回完整知识链
+            输入为纯文本查询词，不要用JSON格式。"""
+            import json as _json
+            if query.startswith("{") and '"query"' in query:
+                try:
+                    params = _json.loads(query)
+                    query = params.get("query", query)
+                except _json.JSONDecodeError:
+                    pass
+            try:
+                from src.modules.web_search.wiki_explorer import BilibiliExplorer
+                explorer = BilibiliExplorer()
+                return explorer.explore(query, max_depth=2, max_pages=6)
+            except Exception as e:
+                return f"[B站wiki探索] 出错: {str(e)}"
+
+        @tool
+        def deep_search(query: str) -> str:
+            """多源深度搜索。并行执行B站wiki + 百度 + RAG知识库 + 米游社(游戏数据)，
+            涉及角色情感/关系/剧情时自动加入萌娘百科。自动去重合并。
+            比单独调用各搜索工具更高效（并行执行）。输入为纯文本查询词。
+
+            示例: deep_search("薪炎之律者") → 4源并行 → 合并返回"""
+            import json as _json
+            if query.startswith("{") and '"query"' in query:
+                try:
+                    params = _json.loads(query)
+                    query = params.get("query", query)
+                except _json.JSONDecodeError:
+                    pass
+            try:
+                from src.modules.web_search.search_orchestrator import deep_search as _ds
+                sources = ["bilibili", "baidu", "miyoushe"]
+                if self.rag_engine is not None:
+                    self._ensure_rag_initialized()
+                    sources.append("rag")
+                # 角色/剧情/情感相关查询 → 自动加入萌娘百科
+                if _should_include_moegirl(query):
+                    sources.append("moegirl")
+                return _ds(query, sources=sources, rag_engine=self.rag_engine)
+            except Exception as e:
+                return f"[深度搜索] 出错: {str(e)}"
 
         @tool
         def list_skills(_: str = "") -> str:
@@ -1631,7 +2382,8 @@ class MainGameAgent(BaseGameAgent):
             return "\n".join(lines)
 
         return [
-            rag_search, web_search, fetch_page,
+            rag_search, web_search, fetch_page, parallel_search,
+            bilibili_explore, deep_search,
             list_skills, view_skill,
             yolo_list_models, yolo_load_model, yolo_unload_model,
             yolo_detect_image, yolo_classify_image,
@@ -1661,6 +2413,8 @@ class MainGameAgent(BaseGameAgent):
   - 改TTS音色 → key="companion_tts_voice"
   - 微调当前角色性格 → key="companion_personality"
 - 一般闲聊/问候/询问Live2D状态 → 快速输出 {{"task_done": "无游戏任务"}}，不浪费步骤
+- 查询角色/武器/圣痕/剧情等具体崩坏3事物 → 优先使用 deep_search（并行B站wiki+百度+RAG，自动合并结果），单源需求用 bilibili_explore
+- 需要综合多源信息（知识+资讯+攻略） → 使用 deep_search 或 parallel_search 并行获取
 
 任务完成后输出以下JSON（不要包含其他文字）：
 ```json
@@ -1684,8 +2438,8 @@ class ActionAgent(BaseGameAgent):
     """操作执行 Agent — 处理 Live2D/TTS/搜索/RAG 等非游戏操作请求。
 
     无角色人格，系统 prompt 聚焦于执行操作指令。
-    工具: web_search, fetch_page, rag_search, tts_qwen3, tts_voxcpm,
-          play_audio, live2d_control, todo_write, get_runtime_status
+    工具: parallel_search, web_search, fetch_page, rag_search,
+          tts_qwen3, play_audio, live2d_control, todo_write, get_runtime_status
     """
 
     def __init__(self):
@@ -1724,14 +2478,72 @@ class ActionAgent(BaseGameAgent):
                 return f"获取页面失败: {str(e)}"
 
         @tool
+        def parallel_search(query: str) -> str:
+            """并行搜索：同时查询RAG知识库、百度搜索、固定网址(米游社/B站wiki/萌娘百科)，一次性返回合并结果。比单独调用rag_search+web_search+fetch_page快3倍以上。需要多源信息时优先使用此工具。输入为纯文本查询词，不要用JSON格式。"""
+            import json as _json
+            if query.startswith("{") and '"query"' in query:
+                try:
+                    params = _json.loads(query)
+                    query = params.get("query", query)
+                except _json.JSONDecodeError:
+                    pass
+            self._ensure_rag_initialized()
+            return _execute_parallel_search(query, rag_engine=self.rag_engine)
+
+        @tool
+        def bilibili_explore(query: str) -> str:
+            """B站wiki 深度探索工具。从一个名字出发，自动链条式深挖相关页面（2-3层深度）。
+            利用B站wiki"名字即编号"的特性：名字直接定位页面，然后顺着内链自动发现并深入相关名字。
+            适用于查询角色/武器/圣痕/剧情等具体事物。输入为纯文本查询词。"""
+            import json as _json
+            if query.startswith("{") and '"query"' in query:
+                try:
+                    params = _json.loads(query)
+                    query = params.get("query", query)
+                except _json.JSONDecodeError:
+                    pass
+            try:
+                from src.modules.web_search.wiki_explorer import BilibiliExplorer
+                explorer = BilibiliExplorer()
+                return explorer.explore(query, max_depth=2, max_pages=6)
+            except Exception as e:
+                return f"[B站wiki探索] 出错: {str(e)}"
+
+        @tool
+        def deep_search(query: str) -> str:
+            """多源深度搜索。并行执行B站wiki + 百度 + RAG + 米游社(游戏数据)，
+            涉及角色情感/剧情时自动加入萌娘百科。输入为纯文本查询词。"""
+            import json as _json
+            if query.startswith("{") and '"query"' in query:
+                try:
+                    params = _json.loads(query)
+                    query = params.get("query", query)
+                except _json.JSONDecodeError:
+                    pass
+            try:
+                from src.modules.web_search.search_orchestrator import deep_search as _ds
+                sources = ["bilibili", "baidu", "miyoushe"]
+                if self.rag_engine is not None:
+                    self._ensure_rag_initialized()
+                    sources.append("rag")
+                if _should_include_moegirl(query):
+                    sources.append("moegirl")
+                return _ds(query, sources=sources, rag_engine=self.rag_engine)
+            except Exception as e:
+                return f"[深度搜索] 出错: {str(e)}"
+
+        @tool
         def rag_search(query: str) -> str:
-            """查询崩坏3游戏知识库，获取角色、剧情、装备等信息。"""
+            """查询崩坏3游戏知识库，获取角色、剧情、装备等信息。智能提取与查询最相关的片段，按相关性排列。"""
             self._ensure_rag_initialized()
             import concurrent.futures
             import asyncio
 
+            # 查询扩展：短词自动补全为完整名称
+            expanded_query = _expand_query(query, self.rag_engine)
+
             def _run():
-                return asyncio.run(self.rag_engine.search(query=query, mode=SearchMode.HYBRID, top_k=8))
+                return asyncio.run(self.rag_engine.search(query=expanded_query, mode=SearchMode.HYBRID, top_k=20))
 
             try:
                 with concurrent.futures.ThreadPoolExecutor() as ex:
@@ -1740,20 +2552,8 @@ class ActionAgent(BaseGameAgent):
             except Exception as e:
                 return f"RAG搜索失败: {str(e)}"
 
-            if not results:
-                return "未检索到相关知识。"
-
-            min_score = 0.015
-            relevant = [r for r in results if r.score >= min_score]
-            if not relevant:
-                best = results[0]
-                return f"[低相关性] {best.name}: {best.content[:200]}"
-
-            lines = []
-            for r in relevant[:5]:
-                tag = "[直接匹配]" if query.lower().strip() == r.name.lower() else ""
-                lines.append(f"{tag}{r.name}: {r.content[:200]}")
-            return "\n".join(lines)
+            reranker = _get_shared_reranker()
+            return _format_rag_results(results, expanded_query, top_k=5, min_score=0.012, reranker=reranker)
 
         @tool
         def tts_qwen3(text: str, ref_audio: str = "", ref_text: str = "") -> str:
@@ -1795,18 +2595,6 @@ class ActionAgent(BaseGameAgent):
                 return f"语音已生成: {filepath}"
             except Exception as e:
                 return f"TTS生成失败: {str(e)}"
-
-        @tool
-        def tts_voxcpm(text: str, voice_id: str = "elysia", emotion: str = "neutral") -> str:
-            """VoxCPM语音合成（备选方案）。voice_id: elysia等，emotion: neutral/happy/sad。"""
-            try:
-                from src.modules.audio.tts_generator import TTSGenerator
-                tts = TTSGenerator(device="cuda:0")
-                result = tts.generate_with_emotion(text=text, voice_id=voice_id, emotion=emotion, save_result=True)
-                filepath = tts.save_to_file(result)
-                return f"语音已生成: {filepath}"
-            except Exception as e:
-                return f"VoxCPM TTS失败: {str(e)}"
 
         @tool
         def play_audio(file_path: str) -> str:
@@ -1873,8 +2661,9 @@ class ActionAgent(BaseGameAgent):
             return "\n".join(lines)
 
         return [
-            web_search, fetch_page, rag_search,
-            tts_qwen3, tts_voxcpm, play_audio,
+            web_search, fetch_page, rag_search, parallel_search,
+            bilibili_explore, deep_search,
+            tts_qwen3, play_audio,
             live2d_control, todo_write, get_runtime_status,
         ]
 
@@ -1902,8 +2691,13 @@ class ActionAgent(BaseGameAgent):
 → 禁止只写文字描述而不调用工具
 
 **搜索规则**
-- 事实/知识/攻略问题 → rag_search
-- 最新资讯/新闻/活动 → web_search
+- 需要综合多维度信息（知识+资讯+深度探索）时 → 优先使用 deep_search，并行执行B站wiki链条探索+百度搜索+RAG知识库，自动去重合并
+- 需要同时获取多源信息（知识+资讯+攻略）时 → 使用 parallel_search，并行获取 RAG + 百度 + 固定网址
+- 仅需单一类型信息时：
+  - 游戏角色/武器/圣痕/剧情深度探索 → bilibili_explore（B站wiki名字链条式深挖）
+  - 游戏知识/角色/剧情/装备 → rag_search
+  - 最新资讯/新闻/活动 → web_search
+  - 特定网页内容 → fetch_page
 
 **停止条件**
 - 工具返回成功 → 立即输出 Final Answer，禁止再调用任何工具验证

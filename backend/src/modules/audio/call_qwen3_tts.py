@@ -20,6 +20,7 @@ TTS_PORT = 5004
 _client = None
 _worker_process = None
 _worker_running = False
+_worker_starting = False  # 防止并发启动多个 worker
 _init_lock = threading.Lock()
 _last_start_error = ""
 
@@ -64,12 +65,14 @@ def get_last_start_error() -> str:
 
 
 def start_worker(quantize: str = "none") -> bool:
-    global _worker_process, _worker_running, _last_start_error
+    global _worker_process, _worker_running, _worker_starting, _last_start_error
 
     if _is_worker_alive():
         _worker_running = True
+        _worker_starting = False
         return True
 
+    _worker_starting = True
     worker_script = os.path.join(_current_dir, "qwen3_tts_worker.py")
     python_exe = sys.executable
 
@@ -146,6 +149,9 @@ def start_worker(quantize: str = "none") -> bool:
         _worker_running = False
         return False
 
+    finally:
+        _worker_starting = False
+
 
 def _read_log_tail(log_path: str) -> str:
     try:
@@ -191,6 +197,15 @@ def _can_restart() -> bool:
     return True
 
 
+def _get_quantize() -> str:
+    """从 settings 读取量化配置，默认 8bit。"""
+    try:
+        from src.config.settings import get_settings
+        return get_settings().qwen3_tts_quantize
+    except Exception:
+        return "8bit"
+
+
 def _start_health_monitor():
     """Background daemon that pings the worker every 30s and auto-restarts on crash."""
     def _monitor():
@@ -200,10 +215,10 @@ def _start_health_monitor():
                 break
             if not _is_worker_alive():
                 print("[TTS Worker] Health check failed — worker appears dead")
-                if _can_restart():
+                if _can_restart() and not _worker_starting:
                     print("[TTS Worker] Attempting auto-restart...")
                     reset_client()
-                    start_worker(quantize="none")
+                    start_worker(quantize=_get_quantize())
                 else:
                     print(f"[TTS Worker] Max restarts ({MAX_RESTARTS}) reached in {RESTART_WINDOW}s, giving up")
 
@@ -212,15 +227,26 @@ def _start_health_monitor():
 
 
 def _ensure_worker() -> bool:
-    global _worker_running
+    global _worker_running, _worker_starting
 
     if _worker_running and _is_worker_alive():
         return True
 
+    # 如果已有 worker 正在启动中，等待它完成而不是再启一个
+    if _worker_starting:
+        for _ in range(35):  # 最多等 35s
+            time.sleep(1)
+            if _is_worker_alive():
+                _worker_running = True
+                return True
+        return False
+
     with _init_lock:
         if _worker_running and _is_worker_alive():
             return True
-        return start_worker()
+        if _worker_starting:
+            return True  # 另一个线程已在启动
+        return start_worker(quantize=_get_quantize())
 
 
 def call_qwen3_tts(action: str, **kwargs) -> dict:

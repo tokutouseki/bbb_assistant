@@ -36,6 +36,64 @@ CHARACTER_VOICE_STYLES = {
     "布洛妮娅": "冷静沉稳的少女声音，语速稍慢，带有机械感",
 }
 
+# ---- 共享工具函数 (供 Qwen3TTSGenerator / Qwen3TTSRemoteProxy / react_agent 共用) ----
+
+_REF_INDEX_CACHE = None
+
+
+def _load_ref_index() -> dict:
+    """加载参考音频索引 (带缓存)。"""
+    global _REF_INDEX_CACHE
+    if _REF_INDEX_CACHE is not None:
+        return _REF_INDEX_CACHE
+    index_path = os.path.join(os.path.dirname(__file__), "reference_audio", "index.json")
+    try:
+        with open(index_path, "r", encoding="utf-8") as f:
+            _REF_INDEX_CACHE = _json.load(f)
+    except Exception:
+        _REF_INDEX_CACHE = {}
+    return _REF_INDEX_CACHE
+
+
+def resolve_character_ref(character_name: str, ref_text: str = "") -> Tuple[str, str]:
+    """将角色名解析为 (audio_path, ref_text)。
+
+    支持: 文件路径、中文名精确匹配、模糊匹配、CharacterManager tts_voice 反查。
+    找不到时返回 ("", "")。
+    """
+    index = _load_ref_index()
+
+    # 1. 直接文件路径
+    if os.path.isfile(character_name):
+        return (character_name, ref_text)
+
+    # 2. 精确匹配 index key
+    if character_name in index:
+        entry = index[character_name]
+        return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
+
+    # 3. 模糊匹配 (包含关系)
+    for name, entry in index.items():
+        if character_name in name or name in character_name:
+            return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
+
+    # 4. 目录名 → 中文名 → index (通过 CharacterManager tts_voice 字段)
+    try:
+        from src.modules.character.character_manager import get_character_manager
+        voice = get_character_manager().get_tts_voice(character_name)
+        if voice and voice != character_name and voice in index:
+            entry = index[voice]
+            return (entry["audio_path"], ref_text if ref_text else entry.get("ref_text", ""))
+    except Exception:
+        pass
+
+    return ("", "")
+
+
+def list_ref_characters() -> str:
+    """列出所有可用参考音频角色名 (以顿号分隔)。"""
+    return "、".join(sorted(_load_ref_index().keys()))
+
 
 @dataclass
 class Qwen3TTSResult:
@@ -234,26 +292,11 @@ class Qwen3TTSGenerator:
         )
 
     def _resolve_character_ref(self, character_name: str) -> Tuple[str, str]:
-        """将角色名解析为 (audio_path, ref_text)。"""
-        try:
-            index_path = os.path.join(
-                os.path.dirname(__file__), "reference_audio", "index.json"
-            )
-            with open(index_path, "r", encoding="utf-8") as f:
-                index = _json.load(f)
-
-            if character_name in index:
-                entry = index[character_name]
-                return entry["audio_path"], entry.get("ref_text", "")
-
-            for name, entry in index.items():
-                if character_name in name or name in character_name:
-                    return entry["audio_path"], entry.get("ref_text", "")
-
-            first = next(iter(index.values()))
-            return first["audio_path"], first.get("ref_text", "")
-        except Exception:
+        """将角色名解析为 (audio_path, ref_text)。找不到时抛 RuntimeError。"""
+        audio_path, ref_text = resolve_character_ref(character_name)
+        if not audio_path:
             raise RuntimeError(f"找不到角色 '{character_name}' 的参考音频")
+        return audio_path, ref_text
 
     def save_to_file(self, result: Qwen3TTSResult, filepath: str = None) -> str:
         try:
@@ -284,12 +327,7 @@ class Qwen3TTSGenerator:
     def get_voice_styles(self) -> Dict[str, str]:
         """返回可用角色列表（从 reference_audio 索引加载）。"""
         try:
-            index_path = os.path.join(
-                os.path.dirname(__file__), "reference_audio", "index.json"
-            )
-            with open(index_path, "r", encoding="utf-8") as f:
-                index = _json.load(f)
-
+            index = _load_ref_index()
             styles = {}
             for name in index:
                 desc = CHARACTER_VOICE_STYLES.get(name, f"{name}的声音")
@@ -355,14 +393,26 @@ class Qwen3TTSRemoteProxy:
         if not result.get("success"):
             raise RuntimeError(f"TTS worker error: {result.get('error', 'unknown')}")
 
+        filepath = result.get("filepath", "")
+        audio_data = np.array([])
+        sample_rate = result.get("sample_rate", 24000)
+
+        # 从 worker 生成的 WAV 文件读回音频数据
+        if filepath and os.path.exists(filepath):
+            try:
+                import soundfile as sf
+                audio_data, sample_rate = sf.read(filepath, dtype="float32")
+            except Exception as e:
+                logger.warning(f"读取生成的WAV文件失败: {e}")
+
         return Qwen3TTSResult(
-            audio_data=np.array([]),
-            sample_rate=result.get("sample_rate", 24000),
+            audio_data=audio_data,
+            sample_rate=sample_rate,
             text=text,
             voice_style="cloned",
             processing_time=result.get("processing_time", 0),
             language=language,
-            filepath=result.get("filepath", ""),
+            filepath=filepath,
         )
 
     def save_to_file(self, result: Qwen3TTSResult, filepath: str = None) -> str:
@@ -373,36 +423,19 @@ class Qwen3TTSRemoteProxy:
         return ""
 
     def _resolve_character_ref(self, character_name: str) -> Tuple[str, str]:
-        try:
-            index_path = os.path.join(
-                os.path.dirname(__file__), "reference_audio", "index.json"
-            )
-            with open(index_path, "r", encoding="utf-8") as f:
-                index = _json.load(f)
-
-            if character_name in index:
-                entry = index[character_name]
-                return entry["audio_path"], entry.get("ref_text", "")
-
-            for name, entry in index.items():
-                if character_name in name or name in character_name:
-                    return entry["audio_path"], entry.get("ref_text", "")
-
-            first = next(iter(index.values()))
-            return first["audio_path"], first.get("ref_text", "")
-        except Exception:
+        """将角色名解析为 (audio_path, ref_text)。找不到时抛 RuntimeError。"""
+        audio_path, ref_text = resolve_character_ref(character_name)
+        if not audio_path:
             raise RuntimeError(f"找不到角色 '{character_name}' 的参考音频")
+        return audio_path, ref_text
 
     def get_supported_languages(self) -> list:
         return Qwen3TTSGenerator.SUPPORTED_LANGUAGES.copy()
 
     def get_voice_styles(self) -> dict:
+        """返回可用角色列表（从 reference_audio 索引加载）。"""
         try:
-            index_path = os.path.join(
-                os.path.dirname(__file__), "reference_audio", "index.json"
-            )
-            with open(index_path, "r", encoding="utf-8") as f:
-                index = _json.load(f)
+            index = _load_ref_index()
             styles = {}
             for name in index:
                 desc = CHARACTER_VOICE_STYLES.get(name, f"{name}的声音")
