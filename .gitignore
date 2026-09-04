@@ -186,3 +186,17 @@ data/**/*.bmp
 # 训练数据
 data/training/
 data/datasets/
+# 聊天对话记录（隐私，本地保留不上传）
+data/conversations/
+
+# 测试产物与运行截图（可再生）
+outputs/
+yolo_output/
+
+# FunASR 源码克隆（pip 已装 funasr，可随时重新 clone）
+FunASR/
+
+# hongkai 自动化运行录像/日志（可再生）
+backend/src/modules/hongkai/vedio_log/
+backend/src/modules/hongkai/all_log/
+backend/src/modules/hongkai/scripts/vedio_log/

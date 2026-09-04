@@ -1,8 +1,0 @@
-# ASR Transcription Result
-# Generated: 2026-03-11 18:15:30
-# Language: zh
-# Confidence: 0.950
-# Processing Time: 0.183s
-# Source: test_audio.wav
-
-我。

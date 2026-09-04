@@ -1,9 +1,0 @@
-# ASR转录结果
-# 音频文件: d:\TokusCode\bbb_assistant\to_clone_test\朔夜观星-今夜月冷星稀，刺客先生，陪我去放盏天灯吧。.wav
-# 角色ID: theresa
-# 语言: zh
-# 置信度: 0.950
-# 处理时间: 0.500s
-# 生成时间: 2026-03-11 22:03:15
-
-这是SenseVoiceSmall模型的模拟语音识别结果，用于测试。
